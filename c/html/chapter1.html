@@ -1,78 +1,405 @@
 <!DOCTYPE html>
 <html lang="zh">
 
-   <head>
-      <title>C Program Chapter 1</title>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <!--<link href="css/impress.css" rel="stylesheet">-->
-      <link rel="stylesheet" href="js/extras/highlight/styles/xt256.css">
-      <link href="css/style.css" rel="stylesheet">
+  <head>
+    <title>C Program Chapter 1</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--<link href="css/impress.css" rel="stylesheet">-->
+    <link rel="stylesheet" href="js/extras/highlight/styles/xt256.css">
+    <link href="css/style.css" rel="stylesheet">
 
-   </head>
+  </head>
 
-   <body>
-      <div id="impress">
+  <body>
+    <div id="impress">
 
-         <div id="chapter1" class="step slide title" data-x="-1000" >
-            <h1>第一章 <br>程序设计和C语言</h1>
-            <h2>简要概述</h2>
-         </div>
+      <div id="chapter1" class="step slide title" data-x="-1000">
+        <h1>第一章 <br>程序设计和C语言</h1>
+        <h2>简要概述</h2>
+      </div>
 
-         <div class="step slide" data-x="0">
-            <h2>1.1 什么是计算机程序</h2>
-            <p class="fly-in"><b >程序：</b> 一组计算机能识别和执行的指令</p>
-         </div>
+      <div class="step slide title" data-x="0">
+        <h2>1.1 什么是计算机程序</h2>
+        <h3 class="fly-in"><b>程序：</b> 一组计算机能识别和执行的指令</h3>
+      </div>
 
-         <div class="step slide" data-x="1000">
-            <h2>1.2 什么是计算机语言</h2>
-            <p style="text-align: left">计算机能直接识别和接受的二进制代码称为<span class="red">机器指令（machine instruction）</span></p>
-            <p style="text-align: left">机器指令的集合称为<span class="blue">机器语言（machine language）</span></p>
-            <p style="text-align: left">机器语言的优缺点：</p>
-            <ul>
-              <li class="fade-in fade-out"><span class="green">运行速度快，能充分发挥机器的性能</span></li>
-              <li class="fade-in fade-out"><span class="red">难学，难写，难记，难检查和修改</span></li>
-              <li class="fade-in fade-out"><span class="red">不同机器的指令不同</span></li>
-            </ul>
-         </div>
+      <div class="step slide" data-x="1000">
+        <h2>1.2 什么是计算机语言</h2>
+        <p style="text-align: left">计算机能直接识别和接受的二进制代码称为<span class="red">机器指令（machine instruction）</span></p>
+        <p style="text-align: left">机器指令的集合称为<span class="blue">机器语言（machine language）</span></p>
+        <p style="text-align: left">机器语言的优缺点：</p>
+        <ul>
+          <li class="fade-in fade-out"><span class="green">运行速度快，能充分发挥机器的性能</span></li>
+          <li class="fade-in fade-out"><span class="red">难学，难写，难记，难检查和修改</span></li>
+          <li class="fade-in fade-out"><span class="red">不同机器的指令不同</span></li>
+        </ul>
+      </div>
 
-         <div class="step slide" data-x="1000" data-y="800">
-            <p  style="text-align: left"><span class="red">符号语言（symbolic language）</span>: 用一些英文字母（单词）和数字来表示一个指令。</p>
-            <p  style="text-align: left">计算机不能直接识别符号语言，必须经过<span class="red">编译器（compiler）</span>编译（compile）为机器语言指令，计算机才能识别和运行。</p>
-            <p  style="text-align: left">因此，符号语言又称为<span class="green">汇编语言（assembler language）</span>。</p>
-            <pre>
+      <div class="step slide" data-x="1000" data-y="800">
+        <p style="text-align: left"><span class="red">符号语言（symbolic language）</span>: 用一些英文字母（单词）和数字来表示一个指令。</p>
+        <p style="text-align: left">计算机不能直接识别符号语言，必须经过<span class="red">编译器（compiler）</span>编译（compile）为机器语言指令，计算机才能识别和运行。</p>
+        <p style="text-align: left">因此，符号语言又称为<span class="green">汇编语言（assembler language）</span>。</p>
+        <pre>
               <code data-trim>
     ADD A, B (将A寄存器中的数和B寄存器中的数相加，结果放回A中)
               </code>
             </pre>
-         </div>
-
-         <div class="step slide" data-x="1000" data-y="1600">
-            <p>汇编语言的优缺点：</p>
-            <ul>
-              <li class="fly-in fly-out"><span class="green">基本上和机器语言一一对应，所以依然运行速度快，能充分发挥机器的性能</span></li>
-              <li class="fly-in fly-out"  style="transition-delay: 1s"><span class="red">比机器语言指令稍好记一点，但不好移植，不同机器不同指令</span></li>
-              <li class="fly-in fly-out"  style="transition-delay: 1s"><span class="red">一些复杂算法不好实现，不适合编写大型的程序（人和机器的思维不同）</span></li>
-            </ul>
-         </div>
-
-         <div class="step slide" data-x="1000" data-y="2400">            
-            <p class="fly-in fly-out" style="text-align: left"><span class="red">高级语言（high level language）</span>: 用人们习惯的自然语言和数学语言，一般不依赖具体的机器。</p>
-             <img class="right fly-in  fly-out" style="transition-delay: 3s" src="images/compile_and_link.png" alt="compile and link" >
-            <p class="fade-in fade-out" style="text-align: left; transition-delay: 1s">计算机不能直接识别高级语言，必须经过<span class="red">编译器（compiler）</span>编译（compile）为机器语言指令，计算机才能识别和运行。</p>
-            <p class="zoom-in zoom-out" style="text-align: left; transition-delay: 1s">有时，编译好的机器语言代码还需要<span class="green">链接（link）</span>其他的机器语言代码，组成最终的机器语言代码进行运行。</p>
-            
-         </div>
-
-
       </div>
-      
-      <script src="js/impress.js"></script>
-      <script src="js/extras/highlight/highlight.pack.js"></script>
-      <script>
-         hljs.initHighlightingOnLoad();
-         impress().init();
-      </script>
-   </body>
+
+      <div class="step slide" data-x="1000" data-y="1600">
+        <p>汇编语言的优缺点：</p>
+        <ul>
+          <li class="fly-in fly-out"><span class="green">基本上和机器语言一一对应，所以依然运行速度快，能充分发挥机器的性能</span></li>
+          <li class="fly-in fly-out" style="transition-delay: 1s"><span class="red">比机器语言指令稍好记一点，但不好移植，不同机器不同指令</span></li>
+          <li class="fly-in fly-out" style="transition-delay: 1s"><span class="red">一些复杂算法不好实现，不适合编写大型的程序（人和机器的思维不同）</span></li>
+        </ul>
+      </div>
+
+      <div class="step slide" data-x="1000" data-y="2400">
+        <p class="fly-in fly-out" style="text-align: left"><span class="red">高级语言（high level language）</span>: 用人们习惯的自然语言和数学语言，一般不依赖具体的机器。</p>
+        <img class="right fly-in  fly-out" style="transition-delay: 2s" src="images/compile_and_link.png" alt="compile and link">
+        <p class="fade-in fade-out" style="text-align: left; transition-delay: 1s">计算机不能直接识别高级语言，必须经过<span class="red">编译器（compiler）</span>编译（compile）为机器语言指令，计算机才能识别和运行。</p>
+        <p class="zoom-in zoom-out" style="text-align: left; transition-delay: 1s">有时，编译好的机器语言代码还需要<span class="green">链接（link）</span>其他的机器语言代码，组成最终的机器语言代码进行运行。</p>
+      </div>
+
+      <div class="step slide" data-x="0" data-y="2400">
+        <h4>高级语言例子：用参数方程绘制圆</h4>
+        <pre>
+              <code  data-trim>
+                  angle = 0
+                  radius = 50
+                  while angle < 360 do :
+                    x = radius * sin ( angle * PI / 180.0 )
+                    y = radius * cos ( angle * PI / 180.0 )
+                    plot ( x, y)
+                    angle = angle + 10
+              </code>
+        </pre>
+      </div>
+
+      <div class="step slide" data-x="0" data-y="3300" data-rotate="-90">
+        <p>高级语言的优缺点：</p>
+        <ul>
+          <li><span class="fade-in fade-out green">不同机器上可以有不同的编译器编译为各自的机器语言指令，可移植性较好</span></li>
+          <li><span class="zoom-in zoom-out green" style="transition-delay: 1s">可以一条语句编译为多条指令，编程效率高，也可以实现复杂算法和大型程序的组织</span></li>
+          <li><span class="fly-in  fly-out red" style="transition-delay: 2s">由于不是一一对应机器语言指令，编译不好的程序可能运行效率比较低</span></li>
+        </ul>
+      </div>
+
+      <div class="step slide" data-x="1000" data-y="3300" data-rotate="30">
+        <p>高级语言的种类</p>
+        <ul>
+          <li><span class="green">静态（编译）语言</span>：在运行前先经过编译和链接转换为机器语言程序，如C, C++等</li>
+          <li><span class="red">动态（编译）语言</span>：在运行的时候边编译为机器语言指令边运行，也称为脚本语言， 如 javascript, python, ruby等</li>
+          <li><span class="blue">中间（编译）语言</span>：在运行前先经过编译和链接转换为中间语言程序（字节码），在运行的时候才编译为机器语言运行，如java, C#等</li>
+        </ul>
+      </div>
+
+      <div class="step slide title" data-x="2000" data-y="0" data-rotate="0">
+        <h2>1.3 C语言的发展及其特点</h2>
+      </div>
+
+      <div class="step slide" data-x="2000" data-y="800" data-rotate="0">
+        <h4>BCPL语言</h4>
+        <p class="fade-in fade-out ">1967年，英国剑桥大学 Martin Richards</p>
+        <img class="fade-in fade-out right" src="images/Martin_Richards.gif" alt="Martin Richards">
+        <pre class="fly-in  fly-out"><code>
+GET "LIBHDR"
+
+LET START() = VALOF $(
+        FOR I = 1 TO 5 DO
+                WRITEF("%N! = %I4*N", I, FACT(I))
+        RESULTIS 0
+$)
+
+AND FACT(N) = N = 0 -> 1, N * FACT(N - 1)
+        </code></pre>
+      </div>
+
+      <div class="step slide" data-x="2000" data-y="1600" data-rotate="0">
+        <h4>B语言</h4>
+        <p class="fade-in fade-out ">1970年，美国AT&T Ken Thompson</p>
+        <img class="fade-in fade-out right" src="images/Ken_Thompson.jpg" alt="Ken Thompson">
+        <pre class="fly-in  fly-out"><code>
+printn(n, b) {
+          extrn putchar;
+          auto a;
+
+          if (a = n / b)        /* assignment, not test for equality */
+                  printn(a, b); /* recursive */
+          putchar(n % b + '0');
+        }
+        </code></pre>
+      </div>
+
+      <div class="step slide" data-x="2000" data-y="2400" data-rotate="0">
+        <h4>C语言</h4>
+        <p class="fade-in fade-out ">1972-1973年，美国AT&T Dennis Ritchie</p>
+        <img class="fade-in fade-out right" src="images/Dennis_Ritchie_2011.jpg" alt="Dennis Ritchie">
+        <pre class="fly-in  fly-out"><code>
+#include &lt;stdio.h&gt;
+
+int main(void)
+{
+    printf("hello, world\n");
+}
+        </code></pre>
+      </div>
+
+      <div class="step slide" data-x="2000" data-y="3200" data-rotate="0">
+        <h3>开发C语言的目的：</h3>
+        <ul>
+          <li class="green fade-in fade-out">提供多种数据类型并提供静态的检查</li>
+          <li class="blue fade-in fade-out">降低对平台的依赖，具有很好的移植性</li>
+        </ul>
+      </div>
+
+      <div class="step slide" data-x="2000" data-y="4000" data-rotate="0">
+        <h3>C语言的应用和发展</h3>
+        <ul>
+          <li class="green fade-in fade-out">1969, Ken Thompson 和 Dennis Ritchie 用汇编语言开发UNIX第一版</li>
+          <li class="blue fade-in fade-out" style="transition-delay: 1s">1973, Dennis Ritchie 发明C语言</li>
+          <li class="green fade-in fade-out" style="transition-delay: 2s">1973, Ken Thompson 和 Dennis Ritchie 用C语言重写UNIX第五版（90%）</li>
+          <li class="blue fade-in fade-out" style="transition-delay: 3s">1978, C语言先后移植到大中小和微型机上</li>
+        </ul>
+      </div>
+
+      <div class="step slide" data-x="1000" data-y="4000" data-rotate="30">
+        <h3>C 标准</h3>
+        <ul>
+          <li class="green fade-in fade-out">1978年，在UNIX第7版的C语言编译程序为基础，Brian W. Kernighan 和 Dennis Ritchie, 《The C Programming Language》,"C圣经（Bible）" , K&R C</li>
+          <li class="blue fade-in fade-out" style="transition-delay: 1s">1989年, Brian W. Kernighan 和 Dennis Ritchie, 《The C Programming Language, 2nd》, ANSI89, ISO1990, C89</li>
+          <li class="green fade-in fade-out" style="transition-delay: 2s">1999年, ISO1999, C99</li>
+        </ul>
+      </div>
+
+      <div class="step slide" data-x="500" data-y="4700" data-rotate="60">
+        <h3>C 语言的特点</h3>
+        <ol>
+          <li class="green fade-in fade-out">语言简洁紧凑，使用方便灵活</li>
+          <li class="blue fade-in fade-out">运算符丰富</li>
+          <li class="green fade-in fade-out">数据类型丰富</li>
+          <li class="blue fade-in fade-out">有结构化的控制语句</li>
+          <li class="green fade-in fade-out">语法限制不严格，设计自由度大</li>
+          <li class="blue fade-in fade-out">运行直接访问物理地址，位操作，实现汇编的绝大部分功能</li>
+          <li class="green fade-in fade-out">可移植性好</li>
+          <li class="blue fade-in fade-out">生成目标代码质量高，程序执行效率高</li>
+        </ol>
+      </div>
+
+      <div class="step slide" data-x="1000" data-y="4800" data-rotate="0">
+        <h3>C 语言的用途</h3>
+        <ol>
+          <li class="green fade-in fade-out">操作系统（几乎所有，windows，Mac OS，Linux等）</li>
+          <li class="blue fade-in fade-out">要求性能高的程序，比如游戏，实时控制系统</li>
+          <li class="green fade-in fade-out">嵌入式程序</li>
+        </ol>
+      </div>
+
+      <div class="step slide title" data-x="3000" data-y="0" data-rotate="0">
+        <h2>1.4 简单的C语言程序浏览</h2>
+      </div>
+
+      <div class="step slide" data-x="3000" data-y="800" data-rotate="0">
+        <h3>1.4.1 最简单的C语言程序</h3>
+        <h4><b>例 1.1 </b> 要求在屏幕上输出一行信息</h4>
+        <code> This is a C program.</code>
+      </div>
+
+      <div class="step slide" data-x="4000" data-y="800" data-rotate="0">
+        <pre class="fade-in fade-out"><code>
+#include &lt; stdio.h &gt;          //预编译处理指令，包含stdio.h头文件
+
+int main(void)                             //主函数定义
+{                                          //函数开始
+    printf("This is a C program.\n");      //输出（到屏幕）信息
+    return 0;                              //函数返回值,注意每行语句结束用；
+}</code></pre>
+        <p class="fade-in fade-out">运行结果：</p>
+        <code class="fly-in fly-out">This is a C program.</code>
+      </div>
+
+      <div class="step slide" data-x="5000" data-y="800" data-rotate="0">
+        <pre><code>
+#include &lt; stdio.h &gt;          //预编译处理指令，包含stdio.h头文件
+
+int main(void)                             //主函数定义
+{                                          //函数开始
+    printf("This is a C program.\n");      //输出（到屏幕）信息
+    return 0;                              //函数返回值,注意每行语句结束用；
+}</code></pre>
+        <p style="text-align: left; font-size: 20px">
+          1.C语言的基本组织单位是<span class="green">函数</span><br> 2.每个独立C语言程序都有且只有一个
+          <code> main</code>函数，这是C语言程序的<span class="green">开始和结束</span><br> 3.
+          <code>#XXX</code>表示这是<span class="green">预编译指令</span>，是在C语言编译器<span class="green">开始之前</span>进行的智能化文本处理， <code>#include&lt;stdio.h&gt;</code>表示将<code>stdio.h</code>文件的内容包含到本行中.
+        </p>
+      </div>
+
+      <div class="step slide" data-x="6000" data-y="800" data-rotate="0">
+        <pre><code>
+#include &lt; stdio.h &gt;          //预编译处理指令，包含stdio.h头文件
+
+int main(void)                             //主函数定义
+{                                          //函数开始
+    printf("This is a C program.\n");      //输出（到屏幕）信息
+    return 0;                              //函数返回值,注意每行语句结束用；
+}</code></pre>
+        <p style="text-align: left; font-size: 20px">
+          4.<code>int main(void)</code>是<span class="green">函数头</span>，<code>main</code>是函数的名称，前面的<code>int</code>表示该函数运行结束后应该有一个返回值，其类型是整数（<code>int</code>），<code>void</code>表示该函数（即<code>main</code>函数）被调用时无需传入参数<br> 5.C语言中可以有很多函数，每个
+          <span class="green">函数的名称必须独一无二</span>，每个函数都需要<span class="blue">先定义再使用</span>。函数的定义包括<span class="blue">函数头</span>和<span class="green">函数的实现</span>，函数的实现由一对大括号<code>{ }</code>来包括.
+        </p>
+      </div>
+
+      <div class="step slide" data-x="7000" data-y="800" data-rotate="0">
+        <pre><code>
+#include &lt; stdio.h &gt;          //预编译处理指令，包含stdio.h头文件
+
+int main(void)                             //主函数定义
+{                                          //函数开始
+    printf("This is a C program.\n");      //输出（到屏幕）信息
+    return 0;                              //函数返回值,注意每行语句结束用；
+}</code></pre>
+        <p style="text-align: left; font-size: 20px">
+          6.<code>printf</code>是一个<span class="green">C标准库函数</span>，所谓标准库，是指每个C语言标准规定必须存在的很多函数的集合，编译器的实现厂商负责提供。<code>printf</code>函数负责将指定的信息显示到屏幕上<br> 7.<code>printf</code>有很多用法，后面我们会看到更多。<code>printf("xxx")</code>是将<span class="green">文字串 </span>xxx
+          （文字串又称为
+          <span class="green">字符串</span>，string，在C语言中用<code>“ ”</code>来包括起来）显示在屏幕上
+          <br> 8.文字串（字符串）末尾的<code>“\n"</code>表示<span class="green">本行结束</span>，后面再有文字输出的时候就换到下一行开头进行显示.
+        </p>
+      </div>
+
+      <div class="step slide" data-x="8000" data-y="800" data-rotate="0">
+        <pre><code>
+#include &lt; stdio.h &gt;          //预编译处理指令，包含stdio.h头文件
+
+int main(void)                             //主函数定义
+{                                          //函数开始
+    printf("This is a C program.\n");      //输出（到屏幕）信息
+    return 0;                              //函数返回值,注意每行语句结束用；
+}</code></pre>
+        <p style="text-align: left; font-size: 20px">
+          9.<code>printf("xxx");</code> 称为一条<span class="green">语句</span>，这是C语言的基本语法单位，每条语句末尾必须用<code>；</code>来结束（后面会介绍几种特殊的情况）<br> 10.
+          <code>return 0；</code>表示函数（<code>main</code>）<span class="green">结束并以一个值（这里是<code>0</code>）返回到调用者</span>（对于<code>main</code>函数来说，就是操作系统）<br> 11.注释，两种注释方法：
+          <code>//</code>表示单行注释，从<code>//</code>开始到行尾都是注释，编译器自动忽略不编译，C99；另一种注释是<code>/* ... */ </code>这样的块注释，K&R C, C89，C99都适合，注意<code>/</code>和<code>*</code>，<code>*</code>和<code>/</code>之间都不能有空格，这样的注释不能嵌套.
+        </p>
+      </div>
+
+      <div class="step slide" data-x="3000" data-y="1600" data-rotate="0">
+        <h3>1.4.1 最简单的C语言程序</h3>
+        <h4><b>例 1.2 </b> 求两个整数之和</h4>
+        <pre><code>#include &lt;stdio.h&gt;
+int main(void)
+{
+  int a = 123, b, sum;                    //定义变量（及其类型）并给a一个初始值
+  b = 456;                                //给变量b赋值
+  sum = a + b;                            //计算a+b， 并把结果赋值给变量sum
+  printf(" %d + %d = %d \n", a, b, sum);  //输出结果，注意格式化的输出
+  return 0;                               //返回函数最后结果
+}</code></pre>
+      </div>
+
+      <div class="step slide" data-x="4000" data-y="1600" data-rotate="0">
+        <pre><code>#include &lt;stdio.h&gt;
+int main(void)
+{
+  int a = 123, b, sum;                    //定义变量（及其类型）并给a一个初始值
+  b = 456;                                //给变量b赋值
+  sum = a + b;                            //计算a+b， 并把结果赋值给变量sum
+  printf(" %d + %d = %d \n", a, b, sum);  //输出结果，注意格式化的输出
+  return 0;                               //返回函数最后结果
+}</code></pre>
+        <p style="text-align: left; font-size: 20px">1. C语言中可以定义<span class="blue">变量</span>，变量有<span class="green">名称</span>和<span class="blue">类型</span>，类型决定了变量能够保存的数据类型和大小，常见的类型有<code>int</code>(整数类型，简称整型, 如
+          <code>123， +10086， -34 ， 0 , 012 , 0xf</code> ）、
+          <code>float</code>（浮点类型，可以保存实数类型，如 <code>1.45， 3.4e-3</code>）、<code>char</code>（字符类型，可以保存字符等符号数据, 如<code>'a', 'B', '+', '#', '1'</code>）.
+        </p>
+      </div>
+
+      <div class="step slide" data-x="5000" data-y="1600" data-rotate="0">
+        <pre><code>#include &lt;stdio.h&gt;
+int main(void)
+{
+  int a = 123, b, sum;                    //定义变量（及其类型）并给a一个初始值
+  b = 456;                                //给变量b赋值
+  sum = a + b;                            //计算a+b， 并把结果赋值给变量sum
+  printf(" %d + %d = %d \n", a, b, sum);  //输出结果，注意格式化的输出
+  return 0;                               //返回函数最后结果
+}</code></pre>
+        <p style="text-align: left; font-size: 20px">2. 变量的名称不能随便乱取，首先其组成必须由<span class="green">字母（<code>a-z, A-Z</code>, 大小写是不同的）</span>和<span class="red">数字（<code>0-9</code>）</span>和<span class="blue">下划线 <code>_</code></span> 组成，而且
+          <span class="red">第一个字符不能是数字</span>，比如 <code>No1 </code> 是合法的变量名，而 <code>
+              1st</code> 则是非法的; 变量取名不能和<span class="green">关键字（key word）</span>重名，上面的<code>int、float、 char、 return</code> 都是关键字.
+        </p>
+      </div>
+
+      <div class="step slide" data-x="6000" data-y="1600" data-rotate="0">
+        <pre><code>#include &lt;stdio.h&gt;
+int main(void)
+{
+  int a = 123, b, sum;                    //定义变量（及其类型）并给a一个初始值
+  b = 456;                                //给变量b赋值
+  sum = a + b;                            //计算a+b， 并把结果赋值给变量sum
+  printf(" %d + %d = %d \n", a, b, sum);  //输出结果，注意格式化的输出
+  return 0;                               //返回函数最后结果
+}</code></pre>
+        <p style="text-align: left; font-size: 20px">3. 变量取名是为了方便使用，变量表示内存中的一块空间，可以往那块空间赋值不同的内容，因此变量的取名最好有<span class="green">意义</span>，如本例的<code>sum </code>变量就表示求和的意思。最常见的变量取名方法，用英文单词（或拼音）的组合，下划线区分各个单词，比如： <code>user_name, ti_ji</code>.
+        </p>
+      </div>
+
+      <div class="step slide" data-x="7000" data-y="1600" data-rotate="0">
+        <pre><code>#include &lt;stdio.h&gt;
+int main(void)
+{
+  int a = 123, b, sum;                    //定义变量（及其类型）并给a一个初始值
+  b = 456;                                //给变量b赋值
+  sum = a + b;                            //计算a+b， 并把结果赋值给变量sum
+  printf(" %d + %d = %d \n", a, b, sum);  //输出结果，注意格式化的输出
+  return 0;                               //返回函数最后结果
+}</code></pre>
+        <p style="text-align: left; font-size: 20px">4. 变量必须<span class="green">先定义再使用</span>，定义时相同类型的变量可以放在一起定义，如：<code>int a, b, sum;</code> 定义也是语句，所以在行末要加<code>；</code> 变量定义的时候可以顺便
+          <span class="green">初始化</span>，如果没有初始化，则其值不确定, 如：<code>int a=123, b;</code>.
+        </p>
+      </div>
+
+      <div class="step slide" data-x="8000" data-y="1600" data-rotate="0">
+        <pre><code>#include &lt;stdio.h&gt;
+int main(void)
+{
+  int a = 123, b, sum;                    //定义变量（及其类型）并给a一个初始值
+  b = 456;                                //给变量b赋值
+  sum = a + b;                            //计算a+b， 并把结果赋值给变量sum
+  printf(" %d + %d = %d \n", a, b, sum);  //输出结果，注意格式化的输出
+  return 0;                               //返回函数最后结果
+}</code></pre>
+        <p style="text-align: left; font-size: 20px">5. 变量定义之后就可以使用了，通常变量的常见使用方式是<span class="green">取其值（直接写出其变量名）</span>和<span class="blue">赋值（变量名<code>=</code>新的值）</span><br> 6. <code>sum = a + b </code> 这是一条赋值<span class="green">表达式</span>，右边是<span class="green">算数表达式</span>，分别取变量<code>a</code>（指向的内存中）的值和<code>b</code>中的值，相加（加的时候会在内存中新申请一块区域保存运算结果，当赋值给<code>sum</code>以后，这块内存会归还给系统，所以
+          <span class="red">只计算不赋值则没有意义</span>，浪费计算机的时间），左边是
+          <span class="green">赋值语句</span>，将计算的结果数据放在变量<code>sum</code>所表示的那块内存中.
+        </p>
+      </div>
+
+      <div class="step slide" data-x="9000" data-y="1600" data-rotate="0">
+        <pre><code>#include &lt;stdio.h&gt;
+int main(void)
+{
+  int a = 123, b, sum;                    //定义变量（及其类型）并给a一个初始值
+  b = 456;                                //给变量b赋值
+  sum = a + b;                            //计算a+b， 并把结果赋值给变量sum
+  printf(" %d + %d = %d \n", a, b, sum);  //输出结果，注意格式化的输出
+  return 0;                               //返回函数最后结果
+}</code></pre>
+        <p style="text-align: left; font-size: 20px">7. <code>printf</code>可以一种<span class="green">嵌入式</span>的方法来将数值嵌入一段字符串中输出，如 <code>printf("%d+%d=%d\n", a, b, a+b); </code>语句中，前面的<code>“ ”</code>包含的字符串称为<span class="blue">格式字符串</span>，在格式字符串中出现的<code>%d</code>称为
+          <span class="red">嵌入字符</span>，
+          <span class="green">以<code>%</code>为开头</span>，<span class="blue"><code>d</code>表示整数</span>，每次出现一个<code>%d</code>，就表示实际输出时，这个<code>%d</code>应该由格式字符串后面的<span class="green">数或变量或表达式的值来替换</span>，第一个<code>%d</code>由<code>a</code>的值来替换，第二个<code>%d</code>由<code>b</code>的值来替换，第三个<code>%d</code>由表达式<code>(a+b)</code>的计算结果的值来替换，所以当<code>a
+              = 123, b=456 </code>的时候， <code>"%d+%d=%d"</code>就被替换为 <code>123 + 456 = 579</code> 输出到屏幕上.
+        </p>
+      </div>
+
+    </div>
+
+    <script src="js/impress.js"></script>
+    <script src="js/extras/highlight/highlight.pack.js"></script>
+    <script>
+      hljs.initHighlightingOnLoad();
+      impress().init();
+    </script>
+  </body>
 
 </html>
