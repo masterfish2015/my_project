@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+   <head>
+      <title>C Program Chapter 1</title>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <!--<link href="css/impress.css" rel="stylesheet">-->
+      <link rel="stylesheet" href="js/extras/highlight/styles/xt256.css">
+      <link href="css/style.css" rel="stylesheet">
+
+   </head>
+
+   <body>
+      <div id="impress">
+
+         <div id="chapter1" class="step slide title" data-x="-1000" >
+            <h1>第一章 <br>程序设计和C语言</h1>
+            <h2>简要概述</h2>
+         </div>
+
+         <div class="step slide" data-x="0">
+            <h2>1.1 什么是计算机程序</h2>
+            <p class="fly-in"><b >程序：</b> 一组计算机能识别和执行的指令</p>
+         </div>
+
+         <div class="step slide" data-x="1000">
+            <h2>1.2 什么是计算机语言</h2>
+            <p style="text-align: left">计算机能直接识别和接受的二进制代码称为<span class="red">机器指令（machine instruction）</span></p>
+            <p style="text-align: left">机器指令的集合称为<span class="blue">机器语言（machine language）</span></p>
+            <p style="text-align: left">机器语言的优缺点：</p>
+            <ul>
+              <li class="fade-in fade-out"><span class="green">运行速度快，能充分发挥机器的性能</span></li>
+              <li class="fade-in fade-out"><span class="red">难学，难写，难记，难检查和修改</span></li>
+              <li class="fade-in fade-out"><span class="red">不同机器的指令不同</span></li>
+            </ul>
+         </div>
+
+         <div class="step slide" data-x="1000" data-y="800">
+            <p  style="text-align: left"><span class="red">符号语言（symbolic language）</span>: 用一些英文字母（单词）和数字来表示一个指令。</p>
+            <p  style="text-align: left">计算机不能直接识别符号语言，必须经过<span class="red">编译器（compiler）</span>编译（compile）为机器语言指令，计算机才能识别和运行。</p>
+            <p  style="text-align: left">因此，符号语言又称为<span class="green">汇编语言（assembler language）</span>。</p>
+            <pre>
+              <code data-trim>
+    ADD A, B (将A寄存器中的数和B寄存器中的数相加，结果放回A中)
+              </code>
+            </pre>
+         </div>
+
+         <div class="step slide" data-x="1000" data-y="1600">
+            <p>汇编语言的优缺点：</p>
+            <ul>
+              <li class="fly-in fly-out"><span class="green">基本上和机器语言一一对应，所以依然运行速度快，能充分发挥机器的性能</span></li>
+              <li class="fly-in fly-out"  style="transition-delay: 1s"><span class="red">比机器语言指令稍好记一点，但不好移植，不同机器不同指令</span></li>
+              <li class="fly-in fly-out"  style="transition-delay: 1s"><span class="red">一些复杂算法不好实现，不适合编写大型的程序（人和机器的思维不同）</span></li>
+            </ul>
+         </div>
+
+         <div class="step slide" data-x="1000" data-y="2400">            
+            <p class="fly-in fly-out" style="text-align: left"><span class="red">高级语言（high level language）</span>: 用人们习惯的自然语言和数学语言，一般不依赖具体的机器。</p>
+             <img class="right fly-in  fly-out" style="transition-delay: 3s" src="images/compile_and_link.png" alt="compile and link" >
+            <p class="fade-in fade-out" style="text-align: left; transition-delay: 1s">计算机不能直接识别高级语言，必须经过<span class="red">编译器（compiler）</span>编译（compile）为机器语言指令，计算机才能识别和运行。</p>
+            <p class="zoom-in zoom-out" style="text-align: left; transition-delay: 1s">有时，编译好的机器语言代码还需要<span class="green">链接（link）</span>其他的机器语言代码，组成最终的机器语言代码进行运行。</p>
+            
+         </div>
+
+
+      </div>
+      
+      <script src="js/impress.js"></script>
+      <script src="js/extras/highlight/highlight.pack.js"></script>
+      <script>
+         hljs.initHighlightingOnLoad();
+         impress().init();
+      </script>
+   </body>
+
+</html>
