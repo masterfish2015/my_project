@@ -65,17 +65,14 @@
 
       <div class="step slide" data-x="0" data-y="2400">
         <h4>高级语言例子：用参数方程绘制圆</h4>
-        <pre>
-              <code  data-trim>
-                  angle = 0
-                  radius = 50
-                  while angle < 360 do :
-                    x = radius * sin ( angle * PI / 180.0 )
-                    y = radius * cos ( angle * PI / 180.0 )
-                    plot ( x, y)
-                    angle = angle + 10
-              </code>
-        </pre>
+        <pre><code  data-trim>
+angle = 0
+radius = 50
+while angle < 360 do :
+  x = radius * sin ( angle * PI / 180.0 )
+  y = radius * cos ( angle * PI / 180.0 )
+  plot ( x, y)
+  angle = angle + 10</code></pre>
       </div>
 
       <div class="step slide" data-x="0" data-y="3300" data-rotate="-90">
@@ -113,8 +110,7 @@ LET START() = VALOF $(
         RESULTIS 0
 $)
 
-AND FACT(N) = N = 0 -> 1, N * FACT(N - 1)
-        </code></pre>
+AND FACT(N) = N = 0 -> 1, N * FACT(N - 1)</code></pre>
       </div>
 
       <div class="step slide" data-x="2000" data-y="1600" data-rotate="0">
@@ -123,13 +119,13 @@ AND FACT(N) = N = 0 -> 1, N * FACT(N - 1)
         <img class="fade-in fade-out right" src="images/Ken_Thompson.jpg" alt="Ken Thompson">
         <pre class="fly-in  fly-out"><code>
 printn(n, b) {
-          extrn putchar;
-          auto a;
+    extrn putchar;
+    auto a;
 
-          if (a = n / b)        /* assignment, not test for equality */
-                  printn(a, b); /* recursive */
-          putchar(n % b + '0');
-        }
+    if (a = n / b)        /* assignment, not test for equality */
+            printn(a, b); /* recursive */
+    putchar(n % b + '0');
+  }
         </code></pre>
       </div>
 
@@ -143,8 +139,7 @@ printn(n, b) {
 int main(void)
 {
     printf("hello, world\n");
-}
-        </code></pre>
+}</code></pre>
       </div>
 
       <div class="step slide" data-x="2000" data-y="3200" data-rotate="0">
@@ -390,6 +385,326 @@ int main(void)
           <span class="green">以<code>%</code>为开头</span>，<span class="blue"><code>d</code>表示整数</span>，每次出现一个<code>%d</code>，就表示实际输出时，这个<code>%d</code>应该由格式字符串后面的<span class="green">数或变量或表达式的值来替换</span>，第一个<code>%d</code>由<code>a</code>的值来替换，第二个<code>%d</code>由<code>b</code>的值来替换，第三个<code>%d</code>由表达式<code>(a+b)</code>的计算结果的值来替换，所以当<code>a
               = 123, b=456 </code>的时候， <code>"%d+%d=%d"</code>就被替换为 <code>123 + 456 = 579</code> 输出到屏幕上.
         </p>
+      </div>
+
+      <div class="step slide" data-x="3000" data-y="2400" data-rotate="0">
+        <h3>1.4.1 最简单的C语言程序</h3>
+        <h4><b>例 1.3 </b> 输入两个数，求其大者输出。</h4>
+        <pre class="fly-in fly-out" style="height: 450px; overflow: auto"><code class="C" data-trim>#include &lt; stdio.h &gt;
+int main(void)
+{
+  float x, y, max;                    //定义变量（及其类型）
+  float max2(float a, float b);       //给函数声明（declaration)
+  
+  printf("please input two number:"); //显示提示信息
+  scanf("%f,%f", &x, &y);             //从键盘中输入两个数
+
+  max = max2(x, y);                   //调用函数（call）来计算哪个大，返回结果赋值给max
+  printf(" max number between [%f,%f] = %f \n", x, y, max);  //输出结果，注意格式化的输出
+  return 0;                               //返回函数最后结果
+}
+
+float max2(float a, float b)
+{
+  float z;
+  if( a > b )
+    z = a;
+  else
+    z = b;
+  return z;
+}</code></pre>
+      </div>
+
+      <div class="step slide" data-x="4000" data-y="2400" data-rotate="0">
+        <pre style="height: 300px; overflow: auto"><code class="C" data-trim>#include &lt; stdio.h &gt;
+int main(void)
+{
+  float x, y, max;                    //定义变量（及其类型）
+  float max2(float a, float b);       //给函数声明（declaration)
+  
+  printf("please input two number:"); //显示提示信息
+  scanf("%f,%f", &x, &y);             //从键盘中输入两个数
+
+  max = max2(x, y);                   //调用函数（call）来计算哪个大，返回结果赋值给max
+  printf(" max number between [%f,%f] = %f \n", x, y, max);  //输出结果，注意格式化的输出
+  return 0;                               //返回函数最后结果
+}
+
+float max2(float a, float b)
+{
+  float z;
+  if( a > b )
+    z = a;
+  else
+    z = b;
+  return z;
+}</code></pre>
+        <p style="text-align: left; font-size: 20px">1. 本例定义和使用一个<span class="green">函数</span>，注意函数和变量一样，<span class="red">必须先定义再使用</span>，如果<span class="blue">在使用之后定义，必须在之前先声明</span>。<br> 2. 函数的<span class="green">定义</span>必须包含<span class="blue">函数头</span>以及<span class="blue">函数体</span>，函数的
+          <span class="blue">声明</span>则是只包含函数头，注意<span class="red">函数声明也是语句，所以行末必须加<code>；</code></span><br>3. 函数定义<span class="red">只能定义一次</span>，但是<span class="green">声明可以无数次</span>。
+        </p>
+      </div>
+
+      <div class="step slide" data-x="5000" data-y="2400" data-rotate="0">
+        <pre style="height: 300px; overflow: auto"><code class="C" data-trim>#include &lt; stdio.h &gt;
+int main(void)
+{
+  float x, y, max;                    //定义变量（及其类型）
+  float max2(float a, float b);       //给函数声明（declaration)
+  
+  printf("please input two number:"); //显示提示信息
+  scanf("%f,%f", &x, &y);             //从键盘中输入两个数
+
+  max = max2(x, y);                   //调用函数（call）来计算哪个大，返回结果赋值给max
+  printf(" max number between [%f,%f] = %f \n", x, y, max);  //输出结果，注意格式化的输出
+  return 0;                               //返回函数最后结果
+}
+
+float max2(float a, float b)
+{
+  float z;
+  if( a > b )
+    z = a;
+  else
+    z = b;
+  return z;
+}</code></pre>
+        <p style="text-align: left; font-size: 20px"> 4. 函数头的参数列表<span class="red">必须把每个参数的类型和名称都写上，用<code>，</code>来分隔</span>，如果<span class="green">没有参数，则标记为<code>void</code></span>, 如 ：<code> int main(void)</code><br>5. 函数的<span class="green">返回值类型说明</span>放在函数头最左边，如上面的函数<code>max2</code>其返回值类型是<code>float</code>（浮点实数类型），如果函数
+          <span class="green">没有返回值，则标记为<code>void</code> </span>，如：<code>void do_something(void)</code><br>6. 函数的返回值由函数中的<span class="green"><code>return</code> 语句</span>来决定，可以有多个<code>return</code> 语句，如果没有返回值，可以简单用 <code>return; </code>来结束.
+        </p>
+      </div>
+
+      <div class="step slide" data-x="6000" data-y="2400" data-rotate="0">
+        <pre style="height: 400px; overflow: auto"><code class="C" data-trim>#include &lt; stdio.h &gt;
+int main(void)
+{
+  float x, y, max;                    //定义变量（及其类型）
+  float max2(float a, float b);       //给函数声明（declaration)
+  
+  printf("please input two number:"); //显示提示信息
+  scanf("%f,%f", &x, &y);             //从键盘中输入两个数
+
+  max = max2(x, y);                   //调用函数（call）来计算哪个大，返回结果赋值给max
+  printf(" max number between [%f,%f] = %f \n", x, y, max);  //输出结果，注意格式化的输出
+  return 0;                               //返回函数最后结果
+}
+
+float max2(float a, float b)
+{
+  float z;
+  if( a > b )
+    z = a;
+  else
+    z = b;
+  return z;
+}</code></pre>
+        <p style="text-align: left; font-size: 20px"> 7. 函数的<span class="green">名称定义规则</span>和变量名一致，只能字母（大小写不同）、数字、下划线组成，而且数字不能是第一个字符，不能和关键字重名，最好用有意义的英文单词或者拼音组合来起名，多个单词之间用下划线来分开，比如：<code>do_something(), qiu_ti_ji()</code>.
+        </p>
+      </div>
+
+      <div class="step slide" data-x="7000" data-y="2400" data-rotate="0">
+        <p style="text-align: left;font-size: 30px">8. 函数定义完之后就可以被其他语句<span class="green">调用（call）</span>，函数在实际被调用的时候，直接写函数名，并通过括号输入<span class="green">实际的参数的值</span>，这个时候参数<span class="red">不要指定类型</span>。例如：定义函数: </p>
+        <pre><code class="c" data-trim>float max2(float a, float b){...} </code></pre>
+        <p style="text-align: left;font-size: 30px">调用函数：</p>
+        <pre><code class="c" data-trim>max= max2(13, 56);</code></pre>
+        <p style="text-align: left;font-size: 30px">注意在这个例子中，实际调用函数<code>max2</code>时，<code>13</code>这个数会传递到函数<code>max2</code>中，并赋值给参数<code>a</code>, <code>56</code>这个数会传递到函数<code>max2</code>中，赋值给参数<code>b</code></p>
+      </div>
+
+      <div class="step slide" data-x="8000" data-y="2400" data-rotate="0">
+        <pre style="height: 250px; overflow: auto"><code class="C" data-trim>#include &lt; stdio.h &gt;
+int main(void)
+{
+  float x, y, max;                    //定义变量（及其类型）
+  float max2(float a, float b);       //给函数声明（declaration)
+  
+  printf("please input two number:"); //显示提示信息
+  scanf("%f,%f", &x, &y);             //从键盘中输入两个数
+
+  max = max2(x, y);                   //调用函数（call）来计算哪个大，返回结果赋值给max
+  printf(" max number between [%f,%f] = %f \n", x, y, max);  //输出结果，注意格式化的输出
+  return 0;                               //返回函数最后结果
+}</code></pre>
+        <p style="text-align: left; font-size: 20px"> 9. 在本例中，为了能输入和比较实数，我们使用了<span class="green">浮点类型：<code>float</code> </span>来定义变量，<code>float</code>类型能表示的实数可以有两种形式：<span class="green">小数形式</span>（如 <code>3.14, 0.314, -.314 </code>) 和 <span class="green">科学计数法形式 </span>(如
+          <code>0.314e+1, 31.4e-1</code> )， 更多<code>float</code>类型的信息见后继课程.<br>10. 为了能够从键盘中输入数据给变量，我们使用了标准库函数<span class="green"><code>scanf</code></span>（和<code>printf</code>一样，也在<code>stdio.h</code>中声明）<br>11. <code>scanf("%f,%f", &x, &y);</code> 这条语句有两个注意的地方，一个是格式字符串<code>“%f,%f"</code>,
+          这说明
+          <span class="green">对于<code>float</code>类型的变量，其嵌入字符应该是<code>%f</code></span>(前面的<code>int</code>类型的变量是<code>%d</code>), 另一个要注意的，是
+          <span class="blue"><code>&x</code>中的<code>&</code></span>， <code>&</code>称为<span class="green">取地址运算符</span>，能告诉<code>scanf</code>函数当从键盘输入数据后，应该放置到
+          <span class="blue"><code>x</code>变量在内存中的地址</span>上。<br>12. 在后面的<code>printf("%f",x)</code> 中，同样使用<code>%f</code>嵌入字符来对应<code>float</code>类型的变量<code>x</code>.
+        </p>
+      </div>
+
+      <div class="step slide" data-x="9000" data-y="2400" data-rotate="0">
+        <pre style="height: 300px; overflow: auto"><code class="C" data-trim>float max2(float a, float b)
+{
+  float z;
+  if( a > b )
+    z = a;
+  else
+    z = b;
+  return z;
+}</code></pre>
+        <p style="text-align: left; font-size: 20px">13. 在函数<code>max2</code>中，我们用了
+          <code class="c" data-trim>if (zzz) xxx; else yyy; </code> 的语法，这是一种常见的
+          <span class="blue">条件判断语句</span>，当<code>zzz</code>被计算后，如果其值为<span class="green">真（<code>true</code>，对于C语言来说，就是任何非<code>0</code>的值，都为真）</span>，则执行<code>xxx</code>语句，若<code>zzz</code>计算的结果为
+          <span class="red">假（<code>false</code>，对于C语言，<code>0</code>为假）</span>，则执行<code>yyy</code>语句，更多条件判断的内容见后面的介绍。</p>
+      </div>
+
+      <div class="step slide" data-x="3000" data-y="3200" data-rotate="0">
+        <h3>1.4.2 C语言的程序结构</h3>
+        <h4>(1)、一个程序由一个或多个源程序文件组成（以.c为扩展名），一个源程序文件中可以包含三个部分：</h4>
+        <pre style="height: 300px; overflow: auto"><code class="C" data-trim>#include &lt; stdio.h &gt;
+float x, y, max;                    //定义变量（及其类型）
+float max2(float a, float b);       //给函数声明（declaration)
+int main(void)
+{ 
+  printf("please input two number:"); //显示提示信息
+  scanf("%f,%f", &x, &y);             //从键盘中输入两个数
+
+  max = max2(x, y);                   //调用函数（call）来计算哪个大，返回结果赋值给max
+  printf(" max number between [%f,%f] = %f \n", x, y, max);  //输出结果，注意格式化的输出
+  return 0;                               //返回函数最后结果
+}
+float max2(float a, float b)
+{
+  float z;
+  if( a > b )
+    z = a;
+  else
+    z = b;
+  return z;
+}</code></pre>
+        <p style="text-align: left; font-size: 20px"><span class="red">预处理指令</span> <span class="green">全局声明</span> <span class="blue">函数定义</span></p>
+      </div>
+
+      <div class="step slide" data-x="4000" data-y="3200" data-rotate="0">
+        <h4>(2)、函数是C语言的主要组成部分</h4>
+        <ul>
+          <li class="green fly-in fly-out">由一个或多个函数组成（必须且只能有一个<code>main</code>函数）</li>
+          <li class="blue fly-in fly-out">多个函数可以分在多个源程序文件中</li>
+          <li class="green fly-in fly-out">编译（compile）是以源程序文件为对象，最后链接（link）成为一个二进制可执行的程序</li>
+          <li class="blue fly-in fly-out">模块化的程序设计</li>
+          <li class="green fly-in fly-out">函数可以是自己写的，也可以是标准库中，或者其他人/公司提供的</li>
+        </ul>
+      </div>
+
+      <div class="step slide" data-x="5000" data-y="3200" data-rotate="0">
+        <h4>(3)、函数包括两个部分：</h4>
+        <ul>
+          <li>函数头（首）</li>
+          <li>函数体
+            <ul>
+              <li>声明部分</li>
+              <li>执行部分</li>
+            </ul>
+          </li>
+        </ul>
+        <pre><code class="C" data-trim >float max2(float a, float b)  //函数头
+{               //函数体开始
+  float z;      //声明部分
+  if( a > b )   //执行部分
+    z = a;
+  else
+    z = b;
+  return z;
+}               //函数体结束</code></pre>
+      </div>
+
+      <div class="step slide" data-x="6000" data-y="3200" data-rotate="0">
+        <h4 class="fade-in fade-out">(4). 函数总是从<code>main</code>函数开始执行</h4>
+        <h4 class="fade-in fade-out">(5). 对计算机的操作是由函数中的C语句完成的</h4>
+        <ul>
+          <li class="fade-in fade-out">可以一行写多条C语句，用<code>;</code>来区分</li>
+          <li class="fade-in fade-out">一般建议一行只写一条，方便阅读和调试</li>
+        </ul>
+        <h4 class="fade-in fade-out">（6）C语言中输入输出都是由标准库函数来实现的</h4>
+        <h4 class="fade-in fade-out">（7）程序中应该包含注释</h4>
+      </div>
+
+      <div class="step slide title" data-x="4000" data-y="0" data-rotate="0">
+        <h2>1.5 运行C程序的步骤和方法</h2>
+      </div>
+
+      <div class="step slide" data-x="4000" data-y="-800" data-rotate="-90">
+        <ol>
+          <li class="fade-in fade-out">上机输入和编辑源程序</li>
+          <li class="fade-in fade-out">编译（compile）
+            <ul>
+              <li class="fade-in fade-out">预处理</li>
+              <li class="fade-in fade-out">检查语法错误</li>
+              <li class="fade-in fade-out">编译成目标文件（object，机器语言的二进制文件）</li>
+            </ul>
+          </li>
+          <li class="fade-in fade-out">链接（link）</li>
+          <li class="fade-in fade-out">运行，检查是否有逻辑或算法错误</li>
+        </ol>
+      </div>
+
+      <div class="step slide title" data-x="5000" data-y="0" data-rotate="0">
+        <h2>1.6 程序设计的任务</h2>
+      </div>
+
+      <div class="step slide" data-x="5000" data-y="-800" data-rotate="30">
+        <ol>
+          <li class="fade-in fade-out">问题分析，建立模型，确定输入和输出</li>
+          <li class="fade-in fade-out">设计算法</li>
+          <li class="fade-in fade-out">编写程序</li>
+          <li class="fade-in fade-out">对源程序进行编辑、编译和链接</li>
+          <li class="fade-in fade-out">运行程序，分析结果</li>
+          <li class="fade-in fade-out">编写程序文档</li>
+        </ol>
+      </div>
+
+      <div class="step slide title" data-x="6000" data-y="0" data-rotate="0">
+        <h2>练习</h2>
+      </div>
+
+      <div class="step slide" data-x="6000" data-y="-800" data-rotate="0">
+        <h3>5. 编写程序，输出下面的内容：</h3>
+        <pre>
+            **********************************
+            Very good!
+            **********************************
+            </pre>
+      </div>
+
+      <div class="step slide" data-x="5000" data-y="-800" data-rotate="0">
+        <p class="fade-in fade-out">参考答案</p>
+        <pre class="fade-in fade-out"><code class="c" data-trim>#include&lt;stdio.h&gt;
+int main(void)
+{
+  printf("**********************************\n");
+  printf("Very good!\n");
+  printf("**********************************\n");
+  return 0;
+}</code></pre>
+      </div>
+
+      <div class="step slide" data-x="6000" data-y="-1600" data-rotate="0">
+        <h3>6. 编写一个C程序，输入<code>a,b,c</code>三个浮点数，输出最大值。</h3>
+        <p class="fade-in fade-out" style="text-align: left; transition-delay: 5s">[解题思路]：设计一个求两个最大浮点数的最大值的函数 <code>max_float_2(a,b)</code>, 则求三个数最大值的算法就是<code> max_float_2(a, max_float_2(b,c))</code></p>
+      </div>
+
+      <div class="step slide" data-x="5000" data-y="-1600" data-rotate="0">
+        <pre class="fade-in fade-out"><code class="c" data-trim>#include&lt;stdio.h&gt;
+int main(void)
+{ 
+  float max_float_2(float x, float y);
+  float a, b, c, result;
+  printf("Input 3 float number:");
+  scanf("%f,%f,%f", &a, &b, &c);
+  result = max_float_2(a, max_float_2(b,c));
+  printf("The max number is %f\n", result);
+  return 0;
+}
+float max_float_2(float x, float y)
+{ 
+   if( x>y ) 
+       return x; 
+   else 
+       return y; 
+}</code></pre>
+      </div>
+
+      <div id="overview" class="step" data-x="3000" data-y="1500" data-scale="10">
       </div>
 
     </div>
