@@ -1,92 +1,355 @@
 <!DOCTYPE html>
 <html lang="zh">
 
-   <head>
-      <title>C Program Chapter 2</title>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <!--<link href="css/impress.css" rel="stylesheet">-->
-      <link rel="stylesheet" href="js/extras/highlight/styles/xt256.css">
-      <link rel="stylesheet" href="css/shake.css">
-      <link href="css/style.css" rel="stylesheet">
+  <head>
+    <title>C Program Chapter 2</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--<link href="css/impress.css" rel="stylesheet">-->
+    <link rel="stylesheet" href="js/extras/highlight/styles/xt256.css">
+    <link rel="stylesheet" href="css/shake.css">
+    <link href="css/style.css" rel="stylesheet">
+    <!-- load math show lib -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({ extensions: ["tex2jax.js"], jax: ["input/TeX","output/HTML-CSS"], tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]} });
+    </script>
 
-   </head>
+    <script src="js/mathjax/MathJax.js" async></script>
+  </head>
 
-   <body>
-      <div id="impress">
-         <div class="step " data-x="0" data-y="0" data-rotate="0" data-scale="2">
-            <h1>第二章<br> 算法--程序的灵魂</h1>
-         </div>
+  <body>
+    <div id="impress">
+      <div class="step " data-x="0" data-y="0" data-rotate="0" data-scale="2">
+        <h1 style="text-align: center">第二章<br> 算法--程序的灵魂</h1>
+      </div>
 
-         <div class="step slide" data-x="1500" data-y="0" data-rotate="0" data-scale="1">
-            <h2>2.1 算法的定义</h2>
-            <pre class="fade-in fade-out">
+      <div class="step slide" data-x="1500" data-y="0" data-rotate="0" data-scale="1">
+        <h2>2.1 算法的定义</h2>
+        <pre class="fade-in fade-out">
             <code>算法+数据结构=程序</code>
             </pre>
-            <img class="fade-in fade-out left" src="images/Nikiklaus_Wirth.jpg" alt="Nikiklaus Wirth">
-            <q class="fade-in fade-out bottom">Nikiklaus Wirth</q>
+        <img class="fade-in fade-out left" src="images/Nikiklaus_Wirth.jpg" alt="Nikiklaus Wirth">
+        <q class="fade-in fade-out bottom">Nikiklaus Wirth</q>
 
-            <p class="fade-in fade-out ">
-               数据结构： 数据的类型和数据的组织形式
-            </p>
-            <p class="fade-in fade-out ">
-               算法：为解决一个问题采取的方法和步骤。</p>
-         </div>
+        <p class="fade-in fade-out ">
+          数据结构： 数据的类型和数据的组织形式
+        </p>
+        <p class="fade-in fade-out ">
+          算法：为解决一个问题采取的方法和步骤。</p>
+      </div>
 
-         <div class="step slide" data-x="1500" data-y="800" data-rotate="0" data-scale="1">
-            <h3 style="font-size: 60px">计算机算法的分类</h3>
-            <ul>
-               <li class="fly-in fly-out green" style="font-size: 40px">数值运算算法</li>
-               <li class="fly-in fly-out blue" style="font-size: 40px; transition-delay: 1s">非数值运算算法</li>
-            </ul>
-         </div>
+      <div class="step slide" data-x="1500" data-y="800" data-rotate="0" data-scale="1">
+        <h3 style="font-size: 60px">计算机算法的分类</h3>
+        <ul>
+          <li class="fly-in fly-out green" style="font-size: 40px">数值运算算法</li>
+          <li class="fly-in fly-out blue" style="font-size: 40px; transition-delay: 1s">非数值运算算法</li>
+        </ul>
+      </div>
 
-         <div class="step slide flexbox-container" data-x="2500" data-y="0" data-rotate="0" data-scale="1">
-            <h2 style="font-size: 60px">2.2 如何表示一个算法</h2>
-         </div>
+      <div class="step slide flexbox-container" data-x="2500" data-y="0" data-rotate="0" data-scale="1">
+        <h2 style="font-size: 60px">2.2 如何表示一个算法</h2>
+      </div>
 
-         <div class="step " data-x="2500" data-y="800" data-rotate="0" data-scale="1">
-            <h3>2.2.1 自然语言表示</h3>
-            <hr>
-            <ul>
-               <li class="fly-in fly-out red">不精确</li>
-               <li class="fly-in fly-out red">不方便</li>
-            </ul>
-         </div>
+      <div class="step slide" data-x="2500" data-y="800" data-rotate="0" data-scale="1">
+        <h3>2.2.1 自然语言表示</h3>
+        <hr>
+        <ul>
+          <li class="fly-in fly-out red">不精确</li>
+          <li class="fly-in fly-out red">不方便</li>
+        </ul>
+      </div>
 
-         <div class="step " data-x="2500" data-y="1200" data-rotate="0" data-scale="1">
-            <h3>2.2.2 流程图表示</h3>
-            <hr>
-            <img class="zoom-in zoom-out center" src="images/fig2_3.png" alt="流程图常用符号">
-         </div>
+      <div class="step slide" data-x="2500" data-y="1600" data-rotate="0" data-scale="1">
+        <h3>2.2.2 流程图表示</h3>
+        <hr>
+        <img class="fade-in fade-out center" src="images/fig2_3.png" alt="流程图常用符号">
+        <ol>
+          <li class="fade-in fade-out  green">直观，形象</li>
+          <li class="fade-in fade-out  red">算法复杂时，比较费时</li>
+          <li class="fade-in fade-out  red">容易写出“意大利面”式杂乱无章的代码</li>
+        </ol>
+      </div>
 
-         <div class="step " data-x="3500" data-y="1200" data-rotate="0" data-scale="1">
-            <p >例2.1 求：<code>1*2*3*4*5</code></p>
-         </div>
+      <div class="step " data-x="3500" data-y="1600" data-rotate="0" data-scale="1">
+        <p>例2.1 求：<code>1*2*3*4*5</code></p>
+      </div>
 
-         <div class="step " data-x="3100" data-y="1400" data-rotate="0" data-scale="1">
-            <img class="fade-in" src="images/fig2_6.png" alt="例2.1解法1" >
-         </div>
+      <div class="step " data-x="4100" data-y="1300" data-rotate="0" data-scale="1">
+        <img class="fade-in" src="images/fig2_6.png" alt="例2.1解法1">
+      </div>
 
-         <div class="step " data-x="3400" data-y="1500" data-rotate="0" data-scale="1">
-            <img class="fade-in" src="images/fig2_5_1.png" alt="例2.1解法1" >
-            <img class="fade-in" src="images/fig2_5_2.png" alt="例2.1解法1" >
-         </div>
+      <div class="step " data-x="3400" data-y="1300" data-rotate="0" data-scale="1">
+        <img class="fade-in" src="images/fig2_5_1.png" alt="例2.1解法1">
+        <img class="fade-in" src="images/fig2_5_2.png" alt="例2.1解法1">
+      </div>
 
-         <div class="step " data-x="4000" data-y="1200" data-rotate="0" data-scale="1">
-            <img class="fade-in" src="images/fig2_7.png" alt="例2.1解法1" >
-         </div>
+      <div class="step " data-x="4450" data-y="1300" data-rotate="0" data-scale="1">
+        <img class="fade-in" src="images/fig2_7.png" alt="例2.1解法1">
+      </div>
 
-         </div>
+      <div class="step " data-x="3400" data-y="1900" data-rotate="0" data-scale="1">
+        <h3>控制结构三种类型：<b class="red">顺序</b>，<b class="green">条件跳转</b>，<b class="blue">循环</b></h3>
+      </div>
+
+      <div class="step slide" data-x="3400" data-y="2500" data-rotate="0" data-scale="1">
+        <p>例2.2 判定一个年份是否是闰年</p>
+        <hr>
+        <p class="fade-in">[解题思路]：设要判断的年份存在变量year中，其是闰年的判断依据是</p>
+        <ol>
+          <li class="fade-in  green">能被4整除，但不能被100整除的是闰年，如2008， 1996</li>
+          <li class="fade-in  blue">或者，能被400整除的是闰年， 如2000</li>
+          <li class="fade-in  green">其他情况下都是非闰年， 如2100</li>
+          <li class="fade-in  blue">判断能被400整除必然能被4整除，所以先判断400，再判断4</li>
+        </ol>
+      </div>
+
+      <div class="step" data-x="3040" data-y="2500" data-rotate="0" data-scale="1">
+        <img class="fade-in fade-out" src="images/fig2_1.png" alt="例2.2解法" width="600px" height="600px">
+      </div>
+
+      <div class="step slide" data-x="2500" data-y="2400" data-rotate="0" data-scale="1">
+        <h4>2.2.3 N-S流程图</h4>
+        <hr>
+        <div>
+          <img class="fade-in" src="images/fig2_2.png" alt="N-S流程图">
+          <ul>
+            <li class="fade-in fade-out  green">直观、形象</li>
+            <li class="fade-in fade-out  green">紧凑、易画</li>
+            <li class="fade-in fade-out  green">结构化比传统流程图好</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step slide" data-x="1500" data-y="2400" data-rotate="0" data-scale="1">
+        <p>例2.3 求<code>n!</code>(阶乘）</p>
+        <hr>
+        <p class="fade-in" style="text-align: left">[解题思路]：设<code>n</code>是大于<code>1</code>的整数，阶乘的值保存在变量<code>factorial</code>中，可以用公式： <code>factorial=1*2*3*...*(n-1)*n</code>，这样我们可以用一个变量<code>i</code>来循环取<code>1~n</code>的值，分别把其值和<code>factorial</code>相乘，即可得到所需要的值。</p>
+      </div>
+
+      <div class="step " data-x="1750" data-y="2580" data-rotate="0" data-scale="1">
+        <img class="fade-in fade-out" src="images/fig2_3_1.png" alt="例题2.3的解法">
+      </div>
+
+      <div class="step slide" data-x="1500" data-y="3200" data-rotate="0" data-scale="1">
+        <p>例2.4 给定一个年份判断是否是闰年</p>
+        <hr>
+      </div>
+
+      <div class="step " data-x="1750" data-y="3300" data-rotate="0" data-scale="1">
+        <img class="fade-in fade-out" src="images/fig2-32.png" alt="例题2.4的解法">
+      </div>
+
+      <div class="step slide" data-x="1500" data-y="4000" data-rotate="0" data-scale="1">
+        <p>例2.5 求 \( 1-\frac{1}{2}+\frac{1}{3}-\frac{1}{4}+...+\frac{1}{99}-\frac{1}{100} \). </p>
+        <hr>
+      </div>
+
+      <div class="step " data-x="1750" data-y="4100" data-rotate="0" data-scale="1">
+        <img class="fade-in fade-out" src="images/fig2-33.png" alt="例题2.5的解法">
+      </div>
+
+      <div class="step slide" data-x="2500" data-y="3200" data-rotate="0" data-scale="1">
+        <h4>2.2.4 伪代码</h4>
+        <hr>
+        <div>
+          <ul>
+            <li class="fade-in fade-out  green">介于自然语言和计算机语言，语法灵活</li>
+            <li class="fade-in fade-out  green">紧凑、修改方便</li>
+            <li class="fade-in fade-out  green">便于向计算机语言过渡</li>
+            <li class="fade-in fade-out  red">不直观，容易出现逻辑错误</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step slide" data-x="2500" data-y="4000" data-rotate="0" data-scale="1">
+        <h4>2.2.5 计算机语言表示</h4>
+        <hr>
+        <div>
+          <ul>
+            <li class="fade-in fade-out  green">直接是能编译的计算机语言，无需再编程</li>
+            <li class="fade-in fade-out  green">紧凑、修改方便</li>
+            <li class="fade-in fade-out  red">需要培训，语法规则严格</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step slide" data-x="2500" data-y="4800" data-rotate="0" data-scale="1">
+        <p>例2.6 给定一个年份判断是否是闰年</p>
+        <hr>
+        <img class="fade-in right" src="images/fig2-32.png" alt="例题2.6的NS图">
 
       </div>
 
-      <script src="js/impress.js"></script>
-      <script src="js/extras/highlight/highlight.pack.js"></script>
-      <script>
-         hljs.initHighlightingOnLoad();
-         impress().init();
-      </script>
-   </body>
+      <div class="step" data-x="2100" data-y="4900" data-rotate="0" data-scale="1">
+        <pre class="fly-in fly-out" style="height: 700px; overflow: auto; font-size: 16px"><code>#include&lt;stdio.h&gt;
+#define FALSE 0
+#define TRUE  !FALSE
+
+int main(void)
+{
+      int year, is_leap_year = FALSE;
+      printf("input year:");
+      scanf("%d", &year);
+      
+      if(year % 400 == 0)
+            is_leap_year = TRUE;
+      else
+            if( year % 4 == 0)
+                  if( year % 100 == 0)
+                        is_leap_year = FALSE ;
+                  else
+                        is_leap_year = TRUE ;
+            else
+                  is_leap_year = FALSE;
+      
+      if(is_leap_year == TRUE)
+            printf("%d is leap year.\n", year);
+      else
+            printf("%d is NOT leap year.\n", year);
+      
+      return 0;
+}</code></pre>
+      </div>
+
+      <div class="step slide" data-x="1000" data-y="5000" data-rotate="-90" data-scale="1">
+        <p>例2.7 判断一个整数是否是素数（质数）</p>
+        <hr>
+        <img class="fade-in right" src="images/fig2-35-1.png" alt="例题2.7的NS图">
+      </div>
+
+      <div class="step" data-x="1050" data-y="5000" data-rotate="-90" data-scale="1">
+        <img class="fade-in" src="images/fig2-35-2.png" alt="例题2.7的NS图">
+      </div>
+
+      <div class="step" data-x="1050" data-y="5850" data-rotate="-90" data-scale="1">
+        <pre class="fly-in fly-out" style="height: 700px; overflow: auto; font-size: 16px"><code>#include&lt;stdio.h&gt;
+#include&lt;math.h&gt;
+#define FALSE 0
+#define TRUE  !FALSE
+
+int main(void)
+{
+      int n, is_prime = TRUE, i;
+      printf("input number:");
+      scanf("%d", &n);
+      
+      i = 2;
+      while(i&lt;sqrt(n) && is_prime == TRUE ){
+            if( n % i == 0)
+                  is_prime = FALSE;
+            else
+                  i = i + 1;            
+      }
+
+      if( is_prime == TRUE )
+            printf("%d is prime number.\n", n);
+      else
+            printf("%d is NOT prime number.\n", n);
+      
+      return 0;
+}</code></pre>
+      </div>
+
+      <div class="step slide" data-x="3500" data-y="0" data-rotate="0" data-scale="1">
+        <h2>2.3 算法的特性</h2>
+        <hr>
+        <ol>
+          <li class="green fade-in fade-out">有穷性：必须是有限步骤的；</li>
+          <li class="blue fade-in fade-out">确定性：每一个步骤都是确定的，不能含糊或模棱两可</li>
+          <li class="green fade-in fade-out">有0个或多个输入</li>
+          <li class="blue fade-in fade-out">至少有1个输出</li>
+          <li class="green fade-in fade-out">有效性：能有效被执行，得到确定的结果。</li>
+        </ol>
+      </div>
+
+      <div class="step slide" data-x="4500" data-y="0" data-rotate="0" data-scale="1">
+        <h2>2.4 结构化设计方法</h2>
+        <hr>
+        <ul>
+          <li class="green fade-in fade-out">自顶向下；</li>
+          <li class="blue fade-in fade-out">逐步细化；</li>
+          <li class="green fade-in fade-out">模块化设计；</li>
+          <li class="blue fade-in fade-out">结构化编码；</li>
+        </ul>
+      </div>
+
+      <div class="step slide" data-x="5500" data-y="0" data-rotate="0" data-scale="1">
+        <h2>习题</h2>
+        <hr>
+        <h3>4.1 有两个瓶子，A放醋，B放酱油，要求将二者互换，写出流程图，N-S流程图，C语言程序</h3>
+      </div>
+
+      <div class="step " data-x="5500" data-y="300" data-rotate="0" data-scale="1">
+        <img class="fade-in" src="images/fig2-t-4-1-1.png" alt="习题4.1的流程图">
+        <img class="fade-in" src="images/fig2-t-4-1-2.png" alt="习题4.1的N-S流程图">
+      </div>
+
+      <div class="step" data-x="5850" data-y="280" data-rotate="0" data-scale="1">
+        <pre class="fly-in fly-out" style="width:450px; height: 700px; overflow: auto; font-size: 16px"><code>#include&lt;stdio.h&gt;
+#define VINEGAR   1
+#define SOY_SAUCE 2
+
+int main(void)
+{
+      int a = VINEGAR, b = SOY_SAUCE, c;
+
+      c = a; 
+      a = b;
+      b = c;      
+      
+      return 0;
+}</code></pre>
+      </div>
+
+      <div class="step slide" data-x="5500" data-y="-800" data-rotate="-90" data-scale="1">
+        <h3>4.2 依次输入10个整数，要求输出其中最大的数。写出N-S流程图和C语言程序</h3>
+      </div>
+
+      <div class="step " data-x="5500" data-y="-800" data-rotate="-90" data-scale="1">
+        <img class="fade-in" src="images/fig2-t-4-2.png" alt="习题4.2的N-S流程图">
+      </div>
+
+      <div class="step" data-x="5660" data-y="-1100" data-rotate="-90" data-scale="1">
+        <pre class="fade-in fade-out" style="width:500px; height: 700px; overflow: auto; font-size: 16px"><code>#include&lt;stdio.h&gt;
+
+int main(void)
+{
+      int a , max, i;
+
+      printf("input a number:");
+      scanf("%d", &a);
+      max = a; 
+      i = 2;
+      while( i &lt;= n){
+            printf("input a number:");
+            scanf("%d", &a);
+            if( max &lt; a)
+                 max = a;
+            i = i + 1;
+      }
+      printf("The max number is: %d\n", max);
+      return 0;
+}</code></pre>
+      </div>
+
+      <div class="step slide" data-x="5500" data-y="-1800" data-rotate="-90" data-scale="1">
+        <h3>4.5 判断一个整数能否同时被3和5整除，写出N-S流程图和C语言程序</h3>
+      </div>
+
+
+      <div id="overview" class="step" data-x="3000" data-y="1500" data-scale="10">
+      </div>
+
+    </div>
+
+    <script src="js/impress.js"></script>
+    <script src="js/extras/highlight/highlight.pack.js"></script>
+
+
+    <script>
+      hljs.initHighlightingOnLoad();
+      impress().init();
+    </script>
+  </body>
 
 </html>
