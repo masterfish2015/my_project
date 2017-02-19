@@ -336,6 +336,165 @@ int main(void)
         <h3>4.5 判断一个整数能否同时被3和5整除，写出N-S流程图和C语言程序</h3>
       </div>
 
+      <div class="step " data-x="5500" data-y="-1800" data-rotate="-90" data-scale="1">
+        <img class="fade-in" src="images/fig2-t-4-5-1.png" alt="习题4.5的N-S流程图">
+      </div>
+
+      <div class="step" data-x="5660" data-y="-2100" data-rotate="-90" data-scale="1">
+        <pre class="fade-in fade-out" style="width:550px; height: 700px; overflow: auto; font-size: 16px"><code>#include&lt;stdio.h&gt;
+
+int main(void)
+{
+      int a ;
+
+      printf("input a number:");
+      scanf("%d", &a);
+      
+      if(a % 3 == 0 && a % 5 == 0)
+        printf("%d can be divisible by 3 and 5.\n", a);
+        
+      return 0;
+}</code></pre>
+      </div>
+
+      <div class="step slide" data-x="5500" data-y="-2800" data-rotate="-90" data-scale="1">
+        <h3>4.7 求两个整数的最大公约数，N-S流程图和C语言程序</h3>
+      </div>
+
+      <div class="step " data-x="5500" data-y="-2800" data-rotate="-90" data-scale="1">
+        <img class="fade-in" src="images/fig2-t-4-7.png" alt="习题4.7的N-S流程图">
+      </div>
+
+      <div class="step" data-x="5660" data-y="-3100" data-rotate="-90" data-scale="1">
+        <pre class="fade-in fade-out" style="width:700px; height: 700px; overflow: auto; font-size: 16px"><code class="c">#include&lt;stdio.h&gt;
+
+int main()
+{
+    int m,n,i;
+    printf("input 2 integer number:");
+    scanf("%d,%d", &m, &n);
+
+    if(m==n)
+    {
+        printf("They are the same numbers.\n");
+        return -1;
+    }
+
+    if(m&gt;n)
+    {
+        int t = m;   t = n;   n = m;      m=t;
+    }
+
+    i=m;
+    while(i&gt;0)
+    {
+        if(m % i == 0 && n % i == 0)
+        {
+            printf("The greatest common divisor of %d and %d is %d", 
+               m, n, i);
+            return 0;
+        }
+        i = i - 1;
+    }
+
+    return -1;
+}</code></pre>
+      </div>
+
+      <div class="step slide" data-x="5500" data-y="-3800" data-rotate="-90" data-scale="1">
+        <h4 style="text-align: left">4.7 求\( ax^2+bx+c=0 \) 的解，分别考虑<br>【1】有两个不等实根<br>【2】有两个相等实根的情况。<br>写出N-S流程图和C语言程序</h4>
+      </div>
+
+      <div class="step " data-x="5680" data-y="-3800" data-rotate="-90" data-scale="1">
+        <img class="fade-in" src="images/fig2-t-4-8.png" alt="习题4.8的N-S流程图">
+      </div>
+
+      <div class="step" data-x="5760" data-y="-4100" data-rotate="-90" data-scale="1">
+        <pre class="fade-in fade-out" style="width:800px; height: 800px; overflow: auto; font-size: 16px"><code class="c">#include&lt;stdio.h&gt;
+#include &lt;math.h&gt;
+#define VERY_SMALL 1e-9
+
+int main()
+{
+    double a,b,c, d;
+
+    printf("input a,b,c:");
+    scanf("%lf,%lf,%lf", &a, &b, &c);
+
+    d = b*b - 4*a*c;
+
+    if(fabs(d)&lt;VERY_SMALL)
+    {
+        printf("There are 2 same roots of this equation: %f\n", -b/(2*a));
+        return 0;
+    }
+    else
+    {
+        if(d&lt;0)
+        {
+            printf("There is no REAL root of this equation.\n");
+            return 0;
+        }
+        else
+        {
+            double x1,x2;
+            x1 = (-b+sqrt(d))/(2*a);
+            x2 = (-b-sqrt(d))/(2*a);
+            printf("The real roots of this equation is:\n");
+            printf("x1 = %f\n", x1);
+            printf("x2 = %f\n", x2);
+
+        }
+    }
+    return 0;
+}</code></pre>
+      </div>
+
+      <div class="step slide" data-x="5500" data-y="-4800" data-rotate="-90" data-scale="1">
+        <h4 style="text-align: left">4.6. 用结构化设计程序，将100-200之间的素数输出，写出N-S程图和C语言程序</h4>
+      </div>
+
+      <div class="step " data-x="5600" data-y="-4800" data-rotate="-90" data-scale="1">
+        <img class="fade-in" src="images/fig2-t-4-6.png" alt="习题4.6的N-S流程图" style="width: 100%; height: 100%">
+      </div>
+
+      <div class="step" data-x="5660" data-y="-5600" data-rotate="-90" data-scale="1">
+        <pre class="fade-in fade-out" style="width:800px; height: 800px; overflow: auto; font-size: 16px"><code class="c">#include&lt;stdio.h&gt;
+#include &lt;math.h&gt;
+
+#define FALSE 0
+#define TRUE  !FALSE
+
+int prime(int n);
+
+int main()
+{
+    int m = 100;
+    while(m&lt;=200)
+    {
+        if(prime(m) == TRUE)
+            printf("%d is prime.\n", m);
+        m = m +1;
+    }
+    return 0;
+}
+
+int prime(int n)
+{
+    int sqrt_n = (int) sqrt(n);
+    int i, is_prime = TRUE;
+
+    i=2;
+    while(i&lt;=sqrt_n && is_prime==TRUE)
+    {
+        if( n % i == 0)
+            is_prime = FALSE;
+        else
+            i = i +1;
+    }
+    return is_prime;
+}</code></pre>
+      </div>
 
       <div id="overview" class="step" data-x="3000" data-y="1500" data-scale="10">
       </div>
