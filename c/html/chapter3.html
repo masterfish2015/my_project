@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+  <head>
+    <title>C Program Chapter 3</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--<link href="css/impress.css" rel="stylesheet">-->
+    <link rel="stylesheet" href="js/extras/highlight/styles/xt256.css">
+    <link rel="stylesheet" href="css/shake.css">
+    <link href="css/style.css" rel="stylesheet">
+    <!-- load math show lib -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({ extensions: ["tex2jax.js"], jax: ["input/TeX","output/HTML-CSS"], tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]} });
+    </script>
+
+    <script src="js/mathjax/MathJax.js" async></script>
+  </head>
+
+  <body>
+    <div id="impress">
+      <div class="step slide title" data-x="0" data-y="0" data-rotate="0" data-scale="1">
+        <h1 style="text-align: center">第三章<br>最简单的C程序设计<br> 顺序程序设计</h1>
+      </div>
+
+      <div class="step slide title" data-x="0" data-y="800" data-rotate="0" data-scale="1">
+        <h2 style="text-align: center">3.1 顺序程序设计举例</h2>
+      </div>
+
+      <div class="step slide " data-x="-1000" data-y="800" data-rotate="0" data-scale="1">
+        <h3 style="text-align: center">例3.1 将华氏温度转换为摄氏温度。</h3>
+        <hr>
+        <p class="fade-in fade-out">【解题思路】：根据公式，若\(f\)是华氏温度，\(c\)是摄氏温度，则有\( c = \frac{5}{9} (f-32) \)</p>
+        <img class="fly-in fly-out left" src="images/fig3-1.png" alt="fig3.1">
+        <pre class="fly-in fly-out" style="transition-delay: 2s"><code class="c">#include&lt;stdio.h&gt;
+int main(void)
+{
+    double f,c;
+    printf("input Fahrenheit:"); 
+    scanf("%lf", &f);
+
+    c = (5.0/9.0)*(f-32.0);
+    printf("The Centigrade is: %f\n", c);
+    return 0;
+}</code></pre>
+      </div>
+
+      <div class="step slide title" data-x="0" data-y="1600" data-rotate="0" data-scale="1">
+        <h2 style="text-align: center">3.2 数据的表现形式及其运算</h2>
+      </div>
+
+      <div class="step slide" data-x="-1000" data-y="1600" data-rotate="0" data-scale="1">
+        <h3>3.2.1 常量和变量</h2>
+          <h4>[1]<span class="green">常量</span>：程序运行中，其值不能被改变的量称为常量。</h4>
+          <h5>常量的<span class="blue">类型</span>
+            <ul class="fly-in fly-out">
+              <li><span class="green">整型常量</span>，如<code>10</code>，<code>010</code>(八进制，相当于十进制的<code>8</code>)，<code>0x10</code>（十六进制，相当于十进制的<code>16</code>）, <code>-34</code>等;</li>
+              <li><span class="blue">实型常量</span>，如<code>123.46</code>， <code>0.345</code>, <code>-3.</code>, <code>-.123</code>, <code>4e5</code>（相当于\(4 \times 10^5\)), <code>-.4e-5</code>(相当于\(-0.4 \times 10^{-5} \))等，注意后两个是指数形式，C语言中指数不能取小数；</li>
+              <li><span class="red">字符常量</span>，C语言中用<code>'</code>符号包括起来的符号，如<code>'A'</code>, <code>'b'</code>, <code>'#'</code>, <code>'_'</code>, <code>'\n'</code>, <code>'\\'</code>等，后面两种是转义符号，参见课本P40，表3.1，C语言在程序文件中其实并没有保存符号，而是这个字符在字符表中的序号，这个序号称为字符码，有很多种字符码，最常见的是ASCII码，参见课本附录B；</li>
+            </ul>
+          </h5>
+      </div>
+
+      <div class="step slide" data-x="-1000" data-y="1600" data-rotate="0" data-scale="1">
+        <h3>3.2.1 常量和变量</h2>
+          <h4>[1]<span class="green">常量</span>：程序运行中，其值不能被改变的量称为常量。</h4>
+          <h5>常量的<span class="blue">类型</span>
+            <ul class="fly-in fly-out">
+              <li><span class="green">字符串常量</span>，C语言中用<code>"</code>符号包含起来的内容称为字符串，如<code>"abc"</code>, <code>"123"</code>等，注意<code>"123"</code>和<code>123</code>是不同的；</li>
+              <li><span class="blue">符号常量</span>，C语言用<code>#define</code>定义的符号名称称为符号常量，如<code>#define PI 3.14159</code>, <code>#define  FALSE 0</code>等，使用符号常量而不是直接用常量字面量的好处是：
+                <ul>
+                  <li>含义清楚</li>
+                  <li>修改方便</li>
+                  <li>符号常量常用大写字母来表示</li>
+                </ul>
+              </li>
+            </ul>
+          </h5>
+      </div>
+
+      <div class="step slide" data-x="-1000" data-y="2400" data-rotate="0" data-scale="1">
+        <h3>3.2.1 常量和变量</h2>
+          <h4>[2]<span class="green">变量</span>：程序运行中，操作系统分配的具有特定属性，用来存放数据的一块内存单元，为了方便进行管理和使用，给这块内存一个名字，称为<span class="red">变量</span>。</h4>
+          <h5>变量的特性：
+            <ul class="fly-in ">
+              <li>在程序运行期间，变量的内容是可以改变的；</li>
+              <li>变量必须先<span clas="red">定义</span>再使用；</li>
+              <li>变量是有类型的；</li>
+            </ul>
+          </h5>
+      </div>
+
+      <div class="step " data-x="-580" data-y="2820" data-rotate="0" data-scale="1">
+        <pre class="fade-in fade-out" style="width:550px; height: 700px; overflow: auto; font-size: 16px"><code>#include&lt;stdio.h&gt;
+int main()
+{
+    int a = 10;
+    printf("The value of a is %d\n",a); 
+    //The value of a is 10
+    printf("The address of a is %p\n", &a); 
+    //The address of a is 0x7ffc146ce2c8
+    return 0;
+}</code></pre>
+      </div>
+
+      <div class="step slide" data-x="-1000" data-y="3200" data-rotate="0" data-scale="1">
+        <h3>3.2.1 常量和变量</h2>
+          <h4>[3]<span class="green">常变量（C99）</span>：程序运行中，定义一个变量，其值在整个运行期间不变，称为<span class="red">常变量</span>。</h4>
+          <pre><code>const double pi = 3.14159 ;
+#define PI 3.14159 </code></pre>
+          <h5>常变量和符号常量的区别：
+            <ul class="fly-in ">
+              <li>符号常量用<code>#define</code>定义，是预处理指令，在编译前完成替换，运行时没有分配内存，因此无法在调试时获得其值；</li>
+              <li>符号常量具有全局作用域，有可能被其他的包含文件污染；</li>
+              <li>综合以上，建议在新的编译器中优先使用常变量来替换符号常量；</li>
+            </ul>
+          </h5>
+      </div>
+
+      <div class="step slide" data-x="-1000" data-y="4000" data-rotate="0" data-scale="1">
+        <h3>3.2.1 常量和变量</h2>
+          <h4>[4]<span class="green">标识符</span>：用来对变量、符号常量、函数、数组、类型等命名的有效字符序列，称为<span class="red">标识符（identifier)</span>。</h4>
+          <h5>
+            <ul class="fly-in fly-out">
+              <li>只能由字母（<code>a-z</code>, <code>A-Z</code>)、数字(<code>0-9</code>)、下划线(<code>_</code>)组成，第一个字符不能是数字，不能是关键字，合法的命名如如<code>sum</code>, <code>average</code>, <code>_total</code>, <code>_123</code>, <code>Class</code>, <code>student_name</code>,
+                非法的例如 <code>int</code>(关键字），<code>#33</code>（非法字符#），<code>1st</code>（不能是数字开头）等；</li>
+              <li>尽量起有意义的名称，用单词组或拼音词组来起名，中间用下划线<code>_</code>来分开；</li>
+              <li>变量名、函数名用全小写的字母，符号常量和类型名用全大写的字母；</li>
+              <li>大小写是不同的，<code>class</code>和<code>Class</code>是两个不同的标识符;</li>
+            </ul>
+          </h5>
+      </div>
+
+      <div class="step slide" data-x="-2000" data-y="1600" data-rotate="0" data-scale="1">
+        <h3>3.2.2 数据类型</h2>
+          <h4 class="fly-in fly-out">关于计算机编程语言中的类型：
+            <ul>
+              <li>数学中不考虑存储的限制，比如整数就是无限大的，但计算机中必须考虑是否在内存单元中可以放得下；</li>
+              <li>数学中的计算是可以很精确的，比如\( \frac{1}{3} \)，但是计算机中只能存储近似的值，比如<code>printf("%f",1.0/3.0)；</code> 会显示<code>0.333333</code>，只有<code>6</code>位小数精度，这是<code>float</code>的限制，为了更高的精度，可以用<code>double</code>，但不能<span class="red">无限</span>的精度；</li>
+              <li>计算机编程中的类型，其实大部分是对数据在内存中存储的安排，包括长度（占多少字节），数据保存的方式的等；</li>
+            </ul>
+          </h4>
+      </div>
+
+      <div class="step slide" data-x="-2000" data-y="2400" data-rotate="0" data-scale="1">
+        <h3>3.2.2 数据类型</h2>
+          <h4>C语言中的类型：
+            <ul>
+              <li>基本类型：
+                <ul>
+                  <li class="fly-in fly-out">整数类型
+                    <ul>
+                      <li>基本整数类型(int)</li>
+                      <li>短整数类型(short int)</li>
+                      <li>长整数类型(long int)</li>
+                      <li>双长整数类型（c99）(long long int)</li>
+                      <li>字符型(char)</li>
+                      <li>布尔型（c99）(bool)</li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </h4>
+      </div>
+
+      <div class="step slide" data-x="-2000" data-y="2400" data-rotate="0" data-scale="1">
+        <h3>3.2.2 数据类型</h2>
+          <h4>C语言中的类型：
+            <ul>
+              <li>基本类型：
+                <ul>
+                  <li class="fly-in fly-out">浮点类型
+                    <ul>
+                      <li>单精度（float)</li>
+                      <li>双精度（double)</li>
+                      <li>复数类型
+                        <ul>
+                          <li>float_complex</li>
+                          <li>double_complex</li>
+                          <li>long double_complex</li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+
+            </ul>
+          </h4>
+      </div>
+
+      <div class="step slide" data-x="-2000" data-y="3200" data-rotate="0" data-scale="1">
+        <h3>3.2.2 数据类型</h2>
+          <h4>C语言中的类型：
+            <ul class="fly-in fly-out">
+              <li>枚举类型（enum)</li>
+              <li>空类型(void)</li>
+              <li>派生类型
+                <ul>
+                  <li>指针类型(*)</li>
+                  <li>数组类型([])</li>
+                  <li>结构体类型(struct)</li>
+                  <li>共用体类型(union)</li>
+                  <li>函数类型</li>
+                </ul>
+              </li>
+            </ul>
+          </h4>
+      </div>
+
+
+      <div class="step slide title" data-x="0" data-y="2400" data-rotate="0" data-scale="1">
+        <h2 style="text-align: center">3.3 C语句</h2>
+      </div>
+
+      <div class="step slide title" data-x="0" data-y="3200" data-rotate="0" data-scale="1">
+        <h2 style="text-align: center">3.4 数据的输入和输出</h2>
+      </div>
+
+      <div id="overview" class="step" data-x="3000" data-y="1500" data-scale="10">
+      </div>
+
+    </div>
+
+    <script src="js/impress.js"></script>
+    <script src="js/extras/highlight/highlight.pack.js"></script>
+
+
+    <script>
+      hljs.initHighlightingOnLoad();
+      impress().init();
+    </script>
+  </body>
+
+</html>
