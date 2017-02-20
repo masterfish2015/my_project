@@ -1,38 +1,38 @@
 <!DOCTYPE html>
 <html lang="zh">
 
-   <head>
-      <title>C Program Chapter 3</title>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <!--<link href="css/impress.css" rel="stylesheet">-->
-      <link rel="stylesheet" href="js/extras/highlight/styles/xt256.css">
-      <link rel="stylesheet" href="css/shake.css">
-      <link href="css/style.css" rel="stylesheet">
-      <!-- load math show lib -->
-      <script type="text/x-mathjax-config">
-         MathJax.Hub.Config({ extensions: ["tex2jax.js"], jax: ["input/TeX","output/HTML-CSS"], tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]} });
-      </script>
+  <head>
+    <title>C Program Chapter 3</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--<link href="css/impress.css" rel="stylesheet">-->
+    <link rel="stylesheet" href="js/extras/highlight/styles/xt256.css">
+    <link rel="stylesheet" href="css/shake.css">
+    <link href="css/style.css" rel="stylesheet">
+    <!-- load math show lib -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({ extensions: ["tex2jax.js"], jax: ["input/TeX","output/HTML-CSS"], tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]} });
+    </script>
 
-      <script src="js/mathjax/MathJax.js" async></script>
-   </head>
+    <script src="js/mathjax/MathJax.js" async></script>
+  </head>
 
-   <body>
-      <div id="impress">
-         <div class="step slide title" data-x="0" data-y="0" data-rotate="0" data-scale="1">
-            <h1 style="text-align: center">第三章<br>最简单的C程序设计<br> 顺序程序设计</h1>
-         </div>
+  <body>
+    <div id="impress">
+      <div class="step slide title" data-x="0" data-y="0" data-rotate="0" data-scale="1">
+        <h1 style="text-align: center">第三章<br>最简单的C程序设计<br> 顺序程序设计</h1>
+      </div>
 
-         <div class="step slide title" data-x="0" data-y="800" data-rotate="0" data-scale="1">
-            <h2 style="text-align: center">3.1 顺序程序设计举例</h2>
-         </div>
+      <div class="step slide title" data-x="0" data-y="800" data-rotate="0" data-scale="1">
+        <h2 style="text-align: center">3.1 顺序程序设计举例</h2>
+      </div>
 
-         <div class="step slide " data-x="-1000" data-y="800" data-rotate="0" data-scale="1">
-            <h3 style="text-align: center">例3.1 将华氏温度转换为摄氏温度。</h3>
-            <hr>
-            <p class="fade-in fade-out">【解题思路】：根据公式，若\(f\)是华氏温度，\(c\)是摄氏温度，则有\( c = \frac{5}{9} (f-32) \)</p>
-            <img class="fly-in fly-out left" src="images/fig3-1.png" alt="fig3.1">
-            <pre class="fly-in fly-out" style="transition-delay: 2s"><code class="c">#include&lt;stdio.h&gt;
+      <div class="step slide " data-x="-1000" data-y="800" data-rotate="0" data-scale="1">
+        <h3 style="text-align: center">例3.1 将华氏温度转换为摄氏温度。</h3>
+        <hr>
+        <p class="fade-in fade-out">【解题思路】：根据公式，若\(f\)是华氏温度，\(c\)是摄氏温度，则有\( c = \frac{5}{9} (f-32) \)</p>
+        <img class="fly-in fly-out left" src="images/fig3-1.png" alt="fig3.1">
+        <pre class="fly-in fly-out" style="transition-delay: 2s"><code class="c">#include&lt;stdio.h&gt;
 int main(void)
 {
     double f,c;
@@ -43,55 +43,55 @@ int main(void)
     printf("The Centigrade is: %f\n", c);
     return 0;
 }</code></pre>
-         </div>
+      </div>
 
-         <div class="step slide title" data-x="0" data-y="1600" data-rotate="0" data-scale="1">
-            <h2 style="text-align: center">3.2 数据的表现形式及其运算</h2>
-         </div>
+      <div class="step slide title" data-x="0" data-y="1600" data-rotate="0" data-scale="1">
+        <h2 style="text-align: center">3.2 数据的表现形式及其运算</h2>
+      </div>
 
-         <div class="step slide" data-x="-1000" data-y="1600" data-rotate="0" data-scale="1">
-            <h3>3.2.1 常量和变量</h3>
-            <h4>[1]<span class="green">常量</span>：程序运行中，其值不能被改变的量称为常量。</h4>
-            <h5>常量的<span class="blue">类型</span>
-               <ul class="fly-in fly-out">
-                  <li><span class="green">整型常量</span>，如<code>10</code>，<code>010</code>(八进制，相当于十进制的<code>8</code>)，<code>0x10</code>（十六进制，相当于十进制的<code>16</code>）, <code>-34</code>等;</li>
-                  <li><span class="blue">实型常量</span>，如<code>123.46</code>， <code>0.345</code>, <code>-3.</code>, <code>-.123</code>, <code>4e5</code>（相当于\(4 \times 10^5\)), <code>-.4e-5</code>(相当于\(-0.4 \times 10^{-5} \))等，注意后两个是指数形式，C语言中指数不能取小数；</li>
-                  <li><span class="red">字符常量</span>，C语言中用<code>'</code>符号包括起来的符号，如<code>'A'</code>, <code>'b'</code>, <code>'#'</code>, <code>'_'</code>, <code>'\n'</code>, <code>'\\'</code>等，后面两种是转义符号，参见课本P40，表3.1，C语言在程序文件中其实并没有保存符号，而是这个字符在字符表中的序号，这个序号称为字符码，有很多种字符码，最常见的是ASCII码，参见课本附录B；</li>
-               </ul>
-            </h5>
-         </div>
+      <div class="step slide" data-x="-1000" data-y="1600" data-rotate="0" data-scale="1">
+        <h3>3.2.1 常量和变量</h3>
+        <h4>[1]<span class="green">常量</span>：程序运行中，其值不能被改变的量称为常量。</h4>
+        <h5>常量的<span class="blue">类型</span>
+          <ul class="fly-in fly-out">
+            <li><span class="green">整型常量</span>，如<code>10</code>，<code>010</code>(八进制，相当于十进制的<code>8</code>)，<code>0x10</code>（十六进制，相当于十进制的<code>16</code>）, <code>-34</code>等;</li>
+            <li><span class="blue">实型常量</span>，如<code>123.46</code>， <code>0.345</code>, <code>-3.</code>, <code>-.123</code>, <code>4e5</code>（相当于\(4 \times 10^5\)), <code>-.4e-5</code>(相当于\(-0.4 \times 10^{-5} \))等，注意后两个是指数形式，C语言中指数不能取小数；</li>
+            <li><span class="red">字符常量</span>，C语言中用<code>'</code>符号包括起来的符号，如<code>'A'</code>, <code>'b'</code>, <code>'#'</code>, <code>'_'</code>, <code>'\n'</code>, <code>'\\'</code>等，后面两种是转义符号，参见课本P40，表3.1，C语言在程序文件中其实并没有保存符号，而是这个字符在字符表中的序号，这个序号称为字符码，有很多种字符码，最常见的是ASCII码，参见课本附录B；</li>
+          </ul>
+        </h5>
+      </div>
 
-         <div class="step slide" data-x="-1000" data-y="1600" data-rotate="0" data-scale="1">
-            <h3>3.2.1 常量和变量</h3>
-            <h4>[1]<span class="green">常量</span>：程序运行中，其值不能被改变的量称为常量。</h4>
-            <h5>常量的<span class="blue">类型</span>
-               <ul class="fly-in fly-out">
-                  <li><span class="green">字符串常量</span>，C语言中用<code>"</code>符号包含起来的内容称为字符串，如<code>"abc"</code>, <code>"123"</code>等，注意<code>"123"</code>和<code>123</code>是不同的；</li>
-                  <li><span class="blue">符号常量</span>，C语言用<code>#define</code>定义的符号名称称为符号常量，如<code>#define PI 3.14159</code>, <code>#define  FALSE 0</code>等，使用符号常量而不是直接用常量字面量的好处是：
-                     <ul>
-                        <li>含义清楚</li>
-                        <li>修改方便</li>
-                        <li>符号常量常用大写字母来表示</li>
-                     </ul>
-                  </li>
-               </ul>
-            </h5>
-         </div>
+      <div class="step slide" data-x="-1000" data-y="1600" data-rotate="0" data-scale="1">
+        <h3>3.2.1 常量和变量</h3>
+        <h4>[1]<span class="green">常量</span>：程序运行中，其值不能被改变的量称为常量。</h4>
+        <h5>常量的<span class="blue">类型</span>
+          <ul class="fly-in fly-out">
+            <li><span class="green">字符串常量</span>，C语言中用<code>"</code>符号包含起来的内容称为字符串，如<code>"abc"</code>, <code>"123"</code>等，注意<code>"123"</code>和<code>123</code>是不同的；</li>
+            <li><span class="blue">符号常量</span>，C语言用<code>#define</code>定义的符号名称称为符号常量，如<code>#define PI 3.14159</code>, <code>#define  FALSE 0</code>等，使用符号常量而不是直接用常量字面量的好处是：
+              <ul>
+                <li>含义清楚</li>
+                <li>修改方便</li>
+                <li>符号常量常用大写字母来表示</li>
+              </ul>
+            </li>
+          </ul>
+        </h5>
+      </div>
 
-         <div class="step slide" data-x="-1000" data-y="2400" data-rotate="0" data-scale="1">
-            <h3>3.2.1 常量和变量</h3>
-            <h4>[2]<span class="green">变量</span>：程序运行中，操作系统分配的具有特定属性，用来存放数据的一块内存单元，为了方便进行管理和使用，给这块内存一个名字，称为<span class="red">变量</span>。</h4>
-            <h5>变量的特性：
-               <ul class="fly-in ">
-                  <li>在程序运行期间，变量的内容是可以改变的；</li>
-                  <li>变量必须先<span clas="red">定义</span>再使用；</li>
-                  <li>变量是有类型的；</li>
-               </ul>
-            </h5>
-         </div>
+      <div class="step slide" data-x="-1000" data-y="2400" data-rotate="0" data-scale="1">
+        <h3>3.2.1 常量和变量</h3>
+        <h4>[2]<span class="green">变量</span>：程序运行中，操作系统分配的具有特定属性，用来存放数据的一块内存单元，为了方便进行管理和使用，给这块内存一个名字，称为<span class="red">变量</span>。</h4>
+        <h5>变量的特性：
+          <ul class="fly-in ">
+            <li>在程序运行期间，变量的内容是可以改变的；</li>
+            <li>变量必须先<span clas="red">定义</span>再使用；</li>
+            <li>变量是有类型的；</li>
+          </ul>
+        </h5>
+      </div>
 
-         <div class="step " data-x="-580" data-y="2820" data-rotate="0" data-scale="1">
-            <pre class="fade-in fade-out" style="width:550px; height: 700px; overflow: auto; font-size: 16px"><code>#include&lt;stdio.h&gt;
+      <div class="step " data-x="-580" data-y="2820" data-rotate="0" data-scale="1">
+        <pre class="fade-in fade-out" style="width:550px; height: 700px; overflow: auto; font-size: 16px"><code>#include&lt;stdio.h&gt;
 int main()
 {
     int a = 10;
@@ -101,273 +101,286 @@ int main()
     //The address of a is 0x7ffc146ce2c8
     return 0;
 }</code></pre>
-         </div>
+      </div>
 
-         <div class="step slide" data-x="-1000" data-y="3200" data-rotate="0" data-scale="1">
-            <h3>3.2.1 常量和变量</h3>
-            <h4>[3]<span class="green">常变量（C99）</span>：程序运行中，定义一个变量，其值在整个运行期间不变，称为<span class="red">常变量</span>。</h4>
-            <pre><code>const double pi = 3.14159 ;
+      <div class="step slide" data-x="-1000" data-y="3200" data-rotate="0" data-scale="1">
+        <h3>3.2.1 常量和变量</h3>
+        <h4>[3]<span class="green">常变量（C99）</span>：程序运行中，定义一个变量，其值在整个运行期间不变，称为<span class="red">常变量</span>。</h4>
+        <pre><code>const double pi = 3.14159 ;
 #define PI 3.14159 </code></pre>
-            <h5>常变量和符号常量的区别：
-               <ul class="fly-in ">
-                  <li>符号常量用<code>#define</code>定义，是预处理指令，在编译前完成替换，运行时没有分配内存，因此无法在调试时获得其值；</li>
-                  <li>符号常量具有全局作用域，有可能被其他的包含文件污染；</li>
-                  <li>综合以上，建议在新的编译器中优先使用常变量来替换符号常量；</li>
-               </ul>
-            </h5>
-         </div>
+        <h5>常变量和符号常量的区别：
+          <ul class="fly-in ">
+            <li>符号常量用<code>#define</code>定义，是预处理指令，在编译前完成替换，运行时没有分配内存，因此无法在调试时获得其值；</li>
+            <li>符号常量具有全局作用域，有可能被其他的包含文件污染；</li>
+            <li>综合以上，建议在新的编译器中优先使用常变量来替换符号常量；</li>
+          </ul>
+        </h5>
+      </div>
 
-         <div class="step slide" data-x="-1000" data-y="4000" data-rotate="0" data-scale="1">
-            <h3>3.2.1 常量和变量</h3>
-            <h4>[4]<span class="green">标识符</span>：用来对变量、符号常量、函数、数组、类型等命名的有效字符序列，称为<span class="red">标识符（identifier)</span>。</h4>
-            <h5>
-               <ul class="fly-in fly-out">
-                  <li>只能由字母（<code>a-z</code>, <code>A-Z</code>)、数字(<code>0-9</code>)、下划线(<code>_</code>)组成，第一个字符不能是数字，不能是关键字，合法的命名如如<code>sum</code>, <code>average</code>, <code>_total</code>, <code>_123</code>, <code>Class</code>, <code>student_name</code>,
-                     非法的例如 <code>int</code>(关键字），<code>#33</code>（非法字符#），<code>1st</code>（不能是数字开头）等；</li>
-                  <li>尽量起有意义的名称，用单词组或拼音词组来起名，中间用下划线<code>_</code>来分开；</li>
-                  <li>变量名、函数名用全小写的字母，符号常量和类型名用全大写的字母；</li>
-                  <li>大小写是不同的，<code>class</code>和<code>Class</code>是两个不同的标识符;</li>
-               </ul>
-            </h5>
-         </div>
+      <div class="step slide" data-x="-1000" data-y="4000" data-rotate="0" data-scale="1">
+        <h3>3.2.1 常量和变量</h3>
+        <h4>[4]<span class="green">标识符</span>：用来对变量、符号常量、函数、数组、类型等命名的有效字符序列，称为<span class="red">标识符（identifier)</span>。</h4>
+        <h5>
+          <ul class="fly-in fly-out">
+            <li>只能由字母（<code>a-z</code>, <code>A-Z</code>)、数字(<code>0-9</code>)、下划线(<code>_</code>)组成，第一个字符不能是数字，不能是关键字，合法的命名如如<code>sum</code>, <code>average</code>, <code>_total</code>, <code>_123</code>, <code>Class</code>, <code>student_name</code>, 非法的例如
+              <code>int</code>(关键字），<code>#33</code>（非法字符#），<code>1st</code>（不能是数字开头）等；</li>
+            <li>尽量起有意义的名称，用单词组或拼音词组来起名，中间用下划线<code>_</code>来分开；</li>
+            <li>变量名、函数名用全小写的字母，符号常量和类型名用全大写的字母；</li>
+            <li>大小写是不同的，<code>class</code>和<code>Class</code>是两个不同的标识符;</li>
+          </ul>
+        </h5>
+      </div>
 
-         <div class="step slide" data-x="-2000" data-y="1600" data-rotate="0" data-scale="1">
-            <h3>3.2.2 数据类型</h3>
-            <h4 class="fly-in fly-out">关于计算机编程语言中的类型：
-               <ul>
-                  <li>数学中不考虑存储的限制，比如整数就是无限大的，但计算机中必须考虑是否在内存单元中可以放得下；</li>
-                  <li>数学中的计算是可以很精确的，比如\( \frac{1}{3} \)，但是计算机中只能存储近似的值，比如<code>printf("%f",1.0/3.0)；</code> 会显示<code>0.333333</code>，只有<code>6</code>位小数精度，这是<code>float</code>的限制，为了更高的精度，可以用<code>double</code>，但不能<span class="red">无限</span>的精度；</li>
-                  <li>计算机编程中的类型，其实大部分是对数据在内存中存储的安排，包括长度（占多少字节），数据保存的方式的等；</li>
-               </ul>
-            </h4>
-         </div>
+      <div class="step slide" data-x="-2000" data-y="1600" data-rotate="0" data-scale="1">
+        <h3>3.2.2 数据类型</h3>
+        <h4 class="fly-in fly-out">关于计算机编程语言中的类型：
+          <ul>
+            <li>数学中不考虑存储的限制，比如整数就是无限大的，但计算机中必须考虑是否在内存单元中可以放得下；</li>
+            <li>数学中的计算是可以很精确的，比如\( \frac{1}{3} \)，但是计算机中只能存储近似的值，比如<code>printf("%f",1.0/3.0)；</code> 会显示<code>0.333333</code>，只有<code>6</code>位小数精度，这是<code>float</code>的限制，为了更高的精度，可以用<code>double</code>，但不能<span class="red">无限</span>的精度；</li>
+            <li>计算机编程中的类型，其实大部分是对数据在内存中存储的安排，包括长度（占多少字节），数据保存的方式的等；</li>
+          </ul>
+        </h4>
+      </div>
 
-         <div class="step slide" data-x="-2000" data-y="2400" data-rotate="0" data-scale="1">
-            <h3>3.2.2 数据类型</h3>
-            <h4>C语言中的类型：
-               <ul>
-                  <li>基本类型：
-                     <ul>
-                        <li class="fly-in fly-out">整数类型
-                           <ul>
-                              <li>基本整数类型(int)</li>
-                              <li>短整数类型(short int)</li>
-                              <li>长整数类型(long int)</li>
-                              <li>双长整数类型（c99）(long long int)</li>
-                              <li>字符型(char)</li>
-                              <li>布尔型（c99）(bool)</li>
-                           </ul>
-                        </li>
-                     </ul>
-                  </li>
-               </ul>
-            </h4>
-         </div>
+      <div class="step slide" data-x="-2000" data-y="2400" data-rotate="0" data-scale="1">
+        <h3>3.2.2 数据类型</h3>
+        <h4>C语言中的类型：
+          <ul>
+            <li>基本类型：
+              <ul>
+                <li class="fly-in fly-out">整数类型
+                  <ul>
+                    <li>基本整数类型(int)</li>
+                    <li>短整数类型(short int)</li>
+                    <li>长整数类型(long int)</li>
+                    <li>双长整数类型（c99）(long long int)</li>
+                    <li>字符型(char)</li>
+                    <li>布尔型（c99）(bool)</li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </h4>
+      </div>
 
-         <div class="step slide" data-x="-2000" data-y="2400" data-rotate="0" data-scale="1">
-            <h3>3.2.2 数据类型</h3>
-            <h4>C语言中的类型：
-               <ul>
-                  <li>基本类型：
-                     <ul>
-                        <li class="fly-in fly-out">浮点类型
-                           <ul>
-                              <li>单精度（float)</li>
-                              <li>双精度（double)</li>
-                              <li>复数类型
-                                 <ul>
-                                    <li>float_complex</li>
-                                    <li>double_complex</li>
-                                    <li>long double_complex</li>
-                                 </ul>
-                              </li>
-                           </ul>
-                        </li>
-                     </ul>
-                  </li>
+      <div class="step slide" data-x="-2000" data-y="2400" data-rotate="0" data-scale="1">
+        <h3>3.2.2 数据类型</h3>
+        <h4>C语言中的类型：
+          <ul>
+            <li>基本类型：
+              <ul>
+                <li class="fly-in fly-out">浮点类型
+                  <ul>
+                    <li>单精度（float)</li>
+                    <li>双精度（double)</li>
+                    <li>复数类型
+                      <ul>
+                        <li>float_complex</li>
+                        <li>double_complex</li>
+                        <li>long double_complex</li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
 
-               </ul>
-            </h4>
-         </div>
+          </ul>
+        </h4>
+      </div>
 
-         <div class="step slide" data-x="-2000" data-y="3200" data-rotate="0" data-scale="1">
-            <h3>3.2.2 数据类型</h3>
-            <h4>C语言中的类型：
-               <ul class="fly-in fly-out">
-                  <li>枚举类型（enum)</li>
-                  <li>空类型(void)</li>
-                  <li>派生类型
-                     <ul>
-                        <li>指针类型(*)</li>
-                        <li>数组类型([])</li>
-                        <li>结构体类型(struct)</li>
-                        <li>共用体类型(union)</li>
-                        <li>函数类型</li>
-                     </ul>
-                  </li>
-               </ul>
-            </h4>
-         </div>
+      <div class="step slide" data-x="-2000" data-y="3200" data-rotate="0" data-scale="1">
+        <h3>3.2.2 数据类型</h3>
+        <h4>C语言中的类型：
+          <ul class="fly-in fly-out">
+            <li>枚举类型（enum)</li>
+            <li>空类型(void)</li>
+            <li>派生类型
+              <ul>
+                <li>指针类型(*)</li>
+                <li>数组类型([])</li>
+                <li>结构体类型(struct)</li>
+                <li>共用体类型(union)</li>
+                <li>函数类型</li>
+              </ul>
+            </li>
+          </ul>
+        </h4>
+      </div>
 
-         <div class="step slide title" data-x="-3000" data-y="1600" data-rotate="0" data-scale="1">
-            <h3>3.2.3 整型数据</h3>
-         </div>
+      <div class="step slide title" data-x="-3000" data-y="1600" data-rotate="0" data-scale="1">
+        <h2>3.2.3 整型数据</h2>
+      </div>
 
-         <div class="step slide" data-x="-3000" data-y="2400" data-rotate="90" data-scale="1">
-            <h4 class="fly-in fly-out">3.2.3.1.整型数据的分类</h4>
-            <h5 class="fly-in fly-out">[1].基本整型(<code>int</code>)</h5>
-            <h6 class="fly-in fly-out">
-               <ul>
-                  <li><code>int</code>具体有多少字节由编译系统来定，一般16bit（位）的系统<code>int</code>是16bit, 相当于2byte(字节），比如DOS系统下的Turbo C之类的编译器，以及16bit的单片机系统，而32bit的系统一般<code>int</code>是32bit，相当于4byte，比如visual C++ 6.0</li>
-                  <li>可以用<code>sizeof(int)</code>来计算具体环境的一个<code>int</code>变量占多少字节数</li>
-                  <li>计算机的内部存储器的一个存储单元是8bit, 相当于1个byte(一个字节)，1K（千） = 1024 (\( 2^{10} \)bytes)，1M（兆）= 1024K (\( 2^{20}\)bytes), 1G(吉）=1024M(\( 2^{30}\)bytes)</li>
-                  <li>现在的电脑一般至少2G的内存，也就是内部有\(2\times 2^{30} \)个内存单元（每个单元1字节），这些内存单元为了方便访问，都已经进行了编号，称之为<span class="blue">地址(address)</span></li>
-               </ul>
-            </h6>
-         </div>
+      <div class="step slide" data-x="-3000" data-y="2400" data-rotate="90" data-scale="1">
+        <h4 class="fly-in fly-out">3.2.3.1.整型数据的分类</h4>
+        <h5 class="fly-in fly-out">[1].基本整型(<code>int</code>)</h5>
+        <h6 class="fly-in fly-out">
+          <ul>
+            <li><code>int</code>具体有多少字节由编译系统来定，一般16bit（位）的系统<code>int</code>是16bit, 相当于2byte(字节），比如DOS系统下的Turbo C之类的编译器，以及16bit的单片机系统，而32bit的系统一般<code>int</code>是32bit，相当于4byte，比如visual C++ 6.0</li>
+            <li>可以用<code>sizeof(int)</code>来计算具体环境的一个<code>int</code>变量占多少字节数</li>
+            <li>计算机的内部存储器的一个存储单元是8bit, 相当于1个byte(一个字节)，1K（千） = 1024 (\( 2^{10} \)bytes)，1M（兆）= 1024K (\( 2^{20}\)bytes), 1G(吉）=1024M(\( 2^{30}\)bytes)</li>
+            <li>现在的电脑一般至少2G的内存，也就是内部有\(2\times 2^{30} \)个内存单元（每个单元1字节），这些内存单元为了方便访问，都已经进行了编号，称之为<span class="blue">地址(address)</span></li>
+          </ul>
+        </h6>
+      </div>
 
-         <div class="step slide" data-x="-4000" data-y="2400" data-rotate="90" data-scale="1">
-            <h5 class="fly-in fly-out">[1].基本整型(<code>int</code>)</h5>
-            <h6 class="fly-in fly-out">
-               <ul>
-                  <li>在计算机的存储中，一个存储器中的bit(位)保存一个二进制数的一位，如果只有一个bit，能表示的范围就是 <code>0</code>([0]<sub>2</sub>)~<code>1</code>([1]<sub>2</sub>)</li>
-                  <li>一个存储器单元是8bit，能表示的范围就是 <code>0</code>([00 00 00 00]<sub>2</sub>)~<code>255</code>([11 11 11 11]<sub>2</sub>, 也就是\(255=2^7+2^6+2^5+2^4+2^3+2^2+2^1+2^0=2^8-1\))</li>
-                  <li>一个<code>int</code>如果是16bit，能表示的范围就是 <code>0</code>([00 00 00 00 |00 00 00 00]<sub>2</sub>)~<code>65535</code>([11 11 11 11 | 11 11 11 11]<sub>2</sub>, 也就是\(2^{16}-1\))</li>
-                  <li>一个<code>int</code>如果是32bit，能表示的范围就是 <code>0</code>([00 00 00 00 | 00 00 00 00 | 00 00 00 00 | 00 00 00 00]<sub>2</sub>)~<code>4,294,967,295</code>([11 11 11 11 | 11 11 11 11 | 11 11 11 11 | 11 11 11 11]<sub>2</sub>, 也就是\(2^{32}-1\))</li>
-               </ul>
-            </h6>
-         </div>
+      <div class="step slide" data-x="-4000" data-y="2400" data-rotate="90" data-scale="1">
+        <h5 class="fly-in fly-out">[1].基本整型(<code>int</code>)</h5>
+        <h6 class="fly-in fly-out">
+          <ul>
+            <li>在计算机的存储中，一个存储器中的bit(位)保存一个二进制数的一位，如果只有一个bit，能表示的范围就是 <code>0</code>([0]<sub>2</sub>)~<code>1</code>([1]<sub>2</sub>)</li>
+            <li>一个存储器单元是8bit，能表示的范围就是 <code>0</code>([00 00 00 00]<sub>2</sub>)~<code>255</code>([11 11 11 11]<sub>2</sub>, 也就是\(255=2^7+2^6+2^5+2^4+2^3+2^2+2^1+2^0=2^8-1\))</li>
+            <li>一个<code>int</code>如果是16bit，能表示的范围就是 <code>0</code>([00 00 00 00 |00 00 00 00]<sub>2</sub>)~<code>65535</code>([11 11 11 11 | 11 11 11 11]<sub>2</sub>, 也就是\(2^{16}-1\))</li>
+            <li>一个<code>int</code>如果是32bit，能表示的范围就是 <code>0</code>([00 00 00 00 | 00 00 00 00 | 00 00 00 00 | 00 00 00 00]<sub>2</sub>)~<code>4,294,967,295</code>([11 11 11 11 | 11 11 11 11 | 11 11 11 11 | 11 11 11 11]<sub>2</sub>, 也就是\(2^{32}-1\))</li>
+          </ul>
+        </h6>
+      </div>
 
-         <div class="step slide" data-x="-5000" data-y="2400" data-rotate="90" data-scale="1">
-            <h5 class="fly-in fly-out">[1].基本整型(<code>int</code>)</h5>
-            <h6 class="fly-in fly-out">
-               <ul>
-                  <li>以上是当存储数据都是<span class="blue">正整数</span>的情况，但是我们需要有<span class="green">负的整数</span>，所以在实际的内存中，我们用<span class="red">最高位（最左边的那个bit）</span>来表示是否是负数，当最高位是0时，表示存储的是正数，为1时，表示存储的是负数</li>
-                  <li>这样，会导致的最大问题，是<code>0</code>的表示不唯一了，比如如果8bit的<code>int</code>, <code>+0</code>的二进制形式是[00 00 00 00 ]<sub>2</sub> , 而 <code>-0</code> 则是[10 00 00 00 ]<sub>2</sub>，这两个在计算机中是不相同的，但是数学上是相等的，所以很不方便</li>
-                  <li>解决的方法，是采用<span class="blue">补码</span>的形式来保存整数</li>
-               </ul>
-            </h6>
-         </div>
+      <div class="step slide" data-x="-5000" data-y="2400" data-rotate="90" data-scale="1">
+        <h5 class="fly-in fly-out">[1].基本整型(<code>int</code>)</h5>
+        <h6 class="fly-in fly-out">
+          <ul>
+            <li>以上是当存储数据都是<span class="blue">正整数</span>的情况，但是我们需要有<span class="green">负的整数</span>，所以在实际的内存中，我们用<span class="red">最高位（最左边的那个bit）</span>来表示是否是负数，当最高位是0时，表示存储的是正数，为1时，表示存储的是负数</li>
+            <li>这样，会导致的最大问题，是<code>0</code>的表示不唯一了，比如如果8bit的<code>int</code>, <code>+0</code>的二进制形式是[00 00 00 00 ]<sub>2</sub> , 而 <code>-0</code> 则是[10 00 00 00 ]<sub>2</sub>，这两个在计算机中是不相同的，但是数学上是相等的，所以很不方便</li>
+            <li>解决的方法，是采用<span class="blue">补码</span>的形式来保存整数</li>
+          </ul>
+        </h6>
+      </div>
 
-         <div class="step slide" data-x="-6000" data-y="2400" data-rotate="90" data-scale="1">
-            <h5 class="fly-in fly-out">[1].基本整型(<code>int</code>)</h5>
-            <h6 class="fly-in fly-out">
-               <ul>
-                  <li><span class="green">原码</span>：就是按照原来的二进制和十进制的对照来保存，比如[5]<sub>10</sub> 的二进制是[101]<sub>2</sub>，保存在8bit的存储单元就是[00 00 01 01]<sub>2</sub> </li>
-                  <li><span class="blue">反码</span>：就是按照原来的二进制把1 → 0, 把0 → 1</li>
-                  <li><span class="red">补码</span>：就是把原码变为补码后，再 + 1</li>
-                  <li>计算机在保存整数的时候，如果是<span class="blue">正数就用原码保存</span>，如果<span class="red">是负数，就变为补码来保存</span>。比如[5]<sub>10</sub>是正数，对于8bit的整数，以原码[00 00 01 01]<sub>2</sub>保存，而[-5]<sub>10</sub>是负数，先原码：[00 00 01 01]<sub>2</sub>，反码得到：[11 11 10 10]<sub>2</sub>，变为补码：[11
-                     11 10 11]<sub>2</sub>保存</li>
-                  <li>对于+0，在8bit的整数，原码存储是[00 00 00 00]<sub>2</sub> , 而对于-0，原码[00 00 00 00]<sub>2</sub>， 反码[11 11 11 11]<sub>2</sub>，变为补码：[00 00 00 00]<sub>2</sub>，可见在这种技术下，-0和+0的保存结果是一样的</li>
-                  <li>此外，[5]<sub>10</sub>+[-5]<sub>10</sub>=[00 00 01 01]<sub>2</sub>+[11 11 10 11]<sub>2</sub>=[00 00 00 00]<sub>2</sub>, 可见<span class="green">用补码保存，可以使减法变为加法</span>，使计算机的硬件得到简化。</li>
-               </ul>
-            </h6>
-         </div>
+      <div class="step slide" data-x="-6000" data-y="2400" data-rotate="90" data-scale="1">
+        <h5 class="fly-in fly-out">[1].基本整型(<code>int</code>)</h5>
+        <h6 class="fly-in fly-out">
+          <ul>
+            <li><span class="green">原码</span>：就是按照原来的二进制和十进制的对照来保存，比如[5]<sub>10</sub> 的二进制是[101]<sub>2</sub>，保存在8bit的存储单元就是[00 00 01 01]<sub>2</sub> </li>
+            <li><span class="blue">反码</span>：就是按照原来的二进制把1 → 0, 把0 → 1</li>
+            <li><span class="red">补码</span>：就是把原码变为补码后，再 + 1</li>
+            <li>计算机在保存整数的时候，如果是<span class="blue">正数就用原码保存</span>，如果<span class="red">是负数，就变为补码来保存</span>。比如[5]<sub>10</sub>是正数，对于8bit的整数，以原码[00 00 01 01]<sub>2</sub>保存，而[-5]<sub>10</sub>是负数，先原码：[00 00 01 01]<sub>2</sub>，反码得到：[11 11 10 10]<sub>2</sub>，变为补码：[11
+              11 10 11]<sub>2</sub>保存</li>
+            <li>对于+0，在8bit的整数，原码存储是[00 00 00 00]<sub>2</sub> , 而对于-0，原码[00 00 00 00]<sub>2</sub>， 反码[11 11 11 11]<sub>2</sub>，变为补码：[00 00 00 00]<sub>2</sub>，可见在这种技术下，-0和+0的保存结果是一样的</li>
+            <li>此外，[5]<sub>10</sub>+[-5]<sub>10</sub>=[00 00 01 01]<sub>2</sub>+[11 11 10 11]<sub>2</sub>=[00 00 00 00]<sub>2</sub>, 可见<span class="green">用补码保存，可以使减法变为加法</span>，使计算机的硬件得到简化。</li>
+          </ul>
+        </h6>
+      </div>
 
-         <div class="step slide" data-x="-7000" data-y="2400" data-rotate="90" data-scale="1">
-            <h5 class="fly-in fly-out">[2].短整型(<code>short int</code>)</h5>
-            <h6 class="fly-in fly-out">
-               <ul>
-                  <li><code>short int</code>可以简写为<code>short</code> </li>
-                  <li><code>short int</code>一般占内存的字节数是2~4个，看具体的编译器设定，但是有一点是肯定的，就是不会比<code>int</code>的多</li>
-                  <li>可以用<code>sizeof(short)</code>来计算具体环境的一个<code>short</code>变量占多少字节数</li>
-               </ul>
-            </h6>
-            <h5 class="fly-in fly-out">[3].长整型(<code>long int</code>)</h5>
-            <h6 class="fly-in fly-out">
-               <ul>
-                  <li><code>long int</code>可以简写为<code>long</code> </li>
-                  <li><code>long int</code>一般占内存的字节数是4~8个，看具体的编译器设定，但是有一点是肯定的，就是不会比<code>int</code>的少</li>
-                  <li>可以用<code>sizeof(long)</code>来计算具体环境的一个<code>long</code>变量占多少字节数</li>
-               </ul>
-            </h6>
-         </div>
+      <div class="step slide" data-x="-7000" data-y="2400" data-rotate="90" data-scale="1">
+        <h5 class="fly-in fly-out">[2].短整型(<code>short int</code>)</h5>
+        <h6 class="fly-in fly-out">
+          <ul>
+            <li><code>short int</code>可以简写为<code>short</code> </li>
+            <li><code>short int</code>一般占内存的字节数是2~4个，看具体的编译器设定，但是有一点是肯定的，就是不会比<code>int</code>的多</li>
+            <li>可以用<code>sizeof(short)</code>来计算具体环境的一个<code>short</code>变量占多少字节数</li>
+          </ul>
+        </h6>
+        <h5 class="fly-in fly-out">[3].长整型(<code>long int</code>)</h5>
+        <h6 class="fly-in fly-out">
+          <ul>
+            <li><code>long int</code>可以简写为<code>long</code> </li>
+            <li><code>long int</code>一般占内存的字节数是4~8个，看具体的编译器设定，但是有一点是肯定的，就是不会比<code>int</code>的少</li>
+            <li>可以用<code>sizeof(long)</code>来计算具体环境的一个<code>long</code>变量占多少字节数</li>
+          </ul>
+        </h6>
+      </div>
 
-         <div class="step slide" data-x="-8000" data-y="2400" data-rotate="90" data-scale="1">
-            <h5 class="fly-in fly-out">[4].双长整型(<code>long long int</code>)</h5>
-            <h6 class="fly-in fly-out">
-               <ul>
-                  <li><code>long long int</code>可以简写为<code>long long</code> </li>
-                  <li><code>long long int</code>一般占内存的字节数是8-16个，看具体的编译器设定，但是有一点是肯定的，就是不会比<code>long</code>的少</li>
-                  <li>可以用<code>sizeof(long long)</code>来计算具体环境的一个<code>long long</code>变量占多少字节数</li>
-               </ul>
-            </h6>
-         </div>
+      <div class="step slide" data-x="-8000" data-y="2400" data-rotate="90" data-scale="1">
+        <h5 class="fly-in fly-out">[4].双长整型(<code>long long int</code>)</h5>
+        <h6 class="fly-in fly-out">
+          <ul>
+            <li><code>long long int</code>可以简写为<code>long long</code> </li>
+            <li><code>long long int</code>一般占内存的字节数是8-16个，看具体的编译器设定，但是有一点是肯定的，就是不会比<code>long</code>的少</li>
+            <li>可以用<code>sizeof(long long)</code>来计算具体环境的一个<code>long long</code>变量占多少字节数</li>
+          </ul>
+        </h6>
+      </div>
 
-         <div class="step slide" data-x="-3000" data-y="3200" data-rotate="90" data-scale="1">
-            <h4 class="fly-in fly-out">3.2.3.2.整型数据的符号</h4>
-            <table class="fade-in fade-out" border="1" width="100%" style="font-size: 17px">
-               <tr>
-                  <th>类型</th>
-                  <th>字节数</th>
-                  <th>取值范围</th>
-               </tr>
-               <tr>
-                  <td><code>int</code></td>
-                  <td>2bytes, 16bits</td>
-                  <td>-32,767~32,767(即-2<sup>15</sup>+1 ~ 2<sup>15</sup>-1)</td>
-               </tr>
-               <tr>
-                  <td><code>int</code></td>
-                  <td>4bytes, 32bits</td>
-                  <td>-2,147,483,647~2,147,483,647(即-2<sup>31</sup>+1 ~ 2<sup>31</sup>-1)</td>
-               </tr>
-               <tr>
-                  <td><code>unsigned int</code></td>
-                  <td>2bytes, 16bits</td>
-                  <td>0~65,535(即0 ~ 2<sup>16</sup>-1)</td>
-               </tr>
-               <tr>
-                  <td><code>unsigned int</code></td>
-                  <td>4bytes, 32bits</td>
-                  <td>0~4,294,967,295(即0 ~ 2<sup>32</sup>-1)</td>
-               </tr>
-               <tr>
-                  <td><code>short</code></td>
-                  <td>2bytes, 16bits</td>
-                  <td>-32,767~32,767(即-2<sup>15</sup>+1 ~ 2<sup>15</sup>-1)</td>
-               </tr>
-               <tr>
-                  <td><code>unsigned short</code></td>
-                  <td>2bytes, 16bits</td>
-                  <td>0~65,535(即0 ~ 2<sup>16</sup>-1)</td>
-               </tr>
-               <tr>
-                  <td><code>long</code></td>
-                  <td>4bytes, 32bits</td>
-                  <td>-2,147,483,647~2,147,483,647(即-2<sup>31</sup>+1 ~ 2<sup>31</sup>-1)</td>
-               </tr>
-               <tr>
-                  <td><code>unsigned long</code></td>
-                  <td>4bytes, 32bits</td>
-                  <td>0~4,294,967,295(即0 ~ 2<sup>32</sup>-1)</td>
-               </tr>
-               <tr>
-                  <td><code>long long(c99)</code></td>
-                  <td>8bytes, 64bits</td>
-                  <td>-9,223,372,036,854,775,807~9,223,372,036,854,775,807(即-2<sup>63</sup>+1 ~ 2<sup>63</sup>-1)</td>
-               </tr>
-               <tr>
-                  <td><code>unsigned <br>long long(c99)</code></td>
-                  <td>8bytes, 64bits</td>
-                  <td>0~18,446,744,073,709,551,615(即0 ~ 2<sup>64</sup>-1)</td>
-               </tr>
-            </table>
-            
-         </div>
+      <div class="step" data-x="-3000" data-y="3300" data-rotate="90" data-scale="1">
+        <h4 class="fade-in fade-out">3.2.3.2.整型数据的符号</h4>
+        <table class="fade-in fade-out" border="1" width="100%" style="font-size: 15px; background-color:moccasin;">
+          <tr>
+            <th>类型</th>
+            <th>字节数</th>
+            <th>取值范围</th>
+            <th>常量的后缀表示</th>
+          </tr>
+          <tr>
+            <td><code>int</code></td>
+            <td>2bytes, 16bits</td>
+            <td>-32,767~32,767(即-2<sup>15</sup>+1 ~ 2<sup>15</sup>-1)</td>
+            <td>(无)</td>
+          </tr>
+          <tr>
+            <td><code>int</code></td>
+            <td>4bytes, 32bits</td>
+            <td>-2,147,483,647~2,147,483,647(即-2<sup>31</sup>+1 ~ 2<sup>31</sup>-1)</td>
+            <td>(无)</td>
+          </tr>
+          <tr>
+            <td><code>unsigned int</code></td>
+            <td>2bytes, 16bits</td>
+            <td>0~65,535(即0 ~ 2<sup>16</sup>-1)</td>
+            <td><code>345U， 345u</code></td>
+          </tr>
+          <tr>
+            <td><code>unsigned int</code></td>
+            <td>4bytes, 32bits</td>
+            <td>0~4,294,967,295(即0 ~ 2<sup>32</sup>-1)</td>
+            <td>(同上)</td>
+          </tr>
+          <tr>
+            <td><code>short</code></td>
+            <td>2bytes, 16bits</td>
+            <td>-32,767~32,767(即-2<sup>15</sup>+1 ~ 2<sup>15</sup>-1)</td>
+            <td>(无)</td>
+          </tr>
+          <tr>
+            <td><code>unsigned short</code></td>
+            <td>2bytes, 16bits</td>
+            <td>0~65,535(即0 ~ 2<sup>16</sup>-1)</td>
+            <td>(无)</td>
+          </tr>
+          <tr>
+            <td><code>long</code></td>
+            <td>4bytes, 32bits</td>
+            <td>-2,147,483,647~2,147,483,647(即-2<sup>31</sup>+1 ~ 2<sup>31</sup>-1)</td>
+            <td><code>345L， 345l</code></td>
+          </tr>
+          <tr>
+            <td><code>unsigned long</code></td>
+            <td>4bytes, 32bits</td>
+            <td>0~4,294,967,295(即0 ~ 2<sup>32</sup>-1)</td>
+            <td><code>345UL， 345ul, 345Ul, 345uL</code></td>
+          </tr>
+          <tr>
+            <td><code>long long(c99)</code></td>
+            <td>8bytes, 64bits</td>
+            <td>-9,223,372,036,854,775,807~9,223,372,036,854,775,807(即-2<sup>63</sup>+1 ~ 2<sup>63</sup>-1)</td>
+            <td><code>345LL， 345ll</code></td>
+          </tr>
+          <tr>
+            <td><code>unsigned <br>long long(c99)</code></td>
+            <td>8bytes, 64bits</td>
+            <td>0~18,446,744,073,709,551,615(即0 ~ 2<sup>64</sup>-1)</td>
+            <td><code>345ULL， 345ull, 345Ull, 345uLL</code></td>
+          </tr>
+        </table>
 
-         <div class="step slide" data-x="-4000" data-y="3200" data-rotate="90" data-scale="1">
-            <h4 class="fly-in fly-out">3.2.3.2.整型数据的符号</h4>
-            <ul class="fly-in fly-out" style="font-size: 24px">
-               <li>有符号<code>signed</code>，这个经常可以省略，比如<code>signed int</code>可以省略为<code>int</code>;</li>
-               <li>无符号<code>unsigned</code>，不可以省略，无符号的整型正数的范围比有符号的大了一倍，但是不能表示负数，无符号和有符号的类型占内存单元字节数是一样的;</li>
-               <li>计算时，要注意选取合适的类型，以免计算结果超出范围，比如<code>short a=1000*1000;</code>这个就超出范围了。计算结果a=[1，000，000]<sub>10</sub>, 转换为二进制是[‭00 00 11 11 | 01 00 00 10 | 01 00 00 00‬]<sub>2</sub>, 变成3个字节了，一般情况下short是两个字节，这时超出2字节的部分被丢弃，变成[ 01 00 00 10 | 01 00 00 00‬]<sub>2</sub>, 这个转换为十进制就是[‭16,960‬]<sub>10</sub>, 这就很荒谬了。</li>
-            </ul>
-         </div>
+      </div>
 
-         <div class="step slide" data-x="-5000" data-y="3200" data-rotate="90" data-scale="1">
-            <h4 class="fly-in fly-out">3.2.3.2.整型数据的符号</h4>
-            <pre  class="fly-in fly-out"><code>#include &lt;stdio.h&gt;
+      <div class="step slide" data-x="-4000" data-y="3300" data-rotate="90" data-scale="1">
+        <h4 class="fly-in fly-out">3.2.3.2.整型数据的符号</h4>
+        <ul class="fly-in fly-out" style="font-size: 24px">
+          <li>有符号<code>signed</code>，这个经常可以省略，比如<code>signed int</code>可以省略为<code>int</code>;</li>
+          <li>无符号<code>unsigned</code>，不可以省略，无符号的整型正数的范围比有符号的大了一倍，但是不能表示负数，无符号和有符号的类型占内存单元字节数是一样的;</li>
+          <li>计算时，要注意选取合适的类型，以免计算结果超出范围，比如<code>short a=1000*1000;</code>这个就超出范围了。计算结果a=[1，000，000]<sub>10</sub>, 转换为二进制是[‭00 00 11 11 | 01 00 00 10 | 01 00 00 00‬]<sub>2</sub>, 变成3个字节了，一般情况下short是两个字节，这时超出2字节的部分被丢弃，变成[ 01 00 00 10 | 01 00 00 00‬]<sub>2</sub>,
+            这个转换为十进制就是[‭16,960‬]
+            <sub>10</sub>, 这就很荒谬了。</li>
+        </ul>
+      </div>
+
+      <div class="step slide" data-x="-5000" data-y="3200" data-rotate="90" data-scale="1">
+        <h4 class="fly-in fly-out">3.2.3.2.整型数据的符号</h4>
+        <pre class="fly-in fly-out"><code>#include &lt;stdio.h&gt;
 
 int main(void)
 {
@@ -375,35 +388,222 @@ int main(void)
     printf("%d\n", a); //输出: 16960
     return 0;
 }</code></pre>
-         </div>
+      </div>
 
-         <div class="step slide" data-x="-5000" data-y="3200" data-rotate="90" data-scale="1">
-            <h4 class="fly-in fly-out">3.2.3.2.整型数据的符号</h4>
-            
-         </div>
-
-
-         <div class="step slide title" data-x="0" data-y="2400" data-rotate="0" data-scale="1">
-            <h2 style="text-align: center">3.3 C语句</h2>
-         </div>
-
-         <div class="step slide title" data-x="0" data-y="3200" data-rotate="0" data-scale="1">
-            <h2 style="text-align: center">3.4 数据的输入和输出</h2>
-         </div>
-
-         <div id="overview" class="step" data-x="3000" data-y="1500" data-scale="10">
-         </div>
+      <div class="step slide" data-x="-6000" data-y="3200" data-rotate="0" data-scale="1">
+        <h4 class="fly-in fade-out">3.2.3.2.整型数据的符号</h4>
+        <h5 class="fade-in fly-out">几点注意：
+          <ul>
+            <li>只有整型数才可以加<code>signed</code> 和 <code>unsigned</code>, 浮点数不行；</li>
+            <li>对于无符号型数据，在<code>scanf</code>和<code>printf</code>中用<code>%u</code>作为嵌入符, 例如：
+              <pre><code>unsigned short price=50;
+printf("%u\n", price)；</code></pre></li>
+            <li>注意无符号和有符号的变量互相赋值时，会产生问题（由于符号以补码形式保存，而无符号类型最高位不是表示符号)</li>
+          </ul>
+        </h5>
 
       </div>
 
-      <script src="js/impress.js"></script>
-      <script src="js/extras/highlight/highlight.pack.js"></script>
+      <div class="step slide title" data-x="-4000" data-y="1600" data-rotate="0" data-scale="1">
+        <h2>3.2.4 字符型数据</h2>
+      </div>
+
+      <div class="step slide " data-x="-4000" data-y="800" data-rotate="90" data-scale="1">
+        <h3>[1] 字符与字符代码</h3>
+        <h5 class="fade-in fly-out">
+          <ul>
+            <li>在C语言中，字符常量用<code>'</code>单引号来包起来，注意只有一个，比如<code>'a','#','~'</code>, 多个字符则只有第一个算，如<code>'App'</code>则只算第一个字符<code>'A'</code>, 有一种例外，就是<span class="blue">转义字符</span>, 请参见课本Page 40， 表3.1</li>
+            <li>C语言中，字符是以<span class="red">编码形式</span>保存的，具体的编码采用哪一种由你（程序员）来定，一般情况下，如果只有英文，则用ASCII（参见附录B）最为简单和省空间；</li>
+            <li>仔细观察附录B的编码，小写字母<code>a-z</code>的编码是97～122，是紧挨着的，如，<code>b</code>的编码(98)比<code>a</code>的编码(97)要大1, 两个字符可以相减，得到的就是两个ASCII码的差值， 大写字母<code>A-Z</code>编码是65～90， 所以，可以利用这个规律实现大小写字母的转换，比如<code>'A'+32 = 'a'</code>, <code>'h'-32='H'</code>, 或者 <code> 'm' = 'M'-('a'-'A')</code></li>
+          </ul>
+        </h5>
+      </div>
+
+      <div class="step slide " data-x="-4000" data-y="-200" data-rotate="90" data-scale="1">
+        <h3>[2] 字符变量</h3>
+        <h5 class="fade-in fly-out">
+          <ul>
+            <li>用<code>char</code>或者<code>signed char</code>, <code>unsigned char</code>来定义一个字符类型变量，一般情况下，这个变量占一个字节（8bit）的内存，注意<code>char</code>是signed还是unsigned是由编译器来具体决定的；</li>
+            <li>在<code>printf</code>和<code>scanf</code>中，采用<code>%c</code>来表示嵌入字符，也可以用<code>%d</code>（此时，字符类型其实是当作一个整数来用，其值就是ASCII码），如
+              <pre><code>char c='a'; 
+printf("%c : %d\n", c, c); //输出 a: 97</code></pre></li>
+            <li>对于更多的语言字符，比如中文、希腊文等，需要不止一个字节来存储其编码，C语言中可以采用<code>wchar_t</code>类型来存储<span class="red">宽字符</span>类型的字符。</li>
+          </ul>
+        </h5>
+      </div>
+
+      <div class="step slide title" data-x="-5000" data-y="1600" data-rotate="0" data-scale="1">
+        <h2>3.2.5 浮点型数据</h2>
+      </div>
+
+      <div class="step slide" data-x="-5000" data-y="800" data-rotate="90" data-scale="1">
+        <h3>[1] 浮点型数据类型</h3>
+        <h6 class="fade-in fly-out">
+          <ul>
+            <li>浮点，指小数点的位置浮动可变，比如 \(3.14159, 0.314159\times 10^1, 314.159\times 10^{-2}\)</li>
+            <li>计算机中存储浮点数，大部分是按 <span class="red"> IEEE 754标准</span>来保存的</li>
+            <li>IEEE754定义了两种基本的浮点类型：
+              <ul>
+                <li><code>float</code>单精度：4字节，有效数字6，数值范围（绝对值）：\(0，1.2\times 10^{-38}～3.4\times 10^{38} \)</li>
+                <li><code>double</code>双精度：8字节，有效数字15，数值范围（绝对值）：\(0，2.3\times 10^{-308}～1.7\times 10^{308} \)</li>
+                <li><code>long double</code>长双精度：8或16字节，有效数字15或19，数值范围（绝对值）：\(0， 2.3\times 10^{-308}～1.7\times 10^{308} \)或\(0， 3.4\times 10^{-4932}～1.1\times 10^{4932} \)</li>
+              </ul>
+            </li>
+          </ul>
+        </h6>
+      </div>
+
+      <div class="step slide" data-x="-5000" data-y="-200" data-rotate="90" data-scale="1">
+        <h3>[2] 浮点型数据在内存中的保存</h3>
+        <h6 class="fade-in fly-out">
+          <img src="images/fig3-4-1.png" alt="10进制转换为2进制" style="width: 30%;height:30%" class="right" border="1">
+          <ul>
+            <li>10进制浮点数转换为2进制的数:
+              <ul>
+                <li>整数部分：<span class="red">除2取余法</span>，最后的余数放在最前，比如: [19]<sub>10</sub>转换为 [1 00 11]<sub>2</sub></li>
+                <li>小数部分：<span class="blue">乘2取整法</span>，绝大部分无法精确表示，只能取到近似值，比如[0.5]<sub>10</sub>转换为 [1]<sub>2</sub>, [0.7]<sub>10</sub>转换为 [10 11 00]<sub>2</sub>, [0.2]<sub>10</sub>转换为 [00 11 00]<sub>2</sub></li>
+              </ul>
+            </li>
+          </ul>
+          <img src="images/fig3-4.png" alt="10进制转换为2进制" style="width: 25%;height:25%" border="1" class="left">
+          <img src="images/fig3-4-2.png" alt="10进制转换为2进制" style="width: 25%;height:25%" border="1" class="center">
+          <img src="images/fig3-4-3.png" alt="10进制转换为2进制" style="width: 25%;height:25%" border="1" class="right">
+        </h6>
+      </div>
+
+      <div class="step slide" data-x="-5000" data-y="-1200" data-rotate="90" data-scale="1">
+        <h3>[2] 浮点型数据在内存中的保存</h3>
+        <h6 class="fade-in fly-out">
+          <ul>
+            <li>IEEE 754 中 单精度 类型的存储格式:
+              <ul>
+                <li>首先第一步先把浮点十进制数转换为带小数的二进制数，并按照<span class="red">规范格式</span>来截断或补0，所谓规范格式，指的是 <span class="blue" style="font-size: 30px">[1.xxxxxx] <sub>2</sub>* 2<sup>n</sup> </span>的格式，也就是转换为2进制数后进行小数点浮动，在<span class="red">小数点左边固定为只有一位，且为1</span>，n为转换后的指数，小数点左移或者右移的
+                  <span class="red">位数</span>，如果是<span class="green">右移则n为负数</span>，<span class="blue">左移为正数</span>，关于n下面再讲，xxxxxx的具体位数由标准来定，对于单精度，是23位，如果超过则截断，如果不足则后面用0补齐，例如[19.5]<sub>10</sub>转为小数是[1 00 11.1]<sub>2</sub>, 转为规范化格式则为[1.00 11 10 00 00 00
+                  00 00 00 00 00 0]
+                  <sub>2</sub>* 2<sup>4</sup>, 实际使用的时候，最前面的<span class="red">[1.]是舍弃不保存</span>的；</li>
+                <li>对于指数n，标准规定float类型可以有8bit的空间保存指数，2<sup>8</sup>-1 = 255, 但是为了能够表示负的指数，需要将实际的<span class="red">n+127</span>来保存，这样就可以保存指数在-127～128之间的值，注意这是二进制的指数，不是十进制的；</li>
+                <li>上面的[19.5]<sub>10</sub>中的指数：n + 127 = [131]<sub>10</sub>转换为[10 00 00 11]<sub>2</sub>, 在实际的内存中，保存在上面的规范格式的23位数的左边（高位），变成：[10 00 00 11 | 00 11 10 00 00 00 00 00 00 00 00 0]<sub>2</sub> </li>
+                <li>最后，在最高位记录浮点数的正负，正为0，负为1，这样最终[19.5]<sub>10</sub>在内存中保存为<span class="blue">[ 0 | 10 00 00 11 | 00 11 10 00 00 00 00 00 00 00 00 0]<sub>2</sub></span></li>
+              </ul>
+            </li>
+          </ul>
+        </h6>
+      </div>
+
+      <div class="step slide" data-x="-5000" data-y="-2200" data-rotate="90" data-scale="1">
+        <h3>[3] 浮点型数据使用时的注意事项</h3>
+        <h6 class="fade-in fly-out">
+          <ul>
+            <li>浮点常量：<code>3.14, 3.14e-6, .5, 1., -12.33e+12</code>这些都是双精度(<code>double</code>)类型的常量，如果想要单精度(<code>float</code>)的常量，加上后缀<code>f</code>或<code>F</code>, 比如<code>3.14f, 3.14e-6F, .5f, 1.F, -12.33e+12f</code>，如果要长双精度(<code>long double</code>),
+              加上后缀
+              <code>L</code>或<code>l</code>, 比如<code>3.14L, 3.14e-6L, .5L, 1.L, -12.33e+12l</code></li>
+            <li>注意表示的范围，一般情况下，建议用<code>double</code></li>
+            <li>注意浮点不能表示无限小，除了0以外，有个绝对值的最小值，同时，由于存在近似转换，所以在比较浮点值时必须注意，比如
+              <pre><code>#include&lt;stdio.h&gt;
+int main(void)
+{
+    if(0.3 == 0.2+0.1){
+        printf("same.\n");
+    }else{
+        printf("not same.\n");
+    }
+    return 0;    //输出 not same
+}</code></pre>
+            </li>
+          </ul>
+
+        </h6>
+      </div>
+
+      <div class="step slide" data-x="-5000" data-y="-3200" data-rotate="90" data-scale="1">
+        <h3>[3] 浮点型数据使用时的注意事项</h3>
+        <h6 class="fade-in fly-out">
+          <ul>
+            <li>注意浮点不能表示无限小，除了0以外，有个绝对值的最小值，同时，由于存在近似转换，所以在比较浮点值时必须注意，比如
+              <pre><code>#include&lt;stdio.h&gt;
+#define VERY_SMALL 1e-6
+
+int main(void)
+{
+    if((0.3 -(0.2+0.1)) &lt; VERY_SMALL){
+        printf("same.\n");
+    }else{
+        printf("not same.\n");
+    }
+    return 0;  //输出 same
+}</code></pre>
+            </li>
+          </ul>
+
+        </h6>
+      </div>
+
+      <div class="step slide" data-x="-6000" data-y="1600" data-rotate="0" data-scale="1">
+        <h2>3.2.6 如何确定常量的类型</h2>
+        <h5 class="fade-in fly-out">
+          <ul>
+            <li>带有<code>' '</code>的是字符类型；</li>
+            <li>带有<code>.</code>的是浮点类型，注意缺省下浮点常量都是<code>double</code>类型的，如果要<code>float</code>则加后缀<code>f</code>, 如果要<code>long double</code>则加后缀<code>L</code>；</li>
+            <li>其他的数值类型基本是整型，注意区分<code>int</code>,<code>long</code>, <code>short</code>, <code>long long</code>, <code>unsigned</code>, <code>signed</code>以及它们之间的组合， 以及八进制整数(<code>012</code>)和十六进制整数(<code>0x1f00</code>), 这两种从类型上都是<code>unsigned</code>的；</li>
+            <li>注意类型（type）和变量（variable）的区别：
+              <ul>
+                <li>变量会分配内存空间，类型只是抽象概念；</li>
+                <li>变量可以赋值，类型不能赋值，比如<br><code>int a=10;</code>正确<br><code> int =10; </code> 错误</li>
+              </ul>
+            </li>
+          </ul>
+        </h5>
+      </div>
+
+      <div class="step slide title" data-x="-7000" data-y="1600" data-rotate="0" data-scale="1">
+        <h2>3.2.7 运算符和表达式</h2>
+      </div>
+
+      <div class="step slide " data-x="-7000" data-y="600" data-rotate="90" data-scale="1">
+        <h3>[1] 基本的算术运算符</h3>
+      </div>
+
+      <div class="step slide " data-x="-7000" data-y="-400" data-rotate="90" data-scale="1">
+        <h3>[2] 自增、自减运算符</h3>
+      </div>
+
+      <div class="step slide " data-x="-7000" data-y="-1400" data-rotate="90" data-scale="1">
+        <h3>[3] 运算符的优先级和结合性</h3>
+      </div>
+
+      <div class="step slide " data-x="-7000" data-y="-2400" data-rotate="90" data-scale="1">
+        <h3>[4] 不同类型数据之间的混合运算</h3>
+      </div>
+
+      <div class="step slide " data-x="-7000" data-y="-3400" data-rotate="90" data-scale="1">
+        <h3>[5] 强制类型转换</h3>
+      </div>
+
+      <div class="step slide " data-x="-7000" data-y="-4400" data-rotate="90" data-scale="1">
+        <h3>[6] C语言的运算符</h3>
+      </div>
+
+      <div class="step slide title" data-x="0" data-y="2400" data-rotate="0" data-scale="1">
+        <h2 style="text-align: center">3.3 C语句</h2>
+      </div>
+
+      <div class="step slide title" data-x="0" data-y="3200" data-rotate="0" data-scale="1">
+        <h2 style="text-align: center">3.4 数据的输入和输出</h2>
+      </div>
+
+      <div id="overview" class="step" data-x="0" data-y="0" data-scale="12">
+      </div>
+
+    </div>
+
+    <script src="js/impress.js"></script>
+    <script src="js/extras/highlight/highlight.pack.js"></script>
 
 
-      <script>
-         hljs.initHighlightingOnLoad();
-         impress().init();
-      </script>
-   </body>
+    <script>
+      hljs.initHighlightingOnLoad();
+      impress().init();
+    </script>
+  </body>
 
 </html>
