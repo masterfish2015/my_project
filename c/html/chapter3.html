@@ -977,6 +977,62 @@ c=(a=5)+(b=3);
 (a=b)=3*4; //注意，这是错误的</code></pre>
         </div>
 
+        <div class="step slide" data-x="6000" data-y="-1400" data-z="400" data-rotate-y="45"   data-rotate-z="150" data-scale="1">
+            <h3 class="fade-in fade-out">3.3.2 赋值语句的注意事项</h3>
+            <p class="fade-in fade-out">
+                <ul style="font-size:24px" >
+                    <li>赋值过程中的类型转换:
+                      <ul>
+                        <li>如果<code>=</code>两边的类型一致，直接进行赋值，比如:<code>int i; i=234;</code></li>
+                        <li>将<span class="green">浮点数</span>赋值给<span class="green">整型</span>变量时，先将小数部分去掉，再进行赋值，比如:<code>int i; i=3.56; // i == 3</code></li>
+                        <li>将整型数赋值给浮点变量时，先将整数变为浮点数，再进行赋值，比如:<code>float f; f=3; // f == 3.0f</code></li>
+                        <li>将<code>double</code>赋值给<code>float</code>变量时，会产生范围缩减，甚至可能溢出，比如：<pre><code class="c">float a, b;
+double c = 123.456789e100, d=3.4e-4;
+a=c; b=d;
+printf("%f\n", a);  //输出 : inf
+printf("%f\n", b);  //输出 : 0.000340</code></pre></li>
+                      </ul>
+                    </li>
+                </ul>
+            </p>
+        </div>
+
+        <div class="step slide" data-x="7000" data-y="-1600" data-z="500" data-rotate-y="45"   data-rotate-z="180" data-scale="1">
+            <h3 class="fade-in fade-out">3.3.2 赋值语句的注意事项</h3>
+            <p class="fade-in fade-out">
+                <ul style="font-size:24px" >
+                    <li>赋值过程中的类型转换:
+                      <ul>
+                        <li>将<span class="green">字符量</span>赋值给<span class="green">整型</span>变量时，是将其字符编码（一般是ASCII码）赋值给变量，比如:<code>int i; i='a'; // i == 97</code></li>
+                        <li>将字节数多的整数类型量赋值给字节数少的整数变量时，会产生截断，比如：<pre><code class="c">short int i=289; // i=289 -&gt;[00 00 00 01 | 00 10 00 01]2
+char c;
+c=i; // c=33 -&gt;[00 10 00 01]2
+int a=32768; // a=32768 -&gt;[00 00 00 00 | 00 00 00 00 | 01 11 11 11 | 11 11 11 11]2
+short int b;
+b=a+1; // b=-32768 -&gt;[10 00 00 00 | 00 00 00 00]2</code></pre></li>
+                      </ul>
+                    </li>
+                </ul>
+            </p>
+        </div>
+
+        <div class="step slide" data-x="8000" data-y="-1800" data-z="600" data-rotate-y="45"   data-rotate-z="150" data-scale="1">
+            <h3 class="fade-in fade-out">3.3.2 赋值语句的注意事项</h3>
+            <p class="fade-in fade-out">
+                <ul style="font-size:24px" >
+                    <li>赋值表达式和赋值语句:
+                      <ul>
+                        <li><span class="blue">赋值表达式</span>可以放在表达式中的任何地方，比如:<br><code>if((a=b)>0) max=a; </code>：<span class="green">正确</span></li>
+                        <li>但是<span class="blue">赋值语句</span>不能放在表达式中，比如:<br><code>if((a=b;)>0) max=a; </code>：<span class="red">错误</span></li>
+                      </ul>
+                    </li>
+                    <li>变量赋初值: <pre><code class="c">int a=3; //正确
+int b=3, c=4, d=5; //正确
+int b=c=d=3;       //错误</code></pre>变量被赋予初值不是在编译时期完成的，而是在运行时完成，也就是<code>int a=3;</code>相当于<code>int a; a=3;</code></li>
+                </ul>
+            </p>
+        </div>
+
         <div class="step slide title" data-x="0" data-y="3200" data-rotate="0" data-scale="1">
             <h2 style="text-align: center">3.4 数据的输入和输出</h2>
         </div>
