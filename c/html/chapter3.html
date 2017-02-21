@@ -1,37 +1,37 @@
 <!DOCTYPE html>
 <html lang="zh">
 
-   <head>
-      <title>C Program Chapter 3</title>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <!--<link href="css/impress.css" rel="stylesheet">-->
-      <link rel="stylesheet" href="js/extras/highlight/styles/xt256.css">
+<head>
+    <title>C Program Chapter 3</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--<link href="css/impress.css" rel="stylesheet">-->
+    <link rel="stylesheet" href="js/extras/highlight/styles/xt256.css">
 
-      <link href="css/style.css" rel="stylesheet">
-      <!-- load math show lib -->
-      <script type="text/x-mathjax-config">
-         MathJax.Hub.Config({ extensions: ["tex2jax.js"], jax: ["input/TeX","output/HTML-CSS"], tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]} });
-      </script>
+    <link href="css/style.css" rel="stylesheet">
+    <!-- load math show lib -->
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({ extensions: ["tex2jax.js"], jax: ["input/TeX","output/HTML-CSS"], tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]} });
+    </script>
 
-      <script src="js/mathjax/MathJax.js" async></script>
-   </head>
+    <script src="js/mathjax/MathJax.js" async></script>
+</head>
 
-   <body>
-
-
-      <div id="impress">
+<body>
 
 
-         <div class="step slide title" data-x="0" data-y="0" data-rotate="0" data-scale="1">
+    <div id="impress">
+
+
+        <div class="step slide title" data-x="0" data-y="0" data-rotate="0" data-scale="1">
             <h1 style="text-align: center">第三章<br>最简单的C程序设计<br> 顺序程序设计</h1>
-         </div>
+        </div>
 
-         <div class="step slide title" data-x="0" data-y="800" data-rotate="0" data-scale="1">
+        <div class="step slide title" data-x="0" data-y="800" data-rotate="0" data-scale="1">
             <h2 style="text-align: center">3.1 顺序程序设计举例</h2>
-         </div>
+        </div>
 
-         <div class="step slide " data-x="-1000" data-y="800" data-rotate="0" data-scale="1">
+        <div class="step slide " data-x="-1000" data-y="800" data-rotate="0" data-scale="1">
             <h3 style="text-align: center">例3.1 将华氏温度转换为摄氏温度。</h3>
             <hr>
             <p class="fade-in fade-out">【解题思路】：根据公式，若\(f\)是华氏温度，\(c\)是摄氏温度，则有\( c = \frac{5}{9} (f-32) \)</p>
@@ -40,20 +40,20 @@
 int main(void)
 {
     double f,c;
-    printf("input Fahrenheit:"); 
+    printf("input Fahrenheit:");
     scanf("%lf", &f);
 
     c = (5.0/9.0)*(f-32.0);
     printf("The Centigrade is: %f\n", c);
     return 0;
 }</code></pre>
-         </div>
+        </div>
 
-         <div class="step slide title" data-x="0" data-y="1600" data-rotate="0" data-scale="1">
+        <div class="step slide title" data-x="0" data-y="1600" data-rotate="0" data-scale="1">
             <h2 style="text-align: center">3.2 数据的表现形式及其运算</h2>
-         </div>
+        </div>
 
-         <div class="step slide" data-x="-1000" data-y="1600" data-rotate="0" data-scale="1">
+        <div class="step slide" data-x="-1000" data-y="1600" data-rotate="0" data-scale="1">
             <h3>3.2.1 常量和变量</h3>
             <h4>[1]<span class="green">常量</span>：程序运行中，其值不能被改变的量称为常量。</h4>
             <h5>常量的<span class="blue">类型</span>
@@ -63,9 +63,9 @@ int main(void)
                   <li><span class="red">字符常量</span>，C语言中用<code>'</code>符号包括起来的符号，如<code>'A'</code>, <code>'b'</code>, <code>'#'</code>, <code>'_'</code>, <code>'\n'</code>, <code>'\\'</code>等，后面两种是转义符号，参见课本P40，表3.1，C语言在程序文件中其实并没有保存符号，而是这个字符在字符表中的序号，这个序号称为字符码，有很多种字符码，最常见的是ASCII码，参见课本附录B；</li>
                </ul>
             </h5>
-         </div>
+        </div>
 
-         <div class="step slide" data-x="-1000" data-y="1600" data-rotate="0" data-scale="1">
+        <div class="step slide" data-x="-1000" data-y="1600" data-rotate="0" data-scale="1">
             <h3>3.2.1 常量和变量</h3>
             <h4>[1]<span class="green">常量</span>：程序运行中，其值不能被改变的量称为常量。</h4>
             <h5>常量的<span class="blue">类型</span>
@@ -80,9 +80,9 @@ int main(void)
                   </li>
                </ul>
             </h5>
-         </div>
+        </div>
 
-         <div class="step slide" data-x="-1000" data-y="2400" data-rotate="0" data-scale="1">
+        <div class="step slide" data-x="-1000" data-y="2400" data-rotate="0" data-scale="1">
             <h3>3.2.1 常量和变量</h3>
             <h4>[2]<span class="green">变量</span>：程序运行中，操作系统分配的具有特定属性，用来存放数据的一块内存单元，为了方便进行管理和使用，给这块内存一个名字，称为<span class="red">变量</span>。</h4>
             <h5>变量的特性：
@@ -92,22 +92,22 @@ int main(void)
                   <li>变量是有类型的；</li>
                </ul>
             </h5>
-         </div>
+        </div>
 
-         <div class="step " data-x="-580" data-y="2820" data-rotate="0" data-scale="1">
+        <div class="step " data-x="-580" data-y="2820" data-rotate="0" data-scale="1">
             <pre class="fade-in fade-out" style="width:550px; height: 700px; overflow: auto; font-size: 16px"><code>#include&lt;stdio.h&gt;
 int main()
 {
     int a = 10;
-    printf("The value of a is %d\n",a); 
+    printf("The value of a is %d\n",a);
     //The value of a is 10
-    printf("The address of a is %p\n", &a); 
+    printf("The address of a is %p\n", &a);
     //The address of a is 0x7ffc146ce2c8
     return 0;
 }</code></pre>
-         </div>
+        </div>
 
-         <div class="step slide" data-x="-1000" data-y="3200" data-rotate="0" data-scale="1">
+        <div class="step slide" data-x="-1000" data-y="3200" data-rotate="0" data-scale="1">
             <h3>3.2.1 常量和变量</h3>
             <h4>[3]<span class="green">常变量（C99）</span>：程序运行中，定义一个变量，其值在整个运行期间不变，称为<span class="red">常变量</span>。</h4>
             <pre><code>const double pi = 3.14159 ;
@@ -119,9 +119,9 @@ int main()
                   <li>综合以上，建议在新的编译器中优先使用常变量来替换符号常量；</li>
                </ul>
             </h5>
-         </div>
+        </div>
 
-         <div class="step slide" data-x="-1000" data-y="4000" data-rotate="0" data-scale="1">
+        <div class="step slide" data-x="-1000" data-y="4000" data-rotate="0" data-scale="1">
             <h3>3.2.1 常量和变量</h3>
             <h4>[4]<span class="green">标识符</span>：用来对变量、符号常量、函数、数组、类型等命名的有效字符序列，称为<span class="red">标识符（identifier)</span>。</h4>
             <h5>
@@ -134,9 +134,9 @@ int main()
                   <li>大小写是不同的，<code>class</code>和<code>Class</code>是两个不同的标识符;</li>
                </ul>
             </h5>
-         </div>
+        </div>
 
-         <div class="step slide" data-x="-2000" data-y="1600" data-rotate="0" data-scale="1">
+        <div class="step slide" data-x="-2000" data-y="1600" data-rotate="0" data-scale="1">
             <h3>3.2.2 数据类型</h3>
             <h4 class="fly-in fly-out">关于计算机编程语言中的类型：
                <ul>
@@ -145,9 +145,9 @@ int main()
                   <li>计算机编程中的类型，其实大部分是对数据在内存中存储的安排，包括长度（占多少字节），数据保存的方式的等；</li>
                </ul>
             </h4>
-         </div>
+        </div>
 
-         <div class="step slide" data-x="-2000" data-y="2400" data-rotate="0" data-scale="1">
+        <div class="step slide" data-x="-2000" data-y="2400" data-rotate="0" data-scale="1">
             <h3>3.2.2 数据类型</h3>
             <h4>C语言中的类型：
                <ul>
@@ -167,9 +167,9 @@ int main()
                   </li>
                </ul>
             </h4>
-         </div>
+        </div>
 
-         <div class="step slide" data-x="-2000" data-y="2400" data-rotate="0" data-scale="1">
+        <div class="step slide" data-x="-2000" data-y="2400" data-rotate="0" data-scale="1">
             <h3>3.2.2 数据类型</h3>
             <h4>C语言中的类型：
                <ul>
@@ -193,9 +193,9 @@ int main()
 
                </ul>
             </h4>
-         </div>
+        </div>
 
-         <div class="step slide" data-x="-2000" data-y="3200" data-rotate="0" data-scale="1">
+        <div class="step slide" data-x="-2000" data-y="3200" data-rotate="0" data-scale="1">
             <h3>3.2.2 数据类型</h3>
             <h4>C语言中的类型：
                <ul class="fly-in fly-out">
@@ -212,13 +212,13 @@ int main()
                   </li>
                </ul>
             </h4>
-         </div>
+        </div>
 
-         <div class="step slide title" data-x="-3000" data-y="1600" data-rotate="0" data-scale="1">
+        <div class="step slide title" data-x="-3000" data-y="1600" data-rotate="0" data-scale="1">
             <h2>3.2.3 整型数据</h2>
-         </div>
+        </div>
 
-         <div class="step slide" data-x="-3000" data-y="2400" data-rotate="90" data-scale="1">
+        <div class="step slide" data-x="-3000" data-y="2400" data-rotate="90" data-scale="1">
             <h4 class="fly-in fly-out">3.2.3.1.整型数据的分类</h4>
             <h5 class="fly-in fly-out">[1].基本整型(<code>int</code>)</h5>
             <h6 class="fly-in fly-out">
@@ -229,9 +229,9 @@ int main()
                   <li>现在的电脑一般至少2G的内存，也就是内部有\(2\times 2^{30} \)个内存单元（每个单元1字节），这些内存单元为了方便访问，都已经进行了编号，称之为<span class="blue">地址(address)</span></li>
                </ul>
             </h6>
-         </div>
+        </div>
 
-         <div class="step slide" data-x="-4000" data-y="2400" data-rotate="90" data-scale="1">
+        <div class="step slide" data-x="-4000" data-y="2400" data-rotate="90" data-scale="1">
             <h5 class="fly-in fly-out">[1].基本整型(<code>int</code>)</h5>
             <h6 class="fly-in fly-out">
                <ul>
@@ -241,9 +241,9 @@ int main()
                   <li>一个<code>int</code>如果是32bit，能表示的范围就是 <code>0</code>([00 00 00 00 | 00 00 00 00 | 00 00 00 00 | 00 00 00 00]<sub>2</sub>)~<code>4,294,967,295</code>([11 11 11 11 | 11 11 11 11 | 11 11 11 11 | 11 11 11 11]<sub>2</sub>, 也就是\(2^{32}-1\))</li>
                </ul>
             </h6>
-         </div>
+        </div>
 
-         <div class="step slide" data-x="-5000" data-y="2400" data-rotate="90" data-scale="1">
+        <div class="step slide" data-x="-5000" data-y="2400" data-rotate="90" data-scale="1">
             <h5 class="fly-in fly-out">[1].基本整型(<code>int</code>)</h5>
             <h6 class="fly-in fly-out">
                <ul>
@@ -252,9 +252,9 @@ int main()
                   <li>解决的方法，是采用<span class="blue">补码</span>的形式来保存整数</li>
                </ul>
             </h6>
-         </div>
+        </div>
 
-         <div class="step slide" data-x="-6000" data-y="2400" data-rotate="90" data-scale="1">
+        <div class="step slide" data-x="-6000" data-y="2400" data-rotate="90" data-scale="1">
             <h5 class="fly-in fly-out">[1].基本整型(<code>int</code>)</h5>
             <h6 class="fly-in fly-out">
                <ul>
@@ -267,9 +267,9 @@ int main()
                   <li>此外，[5]<sub>10</sub>+[-5]<sub>10</sub>=[00 00 01 01]<sub>2</sub>+[11 11 10 11]<sub>2</sub>=[00 00 00 00]<sub>2</sub>, 可见<span class="green">用补码保存，可以使减法变为加法</span>，使计算机的硬件得到简化。</li>
                </ul>
             </h6>
-         </div>
+        </div>
 
-         <div class="step slide" data-x="-7000" data-y="2400" data-rotate="90" data-scale="1">
+        <div class="step slide" data-x="-7000" data-y="2400" data-rotate="90" data-scale="1">
             <h5 class="fly-in fly-out">[2].短整型(<code>short int</code>)</h5>
             <h6 class="fly-in fly-out">
                <ul>
@@ -286,9 +286,9 @@ int main()
                   <li>可以用<code>sizeof(long)</code>来计算具体环境的一个<code>long</code>变量占多少字节数</li>
                </ul>
             </h6>
-         </div>
+        </div>
 
-         <div class="step slide" data-x="-8000" data-y="2400" data-rotate="90" data-scale="1">
+        <div class="step slide" data-x="-8000" data-y="2400" data-rotate="90" data-scale="1">
             <h5 class="fly-in fly-out">[4].双长整型(<code>long long int</code>)</h5>
             <h6 class="fly-in fly-out">
                <ul>
@@ -297,145 +297,145 @@ int main()
                   <li>可以用<code>sizeof(long long)</code>来计算具体环境的一个<code>long long</code>变量占多少字节数</li>
                </ul>
             </h6>
-         </div>
+        </div>
 
-         <div class="step" data-x="-3000" data-y="3300" data-rotate="90" data-scale="1">
+        <div class="step" data-x="-3000" data-y="3300" data-rotate="90" data-scale="1">
             <h4 class="fade-in fade-out">3.2.3.2.整型数据的符号</h4>
             <table class="fade-in fade-out" border="1" width="100%" style="font-size: 15px; background-color:moccasin;">
-               <tr>
-                  <th>类型</th>
-                  <th>字节数</th>
-                  <th>取值范围</th>
-                  <th>常量的后缀表示</th>
-               </tr>
-               <tr>
-                  <td><code>int</code></td>
-                  <td>2bytes, 16bits</td>
-                  <td>-32,767~32,767(即-2<sup>15</sup>+1 ~ 2<sup>15</sup>-1)</td>
-                  <td>(无)</td>
-               </tr>
-               <tr>
-                  <td><code>int</code></td>
-                  <td>4bytes, 32bits</td>
-                  <td>-2,147,483,647~2,147,483,647(即-2<sup>31</sup>+1 ~ 2<sup>31</sup>-1)</td>
-                  <td>(无)</td>
-               </tr>
-               <tr>
-                  <td><code>unsigned int</code></td>
-                  <td>2bytes, 16bits</td>
-                  <td>0~65,535(即0 ~ 2<sup>16</sup>-1)</td>
-                  <td><code>345U， 345u</code></td>
-               </tr>
-               <tr>
-                  <td><code>unsigned int</code></td>
-                  <td>4bytes, 32bits</td>
-                  <td>0~4,294,967,295(即0 ~ 2<sup>32</sup>-1)</td>
-                  <td>(同上)</td>
-               </tr>
-               <tr>
-                  <td><code>short</code></td>
-                  <td>2bytes, 16bits</td>
-                  <td>-32,767~32,767(即-2<sup>15</sup>+1 ~ 2<sup>15</sup>-1)</td>
-                  <td>(无)</td>
-               </tr>
-               <tr>
-                  <td><code>unsigned short</code></td>
-                  <td>2bytes, 16bits</td>
-                  <td>0~65,535(即0 ~ 2<sup>16</sup>-1)</td>
-                  <td>(无)</td>
-               </tr>
-               <tr>
-                  <td><code>long</code></td>
-                  <td>4bytes, 32bits</td>
-                  <td>-2,147,483,647~2,147,483,647(即-2<sup>31</sup>+1 ~ 2<sup>31</sup>-1)</td>
-                  <td><code>345L， 345l</code></td>
-               </tr>
-               <tr>
-                  <td><code>unsigned long</code></td>
-                  <td>4bytes, 32bits</td>
-                  <td>0~4,294,967,295(即0 ~ 2<sup>32</sup>-1)</td>
-                  <td><code>345UL， 345ul, 345Ul, 345uL</code></td>
-               </tr>
-               <tr>
-                  <td><code>long long(c99)</code></td>
-                  <td>8bytes, 64bits</td>
-                  <td>-9,223,372,036,854,775,807~9,223,372,036,854,775,807(即-2<sup>63</sup>+1 ~ 2<sup>63</sup>-1)</td>
-                  <td><code>345LL， 345ll</code></td>
-               </tr>
-               <tr>
-                  <td><code>unsigned <br>long long(c99)</code></td>
-                  <td>8bytes, 64bits</td>
-                  <td>0~18,446,744,073,709,551,615(即0 ~ 2<sup>64</sup>-1)</td>
-                  <td><code>345ULL， 345ull, 345Ull, 345uLL</code></td>
-               </tr>
+                <tr>
+                    <th>类型</th>
+                    <th>字节数</th>
+                    <th>取值范围</th>
+                    <th>常量的后缀表示</th>
+                </tr>
+                <tr>
+                    <td><code>int</code></td>
+                    <td>2bytes, 16bits</td>
+                    <td>-32,767~32,767(即-2<sup>15</sup>+1 ~ 2<sup>15</sup>-1)</td>
+                    <td>(无)</td>
+                </tr>
+                <tr>
+                    <td><code>int</code></td>
+                    <td>4bytes, 32bits</td>
+                    <td>-2,147,483,647~2,147,483,647(即-2<sup>31</sup>+1 ~ 2<sup>31</sup>-1)</td>
+                    <td>(无)</td>
+                </tr>
+                <tr>
+                    <td><code>unsigned int</code></td>
+                    <td>2bytes, 16bits</td>
+                    <td>0~65,535(即0 ~ 2<sup>16</sup>-1)</td>
+                    <td><code>345U， 345u</code></td>
+                </tr>
+                <tr>
+                    <td><code>unsigned int</code></td>
+                    <td>4bytes, 32bits</td>
+                    <td>0~4,294,967,295(即0 ~ 2<sup>32</sup>-1)</td>
+                    <td>(同上)</td>
+                </tr>
+                <tr>
+                    <td><code>short</code></td>
+                    <td>2bytes, 16bits</td>
+                    <td>-32,767~32,767(即-2<sup>15</sup>+1 ~ 2<sup>15</sup>-1)</td>
+                    <td>(无)</td>
+                </tr>
+                <tr>
+                    <td><code>unsigned short</code></td>
+                    <td>2bytes, 16bits</td>
+                    <td>0~65,535(即0 ~ 2<sup>16</sup>-1)</td>
+                    <td>(无)</td>
+                </tr>
+                <tr>
+                    <td><code>long</code></td>
+                    <td>4bytes, 32bits</td>
+                    <td>-2,147,483,647~2,147,483,647(即-2<sup>31</sup>+1 ~ 2<sup>31</sup>-1)</td>
+                    <td><code>345L， 345l</code></td>
+                </tr>
+                <tr>
+                    <td><code>unsigned long</code></td>
+                    <td>4bytes, 32bits</td>
+                    <td>0~4,294,967,295(即0 ~ 2<sup>32</sup>-1)</td>
+                    <td><code>345UL， 345ul, 345Ul, 345uL</code></td>
+                </tr>
+                <tr>
+                    <td><code>long long(c99)</code></td>
+                    <td>8bytes, 64bits</td>
+                    <td>-9,223,372,036,854,775,807~9,223,372,036,854,775,807(即-2<sup>63</sup>+1 ~ 2<sup>63</sup>-1)</td>
+                    <td><code>345LL， 345ll</code></td>
+                </tr>
+                <tr>
+                    <td><code>unsigned <br>long long(c99)</code></td>
+                    <td>8bytes, 64bits</td>
+                    <td>0~18,446,744,073,709,551,615(即0 ~ 2<sup>64</sup>-1)</td>
+                    <td><code>345ULL， 345ull, 345Ull, 345uLL</code></td>
+                </tr>
             </table>
 
-         </div>
+        </div>
 
-         <div class="step" data-x="-3000" data-y="3300" data-rotate="90" data-scale="1">
+        <div class="step" data-x="-3000" data-y="3300" data-rotate="90" data-scale="1">
             <h4 class="fade-in fade-out">3.2.3.2.1 C99引入的固定字节整数类型</h4>
             <table class="fade-in fade-out" border="1" width="100%" style="font-size: 15px; background-color:moccasin;">
-               <tr>
-                  <th>类型</th>
-                  <th>字节数</th>
-                  <th>取值范围</th>
-               </tr>
-               <tr>
-                  <td><code>int8_t</code></td>
-                  <td>1bytes, 8bits</td>
-                  <td>-127~127(即-2<sup>7</sup>+1 ~ 2<sup>7</sup>-1)</td>
-               </tr>
-               <tr>
-                  <td><code>int16_t</code></td>
-                  <td>2bytes, 16bits</td>
-                  <td>-32,767~32,767(即-2<sup>15</sup>+1 ~ 2<sup>15</sup>-1)</td>
-               </tr>
-               <tr>
-                  <td><code>int32_t</code></td>
-                  <td>4bytes, 32bits</td>
-                  <td>-2,147,483,647~2,147,483,647(即-2<sup>31</sup>+1 ~ 2<sup>31</sup>-1)</td>
-               </tr>
-               <tr>
-                  <td><code>int64_t</code></td>
-                  <td>8bytes, 64bits</td>
-                  <td>-9,223,372,036,854,775,807~9,223,372,036,854,775,807(即-2<sup>63</sup>+1 ~ 2<sup>63</sup>-1)</td>
-               </tr>
-               <tr>
-                  <td><code>uint8_t</code></td>
-                  <td>1bytes, 8bits</td>
-                  <td>0~255(即0 ~ 2<sup>8</sup>-1)</td>
-               </tr>
-               <tr>
-                  <td><code>uint16_t</code></td>
-                  <td>2bytes, 16bits</td>
-                  <td>0~65,535(即0 ~ 2<sup>16</sup>-1)</td>
-               </tr>
-               <tr>
-                  <td><code>uint32_t</code></td>
-                  <td>4bytes, 32bits</td>
-                  <td>0~4,294,967,295(即0 ~ 2<sup>32</sup>-1)</td>
-               </tr>
-               <tr>
-                  <td><code>uint64_t</code></td>
-                  <td>8bytes, 64bits</td>
-                  <td>0~18,446,744,073,709,551,615(即0 ~ 2<sup>64</sup>-1)</td>
-               </tr>
+                <tr>
+                    <th>类型</th>
+                    <th>字节数</th>
+                    <th>取值范围</th>
+                </tr>
+                <tr>
+                    <td><code>int8_t</code></td>
+                    <td>1bytes, 8bits</td>
+                    <td>-127~127(即-2<sup>7</sup>+1 ~ 2<sup>7</sup>-1)</td>
+                </tr>
+                <tr>
+                    <td><code>int16_t</code></td>
+                    <td>2bytes, 16bits</td>
+                    <td>-32,767~32,767(即-2<sup>15</sup>+1 ~ 2<sup>15</sup>-1)</td>
+                </tr>
+                <tr>
+                    <td><code>int32_t</code></td>
+                    <td>4bytes, 32bits</td>
+                    <td>-2,147,483,647~2,147,483,647(即-2<sup>31</sup>+1 ~ 2<sup>31</sup>-1)</td>
+                </tr>
+                <tr>
+                    <td><code>int64_t</code></td>
+                    <td>8bytes, 64bits</td>
+                    <td>-9,223,372,036,854,775,807~9,223,372,036,854,775,807(即-2<sup>63</sup>+1 ~ 2<sup>63</sup>-1)</td>
+                </tr>
+                <tr>
+                    <td><code>uint8_t</code></td>
+                    <td>1bytes, 8bits</td>
+                    <td>0~255(即0 ~ 2<sup>8</sup>-1)</td>
+                </tr>
+                <tr>
+                    <td><code>uint16_t</code></td>
+                    <td>2bytes, 16bits</td>
+                    <td>0~65,535(即0 ~ 2<sup>16</sup>-1)</td>
+                </tr>
+                <tr>
+                    <td><code>uint32_t</code></td>
+                    <td>4bytes, 32bits</td>
+                    <td>0~4,294,967,295(即0 ~ 2<sup>32</sup>-1)</td>
+                </tr>
+                <tr>
+                    <td><code>uint64_t</code></td>
+                    <td>8bytes, 64bits</td>
+                    <td>0~18,446,744,073,709,551,615(即0 ~ 2<sup>64</sup>-1)</td>
+                </tr>
             </table>
 
-         </div>
+        </div>
 
-         <div class="step slide" data-x="-4000" data-y="3300" data-rotate="90" data-scale="1">
+        <div class="step slide" data-x="-4000" data-y="3300" data-rotate="90" data-scale="1">
             <h4 class="fly-in fly-out">3.2.3.2.整型数据的符号</h4>
             <ul class="fly-in fly-out" style="font-size: 24px">
-               <li>有符号<code>signed</code>，这个经常可以省略，比如<code>signed int</code>可以省略为<code>int</code>;</li>
-               <li>无符号<code>unsigned</code>，不可以省略，无符号的整型正数的范围比有符号的大了一倍，但是不能表示负数，无符号和有符号的类型占内存单元字节数是一样的;</li>
-               <li>计算时，要注意选取合适的类型，以免计算结果超出范围，比如<code>short a=1000*1000;</code>这个就超出范围了。计算结果a=[1，000，000]<sub>10</sub>, 转换为二进制是[‭00 00 11 11 | 01 00 00 10 | 01 00 00 00‬]<sub>2</sub>, 变成3个字节了，一般情况下short是两个字节，这时超出2字节的部分被丢弃，变成[ 01 00 00 10 | 01 00 00 00‬]<sub>2</sub>,
-                  这个转换为十进制就是[‭16,960‬]
-                  <sub>10</sub>, 这就很荒谬了。</li>
+                <li>有符号<code>signed</code>，这个经常可以省略，比如<code>signed int</code>可以省略为<code>int</code>;</li>
+                <li>无符号<code>unsigned</code>，不可以省略，无符号的整型正数的范围比有符号的大了一倍，但是不能表示负数，无符号和有符号的类型占内存单元字节数是一样的;</li>
+                <li>计算时，要注意选取合适的类型，以免计算结果超出范围，比如<code>short a=1000*1000;</code>这个就超出范围了。计算结果a=[1，000，000]<sub>10</sub>, 转换为二进制是[‭00 00 11 11 | 01 00 00 10 | 01 00 00 00‬]<sub>2</sub>, 变成3个字节了，一般情况下short是两个字节，这时超出2字节的部分被丢弃，变成[ 01 00 00 10 | 01 00 00 00‬]<sub>2</sub>,
+                    这个转换为十进制就是[‭16,960‬]
+                    <sub>10</sub>, 这就很荒谬了。</li>
             </ul>
-         </div>
+        </div>
 
-         <div class="step slide" data-x="-5000" data-y="3200" data-rotate="90" data-scale="1">
+        <div class="step slide" data-x="-5000" data-y="3200" data-rotate="90" data-scale="1">
             <h4 class="fly-in fly-out">3.2.3.2.整型数据的符号</h4>
             <pre class="fly-in fly-out"><code>#include &lt;stdio.h&gt;
 
@@ -445,9 +445,9 @@ int main(void)
     printf("%d\n", a); //输出: 16960
     return 0;
 }</code></pre>
-         </div>
+        </div>
 
-         <div class="step slide" data-x="-6000" data-y="3200" data-rotate="0" data-scale="1">
+        <div class="step slide" data-x="-6000" data-y="3200" data-rotate="0" data-scale="1">
             <h4 class="fly-in fade-out">3.2.3.2.整型数据的符号</h4>
             <h5 class="fade-in fly-out">几点注意：
                <ul>
@@ -459,13 +459,13 @@ printf("%u\n", price)；</code></pre></li>
                </ul>
             </h5>
 
-         </div>
+        </div>
 
-         <div class="step slide title" data-x="-4000" data-y="1600" data-rotate="0" data-scale="1">
+        <div class="step slide title" data-x="-4000" data-y="1600" data-rotate="0" data-scale="1">
             <h2>3.2.4 字符型数据</h2>
-         </div>
+        </div>
 
-         <div class="step slide " data-x="-4000" data-y="800" data-rotate="90" data-scale="1">
+        <div class="step slide " data-x="-4000" data-y="800" data-rotate="90" data-scale="1">
             <h3>[1] 字符与字符代码</h3>
             <h5 class="fade-in fly-out">
                <ul>
@@ -475,26 +475,26 @@ printf("%u\n", price)；</code></pre></li>
                      <code> 'm' = 'M'-('a'-'A')</code></li>
                </ul>
             </h5>
-         </div>
+        </div>
 
-         <div class="step slide " data-x="-4000" data-y="-200" data-rotate="90" data-scale="1">
+        <div class="step slide " data-x="-4000" data-y="-200" data-rotate="90" data-scale="1">
             <h3>[2] 字符变量</h3>
             <h5 class="fade-in fly-out">
                <ul>
                   <li>用<code>char</code>或者<code>signed char</code>, <code>unsigned char</code>来定义一个字符类型变量，一般情况下，这个变量占一个字节（8bit）的内存，注意<code>char</code>是signed还是unsigned是由编译器来具体决定的；</li>
                   <li>在<code>printf</code>和<code>scanf</code>中，采用<code>%c</code>来表示嵌入字符，也可以用<code>%d</code>（此时，字符类型其实是当作一个整数来用，其值就是ASCII码），如
-                     <pre><code>char c='a'; 
+                     <pre><code>char c='a';
 printf("%c : %d\n", c, c); //输出 a: 97</code></pre></li>
                   <li>对于更多的语言字符，比如中文、希腊文等，需要不止一个字节来存储其编码，C语言中可以采用<code>wchar_t</code>类型来存储<span class="red">宽字符</span>类型的字符。</li>
                </ul>
             </h5>
-         </div>
+        </div>
 
-         <div class="step slide title" data-x="-5000" data-y="1600" data-rotate="0" data-scale="1">
+        <div class="step slide title" data-x="-5000" data-y="1600" data-rotate="0" data-scale="1">
             <h2>3.2.5 浮点型数据</h2>
-         </div>
+        </div>
 
-         <div class="step slide" data-x="-5000" data-y="800" data-rotate="90" data-scale="1">
+        <div class="step slide" data-x="-5000" data-y="800" data-rotate="90" data-scale="1">
             <h3>[1] 浮点型数据类型</h3>
             <h6 class="fade-in fly-out">
                <ul>
@@ -509,9 +509,9 @@ printf("%c : %d\n", c, c); //输出 a: 97</code></pre></li>
                   </li>
                </ul>
             </h6>
-         </div>
+        </div>
 
-         <div class="step slide" data-x="-5000" data-y="-200" data-rotate="90" data-scale="1">
+        <div class="step slide" data-x="-5000" data-y="-200" data-rotate="90" data-scale="1">
             <h3>[2] 浮点型数据在内存中的保存</h3>
             <h6 class="fade-in fly-out">
                <img src="images/fig3-4-1.png" alt="10进制转换为2进制" style="width: 30%;height:30%" class="right" border="1">
@@ -527,9 +527,9 @@ printf("%c : %d\n", c, c); //输出 a: 97</code></pre></li>
                <img src="images/fig3-4-2.png" alt="10进制转换为2进制" style="width: 25%;height:25%" border="1" class="center">
                <img src="images/fig3-4-3.png" alt="10进制转换为2进制" style="width: 25%;height:25%" border="1" class="right">
             </h6>
-         </div>
+        </div>
 
-         <div class="step slide" data-x="-5000" data-y="-1200" data-rotate="90" data-scale="1">
+        <div class="step slide" data-x="-5000" data-y="-1200" data-rotate="90" data-scale="1">
             <h3>[2] 浮点型数据在内存中的保存</h3>
             <h6 class="fade-in fly-out">
                <ul>
@@ -546,9 +546,9 @@ printf("%c : %d\n", c, c); //输出 a: 97</code></pre></li>
                   </li>
                </ul>
             </h6>
-         </div>
+        </div>
 
-         <div class="step slide" data-x="-5000" data-y="-2200" data-rotate="90" data-scale="1">
+        <div class="step slide" data-x="-5000" data-y="-2200" data-rotate="90" data-scale="1">
             <h3>[3] 浮点型数据使用时的注意事项</h3>
             <h6 class="fade-in fly-out">
                <ul>
@@ -571,9 +571,9 @@ int main(void)
                </ul>
 
             </h6>
-         </div>
+        </div>
 
-         <div class="step slide" data-x="-5000" data-y="-3200" data-rotate="90" data-scale="1">
+        <div class="step slide" data-x="-5000" data-y="-3200" data-rotate="90" data-scale="1">
             <h3>[3] 浮点型数据使用时的注意事项</h3>
             <h6 class="fade-in fly-out">
                <ul>
@@ -594,9 +594,9 @@ int main(void)
                </ul>
 
             </h6>
-         </div>
+        </div>
 
-         <div class="step slide" data-x="-6000" data-y="1600" data-rotate="0" data-scale="1">
+        <div class="step slide" data-x="-6000" data-y="1600" data-rotate="0" data-scale="1">
             <h2>3.2.6 如何确定常量的类型</h2>
             <h5 class="fade-in fly-out">
                <ul>
@@ -611,77 +611,79 @@ int main(void)
                   </li>
                </ul>
             </h5>
-         </div>
+        </div>
 
-         <div class="step slide title" data-x="-7000" data-y="1600" data-rotate="0" data-scale="1">
+        <div class="step slide title" data-x="-7000" data-y="1600" data-rotate="0" data-scale="1">
             <h2>3.2.7 运算符和表达式</h2>
-         </div>
+        </div>
 
-         <div class="step slide " data-x="-7000" data-y="600" data-rotate="90" data-scale="1">
+        <div class="step slide " data-x="-7000" data-y="600" data-rotate="90" data-scale="1">
             <h3>[1] 基本的算术运算符</h3>
             <table border="1" style="width: 100%; font-size: 18px">
-               <thead>
-                  <tr>
-                     <th>运算符</th>
-                     <th>含义</th>
-                     <th>举例</th>
-                     <th>结果</th>
-                  </tr>
-               </thead>
-               <tbody>
-                  <tr>
-                     <td><code>+</code></td>
-                     <td>正号（单目运算符）</td>
-                     <td><code>+a</code></td>
-                     <td>（保持<code>a</code>不变）</td>
-                  </tr>
-                  <tr>
-                     <td><code>-</code></td>
-                     <td>负号（单目运算符）</td>
-                     <td><code>-a</code></td>
-                     <td>（<code>a</code>值符号变化）</td>
-                  </tr>
-                  <tr>
-                     <td><code>*</code></td>
-                     <td>乘法（双目运算符）</td>
-                     <td><code>a*b</code></td>
-                     <td>（<code>a*b</code>的乘积，注意是否会溢出）</td>
-                  </tr>
-                  <tr>
-                     <td><code>/</code></td>
-                     <td>除法（双目运算符）</td>
-                     <td><code>a/b</code></td>
-                     <td><code>b</code>不能为0，否则会计算出一个值为无穷大：<code>INF</code><br>
-                        <code>a</code>, <code>b</code>如果都是整型，除出来的结果也是整型，比如 <code>3/5 = 0, 5/3 = 1 </code><br> 如果
-                        <code>a</code>, <code>b</code>有一个是负数，其舍入的方向由编译器来定，一般（如VC）是按<code>0</code>取整，比如<code>5/3 = 1， -5/3 = -1</code>
-                     </td>
-                  </tr>
-                  <tr>
-                     <td><code>%</code></td>
-                     <td>取余（双目运算符）</td>
-                     <td><code>a%b</code></td>
-                     <td>取余运算中a,b都必须是整型，结果是其余数，也是整型
-                     </td>
-                  </tr>
-                  <tr>
-                     <td><code>+</code></td>
-                     <td>加法（双目运算符）</td>
-                     <td><code>a+b</code></td>
-                     <td><code>a+b</code>的和，注意是否会溢出
-                     </td>
-                  </tr>
-                  <tr>
-                     <td><code>-</code></td>
-                     <td>减法（双目运算符）</td>
-                     <td><code>a-b</code></td>
-                     <td><code>a-b</code>的差，注意是否会溢出
-                     </td>
-                  </tr>
-               </tbody>
+                <thead>
+                    <tr>
+                        <th>运算符</th>
+                        <th>含义</th>
+                        <th>举例</th>
+                        <th>结果</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>+</code></td>
+                        <td>正号（单目运算符）</td>
+                        <td><code>+a</code></td>
+                        <td>（保持<code>a</code>不变）</td>
+                    </tr>
+                    <tr>
+                        <td><code>-</code></td>
+                        <td>负号（单目运算符）</td>
+                        <td><code>-a</code></td>
+                        <td>（<code>a</code>值符号变化）</td>
+                    </tr>
+                    <tr>
+                        <td><code>*</code></td>
+                        <td>乘法（双目运算符）</td>
+                        <td><code>a*b</code></td>
+                        <td>（<code>a*b</code>的乘积，注意是否会溢出）</td>
+                    </tr>
+                    <tr>
+                        <td><code>/</code></td>
+                        <td>除法（双目运算符）</td>
+                        <td><code>a/b</code></td>
+                        <td><code>b</code>不能为0，否则会计算出一个值为无穷大：<code>INF</code>
+                            <br>
+                            <code>a</code>, <code>b</code>如果都是整型，除出来的结果也是整型，比如 <code>3/5 = 0, 5/3 = 1 </code>
+                            <br> 如果
+                            <code>a</code>, <code>b</code>有一个是负数，其舍入的方向由编译器来定，一般（如VC）是按<code>0</code>取整，比如<code>5/3 = 1， -5/3 = -1</code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><code>%</code></td>
+                        <td>取余（双目运算符）</td>
+                        <td><code>a%b</code></td>
+                        <td>取余运算中a,b都必须是整型，结果是其余数，也是整型
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><code>+</code></td>
+                        <td>加法（双目运算符）</td>
+                        <td><code>a+b</code></td>
+                        <td><code>a+b</code>的和，注意是否会溢出
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><code>-</code></td>
+                        <td>减法（双目运算符）</td>
+                        <td><code>a-b</code></td>
+                        <td><code>a-b</code>的差，注意是否会溢出
+                        </td>
+                    </tr>
+                </tbody>
             </table>
-         </div>
+        </div>
 
-         <div class="step slide " data-x="-7000" data-y="-400" data-rotate="90" data-scale="1">
+        <div class="step slide " data-x="-7000" data-y="-400" data-rotate="90" data-scale="1">
             <h3>[2] 自增、自减运算符</h3>
             <h5 class="fade-in fade-out">
                <ul>
@@ -694,27 +696,27 @@ i--; // i==4
                   <li>自增、自减运算符的优点：简便，高效（相对与 <code>i++</code>(一个指令）, <code>i=i+1</code>（两个指令，先计算<code>i+1</code>, 再把结果赋值给<code>i</code>))</li>
                </ul>
             </h5>
-         </div>
+        </div>
 
-         <div class="step slide " data-x="-8000" data-y="-400" data-rotate="90" data-scale="1">
+        <div class="step slide " data-x="-8000" data-y="-400" data-rotate="90" data-scale="1">
             <h3>[2] 自增、自减运算符</h3>
             <h5 class="fade-in fade-out">
                <ul>
                   <li>++i和i++的区别：
                      <ul>
-                        <li>++i是先把i的值+1，再使用i的值， 比如<pre><code class="c">int i=3; 
+                        <li>++i是先把i的值+1，再使用i的值， 比如<pre><code class="c">int i=3;
 printf("%d",++i); //显示：4
 printf("%d", i);  //显示：4</code></pre></li>
-                        <li>i++是先使用i的值, 再把i的值+1， 比如<pre><code class="c">int i=3; 
+                        <li>i++是先使用i的值, 再把i的值+1， 比如<pre><code class="c">int i=3;
 printf("%d",i++); //显示：3
 printf("%d", i);  //显示：4</code></pre></li>
                      </ul>
                   </li>
                </ul>
             </h5>
-         </div>
+        </div>
 
-         <div class="step slide " data-x="-9000" data-y="-400" data-rotate="90" data-scale="1">
+        <div class="step slide " data-x="-9000" data-y="-400" data-rotate="90" data-scale="1">
             <h3>[2] 自增、自减运算符</h3>
             <h5 class="fade-in fade-out">
                <ul>
@@ -730,9 +732,9 @@ printf("%d", (i++)+j); //显示：7
 printf("%d", i+(++j)); //显示：8</code></pre></li>
                </ul>
             </h5>
-         </div>
+        </div>
 
-         <div class="step slide " data-x="-7000" data-y="-1400" data-rotate="90" data-scale="1">
+        <div class="step slide " data-x="-7000" data-y="-1400" data-rotate="90" data-scale="1">
             <h3>[3] 运算符的优先级和结合性</h3>
             <h5 class="fade-in fade-out">
                <ul>
@@ -740,9 +742,9 @@ printf("%d", i+(++j)); //显示：8</code></pre></li>
                   <li>如果优先级相同，则按照结合性来决定哪个先算，一般是“左结合”，即从左到右计算，算术运算符都是“左结合”，如<code>a+b-c</code>，少数运算符是“右结合”，如<code>a=b=c=12;</code></li>
                </ul>
             </h5>
-         </div>
+        </div>
 
-         <div class="step slide " data-x="-7000" data-y="-2400" data-rotate="90" data-scale="1">
+        <div class="step slide " data-x="-7000" data-y="-2400" data-rotate="90" data-scale="1">
             <h3>[4] 不同类型数据之间的混合运算</h3>
             <h5 class="fade-in fade-out">
                <ul>
@@ -751,7 +753,7 @@ printf("%d", i+(++j)); //显示：8</code></pre></li>
 char b='%';  //ASCII码为 37
 float c=3.14f;
 double d=0.11e-1;
-printf("%d", a/5);    //显示：0              
+printf("%d", a/5);    //显示：0
 printf("%f", a/5.0);  //显示：0.600000
 printf("%f", 1.*a/5); //显示：0.600000
 printf("%f", a/5);    //显示：0.000000
@@ -762,9 +764,9 @@ printf("%f", d+a/b);  //显示：0.011000
                   </li>
                </ul>
             </h5>
-         </div>
+        </div>
 
-         <div class="step slide " data-x="-7000" data-y="-3400" data-rotate="90" data-scale="1">
+        <div class="step slide " data-x="-7000" data-y="-3400" data-rotate="90" data-scale="1">
             <h3>[5] 强制类型转换</h3>
             <h5 class="fade-in fade-out">
                <ul>
@@ -775,9 +777,9 @@ printf("%f", d+a/b);  //显示：0.011000
 (int)(5.3)%3;</code></pre></li>
                </ul>
             </h5>
-         </div>
+        </div>
 
-         <div class="step slide " data-x="-7000" data-y="-4400" data-rotate="90" data-scale="1">
+        <div class="step slide " data-x="-7000" data-y="-4400" data-rotate="90" data-scale="1">
             <h3>[6] C语言的运算符</h3>
             <h6 class="fade-in fade-out">
                <ul>
@@ -796,13 +798,13 @@ printf("%f", d+a/b);  //显示：0.011000
                   <li>其他运算符：<code>( )</code></li>
                </ul>
             </h6>
-         </div>
+        </div>
 
-         <div class="step slide title" data-x="0" data-y="2400" data-rotate="0" data-scale="1">
+        <div class="step slide title" data-x="0" data-y="2400" data-rotate="0" data-scale="1">
             <h2 style="text-align: center">3.3 C语句</h2>
-         </div>
+        </div>
 
-         <div class="step slide" data-x="1000" data-y="2400" data-rotate="0" data-scale="1">
+        <div class="step slide" data-x="1000" data-y="2400" data-rotate="0" data-scale="1">
             <h3>3.3.1 C语句的作用和分类</h3>
             <h5 class="fade-in fade-out">
                <ul>
@@ -810,9 +812,9 @@ printf("%f", d+a/b);  //显示：0.011000
                      <span class="red">声明部分</span>+<span class="blue">执行部分</span>， 变量声明和执行语句共同构成C语言的<span class="red">语句</span>。</li>
                </ul>
             </h5>
-         </div>
+        </div>
 
-         <div class="step slide" data-x="1000" data-y="1600" data-rotate="0" data-scale="1">
+        <div class="step slide" data-x="1000" data-y="1600" data-rotate="0" data-scale="1">
             <h3>3.3.1 C语句的作用和分类</h3>
             <h5 class="fade-in fade-out">
                <ul>
@@ -829,9 +831,9 @@ struct example{ int k, m, n; } object = {m = 10,n = 200}; //c99</code></pre></li
                   </li>
                </ul>
             </h5>
-         </div>
+        </div>
 
-         <div class="step slide" data-x="1000" data-y="800" data-rotate="0" data-scale="1">
+        <div class="step slide" data-x="1000" data-y="800" data-rotate="0" data-scale="1">
             <h3>3.3.1 C语句的作用和分类</h3>
             <h5 class="fade-in fade-out">
                <ul>
@@ -854,9 +856,9 @@ struct example{ int k, m, n; } object = {m = 10,n = 200}; //c99</code></pre></li
                   </li>
                </ul>
             </h5>
-         </div>
+        </div>
 
-         <div class="step slide" data-x="1000" data-y="0" data-rotate="0" data-scale="1">
+        <div class="step slide" data-x="1000" data-y="0" data-rotate="0" data-scale="1">
             <h3>3.3.1 C语句的作用和分类</h3>
             <h5 class="fade-in fade-out">
                <ul>
@@ -881,9 +883,9 @@ int do_something(void)   //函数头
                   </li>
                </ul>
             </h5>
-         </div>
+        </div>
 
-         <div class="step slide" data-x="1000" data-y="-800" data-rotate="0" data-scale="1">
+        <div class="step slide" data-x="1000" data-y="-800" data-rotate="0" data-scale="1">
             <h3>3.3.1 C语句的作用和分类</h3>
             <h5 class="fade-in fade-out">
                <ul>
@@ -896,36 +898,104 @@ int do_something(void)   //函数头
                   </li>
                </ul>
             </h5>
-         </div>
+        </div>
 
-         <div class="step slide" data-x="2000" data-y="-800" data-z="0" data-rotate-y="90"  data-scale="2">             
+        <div class="step " data-x="2000" data-y="-800" data-z="0" data-rotate-y="45"  data-rotate-z="30" data-scale="1">
             <h3>3.3.2 赋值语句</h3>
-            <h5 class="fade-in fade-out">
-               <ul>
+            <h5 class="fade-in fade-out">例 3.4 给出三角形的三边长，求三角形的面积</h5>
+            <p class="fade-in fade-out" style="font-size:20px">【解题思路】：公式： \( area = \sqrt{s(s-a)(s-b)(s-c)} , s=\frac{a+b+c}{2}\)</p>
+            <pre class="fade-in fade-out" style="height:600px; font-size:22px"><code class="c">#include&lt;stdio.h&gt;
+#include&lt;math.h&gt;
+int main(void)
+{
+  double a,b,c,s,area;
+  a=3.67;   b=5.43;   c=6.21;
+  s=(a+b+c)/2;
+  area = sqrt(s*(s-a)*(s-b)*(s-c));
+  printf("a=%f\tb=%f\tc=%f\n", a,b,c);
+  printf("area=%f\n", area);
+  return 0;
+}</code>
+答案
+<code>a=3.670000	b=5.430000	c=6.210000
+area=9.903431</code></pre>
+        </div>
 
-               </ul>
-            </h5>
-         </div>
+        <div class="step slide" data-x="3000" data-y="-800" data-z="100" data-rotate-y="45"   data-rotate-z="60" data-scale="1">
+            <h3 class="fade-in fade-out">3.3.2 赋值语句的注意事项</h3>
+            <p class="fade-in fade-out">
+                <ul style="font-size:24px" >
+                    <li>赋值运算符：<code>=</code>, 比如<code>a=b; b=4;</code>
+                    </li>
+                    <li>复合的赋值运算符：<code>+=</code>, <code>-=</code>, <code>*=</code>, <code>/=</code>, <code>%=</code>
+                        <ul>
+                            <li><code>a+=b;</code>相当于:<code>a=a+b;</code></li>
+                            <li>注意如果等号的右边是个表达式，那么展开后右边的表达式是作为一个整体的，比如:<code>a*=b+c;</code>就相当于<code>a=a*(b+c);</code>而不是<code>a=a*b+c;</code></li>
+                        </ul>
+                    </li>
+                </ul>
+            </p>
+        </div>
 
-         <div class="step slide title" data-x="0" data-y="3200" data-rotate="0" data-scale="1">
+        <div class="step slide" data-x="4000" data-y="-1000" data-z="200" data-rotate-y="45"   data-rotate-z="90" data-scale="1">
+            <h3 class="fade-in fade-out">3.3.2 赋值语句的注意事项</h3>
+            <p class="fade-in fade-out">
+                <ul style="font-size:24px" >
+                    <li>赋值表达式：由赋值运算符将一个变量和一个表达式连起来的式子。
+                      <ul>
+                        <li>左值：注意，等号左边只能是变量(称为<span class="blue">左值，left value, lvalue</span>)，不能是常量、符号常量、常变量或表达式：
+                          <ul>
+                            <li><code>a=34;</code><span class="green">正确</span></li>
+                            <li><code>34=a;</code><span class="red">错误</span></li>
+                            <li><code>#define A 123<br>A=34;</code><span class="red">错误</span></li>
+                            <li><code>const char c='a'; c='b';</code><span class="red">错误</span></li>
+                            <li><code>(a)=5;</code><span class="red">错误</span></li>
+                          </ul>
+                        </li>
+                        <li>右值：（right value, rvalue), 可以是变量、常量、符号常量、常变量或表达式：</li>
+                      </ul>
+                    </li>
+                </ul>
+            </p>
+        </div>
+
+        <div class="step slide" data-x="5000" data-y="-1200" data-z="300" data-rotate-y="45"   data-rotate-z="120" data-scale="1">
+            <h3 class="fade-in fade-out">3.3.2 赋值语句的注意事项</h3>
+            <p class="fade-in fade-out">
+                <ul style="font-size:24px" >
+                    <li>赋值表达式：由赋值运算符将一个变量和一个表达式连起来的式子。
+                      <ul>
+                        <li>赋值表达式的<span class="red">表达式可以是又一个赋值表达式</span></li>
+                        <li>赋值表达式的<span class="green">值就是等号右边的值</span></li>
+                        <li>赋值表达式的结合性是<span class="blue">从右到左</span></li>
+                      </ul>
+                    </li>
+                </ul>
+            </p>
+            <pre><code class="c">a=b=5;
+c=(a=5)+(b=3);
+(a=b)=3*4; //注意，这是错误的</code></pre>
+        </div>
+
+        <div class="step slide title" data-x="0" data-y="3200" data-rotate="0" data-scale="1">
             <h2 style="text-align: center">3.4 数据的输入和输出</h2>
-         </div>
+        </div>
 
-         <div id="overview" class="step" data-x="0" data-y="0" data-scale="12">
-         </div>
-
-
-
-      </div>      
-
-      <script src="js/impress.js"></script>
-      <script src="js/extras/highlight/highlight.pack.js"></script>
+        <div id="overview" class="step" data-x="0" data-y="0" data-scale="12">
+        </div>
 
 
-      <script>
-         hljs.initHighlightingOnLoad();
-         impress().init();
-      </script>
-   </body>
+
+    </div>
+
+    <script src="js/impress.js"></script>
+    <script src="js/extras/highlight/highlight.pack.js"></script>
+
+
+    <script>
+        hljs.initHighlightingOnLoad();
+        impress().init();
+    </script>
+</body>
 
 </html>
