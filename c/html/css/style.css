@@ -111,7 +111,7 @@ body {
     width: 900px;
     height: 700px;
     padding: 40px 60px;
-    background-image: url(../images/background3.jpg);
+    background-image: url(../images/background2.jpg);
     background-color: white;
     border: 1px solid rgba(0, 0, 0, .3);
     border-radius: 10px;
@@ -120,6 +120,7 @@ body {
     font-family: 'Open Sans', Arial, sans-serif;
     font-size: 30px;
     letter-spacing: -1px;
+    color: black;
 }
 
 .slide h1,
@@ -152,8 +153,13 @@ body {
 
 code {
     background-color: black;
-    color:white;
-    font-family: "Cutive mono", "Courier New", monospace;
+    color: lightyellow;
+    opacity: 0.8;
+    border-radius: 0.2em;
+    border-bottom: 1px solid rgba(100, 100, 100, 0.2);
+    border-left: 1px solid rgba(100, 100, 100, 0.2);
+    font-family: monospace;
+    /*  "Cutive mono", "Courier New", monospace; */
 }
 
 a {
@@ -294,6 +300,8 @@ img {
     opacity: 0.0;
     transition: 2s;
 }
+
+
 /*
    Fade-in/out is a straightforward fade. Give it enough seconds that all browsers render it clearly.
 */
@@ -509,15 +517,27 @@ body.impress-mouse-timeout {
 }
 
 .red {
-    color: red;
+    background-color: red;
+    color: white;
+    border-radius: 0.2em;
+    border-bottom: 1px solid rgba(100, 100, 100, 0.2);
+    border-left: 1px solid rgba(100, 100, 100, 0.2);
 }
 
 .blue {
-    color: blue;
+    background-color: blue;
+    color: white;
+    border-radius: 0.2em;
+    border-bottom: 1px solid rgba(100, 100, 100, 0.2);
+    border-left: 1px solid rgba(100, 100, 100, 0.2);
 }
 
 .green {
-    color: green;
+    background-color: green;
+    color: white;
+    border-radius: 0.2em;
+    border-bottom: 1px solid rgba(100, 100, 100, 0.2);
+    border-left: 1px solid rgba(100, 100, 100, 0.2);
 }
 
 .flexbox-container {
