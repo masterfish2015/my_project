@@ -3,7 +3,7 @@
   The downside of this approach is that you have to be online. So below I have simply saved
   the output of the googleapis url into a file. Then you of course also have to make sure
   the webfonts are locally installed to make offline usage work. For Ubuntu (or Debian) I
-  successfully used the script from here to do that: 
+  successfully used the script from here to do that:
   http://www.webupd8.org/2011/01/automatically-install-all-google-web.html
 */
 
@@ -14,9 +14,9 @@
 
 /*
     We display a fallback message for users with browsers that don't support
-    all the features required by it. All of the content will be still fully 
+    all the features required by it. All of the content will be still fully
     accessible for them, but some more advanced effects would be missing.
-    When impress.js detects that browser supports all necessary CSS3 features, 
+    When impress.js detects that browser supports all necessary CSS3 features,
     the fallback-message style is hidden.
 */
 
@@ -86,7 +86,7 @@ body {
 
 
 /*
-    Speaker notes allow you to write comments within the steps, that will not 
+    Speaker notes allow you to write comments within the steps, that will not
     be displayed as part of the presentation. However, they will be picked up
     and displayed by impressConsole.js when integrated.
 */
@@ -99,11 +99,11 @@ body {
 /*
     These 'slide' step styles were heavily inspired by HTML5 Slides:
     http://html5slides.googlecode.com/svn/trunk/styles.css
-    
+
     Note that we also use a background image, again just to facilitate a common
     feature from PowerPoint and LibreOffice worlds. In this case the background
     image is just the impress.js favicon - as if it were a company logo or something.
-    
+
 */
 
 .slide {
@@ -151,7 +151,8 @@ body {
 /* Inline code, no Highlight.js */
 
 code {
-    background-color: lightskyblue;
+    background-color: black;
+    color:white;
     font-family: "Cutive mono", "Courier New", monospace;
 }
 
@@ -237,8 +238,8 @@ img {
 }
 
 
-/* 
-    Specific styles for: .title slides 
+/*
+    Specific styles for: .title slides
 */
 
 .title {
@@ -293,8 +294,6 @@ img {
     opacity: 0.0;
     transition: 2s;
 }
-
-
 /*
    Fade-in/out is a straightforward fade. Give it enough seconds that all browsers render it clearly.
 */
@@ -530,4 +529,3 @@ body.impress-mouse-timeout {
     -webkit-box-align: center;
     align-items: center;
 }
-

@@ -900,7 +900,7 @@ int do_something(void)   //函数头
             </h5>
         </div>
 
-        <div class="step " data-x="2000" data-y="-800" data-z="0" data-rotate-y="45"  data-rotate-z="30" data-scale="1">
+        <div class="step " data-x="2000" data-y="-800" data-z="0" data-rotate-y="45" data-rotate-z="30" data-scale="1">
             <h3>3.3.2 赋值语句</h3>
             <h5 class="fade-in fade-out">例 3.4 给出三角形的三边长，求三角形的面积</h5>
             <p class="fade-in fade-out" style="font-size:20px">【解题思路】：公式： \( area = \sqrt{s(s-a)(s-b)(s-c)} , s=\frac{a+b+c}{2}\)</p>
@@ -921,10 +921,10 @@ int main(void)
 area=9.903431</code></pre>
         </div>
 
-        <div class="step slide" data-x="3000" data-y="-800" data-z="100" data-rotate-y="45"   data-rotate-z="60" data-scale="1">
+        <div class="step slide" data-x="3000" data-y="-800" data-z="100" data-rotate-y="45" data-rotate-z="60" data-scale="1">
             <h3 class="fade-in fade-out">3.3.2 赋值语句的注意事项</h3>
             <p class="fade-in fade-out">
-                <ul style="font-size:24px" >
+                <ul style="font-size:24px">
                     <li>赋值运算符：<code>=</code>, 比如<code>a=b; b=4;</code>
                     </li>
                     <li>复合的赋值运算符：<code>+=</code>, <code>-=</code>, <code>*=</code>, <code>/=</code>, <code>%=</code>
@@ -937,38 +937,38 @@ area=9.903431</code></pre>
             </p>
         </div>
 
-        <div class="step slide" data-x="4000" data-y="-1000" data-z="200" data-rotate-y="45"   data-rotate-z="90" data-scale="1">
+        <div class="step slide" data-x="4000" data-y="-1000" data-z="200" data-rotate-y="45" data-rotate-z="90" data-scale="1">
             <h3 class="fade-in fade-out">3.3.2 赋值语句的注意事项</h3>
             <p class="fade-in fade-out">
-                <ul style="font-size:24px" >
+                <ul style="font-size:24px">
                     <li>赋值表达式：由赋值运算符将一个变量和一个表达式连起来的式子。
-                      <ul>
-                        <li>左值：注意，等号左边只能是变量(称为<span class="blue">左值，left value, lvalue</span>)，不能是常量、符号常量、常变量或表达式：
-                          <ul>
-                            <li><code>a=34;</code><span class="green">正确</span></li>
-                            <li><code>34=a;</code><span class="red">错误</span></li>
-                            <li><code>#define A 123<br>A=34;</code><span class="red">错误</span></li>
-                            <li><code>const char c='a'; c='b';</code><span class="red">错误</span></li>
-                            <li><code>(a)=5;</code><span class="red">错误</span></li>
-                          </ul>
-                        </li>
-                        <li>右值：（right value, rvalue), 可以是变量、常量、符号常量、常变量或表达式：</li>
-                      </ul>
+                        <ul>
+                            <li>左值：注意，等号左边只能是变量(称为<span class="blue">左值，left value, lvalue</span>)，不能是常量、符号常量、常变量或表达式：
+                                <ul>
+                                    <li><code>a=34;</code><span class="green">正确</span></li>
+                                    <li><code>34=a;</code><span class="red">错误</span></li>
+                                    <li><code>#define A 123<br>A=34;</code><span class="red">错误</span></li>
+                                    <li><code>const char c='a'; c='b';</code><span class="red">错误</span></li>
+                                    <li><code>(a)=5;</code><span class="red">错误</span></li>
+                                </ul>
+                            </li>
+                            <li>右值：（right value, rvalue), 可以是变量、常量、符号常量、常变量或表达式：</li>
+                        </ul>
                     </li>
                 </ul>
             </p>
         </div>
 
-        <div class="step slide" data-x="5000" data-y="-1200" data-z="300" data-rotate-y="45"   data-rotate-z="120" data-scale="1">
+        <div class="step slide" data-x="5000" data-y="-1200" data-z="300" data-rotate-y="45" data-rotate-z="120" data-scale="1">
             <h3 class="fade-in fade-out">3.3.2 赋值语句的注意事项</h3>
             <p class="fade-in fade-out">
-                <ul style="font-size:24px" >
+                <ul style="font-size:24px">
                     <li>赋值表达式：由赋值运算符将一个变量和一个表达式连起来的式子。
-                      <ul>
-                        <li>赋值表达式的<span class="red">表达式可以是又一个赋值表达式</span></li>
-                        <li>赋值表达式的<span class="green">值就是等号右边的值</span></li>
-                        <li>赋值表达式的结合性是<span class="blue">从右到左</span></li>
-                      </ul>
+                        <ul>
+                            <li>赋值表达式的<span class="red">表达式可以是又一个赋值表达式</span></li>
+                            <li>赋值表达式的<span class="green">值就是等号右边的值</span></li>
+                            <li>赋值表达式的结合性是<span class="blue">从右到左</span></li>
+                        </ul>
                     </li>
                 </ul>
             </p>
@@ -977,54 +977,56 @@ c=(a=5)+(b=3);
 (a=b)=3*4; //注意，这是错误的</code></pre>
         </div>
 
-        <div class="step slide" data-x="6000" data-y="-1400" data-z="400" data-rotate-y="45"   data-rotate-z="150" data-scale="1">
+        <div class="step slide" data-x="6000" data-y="-1400" data-z="400" data-rotate-y="45" data-rotate-z="150" data-scale="1">
             <h3 class="fade-in fade-out">3.3.2 赋值语句的注意事项</h3>
             <p class="fade-in fade-out">
-                <ul style="font-size:24px" >
+                <ul style="font-size:24px">
                     <li>赋值过程中的类型转换:
-                      <ul>
-                        <li>如果<code>=</code>两边的类型一致，直接进行赋值，比如:<code>int i; i=234;</code></li>
-                        <li>将<span class="green">浮点数</span>赋值给<span class="green">整型</span>变量时，先将小数部分去掉，再进行赋值，比如:<code>int i; i=3.56; // i == 3</code></li>
-                        <li>将整型数赋值给浮点变量时，先将整数变为浮点数，再进行赋值，比如:<code>float f; f=3; // f == 3.0f</code></li>
-                        <li>将<code>double</code>赋值给<code>float</code>变量时，会产生范围缩减，甚至可能溢出，比如：<pre><code class="c">float a, b;
+                        <ul>
+                            <li>如果<code>=</code>两边的类型一致，直接进行赋值，比如:<code>int i; i=234;</code></li>
+                            <li>将<span class="green">浮点数</span>赋值给<span class="green">整型</span>变量时，先将小数部分去掉，再进行赋值，比如:<code>int i; i=3.56; // i == 3</code></li>
+                            <li>将整型数赋值给浮点变量时，先将整数变为浮点数，再进行赋值，比如:<code>float f; f=3; // f == 3.0f</code></li>
+                            <li>将<code>double</code>赋值给<code>float</code>变量时，会产生范围缩减，甚至可能溢出，比如：<pre><code class="c">float a, b;
 double c = 123.456789e100, d=3.4e-4;
 a=c; b=d;
 printf("%f\n", a);  //输出 : inf
 printf("%f\n", b);  //输出 : 0.000340</code></pre></li>
-                      </ul>
+                        </ul>
                     </li>
                 </ul>
             </p>
         </div>
 
-        <div class="step slide" data-x="7000" data-y="-1600" data-z="500" data-rotate-y="45"   data-rotate-z="180" data-scale="1">
+        <div class="step slide" data-x="7000" data-y="-1600" data-z="500" data-rotate-y="45" data-rotate-z="180" data-scale="1">
             <h3 class="fade-in fade-out">3.3.2 赋值语句的注意事项</h3>
             <p class="fade-in fade-out">
-                <ul style="font-size:24px" >
+                <ul style="font-size:24px">
                     <li>赋值过程中的类型转换:
-                      <ul>
-                        <li>将<span class="green">字符量</span>赋值给<span class="green">整型</span>变量时，是将其字符编码（一般是ASCII码）赋值给变量，比如:<code>int i; i='a'; // i == 97</code></li>
-                        <li>将字节数多的整数类型量赋值给字节数少的整数变量时，会产生截断，比如：<pre><code class="c">short int i=289; // i=289 -&gt;[00 00 00 01 | 00 10 00 01]2
+                        <ul>
+                            <li>将<span class="green">字符量</span>赋值给<span class="green">整型</span>变量时，是将其字符编码（一般是ASCII码）赋值给变量，比如:<code>int i; i='a'; // i == 97</code></li>
+                            <li>将字节数多的整数类型量赋值给字节数少的整数变量时，会产生截断，比如：<pre><code class="c">short int i=289; // i=289 -&gt;[00 00 00 01 | 00 10 00 01]2
 char c;
 c=i; // c=33 -&gt;[00 10 00 01]2
 int a=32768; // a=32768 -&gt;[00 00 00 00 | 00 00 00 00 | 01 11 11 11 | 11 11 11 11]2
 short int b;
 b=a+1; // b=-32768 -&gt;[10 00 00 00 | 00 00 00 00]2</code></pre></li>
-                      </ul>
+                        </ul>
                     </li>
                 </ul>
             </p>
         </div>
 
-        <div class="step slide" data-x="8000" data-y="-1800" data-z="600" data-rotate-y="45"   data-rotate-z="150" data-scale="1">
+        <div class="step slide" data-x="8000" data-y="-1800" data-z="600" data-rotate-y="45" data-rotate-z="150" data-scale="1">
             <h3 class="fade-in fade-out">3.3.2 赋值语句的注意事项</h3>
             <p class="fade-in fade-out">
-                <ul style="font-size:24px" >
+                <ul style="font-size:24px">
                     <li>赋值表达式和赋值语句:
-                      <ul>
-                        <li><span class="blue">赋值表达式</span>可以放在表达式中的任何地方，比如:<br><code>if((a=b)>0) max=a; </code>：<span class="green">正确</span></li>
-                        <li>但是<span class="blue">赋值语句</span>不能放在表达式中，比如:<br><code>if((a=b;)>0) max=a; </code>：<span class="red">错误</span></li>
-                      </ul>
+                        <ul>
+                            <li><span class="blue">赋值表达式</span>可以放在表达式中的任何地方，比如:
+                                <br><code>if((a=b)>0) max=a; </code>：<span class="green">正确</span></li>
+                            <li>但是<span class="blue">赋值语句</span>不能放在表达式中，比如:
+                                <br><code>if((a=b;)>0) max=a; </code>：<span class="red">错误</span></li>
+                        </ul>
                     </li>
                     <li>变量赋初值: <pre><code class="c">int a=3; //正确
 int b=3, c=4, d=5; //正确
@@ -1035,6 +1037,87 @@ int b=c=d=3;       //错误</code></pre>变量被赋予初值不是在编译时�
 
         <div class="step slide title" data-x="0" data-y="3200" data-rotate="0" data-scale="1">
             <h2 style="text-align: center">3.4 数据的输入和输出</h2>
+        </div>
+
+        <div class="step slide" data-x="0" data-y="3400" data-z="100" data-rotate="0" data-scale="1">
+            <h3 class="fade in fade-out" style="text-align: center">3.4.1 输入和输出举例</h3>
+            <h5 class="fade-in fade-out">例 3.5 求\(ax^2+bx+c=0 \)方程的实根，\(a,b,c \)由键盘输入。</h5>
+            <h6 class="fade-in fade-out">【解题思路】：先判断\(b^2-4ac\geq0 \)，则方程有实数根，\(x_1 = \frac{-b+\sqrt{b^2-4ac}}{2a} \), \(x_2 = \frac{-b-\sqrt{b^2-4ac}}{2a} \) , 如果设:\(p = \frac{-b}{2a}, q=\frac{\sqrt{b^2-4ac}}{2a}  \), 则\(x_1 =p+q, x_2=p-q \)</h6>
+            <pre class="fade-in fade-out" style="height:300px;overflow:auto"><code class="c">#include&lt;stdio.h&gt;
+#include&lt;math.h&gt;
+int main(void)
+{
+  double a,b,c,disc,x1,x2,p,q;
+  printf("input a,b,c:");
+  scanf("%LF,%LF,%LF", &amp;a, &amp;b, &amp;c);  //输入：1,3,2
+
+  disc = b*b - 4*a*c;
+  if(disc&lt;0){
+    printf("There is NO real root in this equation. reinput a,b,c\n");
+    return -1;
+  }
+
+  p=-b /(2.0*a);
+  q=sqrt(disc)/(2.0*a);
+  x1 = p+q; x2 = p-q;
+  printf("x1=%7.2F\tx2=%7.2F\n",x1,x2); //输出x1=  -1.00  x2=  -2.00
+  return 0;
+}</code></pre>
+        </div>
+
+        <div class="step slide" data-x="0" data-y="4100" data-z="200" data-rotate="0" data-scale="1">
+            <h4 class="fade in fade-out" style="text-align: center">程序解析</h4>
+            <p class="fade-in fade-out">
+                <ul style="font-size:24px">
+                    <li>用<code>scanf("%LF,%LF,%LF",&amp;a,&amp;b,&amp;c);</code>输入<code>a,b,c</code>的值，注意用<code>&amp;</code>来获取变量的地址，以方便函数保存键盘输入到指定的内存中。</li>
+                    <li>这里<code>%LF</code>嵌套符表示输入的是<span class="blue">双精度浮点</span>，中间用<code>,</code>, 表示实际键盘输入的时候也要用<code>,</code>隔开输入的浮点数，例如<code>1,3,2</code></li>
+                    <li>如果中间用<code> </code>(空格), 表示实际键盘输入的时候也要用<code> </code>隔开输入的浮点数，例如<code>1 3 2</code></li>
+                    <li>输出时，用<code>printf("x1=%7.2F\tx2=%7.2F\n",x1,x2);</code>, 这里有两点要注意：
+                        <ul>
+                            <li><span class="blue">单精度</span>和<span class="green">双精度</span>在<code>printf</code>中的嵌套符都是<code>%F</code>;</li>
+                            <li>嵌套符中的<code>%7.2F</code>表示输出的时候，这个浮点数总共占7个字符的宽度，其中小数点也包括在这7个宽度之中，小数部分占2个宽度,超过两位小数则截断，不够则以0补齐，右对齐，如果左边不够就用空格来填充，所以浮点值<code>1.0</code>会显示为<code>___1.00</code> ;</li>
+                        </ul>
+                    </li>
+                </ul>
+            </p>
+        </div>
+
+        <div class="step slide" data-x="0" data-y="4800" data-z="300" data-rotate="0" data-scale="1">
+            <h3 class="fade in fade-out" style="text-align: center">3.4.2 输入输出的概念</h3>
+            <p class="fade-in fade-out">
+                <ul style="font-size:24px">
+                    <li>所谓输入输出是以计算机主机为主体，向外输出数据称为<span class="blue">输出</span>，比如<span class="green">显示器(标准输出设备)</span>、打印机、硬盘等；而向主机读入数据称为<span class="blue">输入</span>，比如硬盘、光盘、<span class="green">键盘（标准输入设备）</span>等</li>
+                    <li>C语言不提供语言级别的输入输出语句，而是通过函数库的方式来实现，C语言标准提出了一套<span class="blue">标准输入输出函数</span>，绝大部分编译环境都提供了。</li>
+                    <li>当使用标准库函数的时候，要谨记<span class="red">先定义再使用，如果不知道定义在何处，就先声明再使用</span>的原则，为简化声明，C语言提供了<span class="blue">头文件的包含机制</span>，把常见库函数的声明放在不同的头文件中（以.h为扩展名)，在需要的时候，用预处理指令<code>#include</code>将指定头文件包含进来，即可起到声明的作用</li>
+                    <li><code>#include&lt;stdio.h&gt;</code>是首先在编译系统的目录下寻找头文件，<code>#include"stdio.h"</code>是首先在源程序文件目录下寻找头文件</li>
+                </ul>
+            </p>
+        </div>
+
+        <div class="step slide" data-x="0" data-y="5600" data-z="400" data-rotate="0" data-scale="1">
+            <h3 class="fade in fade-out" style="text-align: center">3.4.2 输入输出的概念</h3>
+            <p class="fade-in fade-out">
+                <ul style="font-size:24px">
+                    <li>常见的库及对应的头文件有：标准输入输出：stdio.h, 数学库：math.h, 字符串操作：string.h</li>
+                    <li>理论上说，在编译完<span class="red">源程序成为二进制机器语言代码</span>后，还需要把其和用到的<span class="blue">已经编译好的其他程序库二进制机器代码</span>都<span class="green">链接</span>之后才能成为一个完整的可执行的程序，不过大部分C的编译器（比如windows下的VC）都会自动帮你链接标准库的二进制代码，有些系统需要你自己指定链接的库，比如gcc下，要使用数学库（math，比如sqrt之类的函数），需要指定链接数学库，比如<code>gcc hello.c -lm</code>,
+                        不过基本上标准输入输出库太普遍了，无需指定就能帮你链接</li>
+                </ul>
+            </p>
+        </div>
+
+        <div class="step slide" data-x="-1000" data-y="5600" data-z="400" data-rotate-y="30" data-scale="1">
+            <h3 class="fade in fade-out" style="text-align: center">3.4.3 <code>printf</code>输出</h3>
+            <p class="fade-in fade-out">
+                <ul style="font-size:24px">
+                    <li><code>printf</code>的语法：<code>printf(格式控制字符串， 输出表列);</code></li>
+                    <li><span class="red">格式控制字符串</span>包含：
+                        <ul>
+                            <li><span class="blue">嵌入格式声明符</span>，由<code>%</code>和<b>格式字符</b>组成，如<code>%d, %f</code>等， 不会直接输出，而是把其与后面输出表列的对应参数做转换后再输出</li>
+                            <li><span class="blue">一般字符</span>，会直接显示输出</li>
+                        </ul>
+                    </li>
+                </ul>
+            </p>
         </div>
 
         <div id="overview" class="step" data-x="0" data-y="0" data-scale="12">
