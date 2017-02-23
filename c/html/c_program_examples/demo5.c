@@ -17,5 +17,9 @@ int main(void)
     printf("%5.2d, %5.2d\n", 3, 1234);
     printf("%*.*d\n", 5, 3, 3);
     printf("%5.2s, %5.4s\n", "abc", "ab");
+    printf("%e\n", 123.456);
+    printf("%13.2e\n", 123.456);
+    printf("%g\n", 123.456);
+    printf("%g\n", 0.0000123456789);
     return 0;
 }
