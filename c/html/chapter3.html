@@ -1750,6 +1750,123 @@ int main(void)
             </p>
          </div>
 
+         <div class="step" data-x="0" data-y="8500" data-z="0" data-rotate-y="0" data-rotate-x="0" data-scale="1">
+            <h3 class="fade in fade-out" style="text-align: center">三、填空题</h3>
+         </div>
+
+         <div class="step slide" data-x="0" data-y="8500" data-z="0" data-rotate-y="90" data-rotate-x="0" data-scale="1">
+            <h4 class="fade in fade-out" style="text-align: center">1、分析下面的程序 </h4> <pre class="fade-in fade-out" style="font-size:24px"><code class="c">#include&lt;stdio.h&gt;
+int main(void)
+{
+    char c1, c2;
+    c1=97; c2=98;
+    printf("c1=%c, c2=%c; ", c1, c2);
+    printf("c1=%d, c2=%d\n", c1, c2);
+    return 0;
+}</code></pre>
+            <p style="text-align: left" class="fade-in fade-out">
+               <ul style="font-size: 28px">
+                  <li>运行时会输出______</li>
+                  <li>若：<code>c1=197; c2=198; </code>, 运行时会输出______</li>
+                  <li>若：<code>int c1=197, c2=198; </code>, 运行时会输出______</li>
+               </ul>
+            </p>
+         </div>
+
+         <div class="step slide" data-x="0" data-y="8500" data-z="0" data-rotate-y="90" data-rotate-x="0" data-scale="1">
+            <h4 class="fade in fade-out" style="text-align: center">1、分析下面的程序 </h4> <pre class="fade-in fade-out" style="font-size:24px"><code class="c">#include&lt;stdio.h&gt;
+int main(void)
+{
+    char c1, c2;
+    c1=97; c2=98;
+    printf("c1=%c, c2=%c; ", c1, c2);
+    printf("c1=%d, c2=%d\n", c1, c2);
+    return 0;
+}</code></pre>
+            <p style="text-align: left" class="fade-in fade-out">
+               <ul style="font-size: 28px">
+                  <li>运行时会输出<code>c1=a, c2=b; c1=97, c2=98</code></li>
+                  <li>若：<code>c1=197; c2=198; </code>, 输出<code>c1=? c2=? ; c1=-59, c2=-58</code></li>
+                  <li>若：<code>int c1=197, c2=198; </code>, 输出<code>c1=? c2=? ; c1=197, c2=198</code></li>
+               </ul>
+            </p>
+         </div>
+
+         <div class="step slide" data-x="0" data-y="8500" data-z="0" data-rotate-y="90" data-rotate-x="0" data-scale="1">
+            <h4 class="fade in fade-out" style="text-align: center">2、下面程序要使<code>a=3,b=7,x=8.5,y=71.82,c1='A',c2='a'</code></h4> <pre class="fade-in fade-out" style="font-size:24px"><code class="c">#include&lt;stdio.h&gt;
+int main(void)
+{
+    int a, b;
+    float x, y;
+    char c1, c2;
+    scanf("a=%db=%d",&a,&b);
+    scanf("%f%e",&x,&y);
+    scanf("%c%c",&c1,&c2);
+    printf("a=%d,b=%d,x=%g,y=%g,c1=%c,c2=%c\n", a,b,x,y,c1,c2);
+    return 0;
+}</code></pre>
+            <p style="text-align: left" class="fade-in fade-out">
+               在键盘上要输入__________________________
+            </p>
+         </div>
+
+         <div class="step slide" data-x="0" data-y="8500" data-z="0" data-rotate-y="90" data-rotate-x="0" data-scale="1">
+            <h4 class="fade in fade-out" style="text-align: center">2、下面程序要使<code>a=3,b=7,x=8.5,y=71.82,c1='A',c2='a'</code></h4> <pre class="fade-in fade-out" style="font-size:24px"><code class="c">#include&lt;stdio.h&gt;
+int main(void)
+{
+    int a, b;
+    float x, y;
+    char c1, c2;
+    scanf("a=%db=%d",&a,&b);
+    scanf("%f%e",&x,&y);
+    scanf("%c%c",&c1,&c2);
+    printf("a=%d,b=%d,x=%g,y=%g,c1=%c,c2=%c\n", a,b,x,y,c1,c2);
+    return 0;
+}</code></pre>
+            <p style="text-align: left" class="fade-in fade-out">
+               在键盘上要输入<code>a=3b=7 8.5 71.82e0Aa</code>
+            </p>
+         </div>
+
+         <div class="step" data-x="0" data-y="8500" data-z="0" data-rotate-y="0" data-rotate-x="0" data-scale="1">
+            <h3 class="fade in fade-out" style="text-align: left">四、编程</h3>
+            <p style="text-align: left">设圆半径\( r=1.5 \), 圆柱高\( h=3 \)，求:
+               <ul>
+                  <li>圆周长, \( circumference_{circle}=2\pi r \)</li>
+                  <li>圆面积, \( area_{circle}=\pi r^2 \)</li>
+                  <li>圆球表面积, \( area_{sphere}=4\pi r^2 \)</li>
+                  <li>圆球体积, \( volume_{sphere}=\frac{3}{4}\pi r^3 \)</li>
+                  <li>圆柱体积, \( volume_{cylinder}=\pi r^2h \)</li>
+               </ul>
+            </p>
+         </div>
+
+         <div class="step" data-x="0" data-y="8500" data-z="0" data-rotate-y="90" data-rotate-x="0" data-scale="1">
+            <pre class="fade-in fade-out" style="font-size:22px"><code class="c">#include&lt;stdio.h&gt;
+const double PI = 3.14159;
+
+int main(void)
+{
+    double r=1.5, h=3.0;
+    double circumference_circle, area_circle,
+    area_sphere, volume_sphere, volume_cylinder;
+
+    circumference_circle = 2*PI*r;
+    area_circle=PI*r*r;
+    area_sphere=4.0*PI*r*r;
+    volume_sphere=3.0/4.0*PI*r*r*r;
+    volume_cylinder=PI*r*r*h;
+
+    printf("circumference of circle is:%.2f\n", circumference_circle);//9.42
+    printf("area of circle is:%.2f\n", area_circle);//7.07
+    printf("area of sphere is:%.2f\n", area_sphere);//28.27
+    printf("volume of sphere is:%.2f\n", volume_sphere);//7.95
+    printf("volume of cylinder is:%.2f\n", volume_cylinder);//21.21
+
+    return 0;
+}</code></pre>
+         </div>
+
          <div id="overview" class="step" data-x="0" data-y="0" data-scale="12">
          </div>
 
