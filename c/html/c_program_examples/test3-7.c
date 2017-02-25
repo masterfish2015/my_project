@@ -1,5 +1,4 @@
 #include<stdio.h>
-
 const double PI = 3.14159;
 
 int main(void)
