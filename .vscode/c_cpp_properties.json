@@ -25,7 +25,17 @@
         {
             "name": "Win32",
             "includePath": [
-                "C:/Program Files (x86)/Microsoft Visual Studio 14.0/VC/include/*"
+                "C:/msys64/usr/include/"
+            ],
+            "browse": {
+                "limitSymbolsToIncludedHeaders": true,
+                "databaseFilename": ""
+            }
+        },
+        {
+            "name": "Win64",
+            "includePath": [
+                "C:/msys64/usr/include/"
             ],
             "browse": {
                 "limitSymbolsToIncludedHeaders": true,
