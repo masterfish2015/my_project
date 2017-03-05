@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+   <head>
+      <title>electronic chapter14</title>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+
+      <!--<link href="css/impress.css" rel="stylesheet">-->
+      <link rel="stylesheet" href="js/extras/highlight/styles/zenburn.css">
+      <link href="css/animate.css/animate.min.css" rel="stylesheet">
+
+      <link href="css/style1.css" rel="stylesheet">
+
+      <!-- load math show lib -->
+      <script type="text/x-mathjax-config">
+         MathJax.Hub.Config({ extensions: ["tex2jax.js"], jax: ["input/TeX","output/HTML-CSS"], tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]} });
+      </script>
+
+      <script src="js/mathjax/MathJax.js" async></script>
+
+
+   </head>
+
+   <body>
+      <div id="impress">
+         <div class="step slide" data-x="0" data-y="0" data-z="0" data-rotate-x="0">
+            <h1 class="animated rubberBand">第14章 半导体器件</h1>
+            <p class="">主要内容：
+               <ol>
+                  <li class="animated tada">半导体导电特性，PN结及其特性</li>
+                  <li class="animated wobble">二极管特性及其应用</li>
+                  <li class="animated jello">三极管特性及其应用</li>
+               </ol>
+            </p>
+         </div>
+
+         <div class="step slide" data-x="1000" data-y="0" data-z="0" data-rotate-y="90">
+            <h2 class="animated rubberBand">14.1 半导体导电特性</h2>
+            <q class="animated pulse green">半导体</q>
+            <p class="animated fadeInLeftBig">导电能力在导体和绝缘体之间的物质。</p>
+            <q class="animated pulse blue">半导体导电特性：</q>
+            <ul class="animated rollIn">
+               <li><b class="green">热敏性</b>：当环境温度升高时，导电能力显著增强(可做成温度敏感元件，如热敏电阻)</li>
+               <li><b class="blue">光敏性</b>：当受到光照时,  导电能力明显变化 (可做成各种光敏元件,如光敏电阻、光敏二极管、光敏晶体管等)</li>
+               <li><b class="red">掺杂性</b>：往纯净的半导体中掺入某些杂质,导电能力明显改变(可做成各种不同用途的半导体器件，如二极管、晶体管和晶闸管等）</li>
+            </ul>
+         </div>
+
+         <div class="step slide" data-x="1000" data-y="0" data-z="-1000" data-rotate-y="90">
+            <h2 class="animated rubberBand">14.1.1 本征半导体</h2>
+            <q class="animated pulse green">本征半导体</q>
+            <p class="animated fadeInLeftBig">完全纯净的（无杂质）、晶格完整（无缺陷）的半导体</p>
+         </div>
+
+      </div>
+
+      <!-- script -->
+      <script src="js/impress.js"></script>
+      <script src="js/extras/highlight/highlight.pack.js"></script>
+      <script>
+         hljs.initHighlightingOnLoad();
+         impress().init();
+      </script>
+   </body>
+
+</html>

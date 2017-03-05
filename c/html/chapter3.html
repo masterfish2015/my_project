@@ -1062,6 +1062,7 @@ int main(void)
   printf("x1=%7.2F\tx2=%7.2F\n",x1,x2); //输出x1=  -1.00  x2=  -2.00
   return 0;
 }</code></pre>
+
       </div>
 
       <div class="step slide" data-x="0" data-y="4100" data-z="200" data-rotate="0" data-scale="1">
@@ -1218,6 +1219,7 @@ int main(void)
             <li><code>conversion specifier</code>: 嵌入类型指定符
               <ul>
                 <li><code>%d</code>，表示十进制整数，可以加<code>hh</code>(char), <code>h</code>(short int), <code>l</code>(long int), <code>ll</code>(long long int)表示各种不同的具体整数类型量， 例如<pre><code class="c">char a='3';
+>>>>>>> 1f6845e6aca6c0d00e759a283bf6cd738079d341
 short b=123; 
 int c=33; 
 long d=33; 
@@ -1262,12 +1264,15 @@ printf("%c\n", c); //显示: y ([121]10 --&gt; [01 11 10 01]2</code></pre></li>
         </p>
       </div>
 
+
+
       <div class="step slide" data-x="1000" data-y="6600" data-z="1000" data-rotate-x="300" data-scale="1">
         <p class="fade-in fade-out">
           <ul class="fade-in fade-out" style="font-size:24px">
             <li><code>conversion specifier</code>: 嵌入类型指定符
               <ul>
                 <li><code>%s</code>, 表示字符串类型，可以输出字符串，如例: <pre class="fade-in fade-out"><code class="c">printf("%s\n","CHINA"); //输出：CHINA
+
 printf("%10s","CHINA");  //输出：_____CHINA
 printf("%-10s","CHINA"); //输出：CHINA_____
 printf("%4s","CHINA");   //输出：CHINA
@@ -1283,12 +1288,12 @@ printf("%5.2s, %5.4s\n", "abc", "ab"); //输出：___ab, ___ab</code></pre></li>
           <ul class="fade-in fade-out" style="font-size:24px">
             <li><code>conversion specifier</code>: 嵌入类型指定符
               <ul>
-                <li><code>%f</code>, 表示浮点类型，可以 <span class='green'>小数形式</span> 输出浮点变量，如例: <pre class="fade-in fade-out"><code class="c">printf("%f\n",3.14); //输出：3.140000
+                <li><code>%f</code>, 表示浮点类型，可以 <span class="green">小数形式</span> 输出浮点变量，如例: <pre class="fade-in fade-out"><code class="c">printf("%f\n",3.14); //输出：3.140000
 printf("%7.1f\n", 3.14);    //输出：____3.1
 printf("%-7.1f\n",3.14);    //输出：3.14___
 printf("%.3f\n"  ,3.14159); //输出：3.142
 printf("%3f\n"  , 3.14159); //输出：3.14159</code></pre></li>
-                <li><code>%e</code>, 表示浮点类型，可以输出 <span class='blue'>标准指数形式(小数点左边一位有效数字) </span> 的浮点变量，缺省形式下保持小数点后的有效数字是6位，但是指数部分的宽度各系统会有不同，如例: <pre class="fade-in fade-out"><code class="c">printf("%e\n", 123.456); //输出：1.234560e+02
+                <li><code>%e</code>, 表示浮点类型，可以输出 <span class="blue">标准指数形式(小数点左边一位有效数字) </span> 的浮点变量，缺省形式下保持小数点后的有效数字是6位，但是指数部分的宽度各系统会有不同，如例: <pre class="fade-in fade-out"><code class="c">printf("%e\n", 123.456); //输出：1.234560e+02
 printf("%13.2e\n", 123.456); //输出：_____1.23e+02
 printf("%.4e\n"  , 123.456); //输出：1.2346e+02
 printf("%.4E\n"  , 123.456); //输出：1.2346E+02</code></pre></li>
@@ -1303,7 +1308,7 @@ printf("%.4E\n"  , 123.456); //输出：1.2346E+02</code></pre></li>
           <ul class="fade-in fade-out" style="font-size:24px">
             <li><code>conversion specifier</code>: 嵌入类型指定符
               <ul>
-                <li><code>%g</code>, 表示浮点类型，可以输出 <span class='blue'>标准指数形式 </span> 或<span class='green'>小数形式</span>的浮点变量，选择其中较短的，如例: <pre class="fade-in fade-out"><code class="c">printf("%g\n", 123.456); //123.456
+                <li><code>%g</code>, 表示浮点类型，可以输出 <span class="blue">标准指数形式 </span> 或<span class="green">小数形式</span>的浮点变量，选择其中较短的，如例: <pre class="fade-in fade-out"><code class="c">printf("%g\n", 123.456); //123.456
 printf("%g\n", 0.0000123456789);  //1.23457e-05</code></pre></li>
               </ul>
             </li>
@@ -1311,7 +1316,7 @@ printf("%g\n", 0.0000123456789);  //1.23457e-05</code></pre></li>
         </p>
       </div>
 
-      <div class="step slide" data-x="0" data-y="7400" data-z="1300" data-rotate-y="30" data-rotate-y="30" data-scale="1">
+      <div class="step slide" data-x="0" data-y="7400" data-z="1300" data-rotate-y="30" data-rotate-x="30" data-scale="1">
         <h3 class="fade in fade-out" style="text-align: center">3.4.4 <code>scanf</code>输入</h3>
         <p class="fade-in fade-out">
           <ul style="font-size:24px">
@@ -1322,7 +1327,7 @@ printf("%g\n", 0.0000123456789);  //1.23457e-05</code></pre></li>
                 <li><span class="blue">一般字符</span>，会要求直接输入</li>
               </ul>
             </li>
-            <li><pre class='fade-in fade-out'><code class='c'>int a;
+            <li><pre class="fade-in fade-out"><code class="c">int a;
 float b;
 double c, d, e;
 scanf("%d", &amp;a); //键盘输入：123[回车]
@@ -1334,23 +1339,23 @@ scanf("a=%lf,b=%lf,c=%lf", &amp;c,&amp;d,&amp;e);
         </p>
       </div>
 
-      <div class="step slide" data-x="1000" data-y="7800" data-z="1400" data-rotate-y="60" data-rotate-y="60" data-scale="1">
+      <div class="step slide" data-x="1000" data-y="7800" data-z="1400" data-rotate-y="60" data-rotate-x="60" data-scale="1">
         <p class="fade-in fade-out">
           <ul style="font-size:24px">
             <li>[2]. <code>scanf</code>的注意事项：
               <ul>
-                <li>格式控制字符串后的参数列表应该是 <span class='blue'>变量地址</span>, 如：
+                <li>格式控制字符串后的参数列表应该是 <span class="blue">变量地址</span>, 如：
                   <ul>
                     <li><code>double c,d,e;</code> </li>
-                    <li><code>scanf("%lf%lf%lf", c,d,e);</code> : <span class='red'>错误</span></li>
-                    <li><code>scanf("%lf%lf%lf", &amp;c,&amp;d,&amp;e);</code> : <span class='green'>正确</span></li>
+                    <li><code>scanf("%lf%lf%lf", c,d,e);</code> : <span class="red">错误</span></li>
+                    <li><code>scanf("%lf%lf%lf", &amp;c,&amp;d,&amp;e);</code> : <span class="green">正确</span></li>
                   </ul>
                 </li>
-                <li>格式控制字符串中的一般字符也要<span class='blue'>原样输入</span>, 如：
+                <li>格式控制字符串中的一般字符也要<span class="blue">原样输入</span>, 如：
                   <ul>
                     <li><code>double c; scanf("a=%lf", c); </code></li>
-                    <li>键盘输入：<code> 3.14[回车] </code> : <span class='red'>错误</span></li>
-                    <li>键盘输入：<code> a=3.14[回车] </code> : <span class='green'>正确</span></li>
+                    <li>键盘输入：<code> 3.14[回车] </code> : <span class="red">错误</span></li>
+                    <li>键盘输入：<code> a=3.14[回车] </code> : <span class="green">正确</span></li>
                   </ul>
                 </li>
               </ul>
@@ -1359,7 +1364,7 @@ scanf("a=%lf,b=%lf,c=%lf", &amp;c,&amp;d,&amp;e);
         </p>
       </div>
 
-      <div class="step slide" data-x="2000" data-y="7800" data-z="1400" data-rotate-y="90" data-rotate-y="90" data-scale="1">
+      <div class="step slide" data-x="2000" data-y="7800" data-z="1400" data-rotate-y="90" data-rotate-x="90" data-scale="1">
         <p class="fade-in fade-out">
           <ul style="font-size:24px">
             <li>[2]. <code>scanf</code>的注意事项：
@@ -1384,7 +1389,7 @@ scanf("a=%lf,b=%lf,c=%lf", &amp;c,&amp;d,&amp;e);
         </p>
       </div>
 
-      <div class="step slide" data-x="3000" data-y="7400" data-z="1400" data-rotate-y="120" data-rotate-y="60" data-scale="1">
+      <div class="step slide" data-x="3000" data-y="7400" data-z="1400" data-rotate-y="120" data-rotate-x="60" data-scale="1">
         <h3 class="fade in fade-out" style="text-align: center">3.4.5 <code>putchar</code>输出一个字符</h3>
         <p class="fade-in fade-out">
           <ul style="font-size:24px">
@@ -1395,7 +1400,7 @@ scanf("a=%lf,b=%lf,c=%lf", &amp;c,&amp;d,&amp;e);
         </p>
       </div>
 
-      <div class="step slide" data-x="3100" data-y="8400" data-z="1500" data-rotate-y="160" data-rotate-y="30" data-scale="1">
+      <div class="step slide" data-x="3100" data-y="8400" data-z="1500" data-rotate-y="160" data-rotate-x="30" data-scale="1">
         <h3 class="fade in fade-out" style="text-align: center">3.4.6 <code>getchar</code>读入一个字符</h3>
         <p class="fade-in fade-out">
           <ul style="font-size:24px">
@@ -1407,286 +1412,308 @@ scanf("a=%lf,b=%lf,c=%lf", &amp;c,&amp;d,&amp;e);
         </p>
       </div>
 
-      <div class="step" data-x="0" data-y="8400" data-z="0" data-rotate-y="0" data-rotate-y="0" data-scale="1">
-        <h2 class="fade in fade-out" style="text-align: center">小测试</h3>
+      <div class="step" data-x="0" data-y="8400" data-z="0" data-rotate-y="0" data-rotate-x="0" data-scale="1">
+        <h2 class="fade in fade-out" style="text-align: center">小测试</h2>
       </div>
 
-      <div class="step" data-x="0" data-y="8500" data-z="0" data-rotate-y="0" data-rotate-y="0" data-scale="1">
+      <div class="step" data-x="0" data-y="8500" data-z="0" data-rotate-y="0" data-rotate-x="0" data-scale="1">
         <h3 class="fade in fade-out" style="text-align: center">一、判断题</h3>
       </div>
 
-      <div class="step" data-x="0" data-y="8500" data-z="0" data-rotate-y="90" data-rotate-y="0" data-scale="1">
-        <p class="fade in fade-out" style="text-align: left"> <span class='blue'> 1. C语言程序中，任何英语单词均可以作标识符。</span>（　　）</p>
+      <div class="step" data-x="0" data-y="8500" data-z="0" data-rotate-y="90" data-rotate-x="0" data-scale="1">
+        <p class="fade in fade-out" style="text-align: left"><span class="blue"> 1. C语言程序中，任何英语单词均可以作标识符。</span>（ ）</p>
       </div>
 
-      <div class="step" data-x="0" data-y="8500" data-z="0" data-rotate-y="90" data-rotate-y="0" data-scale="1">
-        <p class="fade in fade-out" style="text-align: left"><span class='blue'> 1. C语言程序中，任何英语单词均可以作标识符。</span>（　<span class='red'>错</span>　）<br> 【解析】：关键字不能作为标识符
+      <div class="step" data-x="0" data-y="8500" data-z="0" data-rotate-y="90" data-rotate-x="0" data-scale="1">
+        <p class="fade in fade-out" style="text-align: left"><span class="blue"> 1. C语言程序中，任何英语单词均可以作标识符。</span>（<span class="red">错</span>）<br> 【解析】：关键字不能作为标识符
         </p>
       </div>
 
-      <div class="step" data-x="0" data-y="8500" data-z="0" data-rotate-y="90" data-rotate-y="0" data-scale="1">
-        <p class="fade in fade-out" style="text-align: left"> <span class='blue'> 2. 在C语言的源程序中，注释使用越多，编译之后的可执行程序的执行效率越低。</span>（　　）</p>
+      <div class="step" data-x="0" data-y="8500" data-z="0" data-rotate-y="90" data-rotate-x="0" data-scale="1">
+        <p class="fade in fade-out" style="text-align: left"> <span class="blue"> 2. 在C语言的源程序中，注释使用越多，编译之后的可执行程序的执行效率越低。</span>（ ）</p>
       </div>
 
-      <div class="step" data-x="0" data-y="8500" data-z="0" data-rotate-y="90" data-rotate-y="0" data-scale="1">
-        <p class="fade in fade-out" style="text-align: left"><span class='blue'> 2. 在C语言的源程序中，注释使用越多，编译之后的可执行程序的执行效率越低。</span>（　<span class='red'>错</span>　）<br> 【解析】：注释在编译后就没有了（被编译器忽视），所以不影响执行效率
+      <div class="step" data-x="0" data-y="8500" data-z="0" data-rotate-y="90" data-rotate-x="0" data-scale="1">
+        <p class="fade in fade-out" style="text-align: left"><span class="blue"> 2. 在C语言的源程序中，注释使用越多，编译之后的可执行程序的执行效率越低。</span>（<span class="red">错</span>）<br> 【解析】：注释在编译后就没有了（被编译器忽视），所以不影响执行效率
         </p>
       </div>
 
-      <div class="step" data-x="0" data-y="8500" data-z="0" data-rotate-y="90" data-rotate-y="0" data-scale="1">
-        <p class="fade in fade-out" style="text-align: left"> <span class='blue'> 3. 当主程序执行完毕时，亦即程序执行完毕。</span>（　　）</p>
+      <div class="step" data-x="0" data-y="8500" data-z="0" data-rotate-y="90" data-rotate-x="0" data-scale="1">
+        <p class="fade in fade-out" style="text-align: left"> <span class="blue"> 3. 当主程序执行完毕时，亦即程序执行完毕。</span>（ ）</p>
       </div>
 
-      <div class="step" data-x="0" data-y="8500" data-z="0" data-rotate-y="90" data-rotate-y="0" data-scale="1">
-        <p class="fade in fade-out" style="text-align: left"><span class='blue'> 3. 当主程序执行完毕时，亦即程序执行完毕。</span>（　<span class='green'>对</span>　）</p>
+      <div class="step" data-x="0" data-y="8500" data-z="0" data-rotate-y="90" data-rotate-x="0" data-scale="1">
+        <p class="fade in fade-out" style="text-align: left"><span class="blue"> 3. 当主程序执行完毕时，亦即程序执行完毕。</span>（<span class="green">对</span>）</p>
       </div>
 
-      <div class="step" data-x="0" data-y="8500" data-z="0" data-rotate-y="90" data-rotate-y="0" data-scale="1">
-        <p class="fade in fade-out" style="text-align: left"> <span class='blue'> 4. C程序有且仅有一个main()函数。</span>（　　）</p>
+      <div class="step" data-x="0" data-y="8500" data-z="0" data-rotate-y="90" data-rotate-x="0" data-scale="1">
+        <p class="fade in fade-out" style="text-align: left"> <span class="blue"> 4. C程序有且仅有一个<code>main()</code>函数。</span>（ ）</p>
       </div>
 
-      <div class="step" data-x="0" data-y="8500" data-z="0" data-rotate-y="90" data-rotate-y="0" data-scale="1">
-        <p class="fade in fade-out" style="text-align: left"><span class='blue'> 4. C程序有且仅有一个main()函数。</span>（　<span class='green'>对</span>　）</p>
+      <div class="step" data-x="0" data-y="8500" data-z="0" data-rotate-y="90" data-rotate-x="0" data-scale="1">
+        <p class="fade in fade-out" style="text-align: left"><span class="blue"> 4. C程序有且仅有一个<code>main()</code>函数。</span>（<span class="green">对</span>）</p>
       </div>
 
-      <div class="step" data-x="0" data-y="8500" data-z="0" data-rotate-y="90" data-rotate-y="0" data-scale="1">
-        <p class="fade in fade-out" style="text-align: left"> <span class='blue'> 5. C语言中不区分大小写英文字母。</span>（　　）</p>
+      <div class="step" data-x="0" data-y="8500" data-z="0" data-rotate-y="90" data-rotate-x="0" data-scale="1">
+        <p class="fade in fade-out" style="text-align: left"> <span class="blue"> 5. C语言中不区分大小写英文字母。</span>（ ）</p>
       </div>
 
-      <div class="step" data-x="0" data-y="8500" data-z="0" data-rotate-y="90" data-rotate-y="0" data-scale="1">
-        <p class="fade in fade-out" style="text-align: left"><span class='blue'> 5. C语言中不区分大小写英文字母。</span>（　<span class='red'>错</span>　）<br> 【解析】：C语言是大小写区分的</p>
+      <div class="step" data-x="0" data-y="8500" data-z="0" data-rotate-y="90" data-rotate-x="0" data-scale="1">
+        <p class="fade in fade-out" style="text-align: left"><span class="blue"> 5. C语言中不区分大小写英文字母。</span>（<span class="red">错</span>）<br> 【解析】：C语言是大小写区分的</p>
       </div>
 
-      <div class="step" data-x="0" data-y="8500" data-z="0" data-rotate-y="0" data-rotate-y="0" data-scale="1">
+      <div class="step" data-x="0" data-y="8500" data-z="0" data-rotate-y="0" data-rotate-x="0" data-scale="1">
         <h3 class="fade in fade-out" style="text-align: center">二、选择题</h3>
       </div>
 
-      <div class="step" data-x="0" data-y="8500" data-z="0" data-rotate-y="90" data-rotate-y="0" data-scale="1">
-        <p class="fade in fade-out" style="text-align: left"> <span class='blue'> 1、下列四组选项中，均不是C语言关键字的选项是</span>（　　）。
+      <div class="step slide" data-x="0" data-y="8500" data-z="0" data-rotate-y="90" data-rotate-x="0" data-scale="1">
+        <p class="fade in fade-out" style="text-align: left"> <span class="blue"> 1、下列四组选项中，均不是C语言关键字的选项是</span>（ ）。
           <ul>
-            <li>A)　define, IF, go</li>
-            <li>B)　gets, char, printf</li>
-            <li>C)　include, scanf, case</li>
-            <li>D)　while　, pow, type </li>
+            <li>A)　<code>define</code>, <code>IF</code>, <code>go</code></li>
+            <li>B)　<code>gets</code>, <code>char</code>, <code>printf</code></li>
+            <li>C)　<code>include</code>, <code>scanf</code>, <code>case</code></li>
+            <li>D)　<code>while</code>　, <code>pow</code>, <code>type</code> </li>
+          </ul>
         </p>
       </div>
 
-      <div class="step" data-x="0" data-y="8500" data-z="0" data-rotate-y="90" data-rotate-y="0" data-scale="1">
-        <p class="fade in fade-out" style="text-align: left"> <span class='blue'> 1、下列四组选项中，均不是C语言关键字的选项是</span>（　<span class='green'>A</span>　）。
+      <div class="step slide" data-x="0" data-y="8500" data-z="0" data-rotate-y="90" data-rotate-x="0" data-scale="1">
+        <p class="fade in fade-out" style="text-align: left"> <span class="blue"> 1、下列四组选项中，均不是C语言关键字的选项是</span>（<span class="green">A</span>）。
           <ul>
-            <li>A)　define, IF, go</li>
-            <li>B)　gets, <span class='red'>char</span>, printf</li>
-            <li>C)　include, scanf, <span class='red'>case</span></li>
-            <li>D)　<span class='red'>while</span>　, pow, type </li>
+            <li>A)　<code>define</code>, <code>IF</code>, <code>go</code></li>
+            <li>B)　<code>gets</code>, <code><span class="red">char</span></code>, <code>printf</code></li>
+            <li>C)　<code>include</code>, <code>scanf</code>, <code><span class="red">case</span></code></li>
+            <li>D)　<code><span class="red">while</span></code>　, <code>pow</code>, <code>type</code> </li>
+          </ul>
         </p>
       </div>
 
-      <div class="step" data-x="0" data-y="8500" data-z="0" data-rotate-y="90" data-rotate-y="0" data-scale="1">
-        <p class="fade in fade-out" style="text-align: left"> <span class='blue'> 2、下列正确的标识符是</span>（　　）。
+      <div class="step slide" data-x="0" data-y="8500" data-z="0" data-rotate-y="90" data-rotate-x="0" data-scale="1">
+        <p class="fade in fade-out" style="text-align: left"> <span class="blue"> 2、下列正确的标识符是</span>（ ）。
           <ul>
-            <li>A)　-a1</li>
-            <li>B)　a[i]</li>
-            <li>C)　a2_i</li>
-            <li>D)　int t</li>
+            <li>A)　<code>-a1</code></li>
+            <li>B)　<code>a[i]</code></li>
+            <li>C)　<code>a2_i</code></li>
+            <li>D)　<code>int t</code></li>
+          </ul>
         </p>
       </div>
 
-      <div class="step" data-x="0" data-y="8500" data-z="0" data-rotate-y="90" data-rotate-y="0" data-scale="1">
-        <p class="fade in fade-out" style="text-align: left"> <span class='blue'> 2、下列正确的标识符是</span>（　<span class='green'>C</span>　）。
+      <div class="step slide" data-x="0" data-y="8500" data-z="0" data-rotate-y="90" data-rotate-x="0" data-scale="1">
+        <p class="fade in fade-out" style="text-align: left"> <span class="blue"> 2、下列正确的标识符是</span>（<span class="green">C</span>）。
           <ul>
-            <li>A)　-a1 (<code>-</code>是非法字符）</li>
-            <li>B)　a[i](<code>[ ]</code>是非法字符）</li>
-            <li>C)　a2_i</li>
-            <li>D)　int t(<code>(空格)</code>是非法字符）</li>
+            <li>A)　<code>-a1</code> (<code>-</code>是非法字符）</li>
+            <li>B)　<code>a[i]</code>(<code>[ ]</code>是非法字符）</li>
+            <li>C)　<code>a2_i</code></li>
+            <li>D)　<code>int t</code>(<code>(空格)</code>是非法字符）</li>
+          </ul>
         </p>
       </div>
 
-      <div class="step" data-x="0" data-y="8500" data-z="0" data-rotate-y="90" data-rotate-y="0" data-scale="1">
-        <p class="fade in fade-out" style="text-align: left"> <span class='blue'> 3、C语言中的简单数据类型包括</span>（　　）。
+      <div class="step slide" data-x="0" data-y="8500" data-z="0" data-rotate-y="90" data-rotate-x="0" data-scale="1">
+        <p class="fade in fade-out" style="text-align: left"> <span class="blue"> 3、C语言中的简单数据类型包括</span>（ ）。
           <ul>
             <li>A)　整型、实型、字符串型</li>
             <li>B)　整型、实型、字符型、字符串型</li>
             <li>C)　整型、字符串型、逻辑型</li>
             <li>D)　整型、实型、字符型</li>
+          </ul>
         </p>
       </div>
 
-      <div class="step" data-x="0" data-y="8500" data-z="0" data-rotate-y="90" data-rotate-y="0" data-scale="1">
-        <p class="fade in fade-out" style="text-align: left"> <span class='blue'> 3、C语言中的简单数据类型包括</span>（<span class='green'>D</span>　　）。
+      <div class="step slide" data-x="0" data-y="8500" data-z="0" data-rotate-y="90" data-rotate-x="0" data-scale="1">
+        <p class="fade in fade-out" style="text-align: left"> <span class="blue"> 3、C语言中的简单数据类型包括</span>（<span class="green">D</span>）。
           <ul>
-            <li>A)　整型、实型、字符串型，<span class='red'>【字符串是字符型的组合，不是简单类型】</span></li>
-            <li>B)　整型、实型、字符型、字符串型</li>
-            <li>C)　整型、字符串型、逻辑型</li>
+            <li>A)　整型、实型、<span class="red">字符串型是字符型的组合，不是简单类型】</span></li>
+            <li>B)　整型、实型、字符型、<span class="red">字符串型</span></li>
+            <li>C)　整型、<span class="red">字符串型</span>、逻辑型</li>
             <li>D)　整型、实型、字符型</li>
+          </ul>
         </p>
       </div>
 
-      <div class="step" data-x="0" data-y="8500" data-z="0" data-rotate-y="90" data-rotate-y="0" data-scale="1">
-        <p class="fade in fade-out" style="text-align: left"> <span class='blue'> 4、在C语言程序中，表达式5%2的结果是 </span>（　　）。
+      <div class="step slide" data-x="0" data-y="8500" data-z="0" data-rotate-y="90" data-rotate-x="0" data-scale="1">
+        <p class="fade in fade-out" style="text-align: left"> <span class="blue"> 4、在C语言程序中，表达式<code>5%2</code>的结果是 </span>（ ）。
           <ul>
-            <li>A)　2.5</li>
-            <li>B)　2</li>
-            <li>C)　1</li>
-            <li>D)　3</li>
+            <li>A)　<code>2.5</code></li>
+            <li>B)　<code>2</code></li>
+            <li>C)　<code>1</code></li>
+            <li>D)　<code>3</code></li>
+          </ul>
         </p>
       </div>
 
-      <div class="step" data-x="0" data-y="8500" data-z="0" data-rotate-y="90" data-rotate-y="0" data-scale="1">
-        <p class="fade in fade-out" style="text-align: left"> <span class='blue'> 4、在C语言程序中，表达式5%2的结果是 </span>（　<span class='green'>D</span>　　　）。
+      <div class="step slide" data-x="0" data-y="8500" data-z="0" data-rotate-y="90" data-rotate-x="0" data-scale="1">
+        <p class="fade in fade-out" style="text-align: left"> <span class="blue"> 4、在C语言程序中，表达式<code>5%2</code>的结果是 </span>（<span class="green">C</span>）。
           <ul>
-            <li>A)　2.5</li>
-            <li>B)　2</li>
-            <li>C)　1</li>
-            <li>D)　3</li>
+            <li>A)　<code>2.5</code></li>
+            <li>B)　<code>2</code></li>
+            <li>C)　<code>1</code></li>
+            <li>D)　<code>3</code></li>
+          </ul>
         </p>
       </div>
 
-      <div class="step" data-x="0" data-y="8500" data-z="0" data-rotate-y="90" data-rotate-y="0" data-scale="1">
-        <p class="fade in fade-out" style="text-align: left"> <span class='blue'> 5、表达式的值为4的是 </span>（　　）。
+      <div class="step slide" data-x="0" data-y="8500" data-z="0" data-rotate-y="90" data-rotate-x="0" data-scale="1">
+        <p class="fade in fade-out" style="text-align: left"> <span class="blue"> 5、表达式的值为<code>4</code>的是 </span>（ ）。
           <ul>
-            <li>A)　11/3</li>
-            <li>B)　11.0/3</li>
-            <li>C)　(float)11/3</li>
-            <li>D)　(int)(11.0/3+0.5)</li>
+            <li>A)　<code>11/3</code></li>
+            <li>B)　<code>11.0/3</code></li>
+            <li>C)　<code>(float)11/3</code></li>
+            <li>D)　<code>(int)(11.0/3+0.5)</code></li>
+          </ul>
         </p>
       </div>
 
-      <div class="step" data-x="0" data-y="8500" data-z="0" data-rotate-y="90" data-rotate-y="0" data-scale="1">
-        <p class="fade in fade-out" style="text-align: left"> <span class='blue'> 5、表达式的值为4的是 </span>（<span class='green'>D</span>）。
+      <div class="step slide" data-x="0" data-y="8500" data-z="0" data-rotate-y="90" data-rotate-x="0" data-scale="1">
+        <p class="fade in fade-out" style="text-align: left"> <span class="blue"> 5、表达式的值为<code>4</code>的是 </span>（<span class="green">D</span>）。
           <ul>
-            <li>A)　11/3， 结果=3</li>
-            <li>B)　11.0/3， 结果=3.666667</li>
-            <li>C)　(float)11/3， 结果=3.666667</li>
-            <li>D)　(int)(11.0/3+0.5)， 结果=(int)(4.166667)=4</li>
+            <li>A)　<code>11/3</code>， 结果<code>=3</code></li>
+            <li>B)　<code>11.0/3</code>， 结果<code>=3.666667</code></li>
+            <li>C)　<code>(float)11/3</code>， 结果<code>=3.666667</code></li>
+            <li>D)　<code>(int)(11.0/3+0.5)</code>， 结果<code>=(int)(4.166667)=4</code></li>
+          </ul>
         </p>
       </div>
 
-      <div class="step" data-x="0" data-y="8500" data-z="0" data-rotate-y="90" data-rotate-y="0" data-scale="1">
-        <p class="fade in fade-out" style="text-align: left"> <span class='blue'> 6、下面是合法常量的是</span>（　　）。
+      <div class="step slide" data-x="0" data-y="8500" data-z="0" data-rotate-y="90" data-rotate-x="0" data-scale="1">
+        <p class="fade in fade-out" style="text-align: left"> <span class="blue"> 6、下面是合法常量的是</span>（ ）。
           <ul>
             <li>A)　<code>160，-0xffff, 011</code></li>
             <li>B)　<code>-0xcdh, 0l, 0xe</code></li>
             <li>C)　<code>-0l, 986.012, 0668</code></li>
             <li>D)　<code>-0x48a, 2e5, 0x</code></li>
+          </ul>
         </p>
       </div>
 
-      <div class="step" data-x="0" data-y="8500" data-z="0" data-rotate-y="90" data-rotate-y="0" data-scale="1">
-        <p class="fade in fade-out" style="text-align: left"> <span class='blue'> 6、下面是合法常量的是</span>（　<span class='green'>A</span>　）。
+      <div class="step slide" data-x="0" data-y="8500" data-z="0" data-rotate-y="90" data-rotate-x="0" data-scale="1">
+        <p class="fade in fade-out" style="text-align: left"> <span class="blue"> 6、下面是合法常量的是</span>（<span class="green">A</span>）。
           <ul>
             <li>A)　<code>160，-0xffff, 011</code></li>
-            <li>B)　<code><span class='red'>-0xcdh</span>, 0l, 0xe</code></li>
-            <li>C)　<code>-0l, 986.012, <span class='red'>0668</span></code></li>
-            <li>D)　<code>-0x48a, 2e5, <span class='red'>'ab'</span></code></li>
+            <li>B)　<code><span class="red">-0xcdh</span>, 0l, 0xe</code></li>
+            <li>C)　<code>-0l, 986.012, <span class="red">0668</span></code></li>
+            <li>D)　<code>-0x48a, 2e5, <span class="red">'ab'</span></code></li>
+          </ul>
         </p>
       </div>
 
-      <div class="step" data-x="0" data-y="8500" data-z="0" data-rotate-y="90" data-rotate-y="0" data-scale="1">
-        <p class="fade in fade-out" style="text-align: left"> <span class='blue'> 7、对于<code>int　n=3; n+=n-=n*n；</code> 后 <code>n</code>　的值是</span>（　　）。
+      <div class="step slide" data-x="0" data-y="8500" data-z="0" data-rotate-y="90" data-rotate-x="0" data-scale="1">
+        <p class="fade in fade-out" style="text-align: left"> <span class="blue"> 7、对于<code>int　n=3; n+=n-=n*n；</code> 后 <code>n</code>　的值是</span>（　　）。
           <ul>
             <li>A)　<code>3</code></li>
             <li>B)　<code>-6</code></li>
             <li>C)　<code>9</code></li>
             <li>D)　<code>-12</code></li>
+          </ul>
         </p>
       </div>
 
-      <div class="step" data-x="0" data-y="8500" data-z="0" data-rotate-y="90" data-rotate-y="0" data-scale="1">
-        <p class="fade in fade-out" style="text-align: left"> <span class='blue'> 7、对于<code>int　n=3; n+=n-=n*n；</code> 后 <code>n</code>　的值是</span>（　<span class='green'>D</span>　）。
+      <div class="step slide" data-x="0" data-y="8500" data-z="0" data-rotate-y="90" data-rotate-x="0" data-scale="1">
+        <p class="fade in fade-out" style="text-align: left"> <span class="blue"> 7、对于<code>int　n=3; n+=n-=n*n；</code> 后 <code>n</code>　的值是</span>（　<span class="green">D</span>　）。
           <ul>
             <li>A)　<code>3</code></li>
             <li>B)　<code>-6</code></li>
             <li>C)　<code>9</code></li>
             <li>D)　<code>-12</code></li>
-            <li>[解析]：<code>n+=n-=n*n；</code>等效于<br><code>n=n-n*n=3-3*3=-6; <br> n=n+n=-6+-6=-12;</code> </li>
+            <li>[解析]：<code>n+=n-=n*n；</code>等效于<br><code>n=n-n*n=3-3*3=-6; n=n+n=-6+-6=-12;</code> </li>
+          </ul>
         </p>
       </div>
 
-      <div class="step" data-x="0" data-y="8500" data-z="0" data-rotate-y="90" data-rotate-y="0" data-scale="1">
-        <p class="fade in fade-out" style="text-align: left"> <span class='blue'> 8、在下列选项中，不正确的赋值语句是</span>（　　）。
+      <div class="step slide" data-x="0" data-y="8500" data-z="0" data-rotate-y="90" data-rotate-x="0" data-scale="1">
+        <p class="fade in fade-out" style="text-align: left"> <span class="blue"> 8、在下列选项中，不正确的赋值语句是</span>（　　）。
           <ul>
             <li>A)　<code>t/=5;</code></li>
             <li>B)　<code>n1=(n2=(n3=0))；</code></li>
             <li>C)　<code>k=i=m=j;</code></li>
             <li>D)　<code>a=b+c=1;</code></li>
+          </ul>
         </p>
       </div>
 
-      <div class="step" data-x="0" data-y="8500" data-z="0" data-rotate-y="90" data-rotate-y="0" data-scale="1">
-        <p class="fade in fade-out" style="text-align: left"> <span class='blue'> 8、在下列选项中，不正确的赋值语句是</span>（<span class='green'>D</span>）。
+      <div class="step slide" data-x="0" data-y="8500" data-z="0" data-rotate-y="90" data-rotate-x="0" data-scale="1">
+        <p class="fade in fade-out" style="text-align: left"> <span class="blue"> 8、在下列选项中，不正确的赋值语句是</span>（<span class="green">D</span>）。
           <ul>
             <li>A)　<code>t/=5;</code></li>
             <li>B)　<code>n1=(n2=(n3=0))；</code></li>
             <li>C)　<code>k=i=m=j;</code></li>
-            <li>D)　<code>a=b+c=1;</code>, <span class='red'><code>b+c</code>是表达式不能做左值被赋值</span></li>
+            <li>D)　<code>a=b+c=1;</code>, <span class="red"><code>b+c</code>是表达式不能做左值被赋值</span></li>
+          </ul>
         </p>
       </div>
 
-      <div class="step" data-x="0" data-y="8500" data-z="0" data-rotate-y="90" data-rotate-y="0" data-scale="1">
-        <p class="fade in fade-out" style="text-align: left"> <span class='blue'> 9、以下选项中是C语言赋值语句的是</span>（　　）。
+      <div class="step slide" data-x="0" data-y="8500" data-z="0" data-rotate-y="90" data-rotate-x="0" data-scale="1">
+        <p class="fade in fade-out" style="text-align: left"> <span class="blue"> 9、以下选项中是C语言赋值语句的是</span>（　　）。
           <ul>
             <li>A)　<code>x=3,y=5</code></li>
-            <li>B)　<code>a=b=6</code></li>
+            <li>B)　<code>a=x%(--3);</code></li>
             <li>C)　<code>i--;</code></li>
             <li>D)　<code>y=int(x);</code></li>
+          </ul>
         </p>
       </div>
 
-      <div class="step" data-x="0" data-y="8500" data-z="0" data-rotate-y="90" data-rotate-y="0" data-scale="1">
-        <p class="fade in fade-out" style="text-align: left"> <span class='blue'> 9、以下选项中是C语言赋值语句的是</span>（<span class='green'>C</span>）。
+      <div class="step slide" data-x="0" data-y="8500" data-z="0" data-rotate-y="90" data-rotate-x="0" data-scale="1">
+        <p class="fade in fade-out" style="text-align: left"> <span class="blue"> 9、以下选项中是C语言赋值语句的是</span>（<span class="green">C</span>）。
           <ul>
-            <li>A)　<code>x=3,y=5</code>, <span class='red'>确少<code>;</code></span></li>
-            <li>B)　<code>a=x%(--3);</code>, <span class='red'><code>--</code>只能作用在变量（左值）上</span></li>
+            <li>A)　<code>x=3,y=5</code>, <span class="red">确少<code>;</code></span></li>
+            <li>B)　<code>a=x%(--3);</code>, <span class="red"><code>--</code>只能作用在变量（左值）上</span></li>
             <li>C)　<code>i--;</code></li>
-            <li>D)　<code>y=int(x);</code>, <span class='red'>正确是<code>(int)(x)</code></span></li>
+            <li>D)　<code>y=int(x);</code>, <span class="red">正确是<code>(int)(x)</code></span></li>
+          </ul>
         </p>
       </div>
 
-      <div class="step" data-x="0" data-y="8500" data-z="0" data-rotate-y="90" data-rotate-y="0" data-scale="1">
-        <p class="fade in fade-out" style="text-align: left"> <span class='blue'> 10、<code>x=2.5,a=7,y=4.7</code>，则表达式：<code>x+a%3*(int)(x+y)%2/4</code>的值为</span>（　　）。
+      <div class="step slide" data-x="0" data-y="8500" data-z="0" data-rotate-y="90" data-rotate-x="0" data-scale="1">
+        <p class="fade in fade-out" style="text-align: left"> <span class="blue"> 10、<code>x=2.5,a=7,y=4.7</code>，则表达式：<code>x+a%3*(int)(x+y)%2/4</code>的值为</span>（　　）。
           <ul>
             <li>A)　<code>2.5</code></li>
             <li>B)　<code>2.75</code></li>
             <li>C)　<code>3</code></li>
             <li>D)　<code>9.5</code></li>
+          </ul>
         </p>
       </div>
 
-      <div class="step" data-x="0" data-y="8500" data-z="0" data-rotate-y="90" data-rotate-y="0" data-scale="1">
-        <p class="fade in fade-out" style="text-align: left"> <span class='blue'> 10、<code>x=2.5,a=7,y=4.7</code>，则表达式：<code>x+a%3*(int)(x+y)%2/4</code>的值为</span>（<span class='green'>C</span>）。
+      <div class="step slide" data-x="0" data-y="8500" data-z="0" data-rotate-y="90" data-rotate-x="0" data-scale="1">
+        <p class="fade in fade-out" style="text-align: left"> <span class="blue"> 10、<code>x=2.5,a=7,y=4.7</code>，则表达式：<code>x+a%3*(int)(x+y)%2/4</code>的值为</span>（<span class="green">C</span>）。
           <ul>
             <li>A)　<code>2.5</code></li>
             <li>B)　<code>2.75</code></li>
             <li>C)　<code>3</code></li>
             <li>D)　<code>9.5</code></li>
-            <li>[解析]：<code>x+a%3*(int)(x+y)%2/4 = 2.5+7%3*(int)(2.5+4.7)%2/4 = 2.5+1*7%2/4 = 2.5+1/4 = 2.5+0 = 2.5</code></li>
+            <li>[解析]：<code>x+a%3*(int)(x+y)%2/4 <br>=2.5+7%3*(int)(2.5+4.7)%2/4 <br>=2.5+1*7%2/4 <br>=2.5+1/4 <br>=2.5+0 =2.5</code></li>
+          </ul>
         </p>
       </div>
 
-      <div class="step" data-x="0" data-y="8500" data-z="0" data-rotate-y="90" data-rotate-y="0" data-scale="1">
-        <p class="fade in fade-out" style="text-align: left"> <span class='blue'> 11、<code>int a=2,b=3,c=4;</code>，则能表示数学式：</span> \(\frac{1}{abc} \)（　　）。
+      <div class="step slide" data-x="0" data-y="8500" data-z="0" data-rotate-y="90" data-rotate-x="0" data-scale="1">
+        <p class="fade in fade-out" style="text-align: left"> <span class="blue"> 11、<code>int a=2,b=3,c=4;</code>，则能表示数学式：</span> \(\frac{1}{abc} \)（　　）。
           <ul>
             <li>A)　<code>1.0/a*1.0/b*1.0/c</code></li>
             <li>B)　<code>1/a/b/(float)c</code></li>
             <li>C)　<code>1.0/(a*b*c)</code></li>
             <li>D)　<code>1.0/a/b/c</code></li>
             <li>E)　<code>1.0/(float)(a*b*c)</code></li>
+          </ul>
         </p>
       </div>
 
-      <div class="step" data-x="0" data-y="8500" data-z="0" data-rotate-y="90" data-rotate-y="0" data-scale="1">
-        <p class="fade in fade-out" style="text-align: left"> <span class='blue'> 11、<code>int a=2,b=3,c=4;</code>，则能表示数学式：</span>\(\frac{1}{abc} \)（<span class='green'>A、C、D、E</span>）。
+      <div class="step slide" data-x="0" data-y="8500" data-z="0" data-rotate-y="90" data-rotate-x="0" data-scale="1">
+        <p class="fade in fade-out" style="text-align: left"> <span class="blue"> 11、<code>int a=2,b=3,c=4;</code>，则能表示数学式：</span>\(\frac{1}{abc} \)（<span class="green">A、C、D、E</span>）。
           <ul>
             <li>A)　<code>1.0/a*1.0/b*1.0/c</code></li>
             <li>B)　<code>1/a/b/(float)c</code>， <code>1/a=0</code></li>
             <li>C)　<code>1.0/(a*b*c)</code></li>
             <li>D)　<code>1.0/a/b/c</code></li>
             <li>E)　<code>1.0/(float)(a*b*c)</code></li>
+          </ul>
         </p>
       </div>
 
-      <div class="step" data-x="0" data-y="8500" data-z="0" data-rotate-y="90" data-rotate-y="0" data-scale="1">
-        <p class="fade in fade-out" style="text-align: left; "> <span class='blue'> 12、下面程序的输出是</span>（ ）。<pre class='fade-in fade-out' style=" font-size:20px"><code class='c'>#include&lt;stdio.h&gt;
+      <div class="step slide" data-x="0" data-y="8500" data-z="0" data-rotate-y="90" data-rotate-x="0" data-scale="1">
+        <p class="fade in fade-out" style="text-align: left; "> <span class="blue"> 12、下面程序的输出是</span>（ ）。<pre class="fade-in fade-out" style=" font-size:20px"><code class="c">#include&lt;stdio.h&gt;
 int main(void)
 {
   int a=016;
@@ -1706,8 +1733,8 @@ int main(void)
         </p>
       </div>
 
-      <div class="step" data-x="0" data-y="8500" data-z="0" data-rotate-y="90" data-rotate-y="0" data-scale="1">
-        <p class="fade in fade-out" style="text-align: left;"> <span class='blue'> 12、下面程序的输出是</span>（<span class='green'>C</span>）。<pre class='fade-in fade-out' style=" font-size:20px"><code class='c'>#include&lt;stdio.h&gt;
+      <div class="step slide" data-x="0" data-y="8500" data-z="0" data-rotate-y="90" data-rotate-x="0" data-scale="1">
+        <p class="fade in fade-out" style="text-align: left;"> <span class="blue"> 12、下面程序的输出是</span>（<span class="green">C</span>）。<pre class="fade-in fade-out" style=" font-size:20px"><code class="c">#include&lt;stdio.h&gt;
 int main(void)
 {
   int a=016;        //a=016=14;
@@ -1727,15 +1754,125 @@ int main(void)
         </p>
       </div>
 
-      <div id="overview" class="step" data-x="0" data-y="0" data-scale="12">
+      <div class="step" data-x="0" data-y="8500" data-z="0" data-rotate-y="0" data-rotate-x="0" data-scale="1">
+        <h3 class="fade in fade-out" style="text-align: center">三、填空题</h3>
+      </div>
+
+      <div class="step slide" data-x="0" data-y="8500" data-z="0" data-rotate-y="90" data-rotate-x="0" data-scale="1">
+        <h4 class="fade in fade-out" style="text-align: center">1、分析下面的程序 </h4> <pre class="fade-in fade-out" style="font-size:24px"><code class="c">#include&lt;stdio.h&gt;
+int main(void)
+{
+    char c1, c2;
+    c1=97; c2=98;
+    printf("c1=%c, c2=%c; ", c1, c2);
+    printf("c1=%d, c2=%d\n", c1, c2);
+    return 0;
+}</code></pre>
+        <p style="text-align: left" class="fade-in fade-out">
+          <ul style="font-size: 28px">
+            <li>运行时会输出______</li>
+            <li>若：<code>c1=197; c2=198; </code>, 运行时会输出______</li>
+            <li>若：<code>int c1=197, c2=198; </code>, 运行时会输出______</li>
+          </ul>
+        </p>
+      </div>
+
+      <div class="step slide" data-x="0" data-y="8500" data-z="0" data-rotate-y="90" data-rotate-x="0" data-scale="1">
+        <h4 class="fade in fade-out" style="text-align: center">1、分析下面的程序 </h4> <pre class="fade-in fade-out" style="font-size:24px"><code class="c">#include&lt;stdio.h&gt;
+int main(void)
+{
+    char c1, c2;
+    c1=97; c2=98;
+    printf("c1=%c, c2=%c; ", c1, c2);
+    printf("c1=%d, c2=%d\n", c1, c2);
+    return 0;
+}</code></pre>
+        <p style="text-align: left" class="fade-in fade-out">
+          <ul style="font-size: 28px">
+            <li>运行时会输出<code>c1=a, c2=b; c1=97, c2=98</code></li>
+            <li>若：<code>c1=197; c2=198; </code>, 输出<code>c1=? c2=? ; c1=-59, c2=-58</code></li>
+            <li>若：<code>int c1=197, c2=198; </code>, 输出<code>c1=? c2=? ; c1=197, c2=198</code></li>
+          </ul>
+        </p>
+      </div>
+
+      <div class="step slide" data-x="0" data-y="8500" data-z="0" data-rotate-y="90" data-rotate-x="0" data-scale="1">
+        <h4 class="fade in fade-out" style="text-align: center">2、下面程序要使<code>a=3,b=7,x=8.5,y=71.82,c1='A',c2='a'</code></h4> <pre class="fade-in fade-out" style="font-size:24px"><code class="c">#include&lt;stdio.h&gt;
+int main(void)
+{
+    int a, b;
+    float x, y;
+    char c1, c2;
+    scanf("a=%db=%d",&a,&b);
+    scanf("%f%e",&x,&y);
+    scanf("%c%c",&c1,&c2);
+    printf("a=%d,b=%d,x=%g,y=%g,c1=%c,c2=%c\n", a,b,x,y,c1,c2);
+    return 0;
+}</code></pre>
+        <p style="text-align: left" class="fade-in fade-out">
+          在键盘上要输入__________________________
+        </p>
+      </div>
+
+      <div class="step slide" data-x="0" data-y="8500" data-z="0" data-rotate-y="90" data-rotate-x="0" data-scale="1">
+        <h4 class="fade in fade-out" style="text-align: center">2、下面程序要使<code>a=3,b=7,x=8.5,y=71.82,c1='A',c2='a'</code></h4> <pre class="fade-in fade-out" style="font-size:24px"><code class="c">#include&lt;stdio.h&gt;
+int main(void)
+{
+    int a, b;
+    float x, y;
+    char c1, c2;
+    scanf("a=%db=%d",&a,&b);
+    scanf("%f%e",&x,&y);
+    scanf("%c%c",&c1,&c2);
+    printf("a=%d,b=%d,x=%g,y=%g,c1=%c,c2=%c\n", a,b,x,y,c1,c2);
+    return 0;
+}</code></pre>
+        <p style="text-align: left" class="fade-in fade-out">
+          在键盘上要输入<code>a=3b=7 8.5 71.82e0Aa</code>
+        </p>
+      </div>
+
+      <div class="step" data-x="0" data-y="8500" data-z="0" data-rotate-y="0" data-rotate-x="0" data-scale="1">
+        <h3 class="fade in fade-out" style="text-align: left">四、编程</h3>
+        <p style="text-align: left">设圆半径\( r=1.5 \), 圆柱高\( h=3 \)，求:
+          <ul>
+            <li>圆周长, \( circumference_{circle}=2\pi r \)</li>
+            <li>圆面积, \( area_{circle}=\pi r^2 \)</li>
+            <li>圆球表面积, \( area_{sphere}=4\pi r^2 \)</li>
+            <li>圆球体积, \( volume_{sphere}=\frac{3}{4}\pi r^3 \)</li>
+            <li>圆柱体积, \( volume_{cylinder}=\pi r^2h \)</li>
+          </ul>
+        </p>
+      </div>
+
+      <div class="step" data-x="0" data-y="8500" data-z="0" data-rotate-y="90" data-rotate-x="0" data-scale="1">
+        <pre class="fade-in fade-out" style="font-size:22px"><code class="c">#include&lt;stdio.h&gt;
+const double PI = 3.14159;
+
+int main(void)
+{
+    double r=1.5, h=3.0;
+    double circumference_circle, area_circle,
+    area_sphere, volume_sphere, volume_cylinder;
+
+    circumference_circle = 2*PI*r;
+    area_circle=PI*r*r;
+    area_sphere=4.0*PI*r*r;
+    volume_sphere=3.0/4.0*PI*r*r*r;
+    volume_cylinder=PI*r*r*h;
+
+    printf("circumference of circle is:%.2f\n", circumference_circle);//9.42
+    printf("area of circle is:%.2f\n", area_circle);//7.07
+    printf("area of sphere is:%.2f\n", area_sphere);//28.27
+    printf("volume of sphere is:%.2f\n", volume_sphere);//7.95
+    printf("volume of cylinder is:%.2f\n", volume_cylinder);//21.21
+
+    return 0;
+}</code></pre>
       </div>
 
       <div id="overview" class="step" data-x="0" data-y="0" data-scale="12">
       </div>
-
-
-
-
 
     </div>
 
