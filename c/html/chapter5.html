@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+   <head>
+      <title>C Program Chapter 5</title>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <!--<link href="css/impress.css" rel="stylesheet">-->
+      <link type="text/css" rel="stylesheet" href="js/SyntaxHighlighter_3.0.83/styles/shCoreDefault.css" />
+      <link href="js/impress.js/css/impress-progress.css" rel="stylesheet" />
+
+      <link href="css/style1.css" rel="stylesheet">
+      <!-- load math show lib -->
+      <script type="text/x-mathjax-config">
+         MathJax.Hub.Config({ extensions: ["tex2jax.js"], jax: ["input/TeX","output/HTML-CSS"], tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]} });
+      </script>
+
+      <script src="js/mathjax/MathJax.js" async></script>
+   </head>
+
+   <body>
+      <div id="impress">
+
+         <div id="5" class="step" data-x="0" data-y="0" data-scale="1">
+            <h1 style="width:1500px">第五章 循环结构程序设计</h1>
+
+         </div>
+
+         <div id="5.1" class="step" data-x="-100" data-y="800" data-scale="1">
+            <h3 style="padding: 0; margin: 0">5.1 为何要使用循环</h3>
+            <p style="padding: 0; margin: 0">例5.1：菜单管理</p>
+            <div style="height:500px; overflow: auto">
+               <script type="syntaxhighlighter" class="brush: c">
+                  <![CDATA[
+                    #include<stdio.h>
+                    void do_file(void);  //函数声明
+                    void do_edit(void);  //函数声明
+                    void do_view(void);  //函数声明
+
+                    int main(void)
+                    {
+                        int choice;      //变量声明
+
+                        printf("--------------Menu--------------\n");
+                        printf("  [1] File.\n");
+                        printf("  [2] Edit.\n");
+                        printf("  [3] View.\n");
+                        printf("  [0] Quit.\n");
+                        printf("Input your command [0--3]:");
+                        scanf("%d", &amp;choice);
+
+                        if(choice>=0 && choice<=3){
+                            switch(choice){
+                                case 1: do_file(); break;
+                                case 2: do_edit(); break;
+                                case 3: do_view(); break;
+                                case 0: printf("Bye!\n"); return 0;
+                            }
+                        }else{
+                            printf("The input number must between 0 -- 3. \n");
+                        }
+
+                        return 0;
+                    }
+                    ]]>
+               </script>
+            </div>
+         </div>
+
+         <div id="overview" class="step" data-x="0" data-y="0" data-scale="12">
+         </div>
+
+      </div>
+
+      <div id="progress">
+         <div id="progress-bar"></div>
+      </div>
+
+      <script src="js/jquery/jquery.js"></script>
+      <script src="js/impress.js"></script>
+      <script src="js/SyntaxHighlighter_3.0.83/scripts/shCore.js"></script>
+      <script src="js/SyntaxHighlighter_3.0.83/scripts/shBrushCpp.js"></script>
+      <script>
+         SyntaxHighlighter.all();
+         impress().init();
+
+         $(document).ready(function() {
+            var stepCount = $('.step').length;
+
+            $(document).on('impress:stepenter', function(e) {
+               var currentSlide = e.target;
+               var currentSlideProgress = $('.step').index(currentSlide) + 1;
+               var progressPerStep = 100 / stepCount;
+               var progress = Math.ceil(currentSlideProgress * progressPerStep);
+               $('#progress-bar').css('width', progress + '%');
+            });
+         });
+      </script>
+   </body>
+
+</html>

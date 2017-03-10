@@ -6,7 +6,7 @@
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <!--<link href="css/impress.css" rel="stylesheet">-->
-      <link rel="stylesheet" href="js/extras/highlight/styles/xt256.css">
+      <link rel="stylesheet" href="js/extras/highlight/styles/github.css">
 
       <link href="css/style.css" rel="stylesheet">
       <!-- load math show lib -->
@@ -260,7 +260,7 @@ int main()
                <ul>
                   <li><span class="green">原码</span>：就是按照原来的二进制和十进制的对照来保存，比如[5]<sub>10</sub> 的二进制是[101]<sub>2</sub>，保存在8bit的存储单元就是[00 00 01 01]<sub>2</sub> </li>
                   <li><span class="blue">反码</span>：就是按照原来的二进制把1 → 0, 把0 → 1</li>
-                  <li><span class="red">补码</span>：就是把原码变为补码后，再 + 1</li>
+                  <li><span class="red">补码</span>：就是把原码变为反码后，再 + 1</li>
                   <li>计算机在保存整数的时候，如果是<span class="blue">正数就用原码保存</span>，如果<span class="red">是负数，就变为补码来保存</span>。比如[5]<sub>10</sub>是正数，对于8bit的整数，以原码[00 00 01 01]<sub>2</sub>保存，而[-5]<sub>10</sub>是负数，先原码：[00 00 01 01]<sub>2</sub>，反码得到：[11 11 10 10]<sub>2</sub>，变为补码：[11
                      11 10 11]<sub>2</sub>保存</li>
                   <li>对于+0，在8bit的整数，原码存储是[00 00 00 00]<sub>2</sub> , 而对于-0，原码[00 00 00 00]<sub>2</sub>， 反码[11 11 11 11]<sub>2</sub>，变为补码：[00 00 00 00]<sub>2</sub>，可见在这种技术下，-0和+0的保存结果是一样的</li>
