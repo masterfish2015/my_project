@@ -7,8 +7,9 @@
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <!--<link href="css/impress.css" rel="stylesheet">-->
       <link type="text/css" rel="stylesheet" href="js/SyntaxHighlighter_3.0.83/styles/shCoreDefault.css" />
-      <link href="js/impress.js/css/impress-progress.css" rel="stylesheet" />
 
+      <link href="css/animate.css/animate.css" rel="stylesheet">
+      <link href="css/substep.css" rel="stylesheet">
       <link href="css/style1.css" rel="stylesheet">
       <!-- load math show lib -->
       <script type="text/x-mathjax-config">
@@ -22,49 +23,256 @@
       <div id="impress">
 
          <div id="5" class="step" data-x="0" data-y="0" data-scale="1">
-            <h1 style="width:1500px">第五章 循环结构程序设计</h1>
+            <h1 class="animated rubberBand infinite" style="width:1500px">第五章 循环结构程序设计</h1>
 
          </div>
 
-         <div id="5.1" class="step" data-x="-100" data-y="800" data-scale="1">
-            <h3 style="padding: 0; margin: 0">5.1 为何要使用循环</h3>
-            <p style="padding: 0; margin: 0">例5.1：菜单管理</p>
-            <div style="height:500px; overflow: auto">
+         <div id="5.1.1" class="step slide" data-x="-100" data-y="800" data-scale="1">
+            <h3 class="animated shake  infinite" style="padding: 0; margin: 0">5.1 while循环</h3>
+            <h4>例5.1：求：\[\sum_{n=1}^{100}n = 1+2+...+100 \]</h4>
+            <div class="substep" style="height:500px; overflow: auto">
                <script type="syntaxhighlighter" class="brush: c">
                   <![CDATA[
                     #include<stdio.h>
-                    void do_file(void);  //函数声明
-                    void do_edit(void);  //函数声明
-                    void do_view(void);  //函数声明
 
                     int main(void)
                     {
-                        int choice;      //变量声明
-
-                        printf("--------------Menu--------------\n");
-                        printf("  [1] File.\n");
-                        printf("  [2] Edit.\n");
-                        printf("  [3] View.\n");
-                        printf("  [0] Quit.\n");
-                        printf("Input your command [0--3]:");
-                        scanf("%d", &amp;choice);
-
-                        if(choice>=0 && choice<=3){
-                            switch(choice){
-                                case 1: do_file(); break;
-                                case 2: do_edit(); break;
-                                case 3: do_view(); break;
-                                case 0: printf("Bye!\n"); return 0;
-                            }
-                        }else{
-                            printf("The input number must between 0 -- 3. \n");
+                        int i, sum = 0 ;
+                        i=0;
+                        while(i<=100){
+                            sum += i; i++;
                         }
+                        printf("1+2+...+100=%d\n", sum);
 
                         return 0;
                     }
                     ]]>
                </script>
             </div>
+         </div>
+
+         <div id="5.1.2" class="step slide" data-x="-100" data-y="1600" data-rotate="360" data-scale="1">
+            <h3 class="animated bounce infinite" style="padding: 0; margin: 0">5.1 while循环</h3>
+            <hr>
+            <ol>
+               <li class="substep">格式：<code>while(条件表达式）语句;</code></li>
+               <li class="substep">注意，上面的<code>条件表达式</code>为<code>真（非0）</code>则执行循环(<code>语句</code>)，若为<code>假(0)</code>则退出循环</li>
+               <li class="substep">注意，上面的<code>语句;</code>只能是一条语句，如果需要多条语句，则要用<code>{ }</code>来组成<span class="red">复合语句</span>，如下例：</li>
+            </ol>
+            <div class="substep">
+               <script type="syntaxhighlighter" class="brush: c;">
+                  <![CDATA[
+                            int sum=0, i=0;
+                            while(i<10)
+                                sum+=i;
+                                i++; /* 这句会发生什么？ */
+                            printf("sum = %d\n", sum);                            
+                            ]]>
+               </script>
+            </div>
+            <div class="substep">
+               <script type="syntaxhighlighter" class="brush: c;">
+                  <![CDATA[
+                            int sum=0, i=0;
+                            while(i<10){
+                                sum+=i;
+                                i++; /* 这句会发生什么？ */
+                            }
+                            printf("sum = %d\n", sum);                            
+                            ]]>
+               </script>
+            </div>
+         </div>
+
+         <div id="5.2.1" class="step slide" data-x="-100" data-y="2400" data-scale="1">
+            <h3 class="animated flash infinite" style="padding: 0; margin: 0">5.2 do...while循环</h3>
+            <h4>例5.2：从键盘输入一个正数，求出其开方，若是负数则重新输入。</h4>
+            <div class="substep" style="height:500px; overflow: auto">
+               <script type="syntaxhighlighter" class="brush: c">
+                  <![CDATA[
+                    #include <stdio.h>
+                    #include <math.h>
+                    int main(void)
+                    {
+                        double x = 0, y;
+
+                        do
+                        {
+                            printf("input a positive number:");
+                            scanf("%lf", &x);
+                        } while (x < 0);
+
+                        y = sqrt(x);
+                        printf("sqrt(%.2lf)=%.2lf\n", x, y);
+
+                        return 0;
+                    }
+                    ]]>
+               </script>
+            </div>
+         </div>
+
+         <div id="5.2.2" class="step slide" data-x="-100" data-y="3200" data-rotate="360" data-scale="1">
+            <h3 class="animated pulse infinite" style="padding: 0; margin: 0">5.2 do...while循环</h3>
+            <hr>
+            <ol>
+               <li class="substep">格式：<code>do 语句; while(条件表达式);</code></li>
+               <li class="substep">注意，上面的<code>条件表达式</code>为<code>真（非0）</code>则执行循环(<code>语句</code>)，若为<code>假(0)</code>则退出循环</li>
+               <li class="substep">注意，上面的<code>语句;</code>只能是一条语句，如果需要多条语句，则要用<code>{ }</code>来组成<span class="red">复合语句</span>，如下例：</li>
+            </ol>
+            <div class="substep">
+               <script type="syntaxhighlighter" class="brush: c;">
+                  <![CDATA[
+                            double x = 0, y;
+
+                            do
+                            {
+                                printf("input a positive number:");
+                                scanf("%lf", &x);
+                            } while (x < 0);                           
+                            ]]>
+               </script>
+            </div>
+         </div>
+
+         <div id="5.3.1" class="step slide" data-x="1500" data-y="0" data-scale="1">
+            <h3 class="animated rubberBand infinite" style="padding: 0; margin: 0">5.3 for循环</h3>
+            <h4>例5.3：打印输出九九乘法表</h4>
+            <div class="substep">
+               <script type="syntaxhighlighter" class="brush: c">
+                  <![CDATA[
+                    #include <stdio.h>
+                    
+                    int main(void)
+                    {
+                        int row, column; //行、列
+                        for(row = 1; row <=9; row++){
+                            for(column = 1; column <= 9; column ++){
+                                printf("%2d*%2d=%2d  ", row, column, row*column);
+                            }
+                            putchar('\n');
+                        }
+                        return 0;
+                    }
+                    ]]>
+               </script>
+            </div>
+         </div>
+
+         <div id="5.3.2" class="step slide" data-x="1500" data-y="800" data-scale="1">
+            <img src="images/fig5-1.png" style="width:100%; height:100%">
+         </div>
+
+         <div id="5.3.3" class="step slide" data-x="1500" data-y="1600" data-rotate="360" data-scale="1">
+            <h3 class="animated headShake infinite" style="padding: 0; margin: 0">5.3 for循环</h3>
+            <hr>
+            <ul>
+               <li class="substep">格式：<code>for(表达式1;表达式2;表达式3) 语句1; </code></li>
+               <li class="substep">上面的<code>表达式1</code>一般作为初始化，仅在循环开始之前执行一次, 如果有多个变量初始化，可以用<code>,</code>来隔开；</li>
+               <li class="substep">上面的<code>表达式2</code>作为循环条件判断，其计算结果若为<code>真(非0)</code>，则执行循环语句<code>语句1</code>，若为<code>假(0)</code>则退出循环</li>
+               <li class="substep">上面的<code>表达式3</code>在每次循环结束后都会被执行，注意是表达式而不是语句，所以最后不能加<code>;</code></li>
+               <li class="substep">注意，上面的<code>语句1;</code>只能是一条语句，如果需要多条语句，则要用<code>{ }</code>来组成<span class="red">复合语句</span></li>
+               <li class="substep"><code>for</code>语句可以等效于<code>while</code>语句, 如下例：</li>
+            </ul>
+         </div>
+
+         <div id="5.3.4" class="step" data-x="1520" data-y="2050" data-rotate="360" data-scale="1">
+            <script type="syntaxhighlighter" class="brush: c">
+               <![CDATA[
+                    int i, sum;
+                    for(i=0, sum=0; i<10; i++)
+                        sum += i;
+                    //等效于下面的while语句
+                    i=0; sum=0;
+                    while(i<10){
+                        sum += i; 
+                        i++;
+                    }
+                    ]]>
+            </script>
+         </div>
+
+         <div id="5.3.5" class="step slide" data-x="1500" data-y="2500" data-rotate="360" data-scale="1">
+            <h3 class="animated swing infinite" style="padding: 0; margin: 0">5.3 for循环</h3>
+            <hr>
+            <ul>
+               <li class="substep"><code>for(表达式1;表达式2;表达式3) 语句1; </code>这里的三个表达式都可以省略，但是<code>;</code>不能省略, 如下例：</li>
+            </ul>
+            <div class="substep">
+               <script type="syntaxhighlighter" class="brush: c">
+                  <![CDATA[
+                    int i=0, sum=0;
+                    for(;i<10;){
+                        sum += i; 
+                        i++;
+                    }
+                    //下面实现一个无限循环
+                    for(;1;); // 最后的; 是一个空语句
+                    //下面也是一个无限循环
+                    for(;;);  //表达式2若省略，相当于循环条件永远为真（非0）
+                    ]]>
+               </script>
+            </div>
+         </div>
+
+         <div id="5.3.6" class="step slide" data-x="1500" data-y="3300" data-rotate="360" data-scale="1">
+            <h3 class="animated tada infinite" style="padding: 0; margin: 0">5.3 for循环</h3>
+            <hr>
+            <ul>
+               <li class="substep"><code>for</code>语句的灵活性可以让我们把几乎所有的循环内容都写在for的头部（表达式1-3），但是很不直观，而且不利于调试，所以<span class="red">不建议</span>这样做。</li>
+            </ul>
+            <div class="substep">
+               <script type="syntaxhighlighter" class="brush: c">
+                  <![CDATA[
+                    int i, sum;
+                    i=0;
+                    sum=0;
+                    while(i<10){
+                        sum += i; i++;
+                    }
+                    //下面完全等效， 但不建议
+                    int i, sum;
+                    for(i=0, sum=0; i<10; sum+=i, i++);                    
+                    ]]>
+               </script>
+            </div>
+         </div>
+
+         <div id="5.4.1" class="step slide" data-x="2500" data-y="0" data-rotate="0" data-scale="1">
+            <h3 class="animated wobble infinite" style="padding: 0; margin: 0">5.4 循环的嵌套</h3>
+            <hr>
+            <ul>
+               <li class="substep">循环的<b class="red">嵌套</b>, 指循环中可以包含另一个循环，C语言中三种循环都可以互相嵌套；</li>
+               <li class="substep">注意循环的包含范围，建议用<b class="blue">缩进</b>来帮助区分（注意不是强制）</li>
+               <li class="substep">例5-4：打印0-10以内的素数</li>
+            </ul>
+         </div>
+
+         <div id="5.4.2" class="step slide" data-x="2500" data-y="800" data-rotate="0" data-scale="1">
+            <script type="syntaxhighlighter" class="brush: c">
+               <![CDATA[
+                    #include<stdio.h>
+                    #include<math.h>
+
+                    #define FALSE 0
+                    #define TRUE  !FALSE
+
+                    int main(void)
+                    {
+                        int i, j, is_prime;
+                        for(i=2; i<=10; i++){
+                            is_prime = TRUE;
+                            for(j=2; j<sqrt(i) && TRUE == is_prime ; j++)
+                                if( i % j == 0)
+                                    is_prime = FALSE;
+                            if(TRUE  == is_prime)
+                                printf("%d is prime number.\n", i);
+                        }
+                        return 0;
+                    }                    
+                    ]]>
+            </script>
+            <img class="center" src="images/fig5-2.png">
          </div>
 
          <div id="overview" class="step" data-x="0" data-y="0" data-scale="12">
@@ -77,7 +285,7 @@
       </div>
 
       <script src="js/jquery/jquery.js"></script>
-      <script src="js/impress.js"></script>
+      <script src="js/impress1.js"></script>
       <script src="js/SyntaxHighlighter_3.0.83/scripts/shCore.js"></script>
       <script src="js/SyntaxHighlighter_3.0.83/scripts/shBrushCpp.js"></script>
       <script>
@@ -93,6 +301,7 @@
                var progressPerStep = 100 / stepCount;
                var progress = Math.ceil(currentSlideProgress * progressPerStep);
                $('#progress-bar').css('width', progress + '%');
+               e.stopImmediatePropagation();
             });
          });
       </script>

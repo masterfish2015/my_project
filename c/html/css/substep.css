@@ -1,0 +1,71 @@
+
+.step {
+  width: 900px;
+}
+/*
+.substep:before {
+  content: ">";
+  font-weight: bold;
+  padding-right: 3px;
+}
+
+.blue {
+  color: rgb(100, 135, 195);
+}
+*/
+/* give all steps a light opacity */
+.impress-enabled .step {
+    opacity: 0.2;
+    -webkit-transition: opacity 1s;
+    -moz-transition:    opacity 1s;
+    -ms-transition:     opacity 1s;
+    -o-transition:      opacity 1s;
+    transition:         opacity 1s;
+}
+
+/* bring up to full opacity when active */
+.impress-enabled .step.active { 
+  opacity: 1;
+}
+
+.impress-enabled .substep {
+  opacity: 0;
+  -webkit-transition: all 1s;
+  -moz-transition:    all 1s;
+  -ms-transition:     all 1s;
+  -o-transition:      all 1s;
+  transition:         all 1s;  
+}
+
+.impress-enabled .substep.active {
+  opacity: 1;
+}
+
+.impress-enabled .substep.present { 
+  color: rgb(100, 135, 195);
+}
+
+
+.overload {
+  display: inline-block;
+  -webkit-animation-timing-function: ease-out;
+  -webkit-animation: shazam 5s;
+  -webkit-animation-iteration-count: 5; 
+  -webkit-animation-delay: 3s;
+  animation-timing-function: ease-out;
+  animation: shazam 5s;
+  animation-iteration-count: 5; 
+  animation-delay: 3s;
+}
+
+@-webkit-keyframes shazam {
+  0% {-webkit-transform: scale(0.4, 0.4) rotate(0deg); opacity: 0.3;}
+  50% {opacity: 1.0; }
+  100% {-webkit-transform: scale(1.9, 1.9) rotate(359deg); opacity: 0;}
+}
+
+@keyframes shazam {
+  0% {-webkit-transform: scale(0.4, 0.4) rotate(0deg); opacity: 0.3;}
+  50% {opacity: 1.0; }
+  100% {-webkit-transform: scale(1.9, 1.9) rotate(359deg); opacity: 0;}
+}
