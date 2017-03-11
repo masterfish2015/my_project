@@ -145,14 +145,14 @@ body {
 
 .slide pre>code {
     font-size: 20px;
-    text-shadow: 0 0 0 rgba(0, 0, 0, 0);
+    text-shadow: 0 0 0 rgba(10, 10, 10, 0.3);
 }
 
 
 /* Inline code, no Highlight.js */
 
 code {
-    background-color: black;
+    background-color: darkblue;
     color: lightyellow;
     opacity: 1;
     border-radius: 0.2em;

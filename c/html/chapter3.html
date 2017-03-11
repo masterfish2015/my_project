@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="zh">
 
+
   <head>
     <title>C Program Chapter 3</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--<link href="css/impress.css" rel="stylesheet">-->
-    <link rel="stylesheet" href="js/extras/highlight/styles/xt256.css">
+    <link rel="stylesheet" href="js/extras/highlight/styles/github.css">
 
     <link href="css/style.css" rel="stylesheet">
     <!-- load math show lib -->
@@ -112,6 +113,7 @@ int main()
         <h4>[3]<span class="green">常变量（C99）</span>：程序运行中，定义一个变量，其值在整个运行期间不变，称为<span class="red">常变量</span>。</h4>
         <pre><code>const double pi = 3.14159 ;
 #define PI 3.14159 </code></pre>
+
         <h5>常变量和符号常量的区别：
           <ul class="fly-in ">
             <li>符号常量用<code>#define</code>定义，是预处理指令，在编译前完成替换，运行时没有分配内存，因此无法在调试时获得其值；</li>
@@ -259,7 +261,7 @@ int main()
           <ul>
             <li><span class="green">原码</span>：就是按照原来的二进制和十进制的对照来保存，比如[5]<sub>10</sub> 的二进制是[101]<sub>2</sub>，保存在8bit的存储单元就是[00 00 01 01]<sub>2</sub> </li>
             <li><span class="blue">反码</span>：就是按照原来的二进制把1 → 0, 把0 → 1</li>
-            <li><span class="red">补码</span>：就是把原码变为补码后，再 + 1</li>
+            <li><span class="red">补码</span>：就是把原码变为反码后，再 + 1</li>
             <li>计算机在保存整数的时候，如果是<span class="blue">正数就用原码保存</span>，如果<span class="red">是负数，就变为补码来保存</span>。比如[5]<sub>10</sub>是正数，对于8bit的整数，以原码[00 00 01 01]<sub>2</sub>保存，而[-5]<sub>10</sub>是负数，先原码：[00 00 01 01]<sub>2</sub>，反码得到：[11 11 10 10]<sub>2</sub>，变为补码：[11
               11 10 11]<sub>2</sub>保存</li>
             <li>对于+0，在8bit的整数，原码存储是[00 00 00 00]<sub>2</sub> , 而对于-0，原码[00 00 00 00]<sub>2</sub>， 反码[11 11 11 11]<sub>2</sub>，变为补码：[00 00 00 00]<sub>2</sub>，可见在这种技术下，-0和+0的保存结果是一样的</li>
@@ -1219,7 +1221,6 @@ int main(void)
             <li><code>conversion specifier</code>: 嵌入类型指定符
               <ul>
                 <li><code>%d</code>，表示十进制整数，可以加<code>hh</code>(char), <code>h</code>(short int), <code>l</code>(long int), <code>ll</code>(long long int)表示各种不同的具体整数类型量， 例如<pre><code class="c">char a='3';
->>>>>>> 1f6845e6aca6c0d00e759a283bf6cd738079d341
 short b=123; 
 int c=33; 
 long d=33; 
