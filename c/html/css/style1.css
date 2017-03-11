@@ -111,7 +111,7 @@ body {
     width: 900px;
     height: 700px;
     padding: 40px 60px;
-    background-image: url(../images/background2.jpg);
+    background-image: url(../images/background9.jpg);
     background-color: white;
     border: 1px solid rgba(0, 0, 0, .3);
     border-radius: 10px;
@@ -152,7 +152,7 @@ body {
 /* Inline code, no Highlight.js */
 
 code {
-    background-color: black;
+    background-color: darkblue;
     color: lightyellow;
     opacity: 1;
     border-radius: 0.2em;
@@ -565,7 +565,6 @@ body.impress-mouse-timeout {
 #progress-bar {
   width: 0;
   height: 100%;
- background: #fff;
+ background: red;
 }
-
 
