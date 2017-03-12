@@ -1,39 +1,37 @@
 <!DOCTYPE html>
 <html lang="zh">
+  <head>
+    <title>C Program Chapter 5</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--<link href="css/impress.css" rel="stylesheet">-->
+    <link type="text/css" rel="stylesheet" href="js/SyntaxHighlighter/styles/shCoreDefault.css" />
 
-   <head>
-      <title>C Program Chapter 5</title>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <!--<link href="css/impress.css" rel="stylesheet">-->
-      <link type="text/css" rel="stylesheet" href="js/SyntaxHighlighter/styles/shCoreDefault.css" />
+    <link href="css/animate.css/animate1.css" rel="stylesheet">
+    <link href="css/substep.css" rel="stylesheet">
+    <link href="css/style1.css" rel="stylesheet">
+    <!-- load math show lib -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({ extensions: ["tex2jax.js"], jax: ["input/TeX","output/HTML-CSS"], tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]} });
+    </script>
 
-      <link href="css/animate.css/animate1.css" rel="stylesheet">
-      <link href="css/substep.css" rel="stylesheet">
-      <link href="css/style1.css" rel="stylesheet">
-      <!-- load math show lib -->
-      <script type="text/x-mathjax-config">
-         MathJax.Hub.Config({ extensions: ["tex2jax.js"], jax: ["input/TeX","output/HTML-CSS"], tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]} });
-      </script>
+    <script src="js/mathjax/MathJax.js" async></script>
+  </head>
 
-      <script src="js/mathjax/MathJax.js" async></script>
-   </head>
+  <body>
+    <div id="impress">
 
-   <body>
-      <div id="impress">
+      <div id="5" class="step" data-x="0" data-y="0" data-scale="1">
+        <h1 class="animated rubberBand " style="width:1500px">第五章 循环结构程序设计</h1>
+      </div>
 
-         <div id="5" class="step" data-x="0" data-y="0" data-scale="1">
-            <h1 class="animated rubberBand " style="width:1500px">第五章 循环结构程序设计</h1>
-
-         </div>
-
-         <div id="5.1.1" class="step slide" data-x="-100" data-y="800" data-scale="1">
-            <h3 class="animated shake  " style="padding: 0; margin: 0">5.1 while循环</h3>
-            <hr>
-            <h4>例5.1：求：\[\sum_{n=1}^{100}n = 1+2+...+100 \]</h4>
-            <div class="substep" style="height:500px; overflow: auto">
-               <script type="syntaxhighlighter" class="brush: c">
-                  <![CDATA[
+      <div id="5.1.1" class="step slide" data-x="-100" data-y="800" data-scale="1">
+        <h3 class="animated shake  " style="padding: 0; margin: 0">5.1 while循环</h3>
+        <hr>
+        <h4>例5.1：求：\[\sum_{n=1}^{100}n = 1+2+...+100 \]</h4>
+        <div class="substep" style="height:500px; overflow: auto">
+          <script type="syntaxhighlighter" class="brush: c">
+            <![CDATA[
                     #include<stdio.h>
 
                     int main(void)
@@ -81,17 +79,18 @@
                             }
                             printf("sum = %d\n", sum);                            
                             ]]>
-               </script>
-            </div>
-         </div>
 
-         <div id="5.2.1" class="step slide" data-x="-100" data-y="2400" data-scale="1">
-            <h3 class="animated flash " style="padding: 0; margin: 0">5.2 do...while循环</h3>
-            <hr>
-            <h4>例5.2：从键盘输入一个正数，求出其开方，若是负数则重新输入。</h4>
-            <div class="substep" style="height:500px; overflow: auto">
-               <script type="syntaxhighlighter" class="brush: c">
-                  <![CDATA[
+          </script>
+        </div>
+      </div>
+
+      <div id="5.2.1" class="step slide" data-x="-100" data-y="2400" data-scale="1">
+        <h3 class="animated flash " style="padding: 0; margin: 0">5.2 do...while循环</h3>
+        <hr>
+        <h4>例5.2：从键盘输入一个正数，求出其开方，若是负数则重新输入。</h4>
+        <div class="substep" style="height:500px; overflow: auto">
+          <script type="syntaxhighlighter" class="brush: c">
+            <![CDATA[
                     #include <stdio.h>
                     #include <math.h>
                     int main(void)
@@ -133,17 +132,17 @@
                                 scanf("%lf", &x);
                             } while (x < 0);                           
                             ]]>
-               </script>
-            </div>
-         </div>
+          </script>
+        </div>
+      </div>
 
-         <div id="5.3.1" class="step slide" data-x="1500" data-y="0" data-scale="1">
-            <h3 class="animated rubberBand " style="padding: 0; margin: 0">5.3 for循环</h3>
-            <hr>
-            <h4>例5.3：打印输出九九乘法表</h4>
-            <div class="substep">
-               <script type="syntaxhighlighter" class="brush: c">
-                  <![CDATA[
+      <div id="5.3.1" class="step slide" data-x="1500" data-y="0" data-scale="1">
+        <h3 class="animated rubberBand " style="padding: 0; margin: 0">5.3 for循环</h3>
+        <hr>
+        <h4>例5.3：打印输出九九乘法表</h4>
+        <div class="substep">
+          <script type="syntaxhighlighter" class="brush: c">
+            <![CDATA[
                     #include <stdio.h>
                     
                     int main(void)
@@ -331,20 +330,21 @@
                         return 0;                        
                     }
                     ]]>
-               </script>
-            </div>
-            <img src="images/fig5-3.png" class="substep" style="width: 100%">
-         </div>
+          </script>
+        </div>
+        <img src="images/fig5-3.png" class="substep" style="width: 100%">
+      </div>
 
-         <div id="5.6.1" class="step slide" data-x="4500" data-y="0" data-rotate="0" data-scale="1">
-            <h3 class="animated bounceInDown " style="padding: 0; margin: 0">5.6 循环程序举例</h3>
-            <hr>
-            <ul>
-               <li class="substep">例5-7：用\(\frac{\pi}{4}\approx 1-\frac{1}{3}+\frac{1}{5}-\frac{1}{7}\cdots\)求\(\pi\)的近似值</li>
-            </ul>
-            <div class="substep">
-               <script type="syntaxhighlighter" class="brush: c">
-                  <![CDATA[
+      <div id="5.6.0" class="step" data-x="4500" data-y="0" data-rotate-y="90" data-scale="1">
+        <h3 class="animated rubberBand" style="padding: 0; margin: 0">5.6 循环程序举例</h3>
+      </div>
+
+      <div id="5.6.1" class="step slide" data-x="4500" data-y="0" data-rotate-y="0" data-scale="1">
+        <h4 class="animated bounceInDown " style="padding: 0; margin: 0">例5-7：用\(\frac{\pi}{4}\approx 1-\frac{1}{3}+\frac{1}{5}-\frac{1}{7}\cdots\)求\(\pi\)的近似值</h4>
+        <hr>
+        <div class="substep">
+          <script type="syntaxhighlighter" class="brush: c">
+            <![CDATA[
                     #include<stdio.h>
                     #include<math.h>
                     #define MIN_TERM 1e-6
@@ -365,19 +365,16 @@
                         return 0;                        
                     }
                     ]]>
-               </script>
-            </div>
-         </div>
+          </script>
+        </div>
+      </div>
 
-         <div id="5.6.2" class="step slide" data-x="4500" data-y="800" data-rotate="0" data-scale="1">
-            <h3 class="animated bounceInLeft " style="padding: 0; margin: 0">5.6 循环程序举例</h3>
-            <hr>
-            <ul>
-               <li class="substep">例5-8：求Fibonacci数列的前40个数，公式：\[\left\{\begin{aligned}F_1 &amp;=1 &amp;(n=1)\\F_2 &amp;=1 &amp;(n=2)\\F_n &amp;=F_{n-1}+F_{n-2} &amp;(n\ge 3)\end{aligned}\right.\]</li>
-            </ul>
-            <div class="substep">
-               <script type="syntaxhighlighter" class="brush: c">
-                  <![CDATA[
+      <div id="5.6.2" class="step slide" data-x="4500" data-y="800" data-rotate-y="0" data-scale="1">
+        <h4 class="animated bounceInLeft " style="padding: 0; margin: 0">例5-8：求Fibonacci数列的前40个数，公式：\[\left\{\begin{aligned}F_1 &amp;=1 &amp;(n=1)\\F_2 &amp;=1 &amp;(n=2)\\F_n &amp;=F_{n-1}+F_{n-2} &amp;(n\ge 3)\end{aligned}\right.\]</h4>
+        <hr>
+        <div class="substep">
+          <script type="syntaxhighlighter" class="brush: c">
+            <![CDATA[
                     #include <stdio.h>
 
                     int main(void)
@@ -394,23 +391,20 @@
                         return 0;
                     }
                     ]]>
-               </script>
-            </div>
-         </div>
+          </script>
+        </div>
+      </div>
 
-         <div id="5.6.3" class="step" data-x="5500" data-y="800" data-rotate="0" data-scale="1">
-            <img src="images/fig5-4.png" style="height: 800px">
-         </div>
+      <div id="5.6.3" class="step" data-x="5500" data-y="800" data-rotate-y="0" data-scale="1">
+        <img src="images/fig5-4.png" style="height: 800px">
+      </div>
 
-         <div id="5.6.4" class="step slide" data-x="4500" data-y="1600" data-rotate="0" data-scale="1">
-            <h3 class="animated bounceInRight " style="padding: 0; margin: 0">5.6 循环程序举例</h3>
-            <hr>
-            <ul>
-               <li class="substep">例5-9：输入两个正整数m和n，求二者的最大公约数和最小公倍数</li>
-            </ul>
-            <div class="substep" style="height:430px; overflow: auto">
-               <script type="syntaxhighlighter" class="brush: c">
-                  <![CDATA[
+      <div id="5.6.4" class="step slide" data-x="4500" data-y="1600" data-rotate-y="0" data-scale="1">
+        <h4 class="animated bounceInRight " style="padding: 0; margin: 0">例5-9：输入两个正整数m和n，求二者的最大公约数和最小公倍数</h4>
+        <hr>
+        <div class="substep" style="height:430px; overflow: auto">
+          <script type="syntaxhighlighter" class="brush: c">
+            <![CDATA[
                     #include <stdio.h>
                     int main(void)
                     {
@@ -441,20 +435,16 @@
                         return 0;
                     }
                     ]]>
-               </script>
-            </div>
-         </div>
+          </script>
+        </div>
+      </div>
 
-         <div id="5.6.5" class="step slide" data-x="4500" data-y="2400" data-rotate="0" data-scale="1">
-            <h3 class="animated bounce " style="padding: 0; margin: 0">5.6 循环程序举例</h3>
-            <hr>
-            <ul>
-               <li class="substep">例5-10：输出所有水仙花数，即一个三位数，各数字立方和等于该数本身，比如\(153=1^3+5^3+3^3\)
-               </li>
-            </ul>
-            <div class="substep">
-               <script type="syntaxhighlighter" class="brush: c">
-                  <![CDATA[
+      <div id="5.6.5" class="step slide" data-x="4500" data-y="2400" data-rotate-y="0" data-scale="1">
+        <h4 class="animated bounce " style="padding: 0; margin: 0">例5-10：输出所有水仙花数，即一个三位数，各数字立方和等于该数本身，比如\(153=1^3+5^3+3^3\)</h4>
+        <hr>
+        <div class="substep">
+          <script type="syntaxhighlighter" class="brush: c">
+            <![CDATA[
                     #include<stdio.h>
                     int main(void)
                     {
@@ -471,31 +461,29 @@
                         return 0;
                     }
                     ]]>
-               </script>
-            </div>
-            <h5 class="substep">结果：<code>153 370 371 407</code></h5>
-         </div>
+          </script>
+        </div>
+        <h5 class="substep">结果：<code>153 370 371 407</code></h5>
+      </div>
 
-         <div id="5.6.6" class="step slide" data-x="4500" data-y="3200" data-rotate="0" data-scale="1">
-            <h3 class="animated bounceInDown" style="padding: 0; margin: 0">5.6 循环程序举例</h3>
-            <hr>
-            <ul style="font-size: 27px;">
-               <li class="substep">例5-11：有一个球，从100m的高度自由落下，每次落地后反跳回原高度的一半，再落下，再反弹，求第10次落地时，已经经过多少距离，第10次反弹有多高？
-               </li>
-               <li class="substep"><span class="red">[解题分析]</span>：
-                  <ol>
-                     <li class="substep">第1次落地，经过距离\(s_1=100\), 反弹\(r_1=50\)</li>
-                     <li class="substep">第2次落地，经过距离\(s_2=100+50*2=s_1+r_1*2\), 反弹\(r_2=\frac{50}{2}=25=\frac{r_1}{2}\)</li>
-                     <li class="substep">第3次落地，经过距离\(s_3=100+50*2+25*2=s_2+r_2*2\), 反弹\(r_3=\frac{25}{2}=12.5=\frac{r_2}{2}\)</li>
-                     <li class="substep">第n次落地，经过距离\(s_n=s_{n-1}+r_{n-1}*2\), 反弹\(r_n=\frac{r_{n-1}}{2}\)</li>
-                  </ol>
-               </li>
-            </ul>
-         </div>
+      <div id="5.6.6" class="step slide" data-x="4500" data-y="3200" data-rotate-y="0" data-scale="1">
+        <h4 class="animated bounceInDown" style="padding: 0; margin: 0">例5-11：有一个球，从100m的高度自由落下，每次落地后反跳回原高度的一半，再落下，再反弹，求第10次落地时，已经经过多少距离，第10次反弹有多高？</h4>
+        <hr>
+        <ul style="font-size: 27px;">
+          <li class="substep"><span class="red">[解题分析]</span>：
+            <ol>
+              <li class="substep">第1次落地，经过距离\(s_1=100\), 反弹\(r_1=50\)</li>
+              <li class="substep">第2次落地，经过距离\(s_2=100+50*2=s_1+r_1*2\), 反弹\(r_2=\frac{50}{2}=25=\frac{r_1}{2}\)</li>
+              <li class="substep">第3次落地，经过距离\(s_3=100+50*2+25*2=s_2+r_2*2\), 反弹\(r_3=\frac{25}{2}=12.5=\frac{r_2}{2}\)</li>
+              <li class="substep">第n次落地，经过距离\(s_n=s_{n-1}+r_{n-1}*2\), 反弹\(r_n=\frac{r_{n-1}}{2}\)</li>
+            </ol>
+          </li>
+        </ul>
+      </div>
 
-         <div id="5.6.7" class="step slide" data-x="5500" data-y="3200" data-rotate="0" data-scale="1">
-            <script type="syntaxhighlighter" class="brush: c">
-               <![CDATA[
+      <div id="5.6.7" class="step slide" data-x="5500" data-y="3200" data-rotate-y="0" data-scale="1">
+        <script type="syntaxhighlighter" class="brush: c">
+          <![CDATA[
                     #include<stdio.h>
                     int main(void)
                     {
@@ -508,19 +496,16 @@
                         return 0;
                     }
         ]]>
-            </script>
-            <img src="images/fig5-5.png" class="substep" style="width: 80%">
-         </div>
+        </script>
+        <img src="images/fig5-5.png" class="substep" style="width: 80%">
+      </div>
 
-         <div id="5.6.8" class="step slide" data-x="4500" data-y="4000" data-rotate="0" data-scale="1">
-            <h3 class="animated bounceInLeft" style="padding: 0; margin: 0">5.6 循环程序举例</h3>
-            <hr>
-            <ul style="font-size: 27px;">
-               <li class="substep">例5-12：用迭代法求\(x=\sqrt{a}\),其公式为\(x_{n+1}=\frac{1}{2}\left(x_n+\frac{a}{x_n}\right) \),要求其前后两次求出来的x的差的绝对值小于\(10^{-5}\)</li>
-            </ul>
-            <div class="substep">
-               <script type="syntaxhighlighter" class="brush: c">
-                  <![CDATA[
+      <div id="5.6.8" class="step slide" data-x="4500" data-y="4000" data-rotate-y="0" data-scale="1">
+        <h4 class="animated bounceInLeft" style="padding: 0; margin: 0">例5-12：用迭代法求\(x=\sqrt{a}\),其公式为\(x_{n+1}=\frac{1}{2}\left(x_n+\frac{a}{x_n}\right) \),要求其前后两次求出来的x的差的绝对值小于\(10^{-5}\)</h4>
+        <hr>
+        <div class="substep">
+          <script type="syntaxhighlighter" class="brush: c">
+            <![CDATA[
                     #include<stdio.h>
                     #include<math.h>
                     #define MIN_VALUE 10e-5
@@ -545,50 +530,116 @@
             </div>
          </div>
 
-         <div id="5.6.9" class="step slide" data-x="4500" data-y="4800" data-rotate="0" data-scale="1">
-            <h3 class="animated fadeIn" style="padding: 0; margin: 0">5.6 循环程序举例</h3>
-            <hr>
-            <ul style="font-size: 22px;">
-               <li class="substep">例5-13：用牛顿迭代法求\(2x^3-4x^2+3x-6=0\)的根,要求其前后两次求出来的x的差的绝对值小于\(10^{-5}\)</li>
-               <li class="substep"><span class="red">[牛顿迭代法]</span>：
-                  <ol>
-                     <li class="substep">设有任意函数\(f(x)\)N阶可导, 对其在\(x_0\)处进行一阶泰勒展开，\(f(x)\approx f(x_0)+(x-x_0)f'(x_0)\),\[\left.\begin{aligned}令 f(x)&amp;=0\\ \Rightarrow f(x_0)+(x-x_0)f'(x_0) &amp;=0\\ \Rightarrow f(x_0)+xf'(x_0)-x_0f'(x_0) &amp;=0\\ \Rightarrow xf'(x_0)&amp;=x_0f'(x_0)-f(x_0)\\
-                        \Rightarrow x&amp;=x_0-\frac{f(x_0)}{f'(x_0)}\end{aligned}\right.\]</li>
-                     <li class="substep">由上面的公式可得，当在\(x_0\)(可由用户输入指定)开始，反复利用上面的公式进行迭代，最后可以得到一个根的近似值（不是全部值），可以通过前后两个近似值的差值来控制精度。</li>
-                     <li class="substep">对于本例，\(f(x)=2x^3-4x^2+3x-6, f'(x)=6x^2-8x+3\)</li>
-                  </ol>
-               </li>
-            </ul>
-         </div>
+         
+      <div id="5.6.9" class="step slide" data-x="4500" data-y="4800" data-rotate-y="0" data-scale="1">
+        <h4 class="animated fadeIn" style="padding: 0; margin: 0">例5-13：用牛顿迭代法求\(2x^3-4x^2+3x-6=0\)的根,要求其前后两次求出来的x的差的绝对值小于\(10^{-6}\)</h4>
+        <hr>
+        <ul style="font-size: 20px;">
+          <li class="substep"><span class="red">[牛顿迭代法]</span>：
+            <ol>
+              <li class="substep">设有任意函数\(f(x)\)N阶可导, 对其在\(x_0\)处进行一阶泰勒展开，\(f(x)\approx f(x_0)+(x-x_0)f'(x_0)\),\[\left.\begin{aligned}令 f(x)&amp;=0\\ \Rightarrow f(x_0)+(x-x_0)f'(x_0) &amp;=0\\ \Rightarrow f(x_0)+xf'(x_0)-x_0f'(x_0) &amp;=0\\ \Rightarrow xf'(x_0)&amp;=x_0f'(x_0)-f(x_0)\\
+                \Rightarrow x&amp;=x_0-\frac{f(x_0)}{f'(x_0)}\end{aligned}\right.\]</li>
+              <li class="substep">对于本例，\(f(x)=2x^3-4x^2+3x-6, f'(x)=6x^2-8x+3\)</li>
+              <li class="substep">先令：\(x=1\), 代入\(x_{new}=x_{old}-\frac{f(x_{old})}{f'(x_{old})}\)即可求出新的\(x\), 再将其代入公式求出新的\(x\), 直到前后求出的\(|x_{new}-x_{old}|&lt;\delta \),这里\(\delta\)是预先设好的一个极小值，这表明\(x\)已经稳定
+              </li>
+              <li class="substep">这样找到的\(x\)是方程的一个近似解。</li>
+            </ol>
+          </li>
+        </ul>
+      </div>
 
-         <div id="5.6.10" class="step slide" data-x="5500" data-y="4800" data-rotate="0" data-scale="1">
-            <div class="fade-in fade-out">
-               <script type="syntaxhighlighter" class="brush: c; ">
-                  <![CDATA[
+      <div id="5.6.10" class="step slide" data-x="5500" data-y="4800" data-rotate-y="0" data-scale="1">
+        <div class="substep">
+          <script type="syntaxhighlighter" class="brush: c">
+            <![CDATA[
                     #include<stdio.h>
                     #include<math.h>
-                    #define MIN_VALUE 1e-6
+                    #define DELTA 1e-6
 
                     int main(void)
                     {
                         double x, last_x, f, df;
-                        int i=0;
+                        int i=1;
+
                         x=1.0;
                         do{
                             last_x = x;
-                            f=2*x*x*x-4*x*x+3*x-6;
-                            df=6*x*x-8*x+3;
-                            x=x-f/df;
-                            printf("[%3d]x=%10g, dx=%15g\n", i++, x, fabs(x-last_x));
-                        }while(fabs(x-last_x)>MIN_VALUE);
+                            f  = 2*x*x*x - 4*x*x + 3*x -6;
+                            df = 6*x*x   - 8*x   + 3;
+                            x  = x - f/df ;
+                            printf("[%3d]x=%10g, |x_new-x_old|=%15g\n", 
+                                 i++, x, fabs(last_x-x));
+                        }while(fabs(last_x-x)>DELTA);
                         return 0;
                     }
-              ]]>
-               </script>
-            </div>
-            <img src="images/fig5-7.png" class="substep" style="width: 45%">
-         </div>
+                    ]]>
+          </script>
+        </div>
+        <img src="images/fig5-7.png" class="substep" style="width: 50%">
+      </div>
 
+      <div id="5.6.11" class="step slide" data-x="4500" data-y="5600" data-rotate-y="0" data-scale="1">
+        <h4 class="animated fadeInDown" style="padding: 0; margin: 0">例5-14：用二分法求\(2x^3-4x^2+3x-6=0\)在\(x\in[-10,10]\)的根,要求其前后两次求出来的x的差的绝对值小于\(10^{-6}\)</h4>
+        <hr>
+        <ul style="font-size: 20px;">
+          <li class="substep"><span class="red">[二分迭代法]</span>：
+            <ol>
+              <li class="substep">设有连续函数\(f(x)\)在\(x\in[-10, 10]\)里有根\(x_1\)，意味着\(f(x_1)=0\)，函数图形在\(x_1\)处穿过\(x\)轴，所以\(x_1\)两端的函数值一定是一个是正，一个是负，故而二分迭代的解题思路是：</li>
+              <li class="substep">先取\(x\)的最小值（\(x_{min}\)）和最大值（\(x_{max}\)）</li>
+              <li class="substep">令\(x_{center} = \frac{x_{max}+x_{min}}{2}\), 并求\(f(x_{center})\)</li>
+              <li class="substep">判断 \(f(x_{center})\)与\(f(x_{min})\)和\(f(x_{max})\)的值的正负号，如果\(f(x_{center})\)与\(f(x_{min})\)同号，则表明\(x_{center}\)比\(x_{min}\)更接近根，所以要替换\(x_{min}=x_{center}\),否则替换\(x_{max}=x_{center}\)</li>
+              <li class="substep">重复上面第3步，一直到\(|x_{max}-x_{min}|&lt;\delta \)</li>
+            </ol>
+          </li>
+        </ul>
+      </div>
+
+      <div id="5.6.12" class="step slide" data-x="5500" data-y="5600" data-rotate-y="0" data-scale="1">
+        <div class="fade-in fade-out" style="height: 600px; overflow: auto">
+          <script type="syntaxhighlighter" class="brush: c">
+            <![CDATA[
+                    #include<stdio.h>
+                    #include<math.h>
+                    #define DELTA 1e-6
+                    #define F(x) (2*(x)*(x)*(x)-4*(x)*(x)+3*(x)-6)
+
+                    int main(void)
+                    {
+                        double x_min=-10, x_max=10, f1, f2, fc, x_center;
+                        int i = 0;
+
+                        printf("[No.]%15s%15s%15s%15s%15s%15s%15s\n",
+                                  "x_min","f(x_min)","x_center","f(x_center)",
+                                  "x_max","f(x_max)","|x_max-x_min|");
+                        
+                        do{
+                            //找到 x_min 和 x_max 的中点
+                            x_center = (x_max + x_min)/2.0; 
+                            fc = F(x_center);
+                            //如果f1和fc符号相同，则x_min和x_center在根的同一侧，
+                            //因此要替换x_min
+                            if(f1*fc>0){
+                                x_min = x_center;
+                                f1 = fc;
+                            }else{//否则x_max和x_center在同一侧，要替换x_max
+                                x_max = x_center;
+                                f2 = fc;
+                            }
+                            printf("[%3d]%15.6f%15.6f%15.6f%15.6f%15.6f%15.6f%15g\n",
+                            ++i,x_min,f1,x_center,fc,x_max,f2, fabs(x_max-x_min));
+                        }while(fabs(x_max-x_min)>DELTA);
+
+                        return 0;
+                    }
+                    ]]>
+          </script>
+        </div>
+      </div>
+
+      <div id="5.6.13" class="step slide" data-x="6500" data-y="5600" data-rotate-y="0" data-scale="1">
+        <img src="images/fig5-8.png" class="fade-in fade-out" style="width: 100%">
+        <img src="images/fig5-7.png" class="substep" style="width: 100%">
+      </div>
 
          <div id="overview" class="step" data-x="0" data-y="0" data-scale="12">
          </div>
