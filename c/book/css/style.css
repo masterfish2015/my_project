@@ -1,0 +1,29 @@
+hr {
+    height: .5em;
+    background: currentColor;
+}
+
+section {
+    border-top: .2em solid transparent;
+    border-image: 100% 0 0 linear-gradient(90deg, currentColor 4em, transparent 0);
+    padding-top: 1em;
+}
+
+q {
+    background: linear-gradient(45deg, #dca 12%, transparent 0, transparent 88%, #dca 0), linear-gradient(135deg, transparent 37%, #a85 0, #a85 63%, transparent 0), linear-gradient(45deg, transparent 37%, #dca 0, #dca 63%, transparent 0) #753;
+    background-size: 25px 25px;
+    color: lightgreen;
+}
+
+@keyframes ants {
+    to {
+        background-position: 100%
+    }
+}
+
+.marching-ants {
+    padding: 1em;
+    border: 1px solid transparent;
+    background: linear-gradient(white, white) padding-box, repeating-linear-gradient(-45deg, black 0, black 25%, white 0, white 50%) 0 / .6em .6em;
+    animation: ants 1s linear infinite;
+}
