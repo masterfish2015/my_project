@@ -41,7 +41,7 @@
         <h1 style="width:1500px">第四章 选择结构程序设计</h1>
       </div>
 
-      <div id="4.1" class="step" data-x="-3000" data-y="800" data-scale="1">
+      <div id="4.1" class="step slide" data-x="-10000" data-y="800" data-scale="1">
         <h3 style="padding: 0; margin: 0">4.1 选择结构和条件判断</h3>
         <p style="padding: 0; margin: 0" class="substep">例4.1：菜单管理</p>
         <svg class="substep" style="width:600px; height: 350px; border: 1px solid black">
@@ -80,7 +80,11 @@
             <rect x="318" y="265" width="132" height="70" style="fill:white; stroke: darkblue;"/>
             <text x="340" y="310" style="font-size:20px;">编辑操作</text>            
         </svg>
-        <pre class="substep" style="font-size:20px; height: 400px; overflow: auto; padding: 0"><code class="c">#include&lt;stdio.h&gt;
+      </div>
+
+      <div id="4.1.1" class="step slide" data-x="-11000" data-y="800" data-scale="1">
+        <div style="font-size:20px; height: 600px; overflow: auto; padding: 0">    
+        <pre  ><code class="c">#include&lt;stdio.h&gt;
 void do_file(void);  //函数声明
 void do_edit(void);  //函数声明
 
@@ -106,14 +110,14 @@ int main(void)
     }
 
     return 0;
-}</code></pre>
+}</code></pre></div>
       </div>
 
       <div id="4.2" class="step" data-x="1000" data-y="800" data-scale="1">
         <h2 style="padding: 0; margin: 0">4.2 <code>if</code>语句</h2>
       </div>
 
-      <div id="4.2.1" class="step" data-x="1000" data-y="800" data-rotate-y="90" data-rotate-x="90" data-scale="1">
+      <div id="4.2.1" class="step slide" data-x="1000" data-y="800" data-rotate-y="90" data-rotate-x="90" data-scale="1">
         <h3 style="padding: 0; margin: 0">4.2.1 <code>if</code>语句举例</h3>
         <p style="padding: 0; margin: 0">例4.2：输入两个实数，按从小到大的顺序输出这两个数</p>
         <svg class="substep" style="width:600px; height: 250px; border: 1px solid black">
@@ -135,7 +139,8 @@ int main(void)
             <rect x="50" y="185" width="500" height="50" style="fill:white; stroke: darkblue;"/>
             <text x="85" y="220" style="font-size:20px;">输出a,b</text> 
         </svg>
-        <pre class="substep" style="font-size:20px; height: 500px; overflow: auto; padding: 0"><code class="c">#include&lt;stdio.h&gt;
+        <div class="substep" style="font-size:20px; height: 300px; overflow: auto; padding: 0">
+        <pre ><code class="c">#include&lt;stdio.h&gt;
 
 int main(void)
 {
@@ -149,13 +154,13 @@ int main(void)
     }
     printf("%5.2f, %5.2f\n", a, b);   //输出: -3.2,  2.6
     return 0;
-}</code></pre>
+}</code></pre></div>
       </div>
 
-      <div id="4.2.2.1" class="step" data-x="1100" data-y="700" data-z="800" data-rotate-y="90" data-rotate-x="10" data-scale="1">
-        <h3 style="padding: 0; margin: 0">4.2.2 <code>if</code>语句的一般形式</h3>
+      <div id="4.2.2.1" class="step slide" data-x="1100" data-y="700" data-z="800" data-rotate-y="90" data-rotate-x="10" data-scale="1">
+        <h4 style="padding: 0; margin: 0">4.2.2 <code>if</code>语句的一般形式</h4>
         <p><code>if(表达式)语句1 [else 语句2 ]</code></p>
-        <ul style="font-size: 36px">
+        <ul style="font-size: 28px">
           <li class="substep"><code>[ ]</code>部分可以省略</li>
           <li class="substep"><code>表达式</code>的值有两个：
             <ul style="font-size: 30px">
@@ -164,7 +169,7 @@ int main(void)
             </ul>
           </li>
           <li class="substep">语句1和语句2都必须一条单一的语句（用<code>;</code>结尾），若有多条语句，也该用<code>{ }</code>包括起来组成复合语句，
-            <ul style="font-size: 30px">
+            <ul style="font-size: 28px">
               <li class="substep"><code>if(a &lt; b) max=b; else max=a;</code></li>
               <li class="substep"><code>if(a &lt; b){int t = a; a = b; b = t; }</code></li>
             </ul>
@@ -224,7 +229,7 @@ int main(void)
 
       <div id="4.3.3" class="step" data-x="4400" data-y="4800" data-z="800" data-rotate-y="-30" data-rotate-x="-90" data-scale="1">
         <h4 class="fade-in fade-out">4.3.3 关系运算表达式</h4>
-        <ul class="fade-in fade-out" style="font-size:30px; ">
+        <ul class="fade-in fade-out" style="font-size:26px; ">
           <li class="substep">用<span class="blue">关系运算符</span>将两个<span class="blue">数值</span>或<span class="blue">表达式</span>连起来的式子</li>
           <li class="substep">关系运算表达式的结果是一个<span class="blue">逻辑值</span>，即<span class="green">真(true)</span>或<span class="red">假(false)</span></li>
           <li class="substep"><code>0</code>表示<span class="red">假</span>， 虽然C语言中以<code>非0</code>为<span class="green">真</span>，但是当关系运算出结果时，一般编译器会指定用<code>1</code>表示真，参考下面的例子：
@@ -278,20 +283,16 @@ int main(void)
         </ul>
       </div>
 
-      <div id="4.4" class="step" data-x="0" data-y="1000" data-z="0" data-rotate-y="0" data-rotate-x="0" data-scale="1">
-        <h2 class="fade-in fade-out" style="width:1200px">4.4 逻辑运算符和逻辑表达式</h2>
-        <ul class="fade-in fade-out" style="font-size:30px">
+      <div id="4.4" class="step slide" data-x="0" data-y="1000" data-z="0" data-rotate-y="0" data-rotate-x="0" data-scale="1">
+        <h4 class="fade-in fade-out" style="width:1200px">4.4 逻辑运算符和逻辑表达式</h4>
+        <ul class="fade-in fade-out" style="font-size:24px">
           <li>有些条件是几种关系的组合，而C语言特殊的关系运算和结果可能会和你想象的不同，比如上面的例子：<pre style="font-size:20px;  padding: 0"><code class="c">int a=30;
-if( 50 &gt; a &gt; 10 ){
-    ...//真
-}else{
-    ...//假
+if( 50 &gt; a &gt; 10 ){    ...//真
+}else{    ...//假
 }</code></pre></li>
           <li class="substep">本来希望判断表达式的结果是真，但是<code> 50 &gt; a 为真（1） , 1 &gt; 10 为假（0）</code>，正确的做法是改为逻辑表达式：<pre style="font-size:20px;  padding: 0"><code class="c">int a=30;
-if( 50 &gt; a  &amp;&amp; a&gt; 10 ){
-    ...//真
-}else{
-    ...//假
+if( 50 &gt; a  &amp;&amp; a&gt; 10 ){    ...//真
+}else{    ...//假
 }</code></pre></li>
         </ul>
       </div>
@@ -493,16 +494,16 @@ int main(void)
 {
     int a=3,b=4,c=5,t=79;
     if(b&lt;a &amp;&amp; a&lt;c) 
-    <span class="substep">//(b＜a ＆ a＜c) → (4＜3 ＆ 3＜5)   → 0 (假，false)</span></li>
+    <span class="substep">//(b＜a ＆ a＜c) → (4＜3 ＆ 3＜5)   → 0 (假，false)</span>
         t=a;  
-        a=c;   <span class="substep">//a ← 5</span></li>
-        c=t;   <span class="substep">//c ← 79</span></li>
+        a=c;   <span class="substep">//a ← 5</span>
+        c=t;   <span class="substep">//c ← 79</span>
     if(a&lt;c &amp;&amp; b&lt;c) 
-    <span class="substep">//(a＜c ＆ b＜c) → (5＜79 ＆ 4＜79) → 1 (真，true)</span></li>
-        t=b;  <span class="substep">//t ← 4</span></li>
-        b=a;  <span class="substep">//b ← 5</span></li>
-        a=t;  <span class="substep">//a ← 4</span></li>
-    printf("%d %d %d\n",a,b,c);<span class="substep">//显示：4 5 79</span></li>
+    <span class="substep">//(a＜c ＆ b＜c) → (5＜79 ＆ 4＜79) → 1 (真，true)</span>
+        t=b;  <span class="substep">//t ← 4</span>
+        b=a;  <span class="substep">//b ← 5</span>
+        a=t;  <span class="substep">//a ← 4</span>
+    printf("%d %d %d\n",a,b,c);<span class="substep">//显示：4 5 79</span>
     
     return 0;
 }</code></pre>
