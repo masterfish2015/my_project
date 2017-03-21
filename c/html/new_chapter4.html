@@ -17,6 +17,7 @@
     -->
     <link rel="stylesheet" href="new_impress_js/extras/highlight/styles/xcode.css">
     <link rel="stylesheet" href="new_impress_js/extras/mermaid/mermaid.forest.css">
+    <link href="css/animate.css/animate.css" rel="stylesheet">
     <link href="css/substep.css" rel="stylesheet">
 
     <!-- load math show lib -->
@@ -38,7 +39,7 @@
 
     <div id="impress" data-transition-duration="1000">
       <div id="4" class="step" data-x="0" data-y="0" data-scale="1">
-        <h1 style="width:1500px">第四章 选择结构程序设计</h1>
+        <h1 class="animated bounce" style="text-align: center">第四章<br> 选择结构程序设计</h1>
       </div>
 
       <div id="4.1" class="step slide" data-x="-10000" data-y="800" data-scale="1">
@@ -164,8 +165,8 @@ int main(void)
           <li class="substep"><code>[ ]</code>部分可以省略</li>
           <li class="substep"><code>表达式</code>的值有两个：
             <ul style="font-size: 30px">
-              <li class="substep"> <code>0</code>-- <span class="red">假</span>, 执行<code>语句1</code></li>
-              <li class="substep"> <code>非0（1, 12.55, 'a'等）</code>-- <span class="green">真</span>, 执行<code>语句2</code></li>
+              <li class="substep"> <code>0</code>-- <span class="red">假</span>, 执行<code>语句2</code></li>
+              <li class="substep"> <code>非0（1, 12.55, 'a'等）</code>-- <span class="green">真</span>, 执行<code>语句1</code></li>
             </ul>
           </li>
           <li class="substep">语句1和语句2都必须一条单一的语句（用<code>;</code>结尾），若有多条语句，也该用<code>{ }</code>包括起来组成复合语句，
@@ -521,16 +522,13 @@ int main(void)
 {   
     int i=0;
 repeat_it:
-
-    switch (i)
-    { 
+    switch (i){ 
         case 1: printf("%d ", i);
         case 2: printf("%d ", i);
         default : printf("%d ", i); 
     }
     i++;
-    if( i &lt;3 )goto repeat_it;
-    
+    if( i &lt;3 )goto repeat_it;    
     return 0;
 }</code></pre>
         <ol class="fade-in fade-out" style="font-size:22px;" type="A">
