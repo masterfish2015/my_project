@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+   <head>
+      <title>3D房子</title>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+
+      <link href="node_modules/bootstrap/dist/css/bootstrap.css" ref="stylesheet">
+      <link href="node_modules/bootstrap/dist/css/bootstrap-theme.css" ref="stylesheet">
+      <link href="css/style.css" rel="stylesheet">
+
+      <script src="node_modules/three/three.js"></script>
+      <script src="node_modules/three/examples/js/controls/OrbitControls.js"></script>
+      <script src="node_modules/jquery/dist/jquery.js"></script>
+      <script src="node_modules/bootstrap/dist/js/bootstrap.js"></script>
+   </head>
+
+   <body>
+      <h1>3D Home</h1>
+      <div id="draw-box" width="800px" height="500px">
+      </div>
+
+      <script>
+         let ldc = {};
+         $(document).ready(function() {
+            ldc.scene = new THREE.Scene();
+            ldc.camera = new THREE.PerspectiveCamera(90, window.innerWidth / window.innerHeight, 1, 55000);
+            ldc.camera.position.z = 50000;
+
+            let geometrys = [ //水平墙
+                             {geo:new THREE.BoxGeometry(1800, 100, 2800), pos:{x:900, y:-50, z:0}},
+                             {geo:new THREE.BoxGeometry(900, 100, 2800), pos:{x:450, y:-2030, z:0}},
+                             {geo:new THREE.BoxGeometry(900, 100, 2800), pos:{x:450, y:-3230, z:0}},
+                             {geo:new THREE.BoxGeometry(900, 100, 2800), pos:{x:450, y:-6550, z:0}},
+                             {geo:new THREE.BoxGeometry(2200, 100, 2800), pos:{x:4100, y:-50, z:0}},
+                             {geo:new THREE.BoxGeometry(4200, 100, 2800), pos:{x:7300, y:-50, z:0}},
+                             {geo:new THREE.BoxGeometry(1200, 100, 2800), pos:{x:5800, y:-2030, z:0}},
+                             {geo:new THREE.BoxGeometry(2200, 100, 2800), pos:{x:7100, y:-3230, z:0}},
+                             {geo:new THREE.BoxGeometry(450, 100, 2800), pos:{x:1800+225, y:-6550, z:0}},
+                             {geo:new THREE.BoxGeometry(450, 100, 2800), pos:{x:1800+3400-225, y:-6550, z:0}},
+                             {geo:new THREE.BoxGeometry(250, 100, 2800), pos:{x:5200+125, y:-6550, z:0}},
+                             {geo:new THREE.BoxGeometry(250, 100, 2800), pos:{x:1800+3400+3000-125, y:-6550, z:0}},
+                              //垂直墙
+                             {geo:new THREE.BoxGeometry(100, 3420, 2800), pos:{x:1750, y:-4890, z:0}},
+                             {geo:new THREE.BoxGeometry(100, 6600, 2800), pos:{x:-50, y:-3300, z:0}},
+                             {geo:new THREE.BoxGeometry(100, 2080, 2800), pos:{x:1750, y:-1040, z:0}},
+                             {geo:new THREE.BoxGeometry(100, 2080, 2800), pos:{x:5150, y:-1040, z:0}},
+                             {geo:new THREE.BoxGeometry(100, 3280, 2800), pos:{x:9350, y:-1640, z:0}},
+                             {geo:new THREE.BoxGeometry(100, 3420, 2800), pos:{x:5150, y:-4890, z:0}},
+                             {geo:new THREE.BoxGeometry(100, 3420, 2800), pos:{x:8150, y:-4890, z:0}},
+                              //窗
+                             {geo:new THREE.BoxGeometry(900, 100, 1400), pos:{x:1350, y:-6550, z:-700}},
+                             {geo:new THREE.BoxGeometry(1200, 100, 1400), pos:{x:8700, y:-3230, z:-700}},
+                             //阳台
+                             {geo:new THREE.BoxGeometry(3400, 100, 1400), pos:{x:1800+1700, y:-8050, z:-700}},
+                             {geo:new THREE.BoxGeometry(3000, 100, 1400), pos:{x:1800+3400+1500, y:-8050, z:-700}},
+
+                             {geo:new THREE.BoxGeometry(100, 1500, 1400), pos:{x:1750, y:-8100+1500/2, z:-700}},
+                             {geo:new THREE.BoxGeometry(100, 1500, 1400), pos:{x:1700+3400+3000+50, y:-8100+1500/2, z:-700}},
+                             {geo:new THREE.BoxGeometry(100, 1500, 2800), pos:{x:1700+3400+50, y:-8100+1500/2, z:0}},
+                              //地板
+                             {geo:new THREE.BoxGeometry(16000, 10000, 10), pos:{x:5000, y:-5000, z:-1400}}
+                            ];
+            let material = new THREE.MeshNormalMaterial();
+
+            for(let geo of geometrys){
+                let mesh = new THREE.Mesh(geo.geo, material);
+                mesh.position.x = geo.pos.x;
+                mesh.position.y = geo.pos.y;
+                mesh.position.z = geo.pos.z;
+                ldc.scene.add(mesh);
+            }
+
+            ldc.renderer = new THREE.WebGLRenderer();
+            ldc.renderer.setSize(window.innerWidth, window.innerHeight);
+
+            $("#draw-box").append(ldc.renderer.domElement);
+
+            ldc.controls = new THREE.OrbitControls(ldc.camera, ldc.renderer.domElement);
+            ldc.controls.addEventListener('change', render); // remove when using animation loop
+
+            ldc.renderer.render(ldc.scene, ldc.camera);
+            window.addEventListener('resize', onWindowResize, false);
+         });
+
+         function render() {
+            ldc.renderer.render(ldc.scene, ldc.camera);
+         }
+
+         function onWindowResize() {
+            ldc.camera.aspect = window.innerWidth / window.innerHeight;
+            ldc.camera.updateProjectionMatrix();
+            ldc.renderer.setSize(window.innerWidth, window.innerHeight);
+         }
+      </script>
+
+   </body>
+
+</html>

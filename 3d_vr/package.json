@@ -1,0 +1,13 @@
+{
+  "name": "3d_vr",
+  "version": "1.0.0",
+  "description": "three.js use to render 3D home",
+  "main": "index.js",
+  "author": "ldc",
+  "license": "MIT",
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "jquery": "^3.2.1",
+    "three.js": "^0.77.1"
+  }
+}

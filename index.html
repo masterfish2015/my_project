@@ -1,35 +1,56 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="zh-CN">
 
    <head>
       <title>teaching</title>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
+
+      <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+      <link href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+
       <link href="css/style.css" rel="stylesheet">
+
+      <script src="http://code.jquery.com/jquery-1.11.3.js"></script>
+      <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+      <script src="node_modules/jquery-iframe-auto-height/release/jquery.browser.js"></script>
+      <script src="node_modules/jquery-iframe-auto-height/dist/jquery-iframe-auto-height.min.js"></script>
+
    </head>
 
-   <body>
-       <nav style="position: absolute; left: 0px; top:0px; width:10%; height: 100%; overflow: auto">
-      <ol type="I">
-         <li style="display:block;">C语言程序设计A
-            <ol>
-               <li style="display:block;"><a href="c/html/chapter1.html" target="main-frame">第一章 概论</a></li>
-               <li style="display:block;"><a href="c/html/chapter2.html" target="main-frame">第二章 算法</a></li>
-               <li style="display:block;"><a href="c/html/new_chapter3.html" target="main-frame">第三章 顺序结构-类型-常量变量-表达式-格式化输入输出简述</a></li>
-               <li style="display:block;"><a href="c/html/new_chapter4.html" target="main-frame">第四章 条件选择结构</a></li>
-               <li style="display:block;"><a href="c/html/new_chapter5.html" target="main-frame">第五章 循环结构</a></li>
-               <li style="display:block;"><a href="c/html/new_chapter6.html" target="main-frame">第六章 数组</a></li>
-            </ol>
-         </li>
-         <li style="display:block;">电子技术B
-            <ol>
-               <li style="display:block;"><a href="electronic/html/chapter14.html">第一章 半导体器件</a></li>
-            </ol>
-         </li>
-      </ol>
-       </nav>
-       <iframe name="main-frame"  style="position: absolute; right: 0px; top:0px; width:90%; height: 100%">
-       </iframe>
+   <body>  
+
+      <div class="container-fluid">
+         <div class="row">
+            <div class="col-sm-3 col-md-2 sidebar">
+               <ul class="nav nav-sidebar">
+                  <li>C语言程序设计A</li>
+                  <li ><a href="c/html/chapter1.html" target="main-frame">第一章 概论</a></li>
+                  <li><a href="c/html/chapter2.html" target="main-frame">第二章 算法</a></li>
+                  <li><a href="c/html/new_chapter3.html" target="main-frame">第三章 顺序结构-类型-常量变量-表达式-格式化输入输出简述</a></li>
+                  <li><a href="c/html/new_chapter4.html" target="main-frame">第四章 条件选择结构</a></li>
+                  <li><a href="c/html/new_chapter5.html" target="main-frame">第五章 循环结构</a></li>
+                  <li><a href="c/html/new_chapter6.html" target="main-frame">第六章 数组</a></li>
+               </ul>
+               <ul class="nav nav-sidebar">
+                  <li>电子技术B</li>
+                  <li><a href="electronic/html/chapter14.html">第一章 半导体器件</a></li>
+               </ul>
+               <ul class="nav nav-sidebar">
+                  <li>3D &amp; VR</li>
+                  <li><a href="3d_vr/html/threejs.html">第一章 three.js</a></li>
+               </ul>
+            </div>
+            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+               <iframe name="main-frame" id="main-frame" > </iframe>
+            </div>
+         </div>
+      </div>
+      <script>
+         $(document).ready(function() {
+            $("#main-frame").css("height", $(window).height()-50); 
+         });
+      </script>
    </body>
 
 </html>
