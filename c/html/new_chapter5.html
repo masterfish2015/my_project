@@ -397,12 +397,14 @@
                             is_prime = TRUE;
                             for(j=2; j<sqrt(i) 
                                    && TRUE == is_prime ; 
-                                j++)
+                                j++){
                                 if( i % j == 0)
                                     is_prime = FALSE;
-                            if(TRUE  == is_prime)
+                            }
+                            if(TRUE  == is_prime){
                                 printf("%d is prime.\n", 
                                         i);
+                            }
                         }
                         return 0;
                     }                    
@@ -599,14 +601,16 @@
                         /*求最大公约数, 从比较小的数m开始往下查找, 最小是1*/
                         for(int i=m; i>=1; i--){
                             if( m % i ==0 && n % i == 0){
-                                printf("the greatest common divisor of %d and %d is %d\n", m, n, i);
+                                printf("the greatest common divisor of %d and %d is %d\n", 
+                                       m, n, i);
                                 break;
                             }
                         }
                         /*求最小公倍数，从比较大的数n开始往上查找，最大是m*n */
                         for(int i=n; i<=m*n; i++){
                             if( i % m ==0 && i % n == 0){
-                                printf("the least common multiple of %d and %d is %d\n", m, n, i);
+                                printf("the least common multiple of %d and %d is %d\n", 
+                                        m, n, i);
                                 break;
                             }
                         }
