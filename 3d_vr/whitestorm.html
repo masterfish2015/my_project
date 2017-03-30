@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+   <head>
+      <title>white storm demo</title>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link href="css/style.css" rel="stylesheet">
+
+      <script src="node_modules/whs/node_modules/three/build/three.js"></script>
+      <script src="node_modules/whs/build/whitestorm.js"></script>
+   </head>
+
+   <body>
+      <div id="draw_field"></div>
+
+      <script type="text/javascript">
+         const app = new WHS.App([
+            new WHS.app.ElementModule({
+               container: document.getElementById('draw_field')
+            }),
+            new WHS.app.SceneModule(),
+            new WHS.app.CameraModule({
+               position: new THREE.Vector3(0, 10, 50)
+            }),
+            new WHS.app.RenderingModule({
+               bgColor: 0x162129
+            }),
+            new WHS.app.ResizeModule()
+         ]);
+
+         const sphere = new WHS.Sphere({ // Create sphere component.
+            geometry: {
+               radius: 3,
+               widthSegments: 32,
+               heightSegments: 32
+            },
+
+            material: new THREE.MeshNormalMaterial(),
+
+            position: [0, 10, 0]
+         });
+
+         //sphere.addTo(app); // Add sphere to world.
+
+         const box = new WHS.Box({
+            geometry: {
+               width: 2,
+               height: 2,
+               depth: 2
+            },
+
+            material: new THREE.MeshNormalMaterial({
+               color: 0xffffff
+            }),
+
+            position: [15, 6, 7]
+         });
+
+         //box.addTo(app);
+
+         const shape = new THREE.Shape([
+            new THREE.Vector2(-4, -4),
+            new THREE.Vector2(-2, 0),
+            new THREE.Vector2(-4, 4),
+            new THREE.Vector2(0, 2),
+            new THREE.Vector2(4, 4),
+            new THREE.Vector2(2, 0),
+            new THREE.Vector2(4, -4),
+            new THREE.Vector2(0, -2)
+         ]);
+
+         const extrude = new WHS.Extrude({
+            geometry: {
+               shapes: shape,
+               options: {
+                  bevelEnabled: false,
+                  bevelSize: 0,
+                  amount: 20
+               }
+            },
+
+            material: new THREE.MeshNormalMaterial({
+               color: 0xffffff
+            }),
+
+            position: [15, 15, 0]
+         });
+
+         const points = [];
+
+         for (let i = 0; i < 10; i++) {
+            points.push(
+               new THREE.Vector2(
+                  (Math.sin(i * 0.7) * 15 + 50) / 10,
+                  (i - 5) * 0.2
+               )
+            );
+         }
+
+         const lathe = new WHS.Lathe({
+            geometry: {
+               points: points
+            },
+
+            material: new THREE.MeshNormalMaterial({
+               color: 0xffffff
+            }),
+
+            position: [0, 25, 10]
+         });
+
+         const group = new WHS.Group(box, sphere, extrude, lathe);
+         group.addTo(app);
+
+         new WHS.Plane({
+            geometry: {
+               width: 100,
+               height: 100
+            },
+
+            material: new THREE.MeshBasicMaterial({
+               color: 0x447F8B
+            }),
+
+            rotation: {
+               x: -Math.PI / 2
+            }
+         }).addTo(app);
+
+         app.setControls(
+            new WHS.controls.OrbitModule({
+               target: new THREE.Vector3(0, 0, 0),
+               follow: false
+            })
+         );
+
+         new WHS.Loop(() => {
+            group.rotation.y += 0.02;
+            //group.rotation.x += 0.02;
+         }).start(app);
+
+         app.start(); // Start animations and physics simulation.
+      </script>
+   </body>
+
+</html>

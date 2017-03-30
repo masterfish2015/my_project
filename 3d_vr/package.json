@@ -9,5 +9,9 @@
     "bootstrap": "^3.3.7",
     "jquery": "^3.2.1",
     "three.js": "^0.77.1"
+  },
+  "devDependencies": {
+    "babel-polyfill": "^6.23.0",
+    "babel-preset-env": "^1.2.2"
   }
 }

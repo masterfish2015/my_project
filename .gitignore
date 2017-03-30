@@ -31,3 +31,7 @@
 # Debug files
 *.dSYM/
 *.su
+
+# node and bower file folder
+node_modules
+bower_components
