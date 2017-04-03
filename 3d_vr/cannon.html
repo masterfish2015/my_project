@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+   <head>
+      <title>cannon.js demo</title>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link href="css/style.css" rel="stylesheet">
+      <script src="node_modules/cannon/build/cannon.js"></script>
+      <script src="node_modules/cannon/build/cannon.demo.js"></script>
+      <script src="node_modules/cannon/libs/dat.gui.js"></script>
+      <script src="node_modules/cannon/libs/Three.js"></script>
+      <script src="node_modules/cannon/libs/TrackballControls.js"></script>
+      <script src="node_modules/cannon/libs/Detector.js"></script>
+      <script src="node_modules/cannon/libs/Stats.js"></script>
+      <script src="node_modules/cannon/libs/smoothie.js"></script>
+   </head>
+
+   <body>
+
+      <script>
+         /**
+          * Demonstrates how to use the HingeConstraint.
+          * A hinge constraint makes sure that two bodies can rotate around a common axis. For example, think of a door hinge.
+          */
+
+         var demo = new CANNON.Demo();
+         var mass = 1;
+
+         demo.addScene("gear", function(){
+            var world = demo.getWorld();
+            world.gravity.set(0,0,-20);
+
+            let table_material = new CANNON.Material("table_material");
+            let gear_material = new CANNON.Material("gear_material");
+
+            let table_shape = new CANNON.Box(new CANNON.Vec3(4,2,0.5));
+            let table = new CANNON.Body({mass :0, material:table_material});
+            table.addShape(table_shape);
+
+            let gear_shape = new CANNON.Cylinder(1,1,0.2, 6); //top_r, bottom_r, height, segments
+            let gear1 = new CANNON.Body({mass:mass, material:gear_material});
+            gear1.addShape(gear_shape);
+
+            gear_shape = new CANNON.Cylinder(2, 2, 0.2, 8);
+            let gear2 = new CANNON.Body({mass:mass, material:gear_material});
+            gear2.addShape(gear_shape);
+
+            let axis = new CANNON.Vec3(0,0,1);
+            let hinge1 = new CANNON.HingeConstraint (table, gear1, {
+                pivotA: new CANNON.Vec3(2, 0, 0.9), 
+                axisA: axis,
+                pivotB: new CANNON.Vec3(0, 0, 0), 
+                axisB: axis});
+            let hinge2 = new CANNON.HingeConstraint (table, gear2, {
+                pivotA: new CANNON.Vec3(-1, 0, 0.9), 
+                axisA: axis,
+                pivotB: new CANNON.Vec3(0, 0, 0), 
+                axisB: axis});
+            world.addConstraint(hinge1);
+            world.addConstraint(hinge2);
+
+            world.add(table);
+            world.add(gear1);
+            world.add(gear2);
+
+            let old_material = demo.currentMaterial;
+
+            demo.currentMaterial = new THREE.MeshLambertMaterial({color:0x1f7fff});
+            demo.addVisual(table);
+
+            demo.currentMaterial = new THREE.MeshPhongMaterial({color:0xff0000});
+            demo.addVisual(gear1);
+
+            demo.currentMaterial = new THREE.MeshPhongMaterial({color:0x00ff00});
+            demo.addVisual(gear2);
+
+            demo.currentMaterial = old_material;
+
+            hinge1.enableMotor();
+            hinge1.setMotorSpeed(6);
+
+         });         
+
+         demo.start();
+      </script>
+   </body>
+
+</html>
