@@ -1,0 +1,9 @@
+.slide p {
+    text-align: left;
+}
+
+.slide pre {
+    font-size: 20px;
+    background: black;
+    color: while;
+}
