@@ -15,22 +15,22 @@
         However, some of the `extras/` modules do come with their own CSS, and we load
         them here. You can read about each extras module separately in their directory.
     -->
-    <link type="text/css" rel="stylesheet" href="js/SyntaxHighlighter/styles/shCoreDefault.css" />
-    <link href="css/animate.css/animate1.css" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="../../libs/SyntaxHighlighter/styles/shCoreDefault.css" />
+    <link href="../../libs/animate.css/animate1.css" rel="stylesheet">
 
-    <link rel="stylesheet" href="new_impress_js/extras/mermaid/mermaid.forest.css">
-    <link href="css/substep.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../libs/extras/mermaid/mermaid.forest.css">
+    <link href="../../libs/impress.js/css/substep.css" rel="stylesheet">
 
     <!-- load math show lib -->
     <script type="text/x-mathjax-config">
       MathJax.Hub.Config({ extensions: ["tex2jax.js"], jax: ["input/TeX","output/HTML-CSS"], tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]} });
     </script>
 
-    <script src="js/mathjax/MathJax.js" async></script>
+    <script src="../../libs/mathjax/MathJax.js" async></script>
     <!--
         This file contains styles specific for this example presentation. 
     -->
-    <link href="new_impress_js/examples/classic-slides/css/classic-slides.css" rel="stylesheet" />
+    <link href="../../libs/impress.js/css/classic-slides.css" rel="stylesheet" />
 
     <link href="css/new_style3.css" rel="stylesheet" />
 
@@ -851,9 +851,9 @@
      Load highlight.js, mermaid.js and markdown.js from extras.
      If you're curious about details, these are initialized in src/plugins/extras/extras.js -->
 
-    <script type="text/javascript" src="new_impress_js/extras/mermaid/mermaid.min.js"></script>
-    <script type="text/javascript" src="new_impress_js/extras/markdown/markdown.js"></script>
-    <script type="text/javascript" src="new_impress_js/extras/impress-console/js/impressConsole.js"></script>
+    <script type="text/javascript" src="../../libs/extras/mermaid/mermaid.min.js"></script>
+    <script type="text/javascript" src="../../libs/extras/markdown/markdown.js"></script>
+    <script type="text/javascript" src="../../libs/extras/impress-console/js/impressConsole.js"></script>
     <script type="text/javascript">
       // For impressConsole, we unfortunately must also set the path to a mandatory css file
       // which is relative to this html file.
@@ -867,10 +867,10 @@
     You also need to call a `impress().init()` function to initialize impress.js presentation.
     And you should do it in the end of your document. 
 -->
-    <script src="js/jquery/jquery.js"></script>
-    <script src="js/SyntaxHighlighter/scripts/shCore.js"></script>
-    <script src="js/SyntaxHighlighter/scripts/shBrushCpp.js"></script>
-    <script type="text/javascript" src="new_impress_js/js/impress.js"></script>
+    <script src="../../libs/jquery/jquery.js"></script>
+    <script src="../../libs/SyntaxHighlighter/scripts/shCore.js"></script>
+    <script src="../../libs/SyntaxHighlighter/scripts/shBrushCpp.js"></script>
+    <script type="text/javascript" src="../../libs/impress.js/js/impress.js"></script>
     <script>
       SyntaxHighlighter.all();
       impress().init();

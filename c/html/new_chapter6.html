@@ -2,71 +2,71 @@
 
 <html>
 
-   <head>
-      <meta charset="utf-8" />
-      <title>chapter6</title>
+  <head>
+    <meta charset="utf-8" />
+    <title>chapter6</title>
 
-      <meta name="description" content="c program chapter 3" />
-      <meta name="author" content="ldc" />
-      <!--        
+    <meta name="description" content="c program chapter 3" />
+    <meta name="author" content="ldc" />
+    <!--        
         Impress.js doesn't depend on any external stylesheets. It adds all of the styles it needs for the
         presentation to work. 
         
         However, some of the `extras/` modules do come with their own CSS, and we load
         them here. You can read about each extras module separately in their directory.
     -->
-      <link type="text/css" rel="stylesheet" href="js/SyntaxHighlighter/styles/shCoreDefault.css" />
-      <link href="css/animate.css/animate1.css" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="../../libs/SyntaxHighlighter/styles/shCoreDefault.css" />
+    <link href="../../libs/animate.css/animate1.css" rel="stylesheet">
 
-      <link rel="stylesheet" href="new_impress_js/extras/mermaid/mermaid.forest.css">
-      <link href="css/substep.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../libs/extras/mermaid/mermaid.forest.css">
+    <link href="../../libs/impress.js/css/substep.css" rel="stylesheet">
 
-      <!-- load math show lib -->
-      <script type="text/x-mathjax-config">
-         MathJax.Hub.Config({ extensions: ["tex2jax.js"], jax: ["input/TeX","output/HTML-CSS"], tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]} });
-      </script>
+    <!-- load math show lib -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({ extensions: ["tex2jax.js"], jax: ["input/TeX","output/HTML-CSS"], tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]} });
+    </script>
 
-      <script src="js/mathjax/MathJax.js" async></script>
-      <!--
+    <script src="../../libs/mathjax/MathJax.js" async></script>
+    <!--
         This file contains styles specific for this example presentation. 
     -->
-      <link href="new_impress_js/examples/classic-slides/css/classic-slides.css" rel="stylesheet" />
+    <link href="../../libs/impress.js/css/classic-slides.css" rel="stylesheet" />
 
-      <link href="css/new_style6.css" rel="stylesheet" />
+    <link href="css/new_style6.css" rel="stylesheet" />
 
-   </head>
+  </head>
 
-   <body>
+  <body>
 
-      <div id="impress" data-transition-duration="1000">
-         <div id="6" class="step slide" data-x="0" data-y="0" data-scale="1">
-            <h1 class="animated rubberBand ">第六章 数组</h1>
-            <hr>
-            <ol>
-               <li class="substep">数组是 <b>一组有序的数据的集合</b> ，通过 <q>下标</q> 来表示数据在数组中的序号</li>
-               <li class="substep">可以定义一个<i>数组名称</i>来表示一个数组，通过<q>下标</q>来表示某个数组中的<b>元素</b></li>
-               <li class="substep">C语言中，由于无法直接表示上下标，所以用<code>[ ]</code>来表示下标，比如<code>data[19]</code>表示数组（名称是data）的第20号元素（C语言<i>从0开始计数</i>）</li>
-               <li class="substep">数组的<i>每一个元素都是同一个类型</i>，同一个数组中的元素<b>在内存中连续存放</b>，每个都占<b>相同的内存空间</b></li>
-            </ol>
-         </div>
+    <div id="impress" data-transition-duration="1000">
+      <div id="6" class="step slide" data-x="0" data-y="0" data-scale="1">
+        <h1 class="animated rubberBand ">第六章 数组</h1>
+        <hr>
+        <ol>
+          <li class="substep">数组是 <b>一组有序的数据的集合</b> ，通过 <q>下标</q> 来表示数据在数组中的序号</li>
+          <li class="substep">可以定义一个<i>数组名称</i>来表示一个数组，通过<q>下标</q>来表示某个数组中的<b>元素</b></li>
+          <li class="substep">C语言中，由于无法直接表示上下标，所以用<code>[ ]</code>来表示下标，比如<code>data[19]</code>表示数组（名称是data）的第20号元素（C语言<i>从0开始计数</i>）</li>
+          <li class="substep">数组的<i>每一个元素都是同一个类型</i>，同一个数组中的元素<b>在内存中连续存放</b>，每个都占<b>相同的内存空间</b></li>
+        </ol>
+      </div>
 
-         <div id="6.1" class="step slide" data-x="1000" data-y="0" data-scale="1">
-            <h2 class="animated fadeInLeft ">6.1 一维数组</h2>
-            <hr>
-            <ol>
-               <li class="substep"><q>一维数组的定义</q>：<code>类型 数组名[数组大小];</code>，注意 <i>数组名</i>必须满足标识符的命名法则</li>
-               <li class="substep"><q>数组元素的引用</q>： <code>数组名[整数下标]</code>，注意<i>下标</i>取值范围是[0,数组大小), 注意<b>不要越界</b></li>
-               <li class="substep"><q>数组元素的初始化</q>： <code>类型 数组名[数组大小]={初始化列表};</code>，注意如果<i>初始化列表</i>是<b>完备</b>的,则<b>数组大小</b>可以省略, 其数组元素个数可以用<code>sizeof(数组名称)/sizeof(数组类型)</code>来求得;</li>
-               <li class="substep"><q>数组元素的初始化</q>： 注意如果定义时有<i>数组大小</i>, 则<b>初始化列表</b>可以省略后面元素;</li>
-            </ol>
-         </div>
+      <div id="6.1" class="step slide" data-x="1000" data-y="0" data-scale="1">
+        <h2 class="animated fadeInLeft ">6.1 一维数组</h2>
+        <hr>
+        <ol>
+          <li class="substep"><q>一维数组的定义</q>：<code>类型 数组名[数组大小];</code>，注意 <i>数组名</i>必须满足标识符的命名法则</li>
+          <li class="substep"><q>数组元素的引用</q>： <code>数组名[整数下标]</code>，注意<i>下标</i>取值范围是[0,数组大小), 注意<b>不要越界</b></li>
+          <li class="substep"><q>数组元素的初始化</q>： <code>类型 数组名[数组大小]={初始化列表};</code>，注意如果<i>初始化列表</i>是<b>完备</b>的,则<b>数组大小</b>可以省略, 其数组元素个数可以用<code>sizeof(数组名称)/sizeof(数组类型)</code>来求得;</li>
+          <li class="substep"><q>数组元素的初始化</q>： 注意如果定义时有<i>数组大小</i>, 则<b>初始化列表</b>可以省略后面元素;</li>
+        </ol>
+      </div>
 
-         <div id="6.1.1" class="step slide" data-x="1000" data-y="800" data-scale="1">
-            <h3 class="animated fadeInDownBig ">6.1.1 一维数组示例</h3>
-            <hr>
-            <div class="substep">
-               <script type="syntaxhighlighter" class="brush: c">
-                  <![CDATA[
+      <div id="6.1.1" class="step slide" data-x="1000" data-y="800" data-scale="1">
+        <h3 class="animated fadeInDownBig ">6.1.1 一维数组示例</h3>
+        <hr>
+        <div class="substep">
+          <script type="syntaxhighlighter" class="brush: c">
+            <![CDATA[
                     int week_day[7]; //定义整型数组，内面的值未定
                     double data[10]; //定义双精度型数组，内面的值未定
                     for(int i=0; i<10; i++){
@@ -84,20 +84,20 @@
                     double list1[7] = {[2]=1.1, [5]=2.2, 3.3};
                     //list1的值变为： {0, 0, 1.1, 0, 0, 2.2, 3.3}                                                             
                     ]]>
-               </script>
-            </div>
-         </div>
+          </script>
+        </div>
+      </div>
 
-         <div id="6.1.2" class="step" data-x="1000" data-y="1600" data-rotate-y="90" data-scale="1">
-            <h3 class="animated fadeInLeftBig ">6.1.2 一维数组应用举例</h3>
-         </div>
+      <div id="6.1.2" class="step" data-x="1000" data-y="1600" data-rotate-y="90" data-scale="1">
+        <h3 class="animated fadeInLeftBig ">6.1.2 一维数组应用举例</h3>
+      </div>
 
-         <div id="6.1.2.1" class="step slide" data-x="1000" data-y="1600" data-rotate-y="0" data-scale="1">
-            <h4 class="animated fadeInRight ">例6-1：Fibonacci数列</h4>
-            <hr>
-            <div class="substep">
-               <script type="syntaxhighlighter" class="brush: c">
-                  <![CDATA[
+      <div id="6.1.2.1" class="step slide" data-x="1000" data-y="1600" data-rotate-y="0" data-scale="1">
+        <h4 class="animated fadeInRight ">例6-1：Fibonacci数列</h4>
+        <hr>
+        <div class="substep">
+          <script type="syntaxhighlighter" class="brush: c">
+            <![CDATA[
                     #include<stdio.h>
                     int main(void)
                     {
@@ -116,32 +116,32 @@
                         return 0;
                     }                                                              
                     ]]>
-               </script>
-            </div>
-            <img src="images/fig6-1.png" class="substep" style="position: fixed; left: 450px; top:300px; width: 400px ; height: 100px">
-         </div>
+          </script>
+        </div>
+        <img src="images/fig6-1.png" class="substep" style="position: fixed; left: 450px; top:300px; width: 400px ; height: 100px">
+      </div>
 
-         <div id="6.1.2.2" class="step slide" data-x="1000" data-y="2400" data-rotate-y="0" data-scale="1">
-            <h4 class="animated fadeInRightBig ">例6-2：冒泡排序</h4>
-            <hr>
-            <ul style="font-size: 24px">
-               <li class="substep">算法：（以\(n\)个实数的从小到大排序为例）</li>
-               <li class="substep">先遍历一遍数组，把最大的数找出来，放到最后，使用的方法是：
-                  <ol>
-                     <li class="substep">先比较第\(1\)和第\(2\)个元素的大小，如果前一个比后一个大则交换二者的位置</li>
-                     <li class="substep">接着比较第\(2\)和第\(3\)个元素的大小，如果前一个比后一个大则交换二者的位置</li>
-                     <li class="substep">如此持续进行比较，直到比较第\(n-1\)和第\(n\)个元素的大小，如果前一个比后一个大则交换二者的位置</li>
-                     <li class="substep">这样，最终最大的元素会放到最后，即第\(n\)的位置，而前\(n-1\)个元素的顺序依然是无序的</li>
-                  </ol>
-               </li>
-               <li class="substep">重复上面的过程，只是把\(n\)变为\(n-1\),这样就可以把第二大的数放在\(n-1\)的位置</li>
-               <li class="substep">重复上面的过程，直到最后只剩下\(1\)个元素,排序结束</li>
-            </ul>
-         </div>
+      <div id="6.1.2.2" class="step slide" data-x="1000" data-y="2400" data-rotate-y="0" data-scale="1">
+        <h4 class="animated fadeInRightBig ">例6-2：冒泡排序</h4>
+        <hr>
+        <ul style="font-size: 24px">
+          <li class="substep">算法：（以\(n\)个实数的从小到大排序为例）</li>
+          <li class="substep">先遍历一遍数组，把最大的数找出来，放到最后，使用的方法是：
+            <ol>
+              <li class="substep">先比较第\(1\)和第\(2\)个元素的大小，如果前一个比后一个大则交换二者的位置</li>
+              <li class="substep">接着比较第\(2\)和第\(3\)个元素的大小，如果前一个比后一个大则交换二者的位置</li>
+              <li class="substep">如此持续进行比较，直到比较第\(n-1\)和第\(n\)个元素的大小，如果前一个比后一个大则交换二者的位置</li>
+              <li class="substep">这样，最终最大的元素会放到最后，即第\(n\)的位置，而前\(n-1\)个元素的顺序依然是无序的</li>
+            </ol>
+          </li>
+          <li class="substep">重复上面的过程，只是把\(n\)变为\(n-1\),这样就可以把第二大的数放在\(n-1\)的位置</li>
+          <li class="substep">重复上面的过程，直到最后只剩下\(1\)个元素,排序结束</li>
+        </ul>
+      </div>
 
-         <div id="6.1.2.2.1" class="step slide" data-x="2000" data-y="2400" data-rotate-y="0" data-scale="1">
-            <div style="height:600px; overflow: auto">
-               <pre class="brush:c">
+      <div id="6.1.2.2.1" class="step slide" data-x="2000" data-y="2400" data-rotate-y="0" data-scale="1">
+        <div style="height:600px; overflow: auto">
+          <pre class="brush:c">
                     #include&lt;stdio.h&gt;
                     #define PRINT_INT_ARRAY(array, n, p1, p2) \
                           for(int i=0;i&lt;n;i++)\
@@ -179,16 +179,16 @@
                         return 0;
                     } 
           </pre>
-            </div>
-         </div>
+        </div>
+      </div>
 
-         <div id="6.1.2.1.2" class="step slide" data-x="3000" data-y="2400" data-rotate-y="0" data-scale="1">
-            <img src="images/fig6-2.png" style="width: 100%">
-         </div>
+      <div id="6.1.2.1.2" class="step slide" data-x="3000" data-y="2400" data-rotate-y="0" data-scale="1">
+        <img src="images/fig6-2.png" style="width: 100%">
+      </div>
 
-         <div id="6.1.2.2.3" class="step slide" data-x="4000" data-y="2400" data-rotate-y="0" data-scale="1">
-            <div style="height:600px; overflow: auto">
-               <pre class="brush:c; highlight: [21, 28, 33, 34]">
+      <div id="6.1.2.2.3" class="step slide" data-x="4000" data-y="2400" data-rotate-y="0" data-scale="1">
+        <div style="height:600px; overflow: auto">
+          <pre class="brush:c; highlight: [21, 28, 33, 34]">
                     #include&lt;stdio.h&gt;
                     #define PRINT_INT_ARRAY(array, n, p1, p2) \
                           for(int i=0;i&lt;n;i++)\
@@ -231,149 +231,149 @@
                         return 0;
                     } 
           </pre>
-            </div>
-         </div>
+        </div>
+      </div>
 
-         <div id="6.1.2.1.4" class="step slide" data-x="5000" data-y="2400" data-rotate-y="0" data-scale="1">
-            <img src="images/fig6-3.png" style="width: 100%">
-         </div>
+      <div id="6.1.2.1.4" class="step slide" data-x="5000" data-y="2400" data-rotate-y="0" data-scale="1">
+        <img src="images/fig6-3.png" style="width: 100%">
+      </div>
 
-         <div id="6.2" class="step slide" data-x="2000" data-y="0" data-scale="1">
-            <h2 class="animated fadeInLeft ">6.2 二维数组</h2>
-            <hr>
-            <ol>
-               <li class="substep"><q>二维数组的定义</q>：<code>类型 数组名[一维数组大小][二维数组大小];</code>，注意 <i>数组名</i>必须满足标识符的命名法则，例：<code>int a[10][3];</code></li>
-               <li class="substep"><q>数组元素的引用</q>： <code>数组名[一维下标][二维下标]</code>，<i>下标</i>取值范围是[0,数组大小), 注意<b>不要越界</b>, 例：
-                  <pre class="brush:c">
+      <div id="6.2" class="step slide" data-x="2000" data-y="0" data-scale="1">
+        <h2 class="animated fadeInLeft ">6.2 二维数组</h2>
+        <hr>
+        <ol>
+          <li class="substep"><q>二维数组的定义</q>：<code>类型 数组名[一维数组大小][二维数组大小];</code>，注意 <i>数组名</i>必须满足标识符的命名法则，例：<code>int a[10][3];</code></li>
+          <li class="substep"><q>数组元素的引用</q>： <code>数组名[一维下标][二维下标]</code>，<i>下标</i>取值范围是[0,数组大小), 注意<b>不要越界</b>, 例：
+            <pre class="brush:c">
               int a[3][4]; 
               for(int row=0;row&lt;3;row++)
                 for(int column=0; column&lt;4; column++)
                   a[row][column]=1;            
             </pre>
-               </li>
-            </ol>
-         </div>
+          </li>
+        </ol>
+      </div>
 
-         <div id="6.2.1" class="step slide" data-x="2000" data-y="-800" data-scale="1">
-            <h2 class="animated fadeInLeft ">6.2 二维数组</h2>
-            <hr>
-            <ol start="3">
-               <li class="substep">二维数组在内存的保存形式，是<b>先保存第一维中的所有元素</b>，再保存各个第一维的<i>子数组</i>, 事实上，第一维的数据其实是子数组的<i>地址</i></li>
-            </ol>
-            <div class="substep">
-               <pre class="brush:c">
+      <div id="6.2.1" class="step slide" data-x="2000" data-y="-800" data-scale="1">
+        <h2 class="animated fadeInLeft ">6.2 二维数组</h2>
+        <hr>
+        <ol start="3">
+          <li class="substep">二维数组在内存的保存形式，是<b>先保存第一维中的所有元素</b>，再保存各个第一维的<i>子数组</i>, 事实上，第一维的数据其实是子数组的<i>地址</i></li>
+        </ol>
+        <div class="substep">
+          <pre class="brush:c">
             char a[3][2];
             a[0][0]='1';a[0][1]='2';
             a[1][0]='a';a[1][1]='b';
             a[2][0]='#';a[2][1]='!';
           </pre>
-            </div>
-            <table class="substep" border="1" style="width:80%;font-size: 15px">
-               <tr>
-                  <td>地址</td>
-                  <td>0x580070</td>
-                  <td>0x580071</td>
-                  <td>0x580072</td>
-                  <td>0x580073</td>
-                  <td>0x580074</td>
-                  <td>0x580075</td>
-                  <td>0x580076</td>
-                  <td>0x580077</td>
-                  <td>0x580078</td>
-                  <td>0x580079</td>
-                  <td>0x58007a</td>
-                  <td>0x58007b</td>
-               </tr>
-               <tr>
-                  <td>内容</td>
-                  <td colspan="2">0x580076</td>
-                  <td colspan="2">0x580078</td>
-                  <td colspan="2">0x58007a</td>
-                  <td>'1'</td>
-                  <td>'2'</td>
-                  <td>'a'</td>
-                  <td>'b'</td>
-                  <td>'#'</td>
-                  <td>'!'</td>
-               </tr>
-               <tr>
-                  <td>数组元素</td>
-                  <td colspan="2">a[0]</td>
-                  <td colspan="2">a[1]</td>
-                  <td colspan="2">a[2]</td>
-                  <td>a[0][0]</td>
-                  <td>a[0][1]</td>
-                  <td>a[1][0]</td>
-                  <td>a[1][1]</td>
-                  <td>a[2][0]</td>
-                  <td>a[2][1]</td>
-               </tr>
-            </table>
-         </div>
+        </div>
+        <table class="substep" border="1" style="width:80%;font-size: 15px">
+          <tr>
+            <td>地址</td>
+            <td>0x580070</td>
+            <td>0x580071</td>
+            <td>0x580072</td>
+            <td>0x580073</td>
+            <td>0x580074</td>
+            <td>0x580075</td>
+            <td>0x580076</td>
+            <td>0x580077</td>
+            <td>0x580078</td>
+            <td>0x580079</td>
+            <td>0x58007a</td>
+            <td>0x58007b</td>
+          </tr>
+          <tr>
+            <td>内容</td>
+            <td colspan="2">0x580076</td>
+            <td colspan="2">0x580078</td>
+            <td colspan="2">0x58007a</td>
+            <td>'1'</td>
+            <td>'2'</td>
+            <td>'a'</td>
+            <td>'b'</td>
+            <td>'#'</td>
+            <td>'!'</td>
+          </tr>
+          <tr>
+            <td>数组元素</td>
+            <td colspan="2">a[0]</td>
+            <td colspan="2">a[1]</td>
+            <td colspan="2">a[2]</td>
+            <td>a[0][0]</td>
+            <td>a[0][1]</td>
+            <td>a[1][0]</td>
+            <td>a[1][1]</td>
+            <td>a[2][0]</td>
+            <td>a[2][1]</td>
+          </tr>
+        </table>
+      </div>
 
-         <div id="6.2.2" class="step slide" data-x="2000" data-y="-800" data-scale="1">
-            <h2 class="animated fadeInLeft ">6.2 二维数组</h2>
-            <hr>
-            <ol start="4">
-               <li class="substep">二维数组的初始化</li>
-            </ol>
+      <div id="6.2.2" class="step slide" data-x="2000" data-y="-800" data-scale="1">
+        <h2 class="animated fadeInLeft ">6.2 二维数组</h2>
+        <hr>
+        <ol start="4">
+          <li class="substep">二维数组的初始化</li>
+        </ol>
 
-         </div>
+      </div>
 
 
 
-         <!-- This last, empty "slide" is set to be very large using the data-scale attribute, 
+      <!-- This last, empty "slide" is set to be very large using the data-scale attribute, 
          so that it covers all the other slides you just saw. 
          It's a common way of zooming out at the end, to show the whole presentation.
          In CSS, we set pointer-events:none to make this slide non-clickable. 
          It makes a difference at least for SVG content, such as the mermaid diagram. -->
-         <div id="overview" class="step" data-x="3000" data-y="1500" data-scale="10" style="pointer-events: none;">
-         </div>
+      <div id="overview" class="step" data-x="3000" data-y="1500" data-scale="10" style="pointer-events: none;">
       </div>
+    </div>
 
-      <!--
+    <!--
     Add navigation-ui controls: back, forward and a select list.
     Add a progress indicator bar (current step / all steps)
     Add the help popup plugin
 -->
-      <div id="impress-toolbar"></div>
+    <div id="impress-toolbar"></div>
 
-      <div class="impress-progressbar">
-         <div></div>
-      </div>
-      <div class="impress-progress"></div>
+    <div class="impress-progressbar">
+      <div></div>
+    </div>
+    <div class="impress-progress"></div>
 
-      <div id="impress-help"></div>
+    <div id="impress-help"></div>
 
-      <!-- Extra modules
+    <!-- Extra modules
      Load highlight.js, mermaid.js and markdown.js from extras.
      If you're curious about details, these are initialized in src/plugins/extras/extras.js -->
 
-      <script type="text/javascript" src="new_impress_js/extras/mermaid/mermaid.min.js"></script>
-      <script type="text/javascript" src="new_impress_js/extras/markdown/markdown.js"></script>
-      <script type="text/javascript" src="new_impress_js/extras/impress-console/js/impressConsole.js"></script>
-      <script type="text/javascript">
-         // For impressConsole, we unfortunately must also set the path to a mandatory css file
-         // which is relative to this html file.
-         // See https://github.com/regebro/impress-console/issues/19
-         var impressConsoleCss = 'new_impress_js/extras/impress-console/css/impressConsole.css';
-      </script>
+    <script type="text/javascript" src="../../libs/extras/mermaid/mermaid.min.js"></script>
+    <script type="text/javascript" src="../../libs/extras/markdown/markdown.js"></script>
+    <script type="text/javascript" src="../../libs/extras/impress-console/js/impressConsole.js"></script>
+    <script type="text/javascript">
+      // For impressConsole, we unfortunately must also set the path to a mandatory css file
+      // which is relative to this html file.
+      // See https://github.com/regebro/impress-console/issues/19
+      var impressConsoleCss = 'new_impress_js/extras/impress-console/css/impressConsole.css';
+    </script>
 
 
-      <!--
+    <!--
     To make all described above really work, you need to include impress.js in the page.
     You also need to call a `impress().init()` function to initialize impress.js presentation.
     And you should do it in the end of your document. 
 -->
-      <script src="js/jquery/jquery.js"></script>
-      <script src="js/SyntaxHighlighter/scripts/shCore.js"></script>
-      <script src="js/SyntaxHighlighter/scripts/shBrushCpp.js"></script>
-      <script type="text/javascript" src="new_impress_js/js/impress.js"></script>
-      <script>
-         SyntaxHighlighter.all();
-         impress().init();
-      </script>
+    <script src="../../libs/jquery/jquery.js"></script>
+    <script src="../../libs/SyntaxHighlighter/scripts/shCore.js"></script>
+    <script src="../../libs/SyntaxHighlighter/scripts/shBrushCpp.js"></script>
+    <script type="text/javascript" src="../../libs/impress.js/js/impress.js"></script>
+    <script>
+      SyntaxHighlighter.all();
+      impress().init();
+    </script>
 
-   </body>
+  </body>
 
 </html>
