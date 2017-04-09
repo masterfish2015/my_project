@@ -4,6 +4,19 @@
 
 .slide pre {
     font-size: 20px;
-    background: black;
-    color: while;
+    background: darkslategrey;
+    color: lightgoldenrodyellow;
+}
+
+.slide h4 {
+    padding: 0px;
+    margin: 0px;
+}
+
+.green {
+    color: greenyellow;
+}
+
+.blue {
+    color: dodgerblue;
 }

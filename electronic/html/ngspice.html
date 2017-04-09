@@ -68,9 +68,11 @@
         <p class="substep">名字的第一个字母指定了元素的类型，常见下表：</p>
       </div>
 
-      <div id="2.1.2.1" class="step" data-x="0" data-y="-800">
-        <table border="1" width="100%" style="font-size:22px;background-color: lightyellow; color:darkblue">
+      <div id="2.1.2.1" class="step slide" data-x="0" data-y="-800">
+        <table border="1" width="100%" style="font-size:18px;background-color: lightyellow; color:darkblue">
           <tr>
+            <th>首</th>
+            <th>元素类型</th>
             <th>首</th>
             <th>元素类型</th>
             <th>首</th>
@@ -81,14 +83,12 @@
             <td>XSPICE code model，见 12</td>
             <td>B</td>
             <td>Behavioral (arbitrary) source, 见 5.1</td>
-          </tr>
-          <tr>
             <td>C</td>
             <td>电容capacitor，见 3.2.5</td>
-            <td>D</td>
-            <td>二极管Diode, 见 7</td>
           </tr>
           <tr>
+            <td>D</td>
+            <td>二极管Diode, 见 7</td>
             <td>E</td>
             <td>电压控制的电压源（VCVS），见 4.2.2， 5.2</td>
             <td>F</td>
@@ -99,32 +99,34 @@
             <td>电压控制的电流源（VCCS），见 4.2.1， 5.3</td>
             <td>H</td>
             <td>电流控制的电压源（CCVS）, 见 4.2.4</td>
-          </tr>
-          <tr>
             <td>I</td>
             <td>电流源（current source），见 4.1</td>
-            <td>J</td>
-            <td>结型场效应晶体管（JFET）, 见 9</td>
           </tr>
           <tr>
+
+          </tr>
+          <tr>
+            <td>J</td>
+            <td>结型场效应晶体管（JFET）, 见 9</td>
             <td>K</td>
             <td>互感线圈（电感）（coupled mutual inductors），见 3.2.11</td>
             <td>L</td>
             <td>电感（inductor）, 见 3.2.9</td>
           </tr>
           <tr>
+
+          </tr>
+          <tr>
             <td>M</td>
             <td>金属氧化物半导体场效应晶体管（MOSFET），见 11</td>
             <td>N</td>
             <td>GSS的数字化器件, 见 14.2</td>
-          </tr>
-          <tr>
             <td>O</td>
             <td>有损耗的传输电线（lossy transmission line），见 6.2</td>
-            <td>P</td>
-            <td>耦合多导体线(CPL), 见 6.4.2</td>
           </tr>
           <tr>
+            <td>P</td>
+            <td>耦合多导体线(CPL), 见 6.4.2</td>
             <td>Q</td>
             <td>三极管（BJT），见 8</td>
             <td>R</td>
@@ -135,14 +137,12 @@
             <td>电压控制的开关（votage-controlled switch），见 3.2.14</td>
             <td>T</td>
             <td>无损耗输电线(lossless transmission line), 见 6.1</td>
-          </tr>
-          <tr>
             <td>U</td>
             <td>均匀RC网格（uniformly distributed RC line），见 6.3</td>
-            <td>V</td>
-            <td>电压源(voltage source), 见 4.1</td>
           </tr>
           <tr>
+            <td>V</td>
+            <td>电压源(voltage source), 见 4.1</td>
             <td>W</td>
             <td>电流控制的开关（current-controlled switch），见 3.2.14</td>
             <td>X</td>
@@ -153,6 +153,8 @@
             <td>单根有损耗输电线（TXL），见 6.4.1</td>
             <td>Z</td>
             <td>金属半导体场效应晶体管(MESFET), 见 10</td>
+            <td></td>
+            <td></td>
           </tr>
         </table>
       </div>
@@ -164,7 +166,7 @@
         <p class="substep">第一行（无需加标示）就是标题行，这里内容会在输出文件中显示</p>
         <p class="substep">也可以在任意一行加 <code>.TITLE</code> 来标明标题，可以多次加title行，后面的覆盖前面的</p>
         <h4 class="substep">2.2.2 <code>.END</code> </h4>
-        <pre class="substep">.TITLE Test of CAM Cell
+        <pre class="substep" style="font-size: 20px;">.TITLE Test of CAM Cell
 * additional lines following
 * ....
 .END</pre>
@@ -188,8 +190,17 @@ C1 =10p $ Check open-loop gain and phase margin
         <p class="substep">一般形式：</p>
         <pre class="substep">.model modelName deviceType (parameter1 = value1 parameter2 = value2)</pre>
 
-        <p class="substep">举例：</p>
-        <pre class="substep">.model MOD1 npn (bf = 50  is=1e-13 vbf=50)</pre>
+        <p class="substep">举例, 下面是npn三极管的器件说明，其参数：<code>bf</code>为最大正向放大倍数， <code>is</code>为饱和电流（单位为安培）， <code>vbf</code>为：正向Early电压（单位为伏特）</p>
+        <pre class="substep">.model QMOD1 npn (bf = 50  is=1e-13 vbf=50)</pre>
+
+        <p class="substep">多个器件可以有相同的模型参数，这就是为什么把<code>.MODEL</code>单独放在一行的原因</p>
+
+      </div>
+
+      <div id="2.3.1" class="step slide" data-x="1000" data-y="-4000">
+        <h3>2.3 器件模型 <code>.MODEL</code></h3>
+        <hr>
+        <p class="substep">一般形式：</p>
 
 
       </div>
@@ -203,11 +214,23 @@ C1 =10p $ Check open-loop gain and phase margin
     <div class="impress-progress"></div>
 
     <!-- javascript -->
-    <script src="../../libs/highlight.js/highlight.pack.js"></script>
+
     <script src="../../libs/impress.js/js/impress.js"></script>
     <script>
-      hljs.initHighlightingOnLoad();
+      //hljs.initHighlightingOnLoad();
       impress().init();
+      let pre_array = document.getElementsByTagName("pre");
+      for (let pre of pre_array) {
+        let str = pre.innerHTML;
+        //选择<pre>里的 注释 并进行变色
+        str = str.replace(/^\*.*$/gim, "<b class='green'>$&</b>");
+        str = str.replace(/\$.*$/gim, "<b class='green'>$&</b>");
+        str = str.replace(/;.*$/gim, "<b class='green'>$&</b>");
+        str = str.replace(/\/\/.*$/gim, "<b class='green'>$&</b>");
+        //选择<pre>里的关键字进行变色
+        str = str.replace(/(\.model|\.title|\.end)\b/gim, "<b class='blue'>$&</b>");
+        pre.innerHTML = str;
+      }
     </script>
   </body>
 
