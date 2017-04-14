@@ -1,237 +1,297 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 
-  <head>
-    <title>ngspice manual</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="../../libs/impress.js/css/classic-slides.css" rel="stylesheet">
-    <link href="../../libs/impress.js/css/substep.css" rel="stylesheet">
-    <link href="css/ngspice.css" rel="stylesheet">
-    <link rel="stylesheet" href="../../libs/highlight.js/styles/vs.css">
+   <head>
+      <title>ngspice manual</title>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link href="../../libs/impress.js/css/classic-slides.css" rel="stylesheet">
+      <link href="../../libs/impress.js/css/substep.css" rel="stylesheet">
+      <link href="css/ngspice.css" rel="stylesheet">
+      <link rel="stylesheet" href="../../libs/highlight.js/styles/vs.css">
 
-  </head>
+   </head>
 
-  <body>
-    <div id="impress">
-      <div id="title" class="step slide">
-        <h1>ngspice</h1>
-        <hr>
-        <h2 class="substep">简明教程</h2>
-      </div>
+   <body>
+      <div id="impress">
+         <div id="title" class="step slide">
+            <h1>ngspice</h1>
+            <hr>
+            <h2 class="substep">简明教程</h2>
+         </div>
 
-      <div id="1.0.1" class="step slide" data-x="0" data-y="800">
-        <h2>第一章 基础介绍（introduction)</h2>
-        <hr>
-        <ul style="font-size:28px">
-          <li class="substep">ngspice 是电路仿真软件，可以进行线性(linear)和非线性（nonlinear）电路的仿真分析</li>
-          <li class="substep">能加入的元器件包括：电阻（resistor）、电容（capacitor）、电感（inductor）、互感线圈（mutual inductor）、独立或可控的电压和电流源（voltage and current sources）、无损耗或有损耗的电流线（loss-less and lossy transmission lines）、开关（switch）、均匀分布的电阻电流网格（uniform distributed RC lines）、以及五种最常见的半导体器件：二极管（biodes）、双极型晶体管（即三极管，BJT）、结型场效应管（JFET）、金属半导体场效应管（MESFET）、金2属-半导体-氧化物-场效应管（MOSFET）</li>
-          <li class="substep">ngspice基于Berkeley Spice3开发</li>
-        </ul>
-      </div>
+         <div id="1.0.1" class="step slide" data-x="0" data-y="800">
+            <h2>第一章 基础介绍（introduction)</h2>
+            <hr>
+            <ul style="font-size:28px">
+               <li class="substep">ngspice 是电路仿真软件，可以进行线性(linear)和非线性（nonlinear）电路的仿真分析</li>
+               <li class="substep">能加入的元器件包括：电阻（resistor）、电容（capacitor）、电感（inductor）、互感线圈（mutual inductor）、独立或可控的电压和电流源（voltage and current sources）、无损耗或有损耗的电流线（loss-less and lossy transmission lines）、开关（switch）、均匀分布的电阻电流网格（uniform distributed RC lines）、以及五种最常见的半导体器件：二极管（biodes）、双极型晶体管（即三极管，BJT）、结型场效应管（JFET）、金属半导体场效应管（MESFET）、金2属-半导体-氧化物-场效应管（MOSFET）</li>
+               <li class="substep">ngspice基于Berkeley Spice3开发</li>
+            </ul>
+         </div>
 
 
-      <div id="1.0.2" class="step slide" data-x="-1000" data-y="800">
-        <h2>第一章 基础介绍（introduction)</h2>
-        <hr>
-        <ul style="font-size:28px">
-          <li class="substep">对于二极管，ngspice有三种内建模型（都是基于 integral-charge model of Gummel and Poon, 或者， 如果不指定参数，则退化为较简单的 Ebers-Moll model）：
-            <ol>
-              <li class="substep">BJT模型：包含 电荷存储效应（charge storage effects）, 欧姆电阻（ohmic resistances）, 电流相关输出电导（current-dependent output conductance）</li>
-              <li class="substep">BJT2模型：增加对衬底电流的计算</li>
-              <li class="substep">VBIC模型：增加对高级双极型器件(bipolar device)的计算</li>
-            </ol>
-          </li>
-          <li class="substep">2</li>
-        </ul>
-      </div>
+         <div id="1.0.2" class="step slide" data-x="-1000" data-y="800">
+            <h2>第一章 基础介绍（introduction)</h2>
+            <hr>
+            <ul style="font-size:28px">
+               <li class="substep">对于二极管，ngspice有三种内建模型（都是基于 integral-charge model of Gummel and Poon, 或者， 如果不指定参数，则退化为较简单的 Ebers-Moll model）：
+                  <ol>
+                     <li class="substep">BJT模型：包含 电荷存储效应（charge storage effects）, 欧姆电阻（ohmic resistances）, 电流相关输出电导（current-dependent output conductance）</li>
+                     <li class="substep">BJT2模型：增加对衬底电流的计算</li>
+                     <li class="substep">VBIC模型：增加对高级双极型器件(bipolar device)的计算</li>
+                  </ol>
+               </li>
+               <li class="substep">2</li>
+            </ul>
+         </div>
 
-      <div id="2" class="step slide title" data-x="1000" data-y="800">
-        <h2>第二章 电路描述（Circuit Description)</h2>
-      </div>
+         <div id="2" class="step slide title" data-x="1000" data-y="800">
+            <h2>第二章 电路描述（Circuit Description)</h2>
+         </div>
 
-      <div id="2.1" class="step slide" data-x="1000" data-y="0">
-        <h3>2.1 一般性结构和习惯<br>(General Structure and Conventions)</h3>
-        <hr>
-        <h4>2.1.1输入文件结构</h4>
-        <ul>
-          <li class="substep">第一行是标题(title)</li>
-          <li class="substep">最后一行是<code>.end</code></li>
-          <li class="substep">其他行前导空格和空行被忽略</li>
-        </ul>
-      </div>
+         <div id="2.1" class="step slide" data-x="1000" data-y="0">
+            <h3>2.1 一般性结构和习惯<br>(General Structure and Conventions)</h3>
+            <hr>
+            <h4>2.1.1输入文件结构</h4>
+            <ul>
+               <li class="substep">第一行是标题(title)</li>
+               <li class="substep">最后一行是<code>.end</code></li>
+               <li class="substep">其他行前导空格和空行被忽略</li>
+            </ul>
+         </div>
 
-      <div id="2.1.2" class="step slide" data-x="1000" data-y="-800">
-        <h4>2.1.2 电路元素(Circuit Elements)</h4>
-        <p class="substep">每个元素由一行描述，包括：名字(instance name)、电路节点（circuit nodes)、参数(parameters)来组成</p>
-        <p class="substep">数值可以加后缀，表示级数，大小写不区分：T(10<sup>12</sup>), G(10<sup>9</sup>), Meg(10<sup>6</sup>), K(10<sup>3</sup>), mil(10<sup>-3</sup>), m(10<sup>-6</sup>), u(10<sup>-6</sup>), n(10<sup>-9</sup>), p(10<sup>-12</sup>), f(10<sup>-15</sup>) </p>
-        <p class="substep">名字的第一个字母指定了元素的类型，常见下表：</p>
-      </div>
+         <div id="2.1.2" class="step slide" data-x="1000" data-y="-800">
+            <h4>2.1.2 电路元素(Circuit Elements)</h4>
+            <p class="substep">每个元素由一行描述，包括：名字(instance name)、电路节点（circuit nodes)、参数(parameters)来组成</p>
+            <p class="substep">数值可以加后缀，表示级数，大小写不区分：T(10<sup>12</sup>), G(10<sup>9</sup>), Meg(10<sup>6</sup>), K(10<sup>3</sup>), mil(10<sup>-3</sup>), m(10<sup>-6</sup>), u(10<sup>-6</sup>), n(10<sup>-9</sup>), p(10<sup>-12</sup>), f(10<sup>-15</sup>) </p>
+            <p class="substep">名字的第一个字母指定了元素的类型，常见下表：</p>
+         </div>
 
-      <div id="2.1.2.1" class="step slide" data-x="0" data-y="-800">
-        <table border="1" width="100%" style="font-size:18px;background-color: lightyellow; color:darkblue">
-          <tr>
-            <th>首</th>
-            <th>元素类型</th>
-            <th>首</th>
-            <th>元素类型</th>
-            <th>首</th>
-            <th>元素类型</th>
-          </tr>
-          <tr>
-            <td>A</td>
-            <td>XSPICE code model，见 12</td>
-            <td>B</td>
-            <td>Behavioral (arbitrary) source, 见 5.1</td>
-            <td>C</td>
-            <td>电容capacitor，见 3.2.5</td>
-          </tr>
-          <tr>
-            <td>D</td>
-            <td>二极管Diode, 见 7</td>
-            <td>E</td>
-            <td>电压控制的电压源（VCVS），见 4.2.2， 5.2</td>
-            <td>F</td>
-            <td>电流控制的电流源（CCCS）, 见 4.2.3</td>
-          </tr>
-          <tr>
-            <td>G</td>
-            <td>电压控制的电流源（VCCS），见 4.2.1， 5.3</td>
-            <td>H</td>
-            <td>电流控制的电压源（CCVS）, 见 4.2.4</td>
-            <td>I</td>
-            <td>电流源（current source），见 4.1</td>
-          </tr>
-          <tr>
+         <div id="2.1.2.1" class="step slide" data-x="0" data-y="-800">
+            <table border="1" width="100%" style="font-size:18px;background-color: lightyellow; color:darkblue">
+               <tr>
+                  <th>首</th>
+                  <th>元素类型</th>
+                  <th>首</th>
+                  <th>元素类型</th>
+                  <th>首</th>
+                  <th>元素类型</th>
+               </tr>
+               <tr>
+                  <td>A</td>
+                  <td>XSPICE code model，见 12</td>
+                  <td>B</td>
+                  <td>Behavioral (arbitrary) source, 见 5.1</td>
+                  <td>C</td>
+                  <td>电容capacitor，见 3.2.5</td>
+               </tr>
+               <tr>
+                  <td>D</td>
+                  <td>二极管Diode, 见 7</td>
+                  <td>E</td>
+                  <td>电压控制的电压源（VCVS），见 4.2.2， 5.2</td>
+                  <td>F</td>
+                  <td>电流控制的电流源（CCCS）, 见 4.2.3</td>
+               </tr>
+               <tr>
+                  <td>G</td>
+                  <td>电压控制的电流源（VCCS），见 4.2.1， 5.3</td>
+                  <td>H</td>
+                  <td>电流控制的电压源（CCVS）, 见 4.2.4</td>
+                  <td>I</td>
+                  <td>电流源（current source），见 4.1</td>
+               </tr>
+               <tr>
 
-          </tr>
-          <tr>
-            <td>J</td>
-            <td>结型场效应晶体管（JFET）, 见 9</td>
-            <td>K</td>
-            <td>互感线圈（电感）（coupled mutual inductors），见 3.2.11</td>
-            <td>L</td>
-            <td>电感（inductor）, 见 3.2.9</td>
-          </tr>
-          <tr>
+               </tr>
+               <tr>
+                  <td>J</td>
+                  <td>结型场效应晶体管（JFET）, 见 9</td>
+                  <td>K</td>
+                  <td>互感线圈（电感）（coupled mutual inductors），见 3.2.11</td>
+                  <td>L</td>
+                  <td>电感（inductor）, 见 3.2.9</td>
+               </tr>
+               <tr>
 
-          </tr>
-          <tr>
-            <td>M</td>
-            <td>金属氧化物半导体场效应晶体管（MOSFET），见 11</td>
-            <td>N</td>
-            <td>GSS的数字化器件, 见 14.2</td>
-            <td>O</td>
-            <td>有损耗的传输电线（lossy transmission line），见 6.2</td>
-          </tr>
-          <tr>
-            <td>P</td>
-            <td>耦合多导体线(CPL), 见 6.4.2</td>
-            <td>Q</td>
-            <td>三极管（BJT），见 8</td>
-            <td>R</td>
-            <td>电阻(resistor), 见 3.2.1</td>
-          </tr>
-          <tr>
-            <td>S</td>
-            <td>电压控制的开关（votage-controlled switch），见 3.2.14</td>
-            <td>T</td>
-            <td>无损耗输电线(lossless transmission line), 见 6.1</td>
-            <td>U</td>
-            <td>均匀RC网格（uniformly distributed RC line），见 6.3</td>
-          </tr>
-          <tr>
-            <td>V</td>
-            <td>电压源(voltage source), 见 4.1</td>
-            <td>W</td>
-            <td>电流控制的开关（current-controlled switch），见 3.2.14</td>
-            <td>X</td>
-            <td>子电路(subcircuit), 见 2.4.3</td>
-          </tr>
-          <tr>
-            <td>Y</td>
-            <td>单根有损耗输电线（TXL），见 6.4.1</td>
-            <td>Z</td>
-            <td>金属半导体场效应晶体管(MESFET), 见 10</td>
-            <td></td>
-            <td></td>
-          </tr>
-        </table>
-      </div>
+               </tr>
+               <tr>
+                  <td>M</td>
+                  <td>金属氧化物半导体场效应晶体管（MOSFET），见 11</td>
+                  <td>N</td>
+                  <td>GSS的数字化器件, 见 14.2</td>
+                  <td>O</td>
+                  <td>有损耗的传输电线（lossy transmission line），见 6.2</td>
+               </tr>
+               <tr>
+                  <td>P</td>
+                  <td>耦合多导体线(CPL), 见 6.4.2</td>
+                  <td>Q</td>
+                  <td>三极管（BJT），见 8</td>
+                  <td>R</td>
+                  <td>电阻(resistor), 见 3.2.1</td>
+               </tr>
+               <tr>
+                  <td>S</td>
+                  <td>电压控制的开关（votage-controlled switch），见 3.2.14</td>
+                  <td>T</td>
+                  <td>无损耗输电线(lossless transmission line), 见 6.1</td>
+                  <td>U</td>
+                  <td>均匀RC网格（uniformly distributed RC line），见 6.3</td>
+               </tr>
+               <tr>
+                  <td>V</td>
+                  <td>电压源(voltage source), 见 4.1</td>
+                  <td>W</td>
+                  <td>电流控制的开关（current-controlled switch），见 3.2.14</td>
+                  <td>X</td>
+                  <td>子电路(subcircuit), 见 2.4.3</td>
+               </tr>
+               <tr>
+                  <td>Y</td>
+                  <td>单根有损耗输电线（TXL），见 6.4.1</td>
+                  <td>Z</td>
+                  <td>金属半导体场效应晶体管(MESFET), 见 10</td>
+                  <td></td>
+                  <td></td>
+               </tr>
+            </table>
+         </div>
 
-      <div id="2.2" class="step slide" data-x="1000" data-y="-1600">
-        <h3>2.2 基本行(basic lines)</h3>
-        <hr>
-        <h4 class="substep">2.2.1 <code>.TITLE</code></h4>
-        <p class="substep">第一行（无需加标示）就是标题行，这里内容会在输出文件中显示</p>
-        <p class="substep">也可以在任意一行加 <code>.TITLE</code> 来标明标题，可以多次加title行，后面的覆盖前面的</p>
-        <h4 class="substep">2.2.2 <code>.END</code> </h4>
-        <pre class="substep" style="font-size: 20px;">.TITLE Test of CAM Cell
+         <div id="2.2" class="step slide" data-x="1000" data-y="-1600">
+            <h3>2.2 基本行(basic lines)</h3>
+            <hr>
+            <h4 class="substep">2.2.1 <code>.TITLE</code></h4>
+            <p class="substep">第一行（无需加标示）就是标题行，这里内容会在输出文件中显示</p>
+            <p class="substep">也可以在任意一行加 <code>.TITLE</code> 来标明标题，可以多次加title行，后面的覆盖前面的</p>
+            <h4 class="substep">2.2.2 <code>.END</code> </h4>
+            <pre class="substep" style="font-size: 20px;">.TITLE Test of CAM Cell
 * additional lines following
 * ....
 .END</pre>
-      </div>
+         </div>
 
-      <div id="2.2.2" class="step slide" data-x="1000" data-y="-2400">
-        <h4>2.2.3 注释(comments)</h4>
-        <p class="substep">以<code>*</code>开头的内容</p>
-        <p class="substep">在行末以<code>;</code>或<code>$</code>或<code>//</code>开头</p>
-        <pre class="substep">Test of CAM Cell
+         <div id="2.2.2" class="step slide" data-x="1000" data-y="-2400">
+            <h4>2.2.3 注释(comments)</h4>
+            <p class="substep">以<code>*</code>开头的内容</p>
+            <p class="substep">在行末以<code>;</code>或<code>$</code>或<code>//</code>开头</p>
+            <pre class="substep">Test of CAM Cell
 * additional lines following
 RF2=1K  ; Gain should be 100
 C1 =10p $ Check open-loop gain and phase margin
 .param n1  //new value
 .END</pre>
+         </div>
+
+         <div id="2.3" class="step slide" data-x="1000" data-y="-3200">
+            <h3>2.3 器件模型 <code>.MODEL</code></h3>
+            <hr>
+            <p class="substep">一般形式：</p>
+            <pre class="substep">.model modelName deviceType (parameter1 = value1 parameter2 = value2)</pre>
+
+            <p class="substep">举例, 下面是npn三极管的器件说明，其参数：<code>bf</code>为最大正向放大倍数， <code>is</code>为饱和电流（单位为安培）， <code>vbf</code>为：正向Early电压（单位为伏特）</p>
+            <pre class="substep">.model QMOD1 npn (bf = 50  is=1e-13 vbf=50)</pre>
+
+            <p class="substep">多个器件可以有相同的模型参数，这就是为什么把<code>.MODEL</code>单独放在一行的原因</p>
+
+         </div>
+
+         <div id="2.3.1" class="step slide" data-x="1000" data-y="-4000">
+            <h3>2.3 器件模型 <code>.MODEL</code></h3>
+            <hr>
+            <p class="substep">模型的类型如下表</p>
+            <table border="1" class="substep" style="width:100%;font-size:20px;">
+               <tr>
+                  <th>代码</th>
+                  <th>模型类型</th>
+                  <th>代码</th>
+                  <th>模型类型</th>
+                  <th>代码</th>
+                  <th>模型类型</th>
+               </tr>
+               <tr>
+                  <td>R</td>
+                  <td>半导体电阻</td>
+                  <td>C</td>
+                  <td>半导体电容</td>
+                  <td>L</td>
+                  <td>电感</td>
+               </tr>
+               <tr>
+                  <td>SW</td>
+                  <td>电压控制开关</td>
+                  <td>CSW</td>
+                  <td>电流控制开关</td>
+                  <td>URC</td>
+                  <td>均匀分布RC网格</td>
+               </tr>
+               <tr>
+                  <td>LTRA</td>
+                  <td>有损输电线</td>
+                  <td>D</td>
+                  <td>二极管</td>
+                  <td>NPN</td>
+                  <td>NPN三极管</td>
+               </tr>
+               <tr>
+                  <td>PNP</td>
+                  <td>PNP三极管</td>
+                  <td>NJF</td>
+                  <td>n沟道JFET</td>
+                  <td>PJF</td>
+                  <td>p沟道JFET</td>
+               </tr>
+               <tr>
+                  <td>NMOS</td>
+                  <td>n沟道MOSFET</td>
+                  <td>PMOS</td>
+                  <td>p沟道MOSFET</td>
+                  <td>NMF</td>
+                  <td>n沟道MESFET</td>
+               </tr>
+               <tr>
+                  <td>PMOS</td>
+                  <td>p沟道MOSFET</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+               </tr>
+            </table>
+            <p class="substep">示例：类型大小写无区别</p>
+            <pre class="substep">.model QMOD1 npn (bf = 50  is=1e-13 vbf=50)</pre>
+            <p class="substep">注意：没有给出具体数值的各模型参数被赋予缺省值</p>
+
+         </div>
+
       </div>
 
-      <div id="2.3" class="step slide" data-x="1000" data-y="-3200">
-        <h3>2.3 器件模型 <code>.MODEL</code></h3>
-        <hr>
-        <p class="substep">一般形式：</p>
-        <pre class="substep">.model modelName deviceType (parameter1 = value1 parameter2 = value2)</pre>
-
-        <p class="substep">举例, 下面是npn三极管的器件说明，其参数：<code>bf</code>为最大正向放大倍数， <code>is</code>为饱和电流（单位为安培）， <code>vbf</code>为：正向Early电压（单位为伏特）</p>
-        <pre class="substep">.model QMOD1 npn (bf = 50  is=1e-13 vbf=50)</pre>
-
-        <p class="substep">多个器件可以有相同的模型参数，这就是为什么把<code>.MODEL</code>单独放在一行的原因</p>
-
+      <div id="impress-toolbar"></div>
+      <div class="impress-progressbar">
+         <div></div>
       </div>
+      <div class="impress-progress"></div>
 
-      <div id="2.3.1" class="step slide" data-x="1000" data-y="-4000">
-        <h3>2.3 器件模型 <code>.MODEL</code></h3>
-        <hr>
-        <p class="substep">一般形式：</p>
+      <!-- javascript -->
 
-
-      </div>
-
-    </div>
-
-    <div id="impress-toolbar"></div>
-    <div class="impress-progressbar">
-      <div></div>
-    </div>
-    <div class="impress-progress"></div>
-
-    <!-- javascript -->
-
-    <script src="../../libs/impress.js/js/impress.js"></script>
-    <script>
-      //hljs.initHighlightingOnLoad();
-      impress().init();
-      let pre_array = document.getElementsByTagName("pre");
-      for (let pre of pre_array) {
-        let str = pre.innerHTML;
-        //选择<pre>里的 注释 并进行变色
-        str = str.replace(/^\*.*$/gim, "<b class='green'>$&</b>");
-        str = str.replace(/\$.*$/gim, "<b class='green'>$&</b>");
-        str = str.replace(/;.*$/gim, "<b class='green'>$&</b>");
-        str = str.replace(/\/\/.*$/gim, "<b class='green'>$&</b>");
-        //选择<pre>里的关键字进行变色
-        str = str.replace(/(\.model|\.title|\.end)\b/gim, "<b class='blue'>$&</b>");
-        pre.innerHTML = str;
-      }
-    </script>
-  </body>
+      <script src="../../libs/impress.js/js/impress.js"></script>
+      <script>
+         //hljs.initHighlightingOnLoad();
+         impress().init();
+         let pre_array = document.getElementsByTagName("pre");
+         for (let pre of pre_array) {
+            let str = pre.innerHTML;
+            //选择<pre>里的 注释 并进行变色
+            str = str.replace(/^\*.*$/gim, "<b class='green'>$&</b>");
+            str = str.replace(/\$.*$/gim, "<b class='green'>$&</b>");
+            str = str.replace(/;.*$/gim, "<b class='green'>$&</b>");
+            str = str.replace(/\/\/.*$/gim, "<b class='green'>$&</b>");
+            //选择<pre>里的关键字进行变色
+            str = str.replace(/(\.model|\.title|\.end)\b/gim, "<b class='blue'>$&</b>");
+            pre.innerHTML = str;
+         }
+      </script>
+   </body>
 
 </html>
