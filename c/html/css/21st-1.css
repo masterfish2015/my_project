@@ -12,3 +12,21 @@
     background: blue;
     color: ghostwhite;
 }
+
+.slide h1,h2,h3,h4,p{
+    margin: 0px;
+    padding: 0px;
+}
+
+.slide p{
+    text-align: left;
+}
+
+.slide code{
+    background: darkslategray;
+    color: lightyellow;
+    font-size: 24px;
+    font-family: "DejaVu Sans Mono",Consolas,monospace;
+    border-radius: 5px;
+    padding: 5px;
+}

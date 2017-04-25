@@ -8,28 +8,243 @@
       <link href="../../libs/impress.js/css/classic-slides.css" rel="stylesheet">
       <link href="../../libs/impress.js/css/substep.css" rel="stylesheet">
       <link href="css/21st-1.css" rel="stylesheet">
-      <link rel="stylesheet" href="../../libs/highlight.js/styles/vs.css">
+      <link rel="stylesheet" href="../../libs/highlight.js/styles/rainbow.css">
 
    </head>
 
    <body>
       <div id="impress">
          <div id="part-1" class="step slide">
-             <h1>PART I : The Environment</h1>
-             <ul>
-                 <li>chapter 1: Setting up the <b class="blue">basic environment</b>, including getting a package manager and getting it to install all the requisite tools.</li>
-                 <li>chapter 2: Tools for <b class="green">debugging, documenting, and testing</b>.</li>
-                 <li>chapter 3: <b class="blue">Autotools</b>, a system for packaging your code for distribution.</li>
-                 <li>chapter 4: <b class="blue">git</b>, version controlled system</li>
-                 <li>chapter 5: use <b class="blue">python</b> to write the interface.</li>
-             </ul>
+            <h1>PART I : The Environment</h1>
+            <ul>
+               <li>chapter 1: Setting up the <b class="blue">basic environment</b>, including getting a package manager and getting it to install all the requisite tools.</li>
+               <li>chapter 2: Tools for <b class="green">debugging, documenting, and testing</b>.</li>
+               <li>chapter 3: <b class="blue">Autotools</b>, a system for packaging your code for distribution.</li>
+               <li>chapter 4: <b class="blue">git</b>, version controlled system</li>
+               <li>chapter 5: use <b class="blue">python</b> to write the interface.</li>
+            </ul>
          </div>
 
          <div id="1" class="step slide" data-x="1000" data-y="0">
             <h2>第一章 使编译更容易</h2>
          </div>
-             
-         
+
+         <div id="1.1" class="step slide" data-x="2000" data-y="0">
+            <h3>Use a package Manager</h3>
+            <hr>
+            <p>可选的包管理器:</p>
+            <ul>
+               <li>Linux-ubuntu: apt, apt-get</li>
+               <li>windows: cygwin, bash on windows, msys2</li>
+               <li>mac os: fink, homebrew, macports</li>
+            </ul>
+         </div>
+
+         <div id="1.1.1" class="step slide" data-x="2000" data-y="800">
+            <h3>Use a package Manager:常见要安装的工具</h3>
+            <hr>
+            <ul>
+               <li>A compiler: gcc, clang</li>
+               <li>GDB, the debugger</li>
+               <li>Valgrind, to test for c memory usage errors.</li>
+               <li>gprof, a profiler.</li>
+               <li>make, 自动化生成</li>
+               <li>pkg-config, for documentation generation.</li>
+               <li>text editor: vim, emacs, nano, visual studio code, atom, ...</li>
+               <li>IDE: Anjuta, KDevelop, XCode, Code::Blocks, Eclipse</li>
+            </ul>
+         </div>
+
+         <div id="1.1.2" class="step slide" data-x="2000" data-y="1600">
+            <h3>Use a package Manager:高级工具</h3>
+            <hr>
+            <ul>
+               <li>autotools: autoconf, automake, libtool</li>
+               <li>git</li>
+               <li>alternate shells, zsh</li>
+            </ul>
+         </div>
+
+         <div id="1.1.3" class="step slide" data-x="2000" data-y="2400">
+            <h3>Use a package Manager:常见库</h3>
+            <hr>
+            <ul>
+               <li>libcURL(url)</li>
+               <li>libglib(data structure, string, memory control, threads)</li>
+               <li>libgsl(科学计算)</li>
+               <li>libSQLite3(数据库)</li>
+               <li>libXML2(xml解析)</li>
+            </ul>
+            <p>下载 -dev 或 -devel 的版本， -dbg 用于调试， -doc 文档</p>
+         </div>
+
+         <div id="1.1.4" class="step slide" data-x="2000" data-y="3200">
+            <h3>Use a package Manager:检测动态库依赖</h3>
+            <hr>
+            <ul>
+               <li>cygwin: cygcheck libxx.dll</li>
+               <li>linux: ldd libxx.so</li>
+               <li>mac : otool -L libxx.dylib </li>
+            </ul>
+         </div>
+
+         <div id="1.2" class="step slide" data-x="3000" data-y="0">
+            <h3>Which way to library?</h3>
+            <hr>
+            <p>To avoid a mess, simple steps:</p>
+            <ol>
+               <li>set a variable listing the compiler flags.</li>
+               <li>set a variable listing the libraries to link to(compiling time and | or runtime).</li>
+               <li>set up a system that will use these variables to orchestrate精心策划 the compilation. </li>
+            </ol>
+         </div>
+
+         <div id="1.2.1" class="step slide" data-x="3000" data-y="800">
+            <h3>Which way to library?: 例子</h3>
+            <hr>
+            <h4>例1-1: erf function</h4>
+            <pre><code class="c" style="font-size:20px;">#include&lt;math.h&gt;    /*erf, sqrt*/
+#include&lt;stdio.h&gt;   /*printf*/
+
+int main(){
+    printf( "the integral of normal(0,1) distribution"
+      "between -1.96 and 1.96 is: %g\n", erf(1.96*sqrt(1.0/2.0)));
+    return 0;
+}</code></pre>
+            <p>编译指令和结果：</p>
+            <pre><code class="cmd" style="font-size:20px;">$gcc erf.c -o erf -lm -g -Wall -O3 -std=gnu11
+$the integral of normal(0,1) distributionbetween -1.96 and 1.96 is: 0.950004</code></pre>
+         </div>
+
+         <div id="1.2.2" class="step slide" data-x="3000" data-y="1600">
+            <h3>参数说明1</h3>
+            <hr>
+            <ul>
+               <li><code>-g</code>: adds symbols for debugging.(gcc, clang, icc)</li>
+               <li><code>-std=gnu11</code>: specifies that the compiler should allow conforming to the C11 and POSIX standands(gcc, clang, icc). 还可以<code>-std=gnu99</code>, 等效于下面：<pre><code class="cmd" style="font-size:20px;">$c99 erf.c -o erf -lm -g -Wall -O3</code></pre>                  在makefiles中，可以设置<code>CC=c99</code></li>
+               <li><code>-O3</code>: indicates optimization level three, which tries every trick to build faster code. If when you run the debugger, you find that too many variables have been optimized out, can use <code>-O0</code>.(gcc, clang, icc)</li>
+            </ul>
+         </div>
+
+         <div id="1.2.3" class="step slide" data-x="3000" data-y="2400">
+            <h3>参数说明2</h3>
+            <hr>
+            <ul>
+               <li><code>-Wall</code>: adds compiler warnings, 甚至可以设置<code>-Werror</code>以把warning 当 error.(gcc, clang, icc)</li>
+               <li><code>-lm</code>: 指定链接库, m表示libm.lib, 数学库(gcc, clang, icc). </li>
+               <li><code>-o</code>: 表示输出的文件名（包括路径)(gcc, clang, icc).</li>
+            </ul>
+         </div>
+
+         <div id="1.2.4" class="step slide" data-x="3000" data-y="3200">
+            <h3>Paths</h3>
+            <hr>
+            <h4>there 3 places where libraries may be installed:</h4>
+            <ul style="font-size:28px;">
+               <li>The operating system vendor may define a <b class="blue">standard directory or two where libraries are installed by the vendor</b>.</li>
+               <li>There may be a <b class="green">directory for the local sysadmin</b> to install packages that should not be overwritten on the next OS upgrade from the vendor. The sysadmin might have a specially hacked version of library that should override
+                  the default version.</li>
+               <li>Users typically don't have the rights to write to these locations, and so should be able to use libraries <b class="red">in their home directories</b>.</li>
+            </ul>
+         </div>
+
+         <div id="1.2.4.1" class="step slide" data-x="3000" data-y="4000">
+            <h3>Paths:查找库的路径的几种方法：</h3>
+            <hr>
+            <ul>
+               <li>安装在系统路径下的无需专门设置</li>
+               <li>利用一些工具，如<code>pkg-config</code>来查找库的路径</li>
+               <li>在<code>makefile</code>文件中指定，通过设置<code>makefile variable</code></li>
+            </ul>
+         </div>
+
+         <div id="1.2.4.2" class="step slide" data-x="3000" data-y="4800">
+            <h3>Paths:例子</h3>
+            <hr>
+            <p>举例：假设已经安装了<code>libuseful</code>库，其主要文件放在<code>/usr/local/</code>路径下，在主程序中用<code>#include&lt;useful.h&gt;</code>来引用头文件，在编译的时候用：</p>
+            <pre><code class="bash" style="font-size:20px;">gcc -I/usr/local/include use_useful.c -o use_useful -L/usr/local/lib -luseful</code></pre>
+            <ul>
+               <li><code>-I</code>添加include文件的查找路径</li>
+               <li><code>-L</code>添加库文件的查找路径</li>
+               <li><b class="red">顺序是很重要的</b>, 如果有个文件<code>specific.o</code>依赖<code>Libbroad</code>, 而<code>Libbroad</code>依赖<code>Libgeneral</code>， 那么需要这样指定：</li>
+            </ul>
+            <pre><code class="bash" style="font-size:20px;">gcc specific.o -lbroad -lgeneral</code></pre>
+         </div>
+
+         <div id="1.2.4.3" class="step slide" data-x="3000" data-y="5600">
+            <h3>Paths：pkg-config</h3>
+            <hr>
+            <p>可以用<code>pkg-config</code>来获得库的路径和依赖关系：</p>
+            <pre><code class="bash" style="font-size:20px;">pkg-config --libs gsl libxml-2.0
+pkg-config --cflags gsl libxml-2.0</code></pre>
+            <p>获得如下结果：</p>
+            <pre><code class="bash" style="font-size:20px;">-lgsl -lgslcblas -lm -lxml2
+-I/usr/include/libxml2</code></pre>
+            <ul>
+                <li>上面第一个是获得链接库及其依赖</li>
+                <li>第二个是头文件的查找目录</li>
+            </ul>
+         </div>
+
+         <div id="1.2.4.3.1" class="step slide" data-x="3000" data-y="6400">
+            <h3>Paths：pkg-config的用法</h3>
+            <hr>
+            <p>用<code>pkg-config</code>来设置gcc的编译参数：</p>
+            <pre><code class="bash" style="font-size:20px;">gcc `pkg-config --cflags --libs gsl libxml-2.0` -o specific specific.c</code></pre>
+            <p>获得如下结果：</p>
+            <pre><code class="bash" style="font-size:20px;">gcc -I/usr/include/libxml2 -lgsl -lgslcblas -lm -lxml2 -o specific specific.c</code></pre>
+            <ul>
+                <li>上面仅限于安装的库已经注册的情况</li>
+                <li>对于独立的库，最好的办法还是设置独立设置查找路径</li>
+            </ul>
+         </div>
+
+         <div id="1.2.5" class="step slide" data-x="3000" data-y="7200">
+            <h3>Runtime Linking: 编译时</h3>
+            <hr>
+            <ul>
+                <li>对于安装在<code>usual location</code>的动态库，系统会自动找到</li>
+                <li>使用<code>Autotools</code>、<code>Libtool</code>自动添加正确的路径标识</li>
+                <li>设置<code>libpath</code>, 例如：<pre><code class="bash"  style="font-size:20px;">LDADD=-Llibpath -Wl, -Rlibpath</code></pre>
+                对于<code>gcc, clang, icc</code>:
+                    <ul>
+                        <li><code>-L</code>:指定库的查找路径</li>
+                        <li><code>-Wl</code>: 将<code>gcc/clang/icc</code>的编译选项传递到<code>linker</code>, <code>linker</code>将给定的<code>-R</code>指定的动态库的路径嵌入到链接库的路径中。</li>
+                    </ul>
+                </li>
+            </ul>
+         </div>
+
+         <div id="1.2.5.1" class="step slide" data-x="3000" data-y="8000">
+            <h3>Runtime Linking: 运行时</h3>
+            <hr>
+            <ul>                
+                <li>在运行时，<code>linker</code>使用另外的路径来查找动态库的位置，可以放在<code>shell's startup script (.bashrc, .zshrc etc)</code>, 例如:<pre><code class="bash"  style="font-size:20px;">export LD_LIBRARY_PATH=libpath:$LD_LIBRARY_PATH  #Linux, cygwin
+export DYLD_LIBRARY_PATH=libpath:$DYLD_LIBRARY_PATH  #OS X</code></pre></li>
+            </ul>
+         </div>
+
+         <div id="1.3" class="step slide" data-x="4000" data-y="0">
+            <h3>Using Makefiles</h3>
+            <hr>
+            <h4>例子：下面是<code>makefile</code>文件，放在你的<code>hello.c</code>文件的目录下</h4>
+            <pre><code class="makefile"  style="font-size:20px;">P=hello
+OBJECTS=
+CFLAGS = -g -Wall -O3
+LDLIBS =
+CC     = C99
+
+$(P): $(OBJECTS)</code></pre>
+            <pre><code class="c"  style="font-size:20px;">/*hello.c*/
+#include&lt;stdio.h&gt;
+int main()
+{
+    printf("Hello\n");
+    return 0;
+}</code></pre>
+            
+         </div>
+
 
       </div>
 
