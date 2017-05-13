@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+   <head>
+      <title>sfepy</title>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link href="../../libs/impress.js/css/classic-slides.css" rel="stylesheet">
+      <link href="../../libs/impress.js/css/substep.css" rel="stylesheet">
+      <link href="css/sfepy.css" rel="stylesheet">
+      <link rel="stylesheet" href="../../libs/highlight.js/styles/rainbow.css">
+
+   </head>
+
+   <body>
+      <div id="impress">
+         <div id="1_Requirements" class="step slide title">
+             <h2>1. Installation prerequisites</h2>
+         </div>
+
+         <div id="1.1_Installation_prerequisites" class="step slide" data-x="0" data-y="800">
+             <h4>1.1 Installation prerequisites</h4>
+             <ul>
+                 <li>a C compiler suite(for example gcc)</li>
+                 <li>python2.7 or 3</li>
+                 <li>NumPy</li>
+                 <li>Cython</li>
+             </ul>            
+         </div>
+
+         <div id="1.2_Python_packages_required" class="step slide" data-x="0" data-y="1600">
+             <h4>1.2 Python packages required</h4>
+             <ul style="font-size:28px;">
+                 <li>Pyparsing</li>
+                 <li>SciPy</li>
+                 <li>scikit-umfpack</li>
+                 <li>Matplotlib</li>
+                 <li>PyTables</li>
+                 <li>sympy</li>
+                 <li>mayavi</li>
+                 <li>pysparse</li>
+                 <li>igakit</li>
+                 <li>petsc4py</li>
+                 <li>mpi4py</li>
+                 <li>pymetis</li>
+             </ul>            
+         </div> 
+         
+         <div id="1.2.1_Pyparsing" class="step slide" data-x="1000" data-y="1600">
+             <h4>1.2.1 Pyparsing</h4>
+             <p>安装：</p>
+             <pre><code class="dos" style="font-size:20px;">pip install pyparsing </code></pre>           
+         </div>
+
+         <div id="1.2.2_SciPy" class="step slide" data-x="2000" data-y="1600">
+             <h4>1.2.2 SciPy</h4>
+             <p>安装：</p>
+             <pre><code class="dos" style="font-size:20px;">pip install scipy </code></pre>           
+         </div>  
+
+         <div id="1.2.3_scikit-umfpack" class="step slide" data-x="3000" data-y="1600">
+             <h4>1.2.3 scikit-umfpack</h4>
+             <h5>Dependencies</h5>
+             <p><code>scikit-umfpack</code> depends on <code>NumPy</code>, <code>SciPy</code>, <code>SuiteSparse</code>, and <code>swig</code> is a build-time dependency.</p>
+             <h6>Building <code>SuiteSparse</code></h6>
+             <pre><code class="dos" style="font-size:20px;">sudo apt-get install python3-dev
+sudo apt-get install libsuitesparse-dev</code></pre>
+             <h5>Get source code and install</h5>
+             <pre><code class="dos" style="font-size:20px;">git clone https://github.com/scikit-umfpack/scikit-umfpack.git
+cd scikit-umfpack
+python setup.py install</code></pre>
+         </div>
+
+         <div id="1.2.4_Matplotlib" class="step slide" data-x="4000" data-y="1600">
+             <h4>1.2.4 Matplotlib</h4>
+             <p>安装：</p>
+             <pre><code class="dos" style="font-size:20px;">pip install matplotlib </code></pre>           
+         </div>
+
+         <div id="1.2.5_PyTables" class="step slide" data-x="5000" data-y="1600">
+             <h4>1.2.5 PyTables</h4>
+             <p>安装：</p>
+             <pre><code class="dos" style="font-size:20px;">pip install tables </code></pre>           
+         </div>
+
+         <div id="1.2.6_sympy" class="step slide" data-x="6000" data-y="1600">
+             <h4>1.2.5 sympy</h4>
+             <p>安装：</p>
+             <pre><code class="dos" style="font-size:20px;">pip install sympy </code></pre>           
+         </div>
+
+         <div id="1.2.7_mayavi" class="step slide" data-x="7000" data-y="1600">
+             <h4>1.2.7 mayavi</h4>
+             <pre><code class="dos" style="font-size:20px;">pip install mayavi </code></pre>
+             <p>若提示没有安装<code>vtk</code>，则<br>
+             [1]download and install <code>cmake</code>
+             <pre><code class="dos" style="font-size:20px;">sudo apt-get install cmake</code></pre>
+             [2]download <code>vtk</code> source and compile and install
+             <pre><code class="dos" style="font-size:20px;">wget http://www.vtk.org/files/release/7.1/VTK-7.1.1.tar.gz
+tar xvzf VTK-7.1.1.tar.gz 
+cd VTK-7.1.1
+mkdir vtk-build 
+cd vtk-build 
+cmake ..
+make
+make install</code></pre>
+             </p>
+
+         </div>
+
+         <div id="1.2.7.1_mayavi" class="step slide" data-x="7000" data-y="2400">             
+             <p>
+             [3]download and install <code>vtk python interface</code>
+             <pre><code class="dos" style="font-size:20px;">wget http://www.vtk.org/files/release/7.1/vtkpython-7.1.1-Linux-64bit.tar.gz
+tar xvzf vtkpython-7.1.1-Linux-64bit.tar.gz 
+cd vtkpython-7.1.1-Linux-64bit
+</code></pre>
+             </p>
+
+         </div>        
+
+
+      </div>
+
+      <div id="impress-toolbar"></div>
+      <div class="impress-progressbar">
+         <div></div>
+      </div>
+      <div class="impress-progress"></div>
+
+      <!-- javascript -->
+      <script src="../../libs/highlight.js/highlight.pack.js"></script>
+      <script src="../../libs/impress.js/js/impress.js"></script>
+      <script>
+         hljs.initHighlightingOnLoad();
+         impress().init();
+      </script>
+   </body>
+
+</html>

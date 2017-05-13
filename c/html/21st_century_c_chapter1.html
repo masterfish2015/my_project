@@ -241,8 +241,89 @@ int main()
 {
     printf("Hello\n");
     return 0;
+}</code></pre>            
+         </div>
+
+         <div id="1.3.1" class="step slide" data-x="4000" data-y="800">
+            <h3>Using Makefiles: Setting Variables</h3>
+            <hr>
+            <h4>The <code>shell</code> and <code>make</code> use the <code>$</code> to indicate the value of a variable, but the <code>shell</code> uses <code>$var</code>, whereas <code>make</code> uses <code>$(var)</code>. </h4>
+            <h4>There are several ways to tell <code>make</code> about a variable:</h4>
+            <ul>
+                <li>Set the variable from the <code>shell</code> before calling <code>make</code>, and <code>export</code> the variable. like: <pre><code class="bash" style="font-size:20px;">export CFLAGS='-g -Wall -O3'</code></pre></li>  
+            </ul>            
+         </div>
+
+         <div id="1.3.1.1" class="step slide" data-x="4000" data-y="1600">
+            <h3>Using Makefiles: Setting Variables</h3>
+            <hr>            
+            <h4>There are several ways to tell <code>make</code> about a variable:</h4>
+            <ul>                
+                <li>You can put these <code>export</code> commands in your shell's startup script( .bashrc, .zshrc). </li>
+                <li>You can export a variable for a single command by putting the assignment just before the command. The <code>env</code> command lists the environment variables it knows about.<pre><code class="makefile" style="font-size:20px;">PANTS=kakhi env | grep PANTS</code></pre></li>
+            </ul>            
+         </div>
+
+         <div id="1.3.1.2" class="step slide" data-x="4000" data-y="2400">
+            <h3>Using Makefiles: Setting Variables</h3>
+            <hr>            
+            <h4>There are several ways to tell <code>make</code> about a variable:</h4>
+            <ul>                
+                <li>you can set the variable at the head of the <code>makefile</code>, like :<pre><code class="makefile" style="font-size:20px;">CFLAGS = -g -Wall -O3
+LDLIBS =
+CC     = C99</code></pre></li>
+                <li><code>make</code> will let you set variables on the command line, independent of the shell. The following two lines are close to equivalent:<pre><code class="bash" style="font-size:20px;" >make CFLAGS="-g -Wall" 
+CFLAGS="-g -Wall" make</code></pre></li>
+            </ul>            
+         </div>
+
+         <div id="1.3.1.3" class="step slide" data-x="4000" data-y="3200">
+            <h3>Using Makefiles: Setting Variables</h3>
+            <hr>            
+            <h4>There are several ways to tell <code>make</code> about a variable:</h4>
+            <ul>                
+                <li>Child programs called by <code>make</code> will know new environment variables but won't know any <code>makefile</code> variables.</li>
+                <li><code>make</code> offers several build-in variables:
+                    <ul>
+                        <li><code>$@</code>: The full target filename. 例：<code>prog.o</code></li>
+                        <li><code>$*</code>: The target file with the suffix cut off. 例：target<code>$@</code>: <code>prog.o</code>, <code>$*</code> is <code>prog</code></li>
+                        <li><code>$&lt;</code>: The name of the file that caused this target to get triggered and made. 例：target<code>$@</code>: <code>prog.o</code>, <code>$&lt;</code> is <code>prog.c</code></li>
+                    </ul>
+
+                </li>
+            </ul>            
+         </div>
+
+         <div id="1.3.1.4" class="step slide" data-x="4000" data-y="4000">
+            <h3>Using Makefiles: Environment Variables in C</h3>
+            <hr> 
+            <pre><code class="c" style="font-size:20px;">//filename: getenv.c
+#include&lt;stdlib.h&gt; <i class="green">//getenv, atoi</i>
+#include&lt;stdio.h&gt;  <i class="green">//printf</i>
+int main(){
+    char *repstext = getenv("reps");
+    int reps = repstext ? atoi( repstext ) : 10;
+    char *msg = getenv("msg");
+    if( !msg ) msg = "Hello.";
+    for(int i=0; i&lt;reps; i++) printf("%s\n", msg);
 }</code></pre>
-            
+            <h4>Usage:<pre><code class="bash" style="font-size:20px;">reps=10 msg="Ha" ./getenv
+msg="Ha" ./getenv
+reps=20 msg=" " ./getenv</code></pre></h4>
+         </div>
+
+         <div id="1.3.2" class="step slide" data-x="4000" data-y="4800">
+            <h3>Using Makefiles: The Rules</h3>
+            <hr> 
+            <h4>Segments of the <code>makefile</code> have the form:</h4>
+            <pre><code class="makefile" style="font-size: 20px;">target: dependencies
+        scripts</code></pre>
+            <p>例：使用<code>export f=tip-make</code>
+            <pre><code class="makefile" style="font-size: 18px;">P=domath
+OBJECTS=addition.o subtraction.o
+CC=c99
+
+$(P): $(OBJECTS)</code></pre></p>
          </div>
 
 
