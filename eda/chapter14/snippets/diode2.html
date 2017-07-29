@@ -7,10 +7,25 @@
         <li>Reverse bias: the cathode is more positive than the anode and the diode is "off". A reverse bias diode conducts a small leakage current.</li>
         <li>Breakdown: the breakdown region is model led only if the bv model parameter is given. When a diode enters breakdown the current increase exponentially (remember to limit it); bv is a positive value.</li>
     </ul>
+    <hr>
+
     <h3>Parameters Scaling</h3>
     <p>Model parameters are scaled using the unit-less parameters area and pj and the multiplier m as depicted below:</p>
-    <p>
-        \begin{align} AREA_{eff} &= AREA \cdot M \end{align}
-    </p>
+    <i>
+    \begin{align} 
+        AREA_{eff} &= AREA \cdot M  \\
+        PJ_{eff} &=PJ \cdot M \\
+        IS_{eff} &=IS \cdot AREA_{eff}+JSW \cdot PJ_{eff} \\
+        IBV_{eff} &=IBV \cdot AREA+{eff} \\
+        IK_{eff} &=IK \cdot AREA_{eff} \\
+        IKR_{eff} &=IKR \cdot AREA_{eff} \\
+        CJ_{eff} &=CJ0 \cdot AREA_{eff} \\
+        CJP_{eff} &=CJP \cdot PJ_{eff}
+    \end{align}
+    </i>
+    <hr>
+
+    <h3>Diode DC, Transient and AC model equations</h3>
+
 
 </div>

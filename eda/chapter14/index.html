@@ -29,7 +29,10 @@
 
     <script>
         function show_it(id_string) {
-            $('#main-box').load("snippets/" + id_string + ".html");
+            $('#main-box').load("snippets/" + id_string + ".html", function() {
+                MathJax.Hub.Queue(["Typeset", MathJax.Hub, "main-box"]);
+            });
+
         }
     </script>
 
