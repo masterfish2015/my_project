@@ -1,0 +1,50 @@
+html,
+body {
+    height: 100%;
+    /* force the BODY element to match the height of the HTML element */
+}
+
+.wrapper {
+    display: grid;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    /* Remove this line if it's not going to be a background! */
+    height: 100%;
+    grid-template-columns: 20% auto;
+    grid-template-rows: 10% auto 10%;
+    grid-template-areas: "header header" "sidebar content" "footer footer"
+}
+
+.header {
+    grid-area: header;
+    background-color: darkolivegreen;
+    color: lightskyblue;
+}
+
+.content {
+    padding: 10px 10px 10px 10px;
+    grid-area: content;
+    background-color: lightskyblue;
+    color: darkblue;
+}
+
+.sidebar {
+    grid-area: sidebar;
+}
+
+.footer {
+    grid-area: footer;
+}
+
+code {
+    background-color: darkslategrey;
+    color: lightgoldenrodyellow;
+    border-radius: 5px;
+}
+
+.hidden {
+    display: none;
+}

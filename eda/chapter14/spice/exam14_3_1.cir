@@ -1,0 +1,16 @@
+* 课本 14章 例题 14.3.1 二极管电路
+*电源
+vin 1 0 PWL(0 15v 20ns 15v 20ns 0 30ns 0 30ns 15v 50ns 15v)
+
+*元器件
+C  1 2 50mF
+R  2 0 2kohm
+RL 3 0 1kohm
+D  3 2 DIODE1
+
+.model DIODE1 D (is=0 n=1)
+
+*仿真指令
+.tran 1ns 50ns
+.plot v(1) v(2) v(3)
+.end
