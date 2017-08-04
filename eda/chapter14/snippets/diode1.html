@@ -1,0 +1,319 @@
+<div id="diode1">
+    <table border="1" width="100%">
+        <caption>Junction DC parameters</caption>
+        <tr>
+            <th>Name</th>
+            <th>Parameter</th>
+            <th>Units</th>
+            <th>Default</th>
+            <th>Example</th>
+            <th>Scale factor</th>
+        </tr>
+        <tr>
+            <td>BV</td>
+            <td>Reverse breakdown voltage.反向击穿电压</td>
+            <td>V</td>
+            <td>&infin;</td>
+            <td>40</td>
+            <td>--</td>
+        </tr>
+        <tr>
+            <td>IBV</td>
+            <td>Current at breakdown voltage.击穿电压下的电流</td>
+            <td>A</td>
+            <td>1.0e-3</td>
+            <td>1.0e-4</td>
+            <td>--</td>
+        </tr>
+        <tr>
+            <td>IK(IKF)</td>
+            <td>Forward knee current.正偏拐点电流</td>
+            <td>A</td>
+            <td>1.0e-3</td>
+            <td>1.0e-6</td>
+            <td>--</td>
+        </tr>
+        <tr>
+            <td>IKR</td>
+            <td>Reverse knee current.反偏拐点电流</td>
+            <td>A</td>
+            <td>1.0e-3</td>
+            <td>1.0e-6</td>
+            <td>--</td>
+        </tr>
+        <tr>
+            <td>IS(JS)</td>
+            <td>Saturation current.饱和电流（反向？）</td>
+            <td>A</td>
+            <td>1.0e-14</td>
+            <td>1.0e-16</td>
+            <td>area</td>
+        </tr>
+        <tr>
+            <td>JSW</td>
+            <td>Sidewall saturation current.边缘饱和电流</td>
+            <td>A</td>
+            <td>1.0e-14</td>
+            <td>1.0e-15</td>
+            <td>perimeter, pj</td>
+        </tr>
+        <tr>
+            <td>N</td>
+            <td>Emission coefficient. Emission coefficient is a coefficient in the power output per unit time of an electromagnetic source. 发射系数</td>
+            <td>--</td>
+            <td>1</td>
+            <td>1.5</td>
+            <td>--</td>
+        </tr>
+        <tr>
+            <td>RS</td>
+            <td>Ohmic resistance. 欧姆电阻</td>
+            <td>&#8486;</td>
+            <td>0.0</td>
+            <td>100</td>
+            <td>1/area</td>
+        </tr>
+    </table>
+    <hr>
+    <table border="1" width="100%">
+        <caption>Junction capacitance parameters</caption>
+        <tr>
+            <th>Name</th>
+            <th>Parameter</th>
+            <th>Units</th>
+            <th>Default</th>
+            <th>Example</th>
+            <th>Scale factor</th>
+        </tr>
+        <tr>
+            <td>CJO（CJ0）</td>
+            <td>Zero-bias junction bottom-wall capacitance. 零偏结地墙电容</td>
+            <td>F</td>
+            <td>0.0</td>
+            <td>2pF</td>
+            <td>area</td>
+        </tr>
+        <tr>
+            <td>CJP(CJSW)</td>
+            <td>Zero-bias junction sidewall capacitance. 零偏结边缘电容</td>
+            <td>F</td>
+            <td>0.0</td>
+            <td>.1pF</td>
+            <td>perimeter, PJ</td>
+        </tr>
+        <tr>
+            <td>FC</td>
+            <td>Coefficient for forward-bias depletion bottom-wall capacitance formula. 在正向偏置耗尽底壁的电容公式系数</td>
+            <td>--</td>
+            <td>0.5</td>
+            <td>--</td>
+            <td>--</td>
+        </tr>
+        <tr>
+            <td>FCS</td>
+            <td>Coefficient for forward-bias depletion sidewall capacitance formula. 在正向偏置耗尽边缘的电容公式系数</td>
+            <td>--</td>
+            <td>0.5</td>
+            <td>--</td>
+            <td>--</td>
+        </tr>
+        <tr>
+            <td>M(MJ)</td>
+            <td>Area junction grading coefficient. 交界区域分级系数</td>
+            <td>--</td>
+            <td>0.5</td>
+            <td>0.5</td>
+            <td>--</td>
+        </tr>
+        <tr>
+            <td>MJSW</td>
+            <td>Periphery junction grading coefficient. 外围连接等级系数</td>
+            <td>--</td>
+            <td>0.33</td>
+            <td>0.5</td>
+            <td>--</td>
+        </tr>
+        <tr>
+            <td>VJ(PB)</td>
+            <td>Junction potential. pn结电势</td>
+            <td>V</td>
+            <td>1</td>
+            <td>0.6</td>
+            <td>--</td>
+        </tr>
+        <tr>
+            <td>PHB</td>
+            <td>Periphery junction potential. 周边pn结电势</td>
+            <td>V</td>
+            <td>1</td>
+            <td>0.6</td>
+            <td>--</td>
+        </tr>
+        <tr>
+            <td>TT</td>
+            <td>Transit-time. 瞬变时间</td>
+            <td>sec</td>
+            <td>0</td>
+            <td>0.1ns</td>
+            <td>--</td>
+        </tr>
+    </table>
+    <hr>
+    <table border="1" width="100%">
+        <caption>Temperature effects</caption>
+        <tr>
+            <th>Name</th>
+            <th>Parameter</th>
+            <th>Units</th>
+            <th>Default</th>
+            <th>Example</th>
+            <th>Scale factor</th>
+        </tr>
+        <tr>
+            <td>EG</td>
+            <td>Activation energy. 激活能</td>
+            <td>eV</td>
+            <td>1.11</td>
+            <td>Si: 1.11<br>Sbd: 0.69<br>Ge: 0.67</td>
+            <td>--</td>
+        </tr>
+        <tr>
+            <td>TM1</td>
+            <td>1st order tempco for MJ. 对MJ的一阶温度系数</td>
+            <td>1/&#8451;</td>
+            <td>0.0</td>
+            <td>--</td>
+            <td>--</td>
+        </tr>
+        <tr>
+            <td>TM2</td>
+            <td>2nd order tempco for MJ. 对MJ的二阶温度系数</td>
+            <td>1/&#8451;<sup>2</sup></td>
+            <td>0.0</td>
+            <td>--</td>
+            <td>--</td>
+        </tr>
+        <tr>
+            <td>TNOM(TREF)</td>
+            <td>Parameter measurement temperature. 参数测量温度</td>
+            <td>&#8451;</td>
+            <td>27</td>
+            <td>50</td>
+            <td>--</td>
+        </tr>
+        <tr>
+            <td>TRS1（TRS）</td>
+            <td>1st order tempco for RS. 对RS的一阶温度系数</td>
+            <td>1/&#8451;</td>
+            <td>0.0</td>
+            <td>--</td>
+            <td>--</td>
+        </tr>
+        <tr>
+            <td>TRS2</td>
+            <td>2nd order tempco for RS. 对RS的二阶温度系数</td>
+            <td>1/&#8451;<sup>2</sup></td>
+            <td>0.0</td>
+            <td>--</td>
+            <td>--</td>
+        </tr>
+        <tr>
+            <td>TTT1</td>
+            <td>1st order tempco for TT. 对TT的一阶温度系数</td>
+            <td>1/&#8451;</td>
+            <td>0.0</td>
+            <td>--</td>
+            <td>--</td>
+        </tr>
+        <tr>
+            <td>TTT2</td>
+            <td>2nd order tempco for TT. 对TT的二阶温度系数</td>
+            <td>1/&#8451;<sup>2</sup></td>
+            <td>0.0</td>
+            <td>--</td>
+            <td>--</td>
+        </tr>
+        <tr>
+            <td>XTI</td>
+            <td>Saturation current temperature exponent. </td>
+            <td> -- </td>
+            <td>3.0</td>
+            <td>pn: 3.0<br>Sbd: 2.0</td>
+            <td>--</td>
+        </tr>
+        <tr>
+            <td>TLEV</td>
+            <td>Diode temperature equation selector. </td>
+            <td> -- </td>
+            <td> 0 </td>
+            <td> -- </td>
+            <td> -- </td>
+        </tr>
+        <tr>
+            <td>TLEVC</td>
+            <td>Diode capac. temperature equation selector. </td>
+            <td> -- </td>
+            <td> 0 </td>
+            <td> -- </td>
+            <td> -- </td>
+        </tr>
+        <tr>
+            <td>CTA(CTC)</td>
+            <td>Area junct. cap. temperature coefficient. </td>
+            <td>1/&#8451;</td>
+            <td>0.0</td>
+            <td> -- </td>
+            <td> -- </td>
+        </tr>
+        <tr>
+            <td>CTP</td>
+            <td>Perimeter junct. cap. temperature coefficient. </td>
+            <td>1/&#8451;</td>
+            <td>0.0</td>
+            <td> -- </td>
+            <td> -- </td>
+        </tr>
+        <tr>
+            <td>TCV</td>
+            <td>Breakdown voltage temperature coefficient. </td>
+            <td>1/&#8451;</td>
+            <td>0.0</td>
+            <td> -- </td>
+            <td> -- </td>
+        </tr>
+    </table>
+    <hr>
+    <table border="1" width="100%">
+        <caption>Noise modeling</caption>
+        <tr>
+            <th>Name</th>
+            <th>Parameter</th>
+            <th>Units</th>
+            <th>Default</th>
+            <th>Example</th>
+            <th>Scale factor</th>
+        </tr>
+        <tr>
+            <td>KF</td>
+            <td>Flicker noise coefficient. </td>
+            <td>--</td>
+            <td> 0 </td>
+            <td> -- </td>
+            <td> -- </td>
+        </tr>
+        <tr>
+            <td>AF</td>
+            <td>Flicker noise exponent. </td>
+            <td>--</td>
+            <td> 1 </td>
+            <td> -- </td>
+            <td> -- </td>
+        </tr>
+    </table>
+    <hr>
+    <p>Diode models may be described in the input file (or an file included by .inc) according to the following example:</p>
+    <p>General form:</p>
+    <code>. model mname type ( pname1=pval1 pname2=pval2 . . . )</code>
+    <p>Examples:</p>
+    <code>. model DMOD D ( bf=50 is=1e−13 vbf=50)</code>
+</div>

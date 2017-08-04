@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="css/style.css" rel="stylesheet">
+    <script src="../../libs/jquery/jquery.js"></script>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="header">
+            <h1>NGSPICE </h1>
+        </div>
+        <div class="sidebar">
+            <ul>
+                <li><a href="#" onclick="show_it('diode1');">二极管diode建模</a></li>
+                <li><a href="#" onclick="show_it('diode2');">二极管diode方程</a></li>
+            </ul>
+        </div>
+        <div class="footer">
+            <h3>ldc.</h3>
+        </div>
+        <div class="content" id="main-box">
+        </div>
+    </div>
+
+    <script>
+        function show_it(id_string) {
+            $('#main-box').load("snippets/" + id_string + ".html", function() {
+                MathJax.Hub.Queue(["Typeset", MathJax.Hub, "main-box"]);
+            });
+
+        }
+    </script>
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({ extensions: ["tex2jax.js"], jax: ["input/TeX","output/HTML-CSS"], tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]} });
+    </script>
+    <script type="text/javascript" src="../../libs/mathjax/MathJax.js"></script>
+
+</body>
+
+</html>
