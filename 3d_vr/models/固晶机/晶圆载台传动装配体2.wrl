@@ -1,0 +1,81 @@
+#VRML V2.0 utf8
+Inline {
+url [" 滑台-1.wrl "]
+bboxSize -1.000000 -1.000000 -1.000000
+bboxCenter 0.000000 0.000000 0.000000
+}
+Inline {
+url [" 联轴器2SLDPRT-2.wrl "]
+bboxSize -1.000000 -1.000000 -1.000000
+bboxCenter 0.000000 0.000000 0.000000
+}
+Inline {
+url [" 滑台120-1.wrl "]
+bboxSize -1.000000 -1.000000 -1.000000
+bboxCenter 0.000000 0.000000 0.000000
+}
+Inline {
+url [" 联轴器SLDPRT-2.wrl "]
+bboxSize -1.000000 -1.000000 -1.000000
+bboxCenter 0.000000 0.000000 0.000000
+}
+Inline {
+url [" 电机座-2.wrl "]
+bboxSize -1.000000 -1.000000 -1.000000
+bboxCenter 0.000000 0.000000 0.000000
+}
+Inline {
+url [" a20传动轴，电机装配-2.wrl "]
+bboxSize -1.000000 -1.000000 -1.000000
+bboxCenter 0.000000 0.000000 0.000000
+}
+Inline {
+url [" a20传动轴，电机装配-3.wrl "]
+bboxSize -1.000000 -1.000000 -1.000000
+bboxCenter 0.000000 0.000000 0.000000
+}
+Inline {
+url [" 丝杆-2.wrl "]
+bboxSize -1.000000 -1.000000 -1.000000
+bboxCenter 0.000000 0.000000 0.000000
+}
+Inline {
+url [" 板.wrl "]
+bboxSize -1.000000 -1.000000 -1.000000
+bboxCenter 0.000000 0.000000 0.000000
+}
+Inline {
+url [" 滑轨-1.wrl "]
+bboxSize -1.000000 -1.000000 -1.000000
+bboxCenter 0.000000 0.000000 0.000000
+}
+Inline {
+url [" 滑轨120-1.wrl "]
+bboxSize -1.000000 -1.000000 -1.000000
+bboxCenter 0.000000 0.000000 0.000000
+}
+Inline {
+url [" 联轴器SLDPRT-3.wrl "]
+bboxSize -1.000000 -1.000000 -1.000000
+bboxCenter 0.000000 0.000000 0.000000
+}
+Inline {
+url [" 丝杆-3.wrl "]
+bboxSize -1.000000 -1.000000 -1.000000
+bboxCenter 0.000000 0.000000 0.000000
+}
+Inline {
+url [" 电机座-3.wrl "]
+bboxSize -1.000000 -1.000000 -1.000000
+bboxCenter 0.000000 0.000000 0.000000
+}
+Inline {
+url [" 联轴器2SLDPRT-3.wrl "]
+bboxSize -1.000000 -1.000000 -1.000000
+bboxCenter 0.000000 0.000000 0.000000
+}
+Inline {
+url [" 晶圆载台.wrl "]
+bboxSize -1.000000 -1.000000 -1.000000
+bboxCenter 0.000000 0.000000 0.000000
+}

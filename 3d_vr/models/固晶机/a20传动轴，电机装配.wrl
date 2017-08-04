@@ -1,0 +1,41 @@
+#VRML V2.0 utf8
+Inline {
+url [" 圆法兰盘缩放0.5.wrl "]
+bboxSize -1.000000 -1.000000 -1.000000
+bboxCenter 0.000000 0.000000 0.000000
+}
+Inline {
+url [" 长10mm螺钉SLDPRT-8.wrl "]
+bboxSize -1.000000 -1.000000 -1.000000
+bboxCenter 0.000000 0.000000 0.000000
+}
+Inline {
+url [" 长10mm螺钉SLDPRT-9.wrl "]
+bboxSize -1.000000 -1.000000 -1.000000
+bboxCenter 0.000000 0.000000 0.000000
+}
+Inline {
+url [" 键‘缩放0.5SLDPRT-2.wrl "]
+bboxSize -1.000000 -1.000000 -1.000000
+bboxCenter 0.000000 0.000000 0.000000
+}
+Inline {
+url [" 长10mm螺钉SLDPRT-10.wrl "]
+bboxSize -1.000000 -1.000000 -1.000000
+bboxCenter 0.000000 0.000000 0.000000
+}
+Inline {
+url [" 长10mm螺钉SLDPRT-11.wrl "]
+bboxSize -1.000000 -1.000000 -1.000000
+bboxCenter 0.000000 0.000000 0.000000
+}
+Inline {
+url [" 20传动轴缩放0.5，.wrl "]
+bboxSize -1.000000 -1.000000 -1.000000
+bboxCenter 0.000000 0.000000 0.000000
+}
+Inline {
+url [" 电机0.5缩放-2.wrl "]
+bboxSize -1.000000 -1.000000 -1.000000
+bboxCenter 0.000000 0.000000 0.000000
+}

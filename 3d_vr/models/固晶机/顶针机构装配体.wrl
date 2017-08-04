@@ -1,0 +1,76 @@
+#VRML V2.0 utf8
+Inline {
+url [" 顶针.wrl "]
+bboxSize -1.000000 -1.000000 -1.000000
+bboxCenter 0.000000 0.000000 0.000000
+}
+Inline {
+url [" 顶针杆.wrl "]
+bboxSize -1.000000 -1.000000 -1.000000
+bboxCenter 0.000000 0.000000 0.000000
+}
+Inline {
+url [" 键‘缩放0.5SLDPRT.wrl "]
+bboxSize -1.000000 -1.000000 -1.000000
+bboxCenter 0.000000 0.000000 0.000000
+}
+Inline {
+url [" 顶针帽.wrl "]
+bboxSize -1.000000 -1.000000 -1.000000
+bboxCenter 0.000000 0.000000 0.000000
+}
+Inline {
+url [" 顶针座.wrl "]
+bboxSize -1.000000 -1.000000 -1.000000
+bboxCenter 0.000000 0.000000 0.000000
+}
+Inline {
+url [" 偏心轮.wrl "]
+bboxSize -1.000000 -1.000000 -1.000000
+bboxCenter 0.000000 0.000000 0.000000
+}
+Inline {
+url [" 偏心轮从动件.wrl "]
+bboxSize -1.000000 -1.000000 -1.000000
+bboxCenter 0.000000 0.000000 0.000000
+}
+Inline {
+url [" 顶针固定件.wrl "]
+bboxSize -1.000000 -1.000000 -1.000000
+bboxCenter 0.000000 0.000000 0.000000
+}
+Inline {
+url [" 顶针固定件-1.wrl "]
+bboxSize -1.000000 -1.000000 -1.000000
+bboxCenter 0.000000 0.000000 0.000000
+}
+Inline {
+url [" 键‘缩放0.5SLDPRT-1.wrl "]
+bboxSize -1.000000 -1.000000 -1.000000
+bboxCenter 0.000000 0.000000 0.000000
+}
+Inline {
+url [" 顶针帽偏心轮从动件.wrl "]
+bboxSize -1.000000 -1.000000 -1.000000
+bboxCenter 0.000000 0.000000 0.000000
+}
+Inline {
+url [" 顶针帽-1.wrl "]
+bboxSize -1.000000 -1.000000 -1.000000
+bboxCenter 0.000000 0.000000 0.000000
+}
+Inline {
+url [" 100mm电机缩放0.5装配1.wrl "]
+bboxSize -1.000000 -1.000000 -1.000000
+bboxCenter 0.000000 0.000000 0.000000
+}
+Inline {
+url [" 偏心轮-1.wrl "]
+bboxSize -1.000000 -1.000000 -1.000000
+bboxCenter 0.000000 0.000000 0.000000
+}
+Inline {
+url [" 100mm电机缩放0.5装配1-1.wrl "]
+bboxSize -1.000000 -1.000000 -1.000000
+bboxCenter 0.000000 0.000000 0.000000
+}

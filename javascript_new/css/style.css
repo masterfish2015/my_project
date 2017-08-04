@@ -1,0 +1,10 @@
+code {
+    background-color: palegoldenrod;
+    border-radius: 15px;
+}
+
+mark {
+    background-color: red;
+    color: lightcyan;
+    border-radius: 15px;
+}

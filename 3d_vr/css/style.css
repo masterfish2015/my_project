@@ -1,0 +1,18 @@
+.grid {
+    display: grid;
+    grid-template-columns: 400px 10px auto;
+}
+
+.box {
+    border: 2px;
+}
+
+.list {
+    grid-column-start: 1;
+    grid-column-end: 1;
+}
+
+.content {
+    grid-column-start: 2;
+    grid-column-end: 2;
+}
