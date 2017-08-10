@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>diode function</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0" crossorigin="anonymous">
+    <link rel="stylesheet" href="../../../libs/pseudocode/build/pseudocode.min.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js" integrity="sha384-/y1Nn9+QQAipbNQWU65krzJralCnuOasHncUFXGkdwntGeSvQicrYkiUBwsgUqc1" crossorigin="anonymous"></script>
+    <script src="../../../libs/pseudocode/build/pseudocode.min.js"></script>
+  </head>
+  <body>
+    <div id="diode2">
+        <p>The junction diode is the basic semiconductor device and the simplest one modeled in ngspice, but it’s model is quite complex, even if not all the physical phenomena affecting a pn junction are modeled. The diode is modeled in three different regions:</p>
+        <ul>
+            <li>Forward bias: the anode is more positive than the cathode, the diode is "on" and can conduct large currents. To avoid convergence problems and unrealistic high current, it is better to specify a series resistance to limit current with rs model
+                parameter.
+            </li>
+            <li>Reverse bias: the cathode is more positive than the anode and the diode is "off". A reverse bias diode conducts a small leakage current.</li>
+            <li>Breakdown: the breakdown region is model led only if the bv model parameter is given. When a diode enters breakdown the current increase exponentially (remember to limit it); bv is a positive value.</li>
+        </ul>
+        <hr>
+
+        <h3>Parameters Scaling</h3>
+        <p>Model parameters are scaled using the unit-less parameters area and pj and the multiplier m as depicted below:</p>
+        <pre id="math_1" >
+        \begin{aligned}
+            AREA_{eff} &= AREA \cdot M  \\
+            PJ_{eff} &=PJ \cdot M \\
+            IS_{eff} &=IS \cdot AREA_{eff}+JSW \cdot PJ_{eff} \\
+            IBV_{eff} &=IBV \cdot AREA+{eff} \\
+            IK_{eff} &=IK \cdot AREA_{eff} \\
+            IKR_{eff} &=IKR \cdot AREA_{eff} \\
+            CJ_{eff} &=CJ0 \cdot AREA_{eff} \\
+            CJP_{eff} &=CJP \cdot PJ_{eff}
+        \end{aligned}
+      </pre>
+      <script type="text/javascript">
+        let box=document.getElementById("math_1");
+        let text=document.getElementById("math_1").textContent;
+        katex.render(text, box);
+      </script>
+        <hr>
+
+        <h3>Diode DC, Transient and AC model equations</h3>
+        <pre id="math_2" >
+          \begin{aligned}
+          I_D=\left\{
+                  \begin{aligned}
+                      & IS_{eff} \cdot \left(e^\frac{qV_D}{NkT}-1 \right) + V_D \cdot GMIN &, if V_D \ge -3\frac{NkT}{q} \\
+                      & -IS_{eff} \cdot \left[1+\left(\frac{3NkT}{qV_De} \right)^3 \right] + V_D \cdot GMIN &, if -BV_{eff} \lt V_D \lt -3\frac{NkT}{q} \\
+                      & -IS_{eff} \cdot \left(e^{\frac{-q \left(BV_{eff}+V_D \right)}{NkT}} \right) + V_D \cdot GMIN &, if V_D \le -BV_{eff}
+                  \end{aligned}
+                  \right.
+          \end{aligned}
+      </pre>
+      <script type="text/javascript">
+        box=document.getElementById("math_2");
+        text=document.getElementById("math_2").textContent;
+        katex.render(text, box);
+      </script>
+
+            <p>The breakdown region must be described with more depth since the breakdown is not modeled in physically. As written before, the breakdown modeling is based on two model parameters: the "nominal breakdown voltage" bv and the current at the onset of breakdown ibv. For the diode model to be consistent, the current value cannot be arbitrary chosen, since the reverse bias and breakdown regions must match. When the diode enters breakdown region from reverse bias, the current is calculated using the formula: </p>
+
+            <pre id="math_3" >
+              I_{bdwn} = -IS_{eff} \cdot \left( e^{\frac{-qBV}{NkT}} - 1 \right)
+            </pre>
+            <script type="text/javascript">
+            box=document.getElementById("math_3");
+            text=document.getElementById("math_3").textContent;
+            katex.render(text, box);
+            </script>
+
+            <p>The computed current is necessary to adjust the breakdown voltage making the two regions match. The algorithm is a little bit convoluted and only a brief description is given here:</p>
+            <p>Most real diodes shows a current increase that, at high current levels, does not follow the exponential relationship given above. This behavior is due to high level of carriers injected into the junction. High injection effects (as they are called) are modeled with ik and ikr.</p>
+
+            <pre id="algo_1" style="display:none">
+              \begin{algorithm}
+              \caption{Diode breakdown current calculation}
+              \begin{algorithmic}
+                \IF {$IBV_{eff} \lt I_{bdwn}$}
+                  \STATE $IBV_{eff} \gets I_{bdwn}$
+                  \STATE $BV_{eff} \gets BV$
+                \ELSE
+                  \STATE $BV_{eff} \gets BV - NV_t ln \left( \frac{IBV_{eff}}{I_{bdwn}} \right)$
+                \ENDIF
+              \end{algorithmic}
+              \end{algorithm}
+            </pre>
+            <pre id="algo_1_1"></pre>
+            <script type="text/javascript">
+            box=document.getElementById("algo_1_1");
+            text=document.getElementById("algo_1").textContent;
+            pseudocode.render(text, box);
+            </script>
+
+
+    </div>
+    <script src="../../libs/pseudocode/build/pseudocode.js"></script>
+
+  </body>
+</html>
