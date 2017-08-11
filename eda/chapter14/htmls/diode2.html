@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>diode function</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0" crossorigin="anonymous">
+    <link rel="stylesheet" href="../../../libs/pseudocode/build/pseudocode.min.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js" integrity="sha384-/y1Nn9+QQAipbNQWU65krzJralCnuOasHncUFXGkdwntGeSvQicrYkiUBwsgUqc1" crossorigin="anonymous"></script>
+    <script src="../../../libs/pseudocode/build/pseudocode.min.js"></script>
+</head>
+
+<body>
+    <div id="diode2">
+        <p>The junction diode is the basic semiconductor device and the simplest one modeled in ngspice, but it’s model is quite complex, even if not all the physical phenomena affecting a pn junction are modeled. The diode is modeled in three different
+            regions:</p>
+        <ul>
+            <li>Forward bias: the anode is more positive than the cathode, the diode is "on" and can conduct large currents. To avoid convergence problems and unrealistic high current, it is better to specify a series resistance to limit current with rs model
+                parameter.
+            </li>
+            <li>Reverse bias: the cathode is more positive than the anode and the diode is "off". A reverse bias diode conducts a small leakage current.</li>
+            <li>Breakdown: the breakdown region is model led only if the bv model parameter is given. When a diode enters breakdown the current increase exponentially (remember to limit it); bv is a positive value.</li>
+        </ul>
+        <hr>
+
+        <h3>Parameters Scaling</h3>
+        <p>Model parameters are scaled using the unit-less parameters area and pj and the multiplier m as depicted below:</p>
+        <pre id="math_1">
+        \begin{aligned}
+            AREA_{eff} &= AREA \cdot M  \\
+            PJ_{eff} &=PJ \cdot M \\
+            IS_{eff} &=IS \cdot AREA_{eff}+JSW \cdot PJ_{eff} \\
+            IBV_{eff} &=IBV \cdot AREA+{eff} \\
+            IK_{eff} &=IK \cdot AREA_{eff} \\
+            IKR_{eff} &=IKR \cdot AREA_{eff} \\
+            CJ_{eff} &=CJ0 \cdot AREA_{eff} \\
+            CJP_{eff} &=CJP \cdot PJ_{eff}
+        \end{aligned}
+        </pre>
+        <script type="text/javascript">
+            let box = document.getElementById("math_1");
+            let text = document.getElementById("math_1").textContent;
+            katex.render(text, box);
+        </script>
+        <hr>
+
+        <h3>Diode DC, Transient and AC model equations</h3>
+        <pre id="math_2">
+          \begin{aligned}
+          I_D=\left\{
+                  \begin{aligned}
+                      & IS_{eff} \cdot \left(e^\frac{qV_D}{NkT}-1 \right) + V_D \cdot GMIN &, if V_D \ge -3\frac{NkT}{q} \\
+                      & -IS_{eff} \cdot \left[1+\left(\frac{3NkT}{qV_De} \right)^3 \right] + V_D \cdot GMIN &, if -BV_{eff} \lt V_D \lt -3\frac{NkT}{q} \\
+                      & -IS_{eff} \cdot \left(e^{\frac{-q \left(BV_{eff}+V_D \right)}{NkT}} \right) + V_D \cdot GMIN &, if V_D \le -BV_{eff}
+                  \end{aligned}
+                  \right.
+          \end{aligned}
+        </pre>
+        <script type="text/javascript">
+            box = document.getElementById("math_2");
+            text = document.getElementById("math_2").textContent;
+            katex.render(text, box);
+        </script>
+
+        <p>The breakdown region must be described with more depth since the breakdown is not modeled in physically. As written before, the breakdown modeling is based on two model parameters: the "nominal breakdown voltage" bv and the current at the onset
+            of breakdown ibv. For the diode model to be consistent, the current value cannot be arbitrary chosen, since the reverse bias and breakdown regions must match. When the diode enters breakdown region from reverse bias, the current is calculated
+            using the formula: </p>
+
+        <pre id="math_3">
+              I_{bdwn} = -IS_{eff} \cdot \left( e^{\frac{-qBV}{NkT}} - 1 \right)
+            </pre>
+        <script type="text/javascript">
+            box = document.getElementById("math_3");
+            text = document.getElementById("math_3").textContent;
+            katex.render(text, box);
+        </script>
+
+        <p>The computed current is necessary to adjust the breakdown voltage making the two regions match. The algorithm is a little bit convoluted and only a brief description is given here:</p>
+        <p>Most real diodes shows a current increase that, at high current levels, does not follow the exponential relationship given above. This behavior is due to high level of carriers injected into the junction. High injection effects (as they are called)
+            are modeled with ik and ikr.</p>
+
+        <pre id="algo_1" style="display:none">
+              \begin{algorithm}
+              \caption{Diode breakdown current calculation}
+              \begin{algorithmic}
+                \IF {$IBV_{eff} \lt I_{bdwn}$}
+                  \STATE $IBV_{eff} \gets I_{bdwn}$
+                  \STATE $BV_{eff} \gets BV$
+                \ELSE
+                  \STATE $BV_{eff} \gets BV - NV_t ln \left( \frac{IBV_{eff}}{I_{bdwn}} \right)$
+                \ENDIF
+              \end{algorithmic}
+              \end{algorithm}
+            </pre>
+        <pre id="algo_1_1"></pre>
+        <script type="text/javascript">
+            box = document.getElementById("algo_1_1");
+            text = document.getElementById("algo_1").textContent;
+            pseudocode.render(text, box);
+        </script>
+
+        <pre id="math_4">
+          \begin{aligned}
+          I_{Deff}=\left\{
+                  \begin{aligned}
+                      & \frac{I_D}{1+\sqrt{\frac{I_D}{IK_{eff}}}}, &if V_D \ge -3\frac{NkT}{q} \\
+                      & \frac{I_D}{1+\sqrt{\frac{I_D}{IKR_{eff}}}}, &otherwise \\
+                  \end{aligned}
+                  \right.
+          \end{aligned}
+        </pre>
+        <script type="text/javascript">
+            box = document.getElementById("math_4");
+            text = document.getElementById("math_4").textContent;
+            katex.render(text, box);
+        </script>
+
+        <p>Diode capacitance is divided into two different terms:</p>
+        <ul>
+          <li>Depletion capacitance</li>
+          <li>Diffusion capacitance</li>
+        </ul>
+
+        <p>Depletion capacitance is composed by two different contributes, one associated to the bottom of the junction (bottom-wall depletion capacitance) and the other to the periphery (sidewall depletion capacitance). The basic equations are:</p>
+
+        <pre id="math_5">
+          \begin{aligned}
+          C_{Didode}     =& C_{diffusion}  + C_{depletion} \\
+          C_{depletion}  =& C_{depl_{bw}}  + C_{depl_{sw}} \\
+          \end{aligned}
+        </pre>
+        <script type="text/javascript">
+            box = document.getElementById("math_5");
+            text = document.getElementById("math_5").textContent;
+            katex.render(text, box);
+        </script>
+
+        <p>The diffusion capacitance, due to the injected minority carriers is modeled with the transit time tt:</p>
+        <pre id="math_6">
+          C_{diffusion} = TT \cdot \frac{\partial I_{Deff}}{\partial V_D}
+        </pre>
+        <script type="text/javascript">
+            box = document.getElementById("math_6");
+            text = document.getElementById("math_6").textContent;
+            katex.render(text, box);
+        </script>
+
+        <p>The depletion capacitance is more complex to model, since the function used to approximate it diverges when the diode voltage become greater than the junction built-in potential. To avoid function divergence, the capacitance function is approximated with a linear extrapolation for applied voltage greater than a fraction of the junction built-in potential.</p>
+        <pre id="math_7">
+          \begin{aligned}
+          &C_{depl_{bw}} = \left \{
+            \begin{aligned}
+              &CJ_{eff} \cdot \left( 1 - \frac{V_D}{VJ} \right)^{-MJ}, &if V_D \lt FC \cdot VJ \\
+              &CJ_{eff} \cdot \frac{1-FC \cdot \left( 1+MJ \cdot I \right)+MJ \cdot \frac{V_D}{VJ}}{\left(1-FC \right)^{1+MJ}}, & otherwise
+            \end{aligned}
+            \right. \\
+          &C_{depl_{sw}} = \left \{
+              \begin{aligned}
+                &CJP_{eff} \cdot \left( 1 - \frac{V_D}{PHP} \right)^{-MJSW}, &if V_D \lt FCS \cdot PHP \\
+                &CJP_{eff} \cdot \frac{1-FCS \cdot \left( 1+MJSW \right)+MJSW \cdot \frac{V_D}{PHP}}{\left(1-FCS \right)^{1+MJSW}}, & otherwise
+              \end{aligned}
+              \right.
+          \end{aligned}
+        </pre>
+        <script type="text/javascript">
+            box = document.getElementById("math_7");
+            text = document.getElementById("math_7").textContent;
+            katex.render(text, box);
+        </script>
+
+        <h3>Temperature dependence</h3>
+        <p>The temperature affects many of the parameters in the equations above, the following equations show how. One of the most significant parameter that varies with the temperature for a semiconductor is the band-gap energy:</p>
+        <pre id="math_8">
+          \begin{aligned}
+          &EG_{nom} &= 1.16 - 7.02 \cdot e^{-4} \cdot \frac{TNOM^2}{TNOM+1108.0} \\
+          &EG\left(T\right) &=1.16 - 7.02 \cdot e^{-4} \cdot  \frac{T^2}{TNOM+1108.0}
+          \end{aligned}
+        </pre>
+        <script type="text/javascript">
+            box = document.getElementById("math_8");
+            text = document.getElementById("math_8").textContent;
+            katex.render(text, box);
+        </script>
+
+        <p>The leakage currents temperature dependence is:</p>
+        <pre id="math_9">
+          \begin{aligned}
+          IS\left(T\right) &= IS \cdot e^{\frac{logfactor}{N}} \\
+          JSW\left(T\right) &= JSW \cdot e^{\frac{logfactor}{N}} \\
+          logfactor &= \frac{EG}{V_t \cdot \left( TNOM \right)} - \frac{EG}{V_t \left( T \right)} + XTI \cdot ln\left(\frac{T}{TNOM}\right)
+          \end{aligned}
+        </pre>
+        <script type="text/javascript">
+            box = document.getElementById("math_9");
+            text = document.getElementById("math_9").textContent;
+            katex.render(text, box);
+        </script>
+
+        <p>The contact potentials (bottom-wall an sidewall) temperature dependence is:</p>
+        <pre id="math_10">
+          \begin{aligned}
+          VJ\left(T\right) &= VJ \cdot \frac{T}{TNOM} - V_t \left(T\right) \cdot \left[ 3 \cdot ln\left(\frac{T}{TNOM}\right)+\frac{EG_{nom}}{V_t\left(TNOM\right)} - \frac{EG\left(T\right)}{V_t\left(T\right)}\right] \\
+          PHP\left(T\right) &= PHP \cdot \frac{T}{TNOM} - V_t \left(T\right) \cdot \left[ 3 \cdot ln\left(\frac{T}{TNOM}\right)+\frac{EG_{nom}}{V_t\left(TNOM\right)} - \frac{EG\left(T\right)}{V_t\left(T\right)}\right] \\
+          \end{aligned}
+        </pre>
+        <script type="text/javascript">
+            box = document.getElementById("math_10");
+            text = document.getElementById("math_10").textContent;
+            katex.render(text, box);
+        </script>
+
+        <p>The depletion capacitances temperature dependence is:</p>
+        <pre id="math_11">
+          \begin{aligned}
+          CJ\left(T\right) &= CJ \cdot \left\{1+MJ\cdot\left[4.0e^{-4}\cdot\left(T-TNOM\right)-\frac{VJ\left(T\right)}{VJ}+1\right] \right\}\\
+          CJSW\left(T\right) &= CJSW \cdot \left\{1+MJSW\cdot\left[4.0e^{-4}\cdot\left(T-TNOM\right)-\frac{PHP\left(T\right)}{PHP}+1\right] \right\}\\
+          \end{aligned}
+        </pre>
+        <script type="text/javascript">
+            box = document.getElementById("math_11");
+            text = document.getElementById("math_11").textContent;
+            katex.render(text, box);
+        </script>
+
+        <p>The transit time temperature dependence is:</p>
+        <pre id="math_11">
+          TT\left(T\right)=TT\cdot\left[1+TTT1\cdot\left(T-TNOM\right)+TTT2\cdot\left(T-TNOM\right)^2\right]
+        </pre>
+        <script type="text/javascript">
+            box = document.getElementById("math_11");
+            text = document.getElementById("math_11").textContent;
+            katex.render(text, box);
+        </script>
+
+        <p>The junction grading coefficient temperature dependence is:</p>
+        <pre id="math_12">
+          MJ\left(T\right)=MJ\cdot\left[1+TM1\cdot\left(T-TNOM\right)+TM2\cdot\left(T-TNOM\right)^2\right]
+        </pre>
+        <script type="text/javascript">
+            box = document.getElementById("math_12");
+            text = document.getElementById("math_12").textContent;
+            katex.render(text, box);
+        </script>
+    </div>
+    <script src="../../libs/pseudocode/build/pseudocode.js"></script>
+
+</body>
+
+</html>
