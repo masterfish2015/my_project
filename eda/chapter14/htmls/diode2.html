@@ -50,8 +50,8 @@
           \begin{aligned}
           I_D=\left\{
                   \begin{aligned}
-                      & IS_{eff} \cdot \left(e^\frac{qV_D}{NkT}-1 \right) + V_D \cdot GMIN &, if V_D \ge -3\frac{NkT}{q} \\
-                      & -IS_{eff} \cdot \left[1+\left(\frac{3NkT}{qV_De} \right)^3 \right] + V_D \cdot GMIN &, if -BV_{eff} \lt V_D \lt -3\frac{NkT}{q} \\
+                      & IS_{eff} \cdot \left(e^\frac{qV_D}{NkT}-1 \right) + V_D \cdot GMIN &, if V_D \ge -3\frac{\displaystyle NkT}{\displaystyle q} \\
+                      & -IS_{eff} \cdot \left[1+\left(\frac{\displaystyle 3NkT}{\displaystyle qV_De} \right)^3 \right] + V_D \cdot GMIN &, if -BV_{eff} \lt V_D \lt -3\frac{\displaystyle NkT}{\displaystyle q} \\
                       & -IS_{eff} \cdot \left(e^{\frac{-q \left(BV_{eff}+V_D \right)}{NkT}} \right) + V_D \cdot GMIN &, if V_D \le -BV_{eff}
                   \end{aligned}
                   \right.
@@ -88,7 +88,7 @@
                   \STATE $IBV_{eff} \gets I_{bdwn}$
                   \STATE $BV_{eff} \gets BV$
                 \ELSE
-                  \STATE $BV_{eff} \gets BV - NV_t ln \left( \frac{IBV_{eff}}{I_{bdwn}} \right)$
+                  \STATE $BV_{eff} \gets BV - NV_t ln \left( \frac{\displaystyle IBV_{eff}}{\displaystyle I_{bdwn}} \right)$
                 \ENDIF
               \end{algorithmic}
               \end{algorithm}
@@ -104,8 +104,8 @@
           \begin{aligned}
           I_{Deff}=\left\{
                   \begin{aligned}
-                      & \frac{I_D}{1+\sqrt{\frac{I_D}{IK_{eff}}}}, &if V_D \ge -3\frac{NkT}{q} \\
-                      & \frac{I_D}{1+\sqrt{\frac{I_D}{IKR_{eff}}}}, &otherwise \\
+                      & \frac{\displaystyle I_D}{\displaystyle 1+\sqrt{\frac{\displaystyle I_D}{\displaystyle IK_{eff}}}}, &if V_D \ge -3\frac{\displaystyle NkT}{\displaystyle q} \\
+                      & \frac{\displaystyle I_D}{\displaystyle 1+\sqrt{\frac{\displaystyle I_D}{\displaystyle IKR_{eff}}}}, &otherwise \\
                   \end{aligned}
                   \right.
           \end{aligned}
@@ -138,7 +138,7 @@
 
         <p>The diffusion capacitance, due to the injected minority carriers is modeled with the transit time tt:</p>
         <pre id="math_6">
-          C_{diffusion} = TT \cdot \frac{\partial I_{Deff}}{\partial V_D}
+          C_{diffusion} = TT \cdot \frac{\displaystyle \partial I_{Deff}}{\displaystyle \partial V_D}
         </pre>
         <script type="text/javascript">
             box = document.getElementById("math_6");
@@ -151,14 +151,14 @@
           \begin{aligned}
           &C_{depl_{bw}} = \left \{
             \begin{aligned}
-              &CJ_{eff} \cdot \left( 1 - \frac{V_D}{VJ} \right)^{-MJ}, &if V_D \lt FC \cdot VJ \\
-              &CJ_{eff} \cdot \frac{1-FC \cdot \left( 1+MJ \cdot I \right)+MJ \cdot \frac{V_D}{VJ}}{\left(1-FC \right)^{1+MJ}}, & otherwise
+              &CJ_{eff} \cdot \left( 1 - \frac{\displaystyle V_D}{\displaystyle VJ} \right)^{-MJ}, &if V_D \lt FC \cdot VJ \\
+              &CJ_{eff} \cdot \frac{\displaystyle 1-FC \cdot \left( 1+MJ \cdot I \right)+MJ \cdot \frac{\displaystyle V_D}{\displaystyle VJ}}{\displaystyle \left(1-FC \right)^{1+MJ}}, & otherwise
             \end{aligned}
             \right. \\
           &C_{depl_{sw}} = \left \{
               \begin{aligned}
-                &CJP_{eff} \cdot \left( 1 - \frac{V_D}{PHP} \right)^{-MJSW}, &if V_D \lt FCS \cdot PHP \\
-                &CJP_{eff} \cdot \frac{1-FCS \cdot \left( 1+MJSW \right)+MJSW \cdot \frac{V_D}{PHP}}{\left(1-FCS \right)^{1+MJSW}}, & otherwise
+                &CJP_{eff} \cdot \left( 1 - \frac{\displaystyle V_D}{\displaystyle PHP} \right)^{-MJSW}, &if V_D \lt FCS \cdot PHP \\
+                &CJP_{eff} \cdot \frac{\displaystyle 1-FCS \cdot \left( 1+MJSW \right)+MJSW \cdot \frac{\displaystyle V_D}{\displaystyle PHP}}{\displaystyle \left(1-FCS \right)^{1+MJSW}}, & otherwise
               \end{aligned}
               \right.
           \end{aligned}
@@ -188,7 +188,7 @@
           \begin{aligned}
           IS\left(T\right) &= IS \cdot e^{\frac{logfactor}{N}} \\
           JSW\left(T\right) &= JSW \cdot e^{\frac{logfactor}{N}} \\
-          logfactor &= \frac{EG}{V_t \cdot \left( TNOM \right)} - \frac{EG}{V_t \left( T \right)} + XTI \cdot ln\left(\frac{T}{TNOM}\right)
+          logfactor &= \frac{\displaystyle EG}{\displaystyle V_t \cdot \left( TNOM \right)} - \frac{\displaystyle EG}{\displaystyle V_t \left( T \right)} + XTI \cdot ln\left(\frac{\displaystyle T}{\displaystyle TNOM}\right)
           \end{aligned}
         </pre>
         <script type="text/javascript">
@@ -200,8 +200,8 @@
         <p>The contact potentials (bottom-wall an sidewall) temperature dependence is:</p>
         <pre id="math_10">
           \begin{aligned}
-          VJ\left(T\right) &= VJ \cdot \frac{T}{TNOM} - V_t \left(T\right) \cdot \left[ 3 \cdot ln\left(\frac{T}{TNOM}\right)+\frac{EG_{nom}}{V_t\left(TNOM\right)} - \frac{EG\left(T\right)}{V_t\left(T\right)}\right] \\
-          PHP\left(T\right) &= PHP \cdot \frac{T}{TNOM} - V_t \left(T\right) \cdot \left[ 3 \cdot ln\left(\frac{T}{TNOM}\right)+\frac{EG_{nom}}{V_t\left(TNOM\right)} - \frac{EG\left(T\right)}{V_t\left(T\right)}\right] \\
+          VJ\left(T\right) &= VJ \cdot \frac{\displaystyle T}{\displaystyle TNOM} - V_t \left(T\right) \cdot \left[ 3 \cdot ln\left(\frac{\displaystyle T}{\displaystyle TNOM}\right)+\frac{\displaystyle EG_{nom}}{\displaystyle V_t\left(TNOM\right)} - \frac{\displaystyle EG\left(T\right)}{\displaystyle V_t\left(T\right)}\right] \\
+          PHP\left(T\right) &= PHP \cdot \frac{\displaystyle T}{\displaystyle TNOM} - V_t \left(T\right) \cdot \left[ 3 \cdot ln\left(\frac{\displaystyle T}{\displaystyle TNOM}\right)+\frac{\displaystyle EG_{nom}}{\displaystyle V_t\left(TNOM\right)} - \frac{\displaystyle EG\left(T\right)}{\displaystyle V_t\left(T\right)}\right] \\
           \end{aligned}
         </pre>
         <script type="text/javascript">
@@ -213,8 +213,8 @@
         <p>The depletion capacitances temperature dependence is:</p>
         <pre id="math_11">
           \begin{aligned}
-          CJ\left(T\right) &= CJ \cdot \left\{1+MJ\cdot\left[4.0e^{-4}\cdot\left(T-TNOM\right)-\frac{VJ\left(T\right)}{VJ}+1\right] \right\}\\
-          CJSW\left(T\right) &= CJSW \cdot \left\{1+MJSW\cdot\left[4.0e^{-4}\cdot\left(T-TNOM\right)-\frac{PHP\left(T\right)}{PHP}+1\right] \right\}\\
+          CJ\left(T\right) &= CJ \cdot \left\{1+MJ\cdot\left[4.0e^{-4}\cdot\left(T-TNOM\right)-\frac{\displaystyle VJ\left(T\right)}{\displaystyle VJ}+1\right] \right\}\\
+          CJSW\left(T\right) &= CJSW \cdot \left\{1+MJSW\cdot\left[4.0e^{-4}\cdot\left(T-TNOM\right)-\frac{\displaystyle PHP\left(T\right)}{\displaystyle PHP}+1\right] \right\}\\
           \end{aligned}
         </pre>
         <script type="text/javascript">
@@ -242,9 +242,41 @@
             text = document.getElementById("math_13").textContent;
             katex.render(text, box);
         </script>
+
+        <p>The series resistance temperature dependence is:</p>
+        <pre id="math_14">
+          RS\left(T\right)=RS\cdot\left[1+TRS\cdot\left(T-TNOM\right)+TRS2\cdot\left(T-TNOM\right)^2\right]
+        </pre>
+        <script type="text/javascript">
+            box = document.getElementById("math_14");
+            text = document.getElementById("math_14").textContent;
+            katex.render(text, box);
+        </script>
     </div>
     <script src="../../libs/pseudocode/build/pseudocode.js"></script>
 
+    <h3>Noise model</h3>
+    <p>The diode has three noise contribution, one due to the presence of the parasitic resistance rs and the other two (shot and flicker) due to the pn junction.</p>
+    <p>The thermal noise due to the parasitic resistance is:</p>
+    <pre id="math_15">
+      \overline{i^2_{RS}}=\frac{\displaystyle 4kT\Delta f}{\displaystyle RS}
+    </pre>
+    <script type="text/javascript">
+        box = document.getElementById("math_15");
+        text = document.getElementById("math_15").textContent;
+        katex.render(text, box);
+    </script>
+
+    <p>The shot and flicker noise contributions are:</p>
+    <pre id="math_16">
+      \overline{i^2_d}=2qI_D\Delta f+\frac{\displaystyle kF\cdot I^{AF}_D}{\displaystyle f}\cdot \Delta f
+    </pre>
+    <script type="text/javascript">
+        box = document.getElementById("math_16");
+        text = document.getElementById("math_16").textContent;
+        katex.render(text, box);
+    </script>
+</math>
 </body>
 
 </html>

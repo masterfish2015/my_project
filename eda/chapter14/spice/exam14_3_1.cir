@@ -1,16 +1,19 @@
 * 课本 14章 例题 14.3.1 二极管电路
-*电源
-vin 1 0 PWL(0 15v 20ns 15v 20ns 0 30ns 0 30ns 15v 50ns 15v)
 
-*元器件
-C  1 2 50mF
-R  2 0 2kohm
-RL 3 0 1kohm
-D  3 2 DIODE1
+vi 1 0 PULSE(5v 0v 20us 0s 0s 10us 30us)
 
-.model DIODE1 D (is=0 n=1)
+c1 1 2 CAP1 IC=0v
+r1 2 0 10k
+d1 3 2 DMOD
+rl 3 0 10k
 
-*仿真指令
-.tran 1ns 50ns
-.plot v(1) v(2) v(3)
+.model CAP1 C cap=50pf
+.model DMOD D
+.TRAN .1us 50us
+
+.control
+run
+plot v(2) v(3)
+.endc
+
 .end
