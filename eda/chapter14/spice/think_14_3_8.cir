@@ -1,0 +1,18 @@
+* practice and think 14.3.8
+vi 1 0 SIN(0 10v 50)
+v2 3 0 5v
+v3 0 4 5v
+
+r1 1 2 10k
+d1 2 3 DMOD
+d2 4 2 DMOD
+
+.model DMOD D
+
+.tran 1ms 20ms
+.control
+run
+plot v(1) v(2) 
+.endc
+
+.end

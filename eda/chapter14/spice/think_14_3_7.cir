@@ -1,0 +1,13 @@
+* practice and think 14.3.7
+v1 1 0 3v
+
+r1 1 2 1k
+r2 2 0 1k
+
+d1 2 0 DMOD
+
+.model DMOD D
+
+.op
+
+.end

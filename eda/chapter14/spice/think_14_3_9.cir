@@ -1,0 +1,20 @@
+* practice and think 14.3.9
+v1 1 0 9v
+v2 2 0 12v
+v3 3 0 6v
+
+r1 4 3 6k
+
+d1 1 4 DMOD
+d2 2 4 DMOD
+
+.model DMOD D
+
+.op
+
+.control
+run
+print all
+.endc
+
+.end

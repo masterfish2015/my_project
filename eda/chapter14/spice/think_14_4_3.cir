@@ -1,0 +1,18 @@
+* think 14.4.3
+v1 1 0 SIN(0 10v 50hz)
+
+r1 1 2 10k
+
+dz1 3 2 DMOD
+dz2 3 0 DMOD
+
+.model DMOD D(BV=5v IK=18mA)
+
+.tran 1ms 20ms
+
+.control
+run
+plot v(1) v(2)
+.endc
+
+.end

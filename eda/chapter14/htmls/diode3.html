@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>diode1</title>
+    <link href="../css/style.css" rel="stylesheet">
+</head>
+
+<body>
+    <div id="diode1">
+        <h1>二极管的SPICE仿真</h1>
+        <hr>
+        <h2>1.语法</h2>
+        <h3>General form:</h3>
+        <code>DXXXXXXX n+ n− mname &lt;area =val&gt; &lt;m=val&gt; &lt;pj =val&gt; &lt;off&gt; &lt;ic =vd &gt; + &lt;temp=val &gt; &lt;dtemp=val &gt; </code>
+
+        <table border="1" width="100%">
+            <caption>各参数解析</caption>
+            <tr>
+                <th>No.</th>
+                <th>Name</th>
+                <th>解析</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>n+</td>
+                <td>二极管元件的正极节点</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>n-</td>
+                <td>二极管元件的负极节点</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>mname</td>
+                <td>二极管模型名，可以省略，使用缺省参数，一般不省，多个二极管可以使用相同的模型</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>area</td>
+                <td>pn结的面积因子（系数），参见前面的数学模型，主要影响 饱和反向电流值（ saturation current），可以省略，缺省值=1.0</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>m</td>
+                <td>是area和pj的乘积因子，缺省=1.0</td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>pj</td>
+                <td>pn结的周长因子perimeter， 主要影响侧边反向饱和电流（sidewall saturation current）及其对应的电容（and it’s associated capacitance），缺省=1.0</td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td>off</td>
+                <td>若有off则表示在DC分析中可以指定一个初始的条件（二极管两边的初始电压），由下面的IC来指定</td>
+            </tr>
+            <tr>
+                <td>8</td>
+                <td>IC</td>
+                <td>二极管初始电压，仅当指定off（DC分析）或在.tran中指定的时候（TRAN分析）有效</td>
+            </tr>
+            <tr>
+                <td>9</td>
+                <td>temp</td>
+                <td>工作温度，单位是摄氏度，会覆盖.option上的设置</td>
+            </tr>
+            <tr>
+                <td>10</td>
+                <td>dtemp</td>
+                <td>工作温度（相对值），摄氏度</td>
+            </tr>
+        </table>
+
+        <h3>Examples:</h3>
+        <code>DBRIDGE 2 10 DIODE1 </code><br>
+        <code>DCLMP 3 7 DMOD AREA=3.0 IC =0.2 </code>
+
+        <hr>
+        <h2>2. 示例</h2>
+        <h3>2.1 如图2.1.1所示的两个电路，已知直流电压V<sub>1</sub>=3V, 二极管的正向压降为0.7V, 试求V<sub>O</sub></h3>
+        <svg width="800px" height="150px" xmlns="http://www.w3.org/2000/svg" version="1.1">			
+			<line x1="10" y1="10" x2="300" y2="10" stroke="black" />
+
+			<circle cx="10"   cy="10" r="5" fill="white" stroke="black"/>
+			<text x="5" y="30" >+</text>
+			<text x="5" y="50" >1</text>
+			<circle cx="300"  cy="10" r="5" fill="white" stroke="black"/>
+			<text x="295" y="30" >+</text>
+
+			<text x="5"   y="85" >
+				V<tspan dy="5">I</tspan>
+			</text>
+			<text x="295" y="85" >
+				V<tspan dy="5">O</tspan>
+			</text>
+
+			<rect x="30" y="5" width="30" height="10" fill="white" stroke="black" />
+			<text x="40" y="40" >
+				R1=1k
+			</text>
+
+			<line x1="120" y1="10" x2="120" y2="140" stroke="black" />
+			<rect x="115" y="50" width="10" height="30" fill="white" stroke="black" />
+
+			<line x1="170" y1="10" x2="170" y2="140" stroke="black" />
+			<line x1="160" y1="65" x2="180" y2="65" stroke="black" />
+			<polyline points="170,65 160,80 180,80" stroke="black" />
+
+			<line x1="10" y1="140" x2="300" y2="140" stroke="black" />  
+			<circle cx="10"   cy="140"  r="5" fill="white" stroke="black"/>
+			<text x="5" y="130" >-</text>
+			<text x="5" y="120" >0</text>
+			<circle cx="300"  cy="140" r="5" fill="white" stroke="black"/>
+			<text x="295" y="130" >-</text>
+		</svg>
+    </div>
+</body>
+
+</html>

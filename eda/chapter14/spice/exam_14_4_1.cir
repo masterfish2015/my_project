@@ -1,0 +1,16 @@
+* example 14.4.1
+v1 1 0 20v
+
+r1 1 2 1.6k
+dz 0 2 DMOD
+
+.model DMOD D(BV=12v IK=18mA)
+
+.op
+
+.control
+run
+print all
+.endc
+
+.end
