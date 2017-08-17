@@ -10,4 +10,9 @@ d1 0 2 DMOD
 
 .op
 
+.control
+run
+print all
+.endc
+
 .end
