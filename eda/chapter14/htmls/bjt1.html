@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>BJTs SPICE</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0" crossorigin="anonymous">
+    <link href="../css/style.css" rel="stylesheet">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js" integrity="sha384-/y1Nn9+QQAipbNQWU65krzJralCnuOasHncUFXGkdwntGeSvQicrYkiUBwsgUqc1" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <h2>1.Bipolar Junction Transistors(BJTs)</h2>
+    <h3>1.1.SPICE general form</h3>
+    <code>QXXXXXXX nc nb ne &lt;ns&gt; mname &lt;area=val&gt; &lt;areac=val&gt; &lt;areab=val&gt; + &lt;m=val&gt; &lt;off&gt; &lt;ic=vbe, vce&gt; &lt;temp=val&gt; &lt;dtemp=val&gt;</code>
+
+    <table border="1">
+        <caption>各参数解释</caption>
+        <tr>
+            <th>No.</th>
+            <th>参数</th>
+            <th>解析</th>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>nc</td>
+            <td>集电极节点</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>nb</td>
+            <td>基极节点</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>ne</td>
+            <td>发射极节点</td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>ns</td>
+            <td>衬底节点，若省略，则表示接地</td>
+        </tr>
+        <tr>
+            <td>5</td>
+            <td>mname</td>
+            <td>模型名</td>
+        </tr>
+        <tr>
+            <td>6</td>
+            <td>area</td>
+            <td>发射极E的接触面乘积因子</td>
+        </tr>
+        <tr>
+            <td>7</td>
+            <td>areac</td>
+            <td>集电极C的接触面乘积因子</td>
+        </tr>
+        <tr>
+            <td>8</td>
+            <td>areab</td>
+            <td>基极B的接触面乘积因子</td>
+        </tr>
+        <tr>
+            <td>9</td>
+            <td>m</td>
+            <td>乘数因子</td>
+        </tr>
+        <tr>
+            <td>10</td>
+            <td>off</td>
+            <td>设置off表示可以设置初始条件，见下面IC</td>
+        </tr>
+        <tr>
+            <td>11</td>
+            <td>ic</td>
+            <td>设置BE间初始电压Vbe和CE间初始电压Vce</td>
+        </tr>
+        <tr>
+            <td>12</td>
+            <td>temp</td>
+            <td>工作温度，会覆盖.option控制行中的设置</td>
+        </tr>
+        <tr>
+            <td>13</td>
+            <td>dtemp</td>
+            <td>相对工作温度</td>
+        </tr>
+    </table>
+
+    <h3>1.2.Examples:</h3>
+    <p>BTJ集电极node=10，基极node=24，发射极node=13，模型QMOD，初始条件Vbe=0.6V，Vce=5.0V</p>
+    <code>Q23 10 24 13 QMOD IC=0.6, 5.0</code>
+
+    <p>BTJ集电极node=11，基极node=26，发射极node=4，衬底node=20，模型MOD1</p>
+    <code>Q50A 11 26 4 20 MOD1</code>
+
+    <hr>
+
+    <h2>2.示例</h2>
+</body>
+
+</html>
