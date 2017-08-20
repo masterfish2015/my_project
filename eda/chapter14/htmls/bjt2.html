@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>BJT Models(NPN/PNP)</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0" crossorigin="anonymous">
+    <link href="../css/style.css" rel="stylesheet">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js" integrity="sha384-/y1Nn9+QQAipbNQWU65krzJralCnuOasHncUFXGkdwntGeSvQicrYkiUBwsgUqc1" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <h2>2.BJT Models (NPN/PNP)</h2>
+    <hr>
+    <h3>2.1.三种BJT器件模型</h3>
+    <p>ngSPICE有三种BJT器件模型，采用下面的语句进行设置:</p>
+    <pre>.model QMOD1 BJT level=2</pre>
+    <p>上面的<code>level</code>指定了模型的类型，可以是1，2，4三种</p>
+    <ul>
+        <li>level=1 : This is the original SPICE BJT model, and it is the default model if the level keyword is not specified on the .model line.</li>
+        <li>level=2 : This is a modified version of the original SPICE BJT that models both vertical and lateral devices and includes temperature corrections of collector, emitter and base resistors</li>
+        <li>level=4 : Advanced VBIC model (see http://www.designers-guide.org/VBIC/ for details)</li>
+    </ul>
+
+    <hr>
+    <h3>2.2.如何选择模型</h3>
+    <p>The bipolar junction transistor model in ngspice is an adaptation of the integral charge control model of <i><b>Gummel and Poon</b></i>. This modified <i><b>Gummel-Poon</b></i> model extends the original model to include several effects at high bias
+        levels. The model automatically implifies to the simpler <i><b>Ebers-Moll</b></i> model when certain parameters are not specified. The parameter names used in the modified <i><b>Gummel-Poon</b></i> model have been chosen to be more easily understood
+        by the program user, and to reflect better both physical and circuit design thinking.</p>
+    <p>The <code>dc</code> model is defined by the parameters <code>is</code>, <code>bf</code>, <code>nf</code>, <code>ise</code>, <code>ikf</code>, and <code>ne</code> which determine the forward current gain characteristics, <code>is</code>, <code>br</code>,
+        <code>nr</code>, <code>isc</code>, <code>ikr</code>, and <code>nc</code> which determine the reverse current gain characteristics, and <code>vaf</code> and <code>var</code> which determine the output conductance for forward and reverse regions.</p>
+    <p><code>Level 1</code> model has among the standard temperature model a extension which is compatible with most foundry provided process design kits (see parameter table below <code>tlev</code>).</p>
+    <p><code>Level 1 and 2</code> model includes substrate saturation current <code>iss</code>. Three ohmic resistances <code>rb</code>, <code>rc</code>, and <code>re</code> are included, where <code>rb</code> can be high current dependent. Base charge storage
+        is modeled by forward and reverse transit times, <code>tf</code> and <code>tr</code>, the forward transit time <code>tf</code> being bias dependent if desired, and nonlinear depletion layer capacitances which are determined by <code>cje</code>,
+        <code>vje</code>, and <code>nje</code> for the B-E junction, <code>cjc</code>, <code>vjc</code>, and <code>njc</code> for the B-C junction and <code>cjs</code>, <code>vjs</code>, and <code>mjs</code> for the C-S (Collector-Substrate) junction.</p>
+    <p><code>Level 1 and 2</code> model defines a substrate capacitance that will be connected to device’s base or collector, to model lateral or vertical devices dependent from the parameter subs. The temperature dependence of the saturation currents, <code>is</code>        and <code>iss</code> (for <code>level 2</code> model), is determined by the energy-gap, <code>eg</code>, and the saturation current temperature exponent, <code>xti</code>.</p>
+    <p>Additionally base current temperature dependence is modeled by the beta temperature exponent <code>xtb</code> in the new model. The values specified are assumed to have been measured at the temperature <code>tnom</code>, which can be specified on
+        the <code>.options</code> control line or overridden by a specification on the <code>.model</code> line.</p>
+    <p><code>Level 4</code> model (VBIC) has the following improvements beyond the <i><b>GP</b></i> models: Improved <i><b>Early effect</b></i> modeling, <i><b>Quasi-saturation</b></i> modeling, <i><b>Parasitic substrate transistor</b></i> modeling, <i><b>Parasitic fixed (oxide) capacitance</b></i>        modeling, Includes an <i><b>avalanche
+        multiplication</b></i> model, Improved <i><b>temperature</b></i> modeling, Base current is decoupled from collector current, <i><b>Electrothermal</b></i> modeling, <i><b>Smooth</b></i>, <i><b>continuous</b></i> mode.</p>
+    <p>The BJT parameters used in the modified <i><b>Gummel-Poon</b></i> model are listed below. The parameter names used in earlier versions of SPICE2 are still accepted.</p>
+
+    <hr>
+    <h3>2.3.<i><b>Gummel-Poon</b></i> BJT Parameters (incl. model extensions)</h3>
+    <table border="1">
+        <caption>BJT Parameters</caption>
+        <tr>
+            <th>Name</th>
+            <th>Parameters</th>
+            <th>levers</th>
+            <th>Units</th>
+            <th>default</th>
+            <th>Example</th>
+            <th>Scale factor</th>
+        </tr>
+        <tr>
+            <td>SUBS</td>
+            <td>Substrate connection: 1 for vertical geometry, -1 for lateral geometry</td>
+            <td>level 2 only</td>
+            <td></td>
+            <td>1</td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>IS</td>
+            <td>Transport saturation current</td>
+            <td>all</td>
+            <td>A</td>
+            <td>1.0e-16 </td>
+            <td>1.0e-15</td>
+            <td>area</td>
+        </tr>
+        <tr>
+            <td>ISS</td>
+            <td>Reverse saturation current, substrate-to-collector for vertical device or substrate-to-base for lateral </td>
+            <td>level 2 only</td>
+            <td>A</td>
+            <td>1.0e-16</td>
+            <td>1.0e-15</td>
+            <td>area</td>
+        </tr>
+        <tr>
+            <td>BF</td>
+            <td>Ideal maximum forward beta.</td>
+            <td>all</td>
+            <td></td>
+            <td>100</td>
+            <td>100</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>NF</td>
+            <td>Forward current emission coefficient.
+            </td>
+            <td>all</td>
+            <td></td>
+            <td>1.0</td>
+            <td>1</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>VAF(VA)</td>
+            <td>Forward Early voltage.</td>
+            <td>all</td>
+            <td>V</td>
+            <td>&infin;</td>
+            <td>200</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>IKF</td>
+            <td>Corner for forward beta current roll-off.
+            </td>
+            <td>all</td>
+            <td>A</td>
+            <td>&infin;</td>
+            <td>0.01</td>
+            <td>area</td>
+        </tr>
+        <tr>
+            <td>NKF</td>
+            <td>High current Beta rolloff exponent</td>
+            <td>all</td>
+            <td></td>
+            <td>0.5</td>
+            <td>0.58</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>ISE</td>
+            <td>B-E leakage saturation current.</td>
+            <td>all</td>
+            <td>A</td>
+            <td>0</td>
+            <td>1e-13</td>
+            <td>area</td>
+        </tr>
+        <tr>
+            <td>NE</td>
+            <td>B-E leakage emission coefficient</td>
+            <td>all</td>
+            <td></td>
+            <td>1.5</td>
+            <td>2</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>BR</td>
+            <td>Ideal maximum reverse beta.</td>
+            <td>all</td>
+            <td></td>
+            <td>1</td>
+            <td>0.1</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>NR</td>
+            <td>Reverse current emission coefficient.
+            </td>
+            <td>all</td>
+            <td></td>
+            <td>1</td>
+            <td>1</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>VAR (VB)</td>
+            <td>Reverse Early voltage. V ¥ 20</td>
+            <td>all</td>
+            <td>V</td>
+            <td>&infin;</td>
+            <td>200</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>IKR</td>
+            <td>Corner for reverse beta high current roll-off.</td>
+            <td>all</td>
+            <td>A</td>
+            <td>&infin;</td>
+            <td>0.01</td>
+            <td>area</td>
+        </tr>
+        <tr>
+            <td>ISC</td>
+            <td>B-C leakage saturation current (area is "areab" for vertical devices and "areac" for lateral).</td>
+            <td>all</td>
+            <td>A</td>
+            <td>0</td>
+            <td>1e-13</td>
+            <td>area</td>
+        </tr>
+    </table>
+</body>
+
+</html>
