@@ -1,0 +1,18 @@
+*exam 14.5.1
+Vi  1 0 PWL(0 -1v 1s -1v 1.05s 1v 2s 1v 2.05s 3v 3s 3v)
+Vcc 4 0 12V
+Vtest_IC 99 3 0v
+
+Rb  1 2 20k
+Rc  4 99 3k
+
+Q1  3 2 0 QMOD
+
+.model QMOD NPN (BF=100)
+.tran .01s 3s
+.control
+run
+plot v(1) v(2) v(3)
+plot v(3)-i(vtest_IC)
+.endc
+.end
