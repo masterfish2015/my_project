@@ -14,9 +14,9 @@
 </head>
 
 <body>
-    <h2>2.BJT Models (NPN/PNP)</h2>
+    <h2>3.BJT Models (NPN/PNP)</h2>
     <hr>
-    <h3>2.1.三种BJT器件模型</h3>
+    <h3>3.1.三种BJT器件模型</h3>
     <p>ngSPICE有三种BJT器件模型，采用下面的语句进行设置:</p>
     <pre>.model QMOD1 BJT level=2</pre>
     <p>上面的<code>level</code>指定了模型的类型，可以是1，2，4三种</p>
@@ -27,7 +27,7 @@
     </ul>
 
     <hr>
-    <h3>2.2.如何选择模型</h3>
+    <h3>3.2.如何选择模型</h3>
     <p>The bipolar junction transistor model in ngspice is an adaptation of the integral charge control model of <i><b>Gummel and Poon</b></i>. This modified <i><b>Gummel-Poon</b></i> model extends the original model to include several effects at high bias
         levels. The model automatically implifies to the simpler <i><b>Ebers-Moll</b></i> model when certain parameters are not specified. The parameter names used in the modified <i><b>Gummel-Poon</b></i> model have been chosen to be more easily understood
         by the program user, and to reflect better both physical and circuit design thinking.</p>
@@ -45,7 +45,7 @@
     <p>The BJT parameters used in the modified <i><b>Gummel-Poon</b></i> model are listed below. The parameter names used in earlier versions of SPICE2 are still accepted.</p>
 
     <hr>
-    <h3>2.3.<i><b>Gummel-Poon</b></i> BJT Parameters (incl. model extensions)</h3>
+    <h3>3.3.<i><b>Gummel-Poon</b></i> BJT Parameters (incl. model extensions)</h3>
     <table border="1">
         <caption>BJT Parameters</caption>
         <tr>
