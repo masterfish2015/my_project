@@ -1,0 +1,24 @@
+{
+  "name": "ngspice-html",
+  "authors": [
+    "ldc <925341256@qq.com>"
+  ],
+  "description": "",
+  "main": "index.html",
+  "keywords": [
+    "ngspice",
+    "html"
+  ],
+  "license": "MIT",
+  "homepage": "index.html",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7"
+  }
+}
