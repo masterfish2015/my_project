@@ -27,36 +27,47 @@ app.get("/", function(request, response) {
 
 app.post("/ngspice", function(request, response) {
     console.log(request.body);
-    let realfilename = Math.round(Math.random() * 10000).toString();
-    let filestring = "html/spice/" + Math.round(Math.random() * 10000);
-    let filename = filestring + ".cir";
-    console.log("filename:" + filename);
+    let dt = new Date();
+    let realfilename = "H" + dt.getHours() + "-M" + dt.getMinutes() + "-S" + dt.getSeconds() + "-MS" + dt.getMilliseconds();
+    console.log(realfilename);
+    let filestring = "html/spice/" + realfilename;
 
-    fs.open(filename, "w+", function(err, fd) {
-        if (!err) {
-            console.log(fd);
-            fs.write(fd, request.body["spice-source"], function(err, w, b) {
-                fs.close(fd, function(err) {
-                    console.log(filename + " close.");
-                    //file create ok, do SPICE analysis.
-                    exec("ngspice -b -o " + filestring + ".log " + filename,
-                        function(error, stdout, stderr) {
-                            if (!error) {
-                                response.sendFile(filestring + ".log");
-                            } else {
-                                console.log(error);
-                                console.log("stderr:" + stderr);
-                                console.log("stdout:" + stderr);
+    fs.writeFile(filestring + ".cir", request.body["spice-source"] || "", "utf8", function(error) {
+        if (!error) {
+            exec("ngspice -b -o " + filestring + ".log " + filestring + ".cir",
+                function(error, stdout, stderr) {
+                    //if (!error) {
+                    fs.readFile(filestring + ".log", "utf8", function(err, data) {
+                        if (!err) {
+                            //取出数据
+                            let lines = data.split('\n');
+                            let return_data = {};
+                            let flag = false;
+                            let index = 0;
+                            for (let line in lines) {
+                                //console.log(lines[line]);
+                                if (lines[line].indexOf("No. of Data Rows :") >= 0) {
+                                    flag = true;
+                                } else if (lines[line].indexOf("CPU time since last call:") >= 0) {
+                                    flag = false;
+                                }
+                                if (flag === true) {
+                                    return_data[index++] = lines[line];
+                                }
                             }
-                        });
+                            response.json(return_data);
+                        } else {
+                            console.log(err);
+                        }
+                    });
+                    //} else {
+                    console.log(error);
+                    console.log("stderr:" + stderr);
+                    console.log("stdout:" + stderr);
+                    //}
                 });
-            });
-        } else {
-            console.log(err);
         }
     });
-
-    //response.json(request.body);
 });
 
 app.listen(3000, function() {

@@ -1,0 +1,15 @@
+*tran 
+v1 1 0 SIN(0 10v 50hz)
+
+c1 1 2 20pf
+r1 2 0 10k
+
+.tran 1ms 1s
+
+
+.run
+.plot v(2)
+
+
+.end
+      

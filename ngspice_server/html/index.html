@@ -1,13 +1,30 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <meta charset="utf-8">
     <title>NGSPICE Demo</title>
-  </head>
-  <body>
+</head>
+
+<body>
     <form class="SPICE-BOX" action="/ngspice" method="post">
-      <textarea name="spice-source" rows="8" cols="80"></textarea>
-      <input type="submit" name="submit-button" value="提交">
+        <textarea name="spice-source" rows="18" cols="80">*tran 
+v1 1 0 SIN(0 10v 50hz)
+
+c1 1 2 20pf
+r1 2 0 10k
+
+.tran 1ms 1s
+
+.control
+run
+print v(1), v(2)
+.endc
+
+.end
+      </textarea>
+        <input type="submit" name="submit-button" value="提交">
     </form>
-  </body>
+</body>
+
 </html>
