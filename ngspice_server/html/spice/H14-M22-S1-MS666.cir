@@ -6,9 +6,10 @@ r1 2 0 50Meg
 
 .tran 1ms 20ms
 
-
-.plot v(2)
-
+.control
+run
+print all
+.endc
 
 .end
       
