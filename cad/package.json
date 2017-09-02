@@ -1,0 +1,18 @@
+{
+  "name": "cad",
+  "version": "1.0.0",
+  "description": "cad",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "CAD"
+  ],
+  "author": "ldc",
+  "license": "MIT",
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "jquery": "^3.2.1"
+  }
+}

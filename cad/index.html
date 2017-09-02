@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>计算机辅助机械设计</title>
+    <!-- css -->
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="css/style.css">
+    <!-- javascript libs -->
+    <script src="node_modules/jquery/dist/jquery.js"></script>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.js"></script>
+</head>
+
+<body>
+    <h1>计算机辅助机械设计</h1>
+    <hr>
+    <h2>1-机械零件设计概论 </h2>
+    <hr>
+    <h3>1.1-机械设计的基本要求</h3>
+    <ol>
+        <li><dt>使用功能要求:</dt>
+            <dd>机器应具有预定的使用功能。这主要靠正确地选择机器的工作原理，正确地设计或选用能够全面实现功能要求的执行机构、传动机构和原动机，以及合理地配置必要的辅助系统来实现。</dd>
+        </li>
+        <li><dt>经济性要求:</dt>
+            <dd>机器的经济性体现在设计、制造和使用的全过程中，设计机器时就要全面综合地进行考虑。设计制造的经济性表现为机器的成本低，使用经济性表现为高生产率，高效率，低能耗，以及低的管理和维护费用等。</dd>
+            <dt>提高设计和制造经济性指标的主要途径有:</dt>
+            <dd>
+                <ul>
+                    <li>采用先进的现代设计方法(CAD)，使设计参数最 优化,达到尽可能精确的计算结果,保证机器足够 的可靠性</li>
+                    <li>最大限度地采用标准化、系列化及通用化的零、部件</li>
+                    <li>尽可能采用新技术、新工艺、新结构和新材料</li>
+                    <li>合理地组织设计和制造过程</li>
+                    <li>力求改善零件的结构工艺性，使其用料少、易加工、易装配</li>
+                </ul>
+            </dd>
+            <dt>提高使用经济性指标的主要途径有:</dt>
+            <dd>
+                <ul>
+                    <li>合理地提高机器的机械化和自动化水平，以期提高机器的生产率</li>
+                    <li>选用高效率的传动系统，尽可能减少传动的中间环节，以期降低能源消耗</li>
+                    <li>适当地采用防护及润滑，以延长机器的使用寿命</li>
+                    <li>采用可靠的密封，减少或消除渗漏现象</li>
+                </ul>
+            </dd>
+        </li>
+        <li><dt>劳动保护要求:</dt>
+            <dd>
+                <ul>
+                    <li>要使机器的操作者方便和安全。因此设计时要按照人机工程学的观点布置各种按钮、手柄，使操作方式符合人们的 心理和习惯。同时，设置完善的安全装置、报警装置、显示装置等</li>
+                    <li>改善操作者及机器的环境。所设计的机器应符合劳动保护法规的要求。降低机器运转时的噪声水平，防止有毒、有害介质的渗漏，对废水、废气和废液进行治理</li>
+                </ul>
+            </dd>
+        </li>
+        <li><dt>可靠性要求:</dt>
+            <dd>机器的可靠度——指在规定的使用时间内和预定的环境下机器能够正常工作的概率。机器由于某种故障而不能完成预定的功能称为失效，它是随机发生的，其原因是零件所受的载荷、环境温度、零件本身物理和机械性能等因素是随机变化的。为了提高零件的可靠性，就应当在工作条件和零件性能两个方面使其变化尽可能小</dd>
+        </li>
+        <li><dt>其它专用要求:</dt>
+            <dd>
+                <ul>
+                    <li>对机床有长期保持精度的要求;</li>
+                    <li>对飞机有质量小，飞行阻力小而运载能力大的要求；</li>
+                    <li>对流动使用的机器有便于安装和拆卸的要求；</li>
+                    <li>对大型机器有便于运输的要求等等;</li>
+                </ul>
+            </dd>
+        </li>
+    </ol>
+    <hr>
+    <h3>1.2-专用术语</h3>
+    <ol>
+        <li><dt>机械零件的失效：</dt>
+            <dd>机械零件由于某种原因不能正常工作时，称为失效。</dd>
+            <dt>零件的失效形式:</dt>
+            <dd>
+                <ul>
+                    <li>整体断裂</li>
+                    <li>过大的残余变形</li>
+                    <li>工作表面的过度磨损或损伤</li>
+                    <li>破坏正常的工作条件</li>
+                </ul>
+                <table border="1">
+                    <tr>
+                        <td>齿轮轮齿折断</td>
+                        <td>轮齿塑性变形</td>
+                        <td>轴承内圈破裂</td>
+
+                    </tr>
+                    <tr>
+                        <td><img src="images/齿轮轮齿折断.png" alt="齿轮轮齿折断"></td>
+                        <td><img src="images/轮齿塑性变形.png" alt="轮齿塑性变形"></td>
+                        <td><img src="images/轴承内圈破裂.png" alt="轴承内圈破裂"></td>
+                    </tr>
+                    <tr>
+                        <td>轴承外圈塑性变形</td>
+                        <td>齿面接触疲劳</td>
+                        <td>轴瓦磨损</td>
+                    </tr>
+                    <tr>
+                        <td><img src="images/轴承外圈塑性变形.png" alt="轴承外圈塑性变形"></td>
+                        <td><img src="images/齿面接触疲劳.png" alt="齿面接触疲劳"></td>
+                        <td><img src="images/轴瓦磨损.png" alt="轴瓦磨损"></td>
+                    </tr>
+                </table>
+            </dd>
+        </li>
+    </ol>
+</body>
+
+</html>
