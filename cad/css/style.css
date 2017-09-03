@@ -1,0 +1,26 @@
+code {
+    background-color: darkcyan;
+    color: lightgoldenrodyellow;
+}
+
+i {
+    color: red;
+    padding: 2px;
+}
+
+b {
+    color: blue;
+}
+
+h1,
+h2,
+h3 {
+    width: 100%;
+    text-align: center;
+}
+
+hr {
+    height: 10px;
+    border: none;
+    border-top: 10px groove skyblue;
+}
