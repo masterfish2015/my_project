@@ -24,3 +24,18 @@ hr {
     border: none;
     border-top: 10px groove skyblue;
 }
+
+textarea {
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+    border: none;
+    background-color: white;
+}
+
+.border-box {
+    display: block;
+    border-style: solid;
+    border-width: thick;
+    padding: 10px;
+}
