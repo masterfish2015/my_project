@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>数表处理</title>
+    <!-- css -->
+    <link rel="stylesheet" href="libs/katex/katex.min.css">
+    <link rel="stylesheet" href="libs/SyntaxHighlighter/styles/shCoreDefault.css" />
+    <link rel="stylesheet" href="css/style.css">
+    <!-- javascript libs -->
+    <script src="libs/mathjs/math.min.js"></script>
+    <script src="libs/katex/katex.min.js"></script>
+    <script type="text/javascript" src="libs/SyntaxHighlighter/scripts/shCore.js"></script>
+    <script type="text/javascript" src="libs/SyntaxHighlighter/scripts/shBrushJScript.js"></script>
+    <script type="text/javascript">
+        SyntaxHighlighter.all();
+    </script>
+</head>
+
+<body>
+    <h1>2.数表处理</h1>
+    <dt>非函数数表</dt>
+    <dd>参数（数据）间无任何联系的纯数表。</dd>
+    <section id="2.1 非函数数表">
+        <h2>2.1.1 一维非函数数表</h2>
+        <h3>2.1.1.1 单行表</h3>
+        <dd>仅有一行的数据，一般在JavaScript中采用一维数组来存储。</dd>
+        <h4>例2.1.1.1.1 平键长度查询</h4>
+        <h5>【1】存储</h5>
+        <img src="images/平键1.jpg" alt="平键">
+        <div id="表2.1"></div>
+        <script>
+            var table = document.getElementById("表2.1");
+            var data = [6, 8, 10, 12, 14, 16, 18, 20, 22, 25, 28, 32, 36, 40, 45, 50, 56, 63, 70, 80, 90, 100, 110, 125, 140, 160, 180, 200, 220, 250, 280, 320, 360, 400, 450, 500];
+            var str = "<table border='1'>";
+            str += "<caption>表2.1 普通平键的长度系列（单位：mm）</caption>"
+            str += "<tr>";
+            str += "<th>L系列</th>";
+            for (var i = 0; i < data.length; i++) {
+                str += "<td>" + data[i] + "</td>";
+            }
+            str += "</tr>";
+            str += "</table>";
+            table.innerHTML = str;
+        </script>
+        <pre class="brush: js; htmlScript:true; highlight:[4,9,10]">
+            &lt;div id="表2.1"&gt;&lt;/div&gt;
+            &lt;script&gt;
+                var table = document.getElementById("表2.1");
+                var data = [6, 8, 10, 12, 14, 16, 18, 20, 22, 25, 28, 32, 36, 40, 45, 50, 56, 63, 70, 80, 90, 100, 110, 125, 140, 160, 180, 200, 220, 250, 280, 320, 360, 400, 450, 500];
+                var str = "&lt;table border='1'&gt;";
+                str += "&lt;caption&gt;表2.1 普通平键的长度系列（单位：mm）&lt;/caption&gt;"
+                str += "&lt;tr&gt;";
+                str += "&lt;th&gt;L系列&lt;/th&gt;";
+                for (var i = 0; i &lt; data.length; i++) {
+                    str += "&lt;td&gt;" + data[i] + "&lt;/td&gt;";
+                }
+                str += "&lt;/tr&gt;";
+                str += "&lt;/table&gt;";
+                table.innerHTML = str;
+            &lt;/script&gt;
+        </pre>
+        <dt>存储在其他文件中</dt>
+        <dd>采用模块化编程的方法，将数据保存在另外独立的数据文件中，可以得到更好的整合效果。可以采用html中对javascript的外置读入的方法来保存数据。</dd>
+        <dt>数据文件：data/平键标准长度表.js</dt>
+        <pre class="brush: js; htmlScript:true; ">
+            var g平键标准长度=[6, 8, 10, 12, 14, 16, 18, 20, 22, 25, 28, 32, 36, 40, 45, 50, 56, 63, 70, 80, 90, 100, 110, 125, 140, 160, 180, 200, 220, 250, 280, 320, 360, 400, 450, 500];
+        </pre>
+        <dt>项目文件：myprj.html</dt>
+        <pre class="brush: js; htmlScript:true; highlight:[9,19,20]">
+            &lt;!DOCTYPE html&gt;
+            &lt;html lang="en"&gt;
+            &lt;head&gt;
+                &lt;meta charset="UTF-8"&gt;
+                &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+                &lt;meta http-equiv="X-UA-Compatible" content="ie=edge"&gt;
+                &lt;title&gt;my project&lt;/title&gt;
+
+                &lt;script src="data/平键标准长度表.js"&gt;&lt;/script&gt;
+            &lt;/head&gt;
+            &lt;body&gt;
+                &lt;div id="表2.1"&gt;&lt;/div&gt;
+                &lt;script&gt;
+                    var table = document.getElementById("表2.1");                    
+                    var str = "&lt;table border='1'&gt;";
+                    str += "&lt;caption&gt;表2.1 普通平键的长度系列（单位：mm）&lt;/caption&gt;"
+                    str += "&lt;tr&gt;";
+                    str += "&lt;th&gt;L系列&lt;/th&gt;";
+                    for (var i = 0; i &lt; g平键标准长度.length; i++) {
+                        str += "&lt;td&gt;" + g平键标准长度[i] + "&lt;/td&gt;";
+                    }
+                    str += "&lt;/tr&gt;";
+                    str += "&lt;/table&gt;";
+                    table.innerHTML = str;
+                &lt;/script&gt;
+            &lt;/body&gt;
+            &lt;/html&gt;
+        </pre>
+        <h5>【2】查询</h5>
+        <p>对于非函数数组，要是能直接查到，则返回其下标，若查不到，则有以下几种要求：
+            <ul>
+                <li><dt>精确查询</dt>
+                    <dd>遍历数组比对，查不到就告诉用户没有；</dd>
+                </li>
+                <li><dt>最大保护原则查询</dt>
+                    <dd>遍历数组比对，查不到就返回最接近的比要查的数的数；</dd>
+                </li>
+                <li><dt>最省原则查询</dt>
+                    <dd>遍历数组比对，查不到就返回最接近的比要查的数小的数；</dd>
+                </li>
+                <li><dt>特定要求查询</dt>
+                    <dd>遍历数组比对，按照指定的要求进行设置；</dd>
+                </li>
+            </ul>
+        </p>
+        <p>对于本题，是属于特定要求，因为：平键的长度L取决于轮毂的长度B，考虑到倒角，轮毂长度B和平键长度L满足关系式：<span id="公式2-1-1"></span>, 同时为了保证键的强度，又要键的长度尽可能的长，以<span id="公式2-1-2"></span>为例，得到：<span id="公式2-1-3"></span>，查到表中最接近的是40.</p>
+        <script>
+            katex.render("B-L \\ge 5", document.getElementById("公式2-1-1"));
+            katex.render("B=48", document.getElementById("公式2-1-2"));
+            katex.render("48-L \\ge 5 \\Longrightarrow L \\le 43", document.getElementById("公式2-1-3"));
+        </script>
+        <p>对于本例来说，因为要找最接近的最大值，而原数组又是从小到大排列的，所以最好是从后到前查找比较快。</p>
+        <form>
+            <img src="images/平键1.jpg" alt="平键"><br>
+            <hr>
+            <fieldset>
+                <legend>平键长度查询：</legend>
+                <label for="轮毂长度">输入轮毂长度B：</label>
+                <input type="text" id="轮毂长度">
+            </fieldset>
+            <fieldset>
+                <legend>结果：</legend>
+                <label id="平键长度"></label>
+            </fieldset>
+            <button type="button" onclick="平键长度查询()">开始查询</button>
+        </form>
+        <script>
+            var data = [6, 8, 10, 12, 14, 16, 18, 20, 22, 25, 28, 32, 36, 40, 45, 50, 56, 63, 70, 80, 90, 100, 110, 125, 140, 160, 180, 200, 220, 250, 280, 320, 360, 400, 450, 500];
+
+            function 平键长度查询() {
+                var 轮毂长度 = Number(document.getElementById("轮毂长度").value);
+                for (var i = data.length - 1; i >= 0; i--) {
+                    if (data[i] <= 轮毂长度 - 5) {
+                        //第一个找到的就是要求的
+                        document.getElementById("平键长度").innerHTML = String(data[i]);
+                        return;
+                    }
+                }
+                document.getElementById("平键长度").innerHTML = "未能找到。";
+            }
+        </script>
+        <pre class="brush: js;">
+            &lt;form&gt;
+                &lt;img src="images/平键1.jpg" alt="平键"&gt;&lt;br&gt;
+                &lt;hr&gt;
+                &lt;fieldset&gt;
+                    &lt;legend&gt;平键长度查询：&lt;/legend&gt;
+                    &lt;label for="轮毂长度"&gt;输入轮毂长度B：&lt;/label&gt;
+                    &lt;input type="text" id="轮毂长度"&gt;
+                &lt;/fieldset&gt;
+                &lt;fieldset&gt;
+                    &lt;legend&gt;结果：&lt;/legend&gt;
+                    &lt;label id="平键长度"&gt;&lt;/label&gt;
+                &lt;/fieldset&gt;
+                &lt;button type="button" onclick="平键长度查询()"&gt;开始查询&lt;/button&gt;
+            &lt;/form&gt;
+            &lt;script&gt;
+                var data = [6, 8, 10, 12, 14, 16, 18, 20, 22, 25, 28, 32, 36, 40, 45, 50, 56, 63, 70, 80, 90, 100, 110, 125, 140, 160, 180, 200, 220, 250, 280, 320, 360, 400, 450, 500];
+    
+                function 平键长度查询() {
+                    var 轮毂长度 = Number(document.getElementById("轮毂长度").value);
+                    for (var i = data.length - 1; i &gt;= 0; i--) {
+                        if (data[i] &lt;= 轮毂长度 - 5) {
+                            //第一个找到的就是要求的
+                            document.getElementById("平键长度").innerHTML = String(data[i]);
+                            return;
+                        }
+                    }
+                    document.getElementById("平键长度").innerHTML = "未能找到。";
+                }
+            &lt;/script&gt;
+        </pre>
+
+        <h5>【3】选择</h5>
+        <p>在UI设计中，有时用户希望直接选择数组中的值，为了不会错选，可以提供下拉列表给用户进行选择。一般选项少的时候比较合适。</p>
+        <form action="#">
+            <fieldset>
+                <legend>平键类型选择</legend>
+                <label for="平键类型选择">平键类型选择</label>
+                <select name="平键类型选择" id="平键类型选择" value="A" onchange="选择平键类型()">
+                    <option value="A">A型：双圆头</option>
+                    <option value="B">B型：双平头</option>
+                    <option value="C">C型：一边圆头一边平头</option>
+                </select>
+            </fieldset>
+            <fieldset>
+                <legend>结果：</legend>
+                <label id="平键类型选择结果">A</label>
+            </fieldset>
+        </form>
+        <script>
+            function 选择平键类型() {
+                document.getElementById("平键类型选择结果").innerHTML = document.getElementById("平键类型选择").value;
+            }
+        </script>
+        <pre class="brush:js;highlight:[5,13,18]">
+            &lt;form action="#"&gt;
+                &lt;fieldset&gt;
+                    &lt;legend&gt;平键类型选择&lt;/legend&gt;
+                    &lt;label for="平键类型选择"&gt;平键类型选择&lt;/label&gt;
+                    &lt;select name="平键类型选择" id="平键类型选择" value="A" onchange="选择平键类型()"&gt;
+                        &lt;option value="A"&gt;A型：双圆头&lt;/option&gt;
+                        &lt;option value="B"&gt;B型：双平头&lt;/option&gt;
+                        &lt;option value="C"&gt;C型：一边圆头一边平头&lt;/option&gt;
+                    &lt;/select&gt;
+                &lt;/fieldset&gt;
+                &lt;fieldset&gt;
+                    &lt;legend&gt;结果：&lt;/legend&gt;
+                    &lt;label id="平键类型选择结果"&gt;A&lt;/label&gt;
+                &lt;/fieldset&gt;
+            &lt;/form&gt;
+            &lt;script&gt;
+                function 选择平键类型() {
+                    document.getElementById("平键类型选择结果").innerHTML = document.getElementById("平键类型选择").value;
+                }
+            &lt;/script&gt;
+        </pre>
+
+    </section>
+
+    <section id="test-2-1">
+        <h2>测试2-1 选择V带的型号，并根据V带的型号，输出V带轮的最小基准直径</h2>
+        <div id="表2-2"></div>
+        <script>
+            var vdata = [{
+                type: "Y",
+                dmin: 20
+            }, {
+                type: "Z",
+                dmin: 50
+            }, {
+                type: "A",
+                dmin: 75
+            }, {
+                type: "B",
+                dmin: 125
+            }, {
+                type: "C",
+                dmin: 200
+            }, {
+                type: "D",
+                dmin: 355
+            }, {
+                type: "E",
+                dmin: 500
+            }];
+            var str = "<table border='1' width='100%'>";
+            str += "<caption>表2-2 普通V带轮最小基准直径</caption>";
+            str += "<tr><th>型号</th>";
+            for (var i = 0; i < vdata.length; i++) {
+                str += "<td>" + vdata[i].type + "</td>";
+            }
+            str += "</tr>";
+            str += "<tr><th>d<sub>min</sub></th>";
+            for (var i = 0; i < vdata.length; i++) {
+                str += "<td>" + vdata[i].dmin + "</td>";
+            }
+            str += "</tr>";
+
+            str += "</table>";
+            document.getElementById("表2-2").innerHTML = str;
+        </script>
+        <form action="#" onload="初始化V带轮最小基准直径表()">
+            <fieldset>
+                <legend>输入参数</legend>
+                <label for="V带型号">V带型号</label>
+                <select name="V带型号" id="V带型号"></select>
+            </fieldset>
+            <fieldset>
+                <legend>输出结果</legend>
+                <label id="V带轮最小基准直径">V带轮最小基准直径:</label>
+            </fieldset>
+            <button type="button" onclick="初始化V带轮最小基准直径表()">初始化数据</button>
+            <button type="button" onclick="查找V带轮最小基准直径()">运行</button>
+        </form>
+        <script>
+            function 初始化V带轮最小基准直径表() {
+                var str = "";
+                for (var i = 0; i < vdata.length; i++) {
+                    str += "<option value='" + vdata[i].dmin + "'>" + vdata[i].type + "</option>";
+                }
+                document.getElementById("V带型号").innerHTML = str;
+            }
+
+            function 查找V带轮最小基准直径() {
+                document.getElementById("V带轮最小基准直径").innerHTML = "V带轮最小基准直径:" +
+                    document.getElementById("V带型号").value;
+            }
+        </script>
+    </section>
+</body>
+
+</html>
