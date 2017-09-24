@@ -1,6 +1,36 @@
-code {
-    background-color: darkcyan;
+p {
+    font-size: 22px;
+}
+
+dt {
+    background: darkblue;
     color: lightgoldenrodyellow;
+    font-size: 24px;
+    margin-top: 1em;
+    padding: 5px;
+    border-radius: 1em;
+    border-style: double;
+    width: 60%;
+    box-shadow: 2em 0 1em darkgreen;
+}
+
+dd {
+    border-style: solid;
+    border-radius: 5px;
+    box-shadow: 10px 10px 5px darkcyan;
+    font-size: 20px;
+    display: inline-block;
+    margin-bottom: 1em;
+    padding: 1em;
+}
+
+code {
+    background-color: black;
+    color: lightgoldenrodyellow;
+    border-style: dotted;
+    padding-left: 1em;
+    padding-right: 1em;
+    border-radius: 1em;
 }
 
 i {
@@ -10,19 +40,6 @@ i {
 
 b {
     color: blue;
-}
-
-h1,
-h2,
-h3 {
-    width: 100%;
-    text-align: center;
-}
-
-hr {
-    height: 10px;
-    border: none;
-    border-top: 10px groove skyblue;
 }
 
 textarea {
@@ -38,4 +55,60 @@ textarea {
     border-style: solid;
     border-width: thick;
     padding: 10px;
+}
+
+form {
+    display: block;
+    border-style: solid;
+    border-radius: 5px;
+    padding: 1em;
+}
+
+button {
+    margin: 10px;
+    padding: 1em;
+}
+
+input,
+select {
+    height: 3em;
+}
+
+h1 {
+    border-bottom-style: dotted;
+    border-bottom-color: darkblue;
+    font-size: 45px;
+}
+
+h2 {
+    font-size: 40px;
+}
+
+h3 {
+    border-style: double;
+    box-shadow: 1em 1em 1em darkgrey;
+    background-color: darkgreen;
+    color: lightgoldenrodyellow;
+    border-radius: 1em;
+    font-size: 32px;
+    padding-left: 1em;
+}
+
+h5 {
+    font-size: 20px;
+    background-color: darkcyan;
+    color: whitesmoke;
+}
+
+table {
+    width: 100%;
+    text-align: center;
+}
+
+section {
+    border-style: solid;
+    margin: 1em;
+    padding: 1em;
+    border-radius: 1em;
+    box-shadow: 10px 10px 5px darkgoldenrod;
 }
