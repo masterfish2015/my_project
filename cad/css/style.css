@@ -62,6 +62,7 @@ form {
     border-style: solid;
     border-radius: 5px;
     padding: 1em;
+    box-shadow: 10px 10px 10px navy;
 }
 
 button {
@@ -71,7 +72,7 @@ button {
 
 input,
 select {
-    height: 3em;
+    height: 2em;
 }
 
 h1 {
@@ -111,4 +112,57 @@ section {
     padding: 1em;
     border-radius: 1em;
     box-shadow: 10px 10px 5px darkgoldenrod;
+}
+
+.code-box {
+    border-style: solid;
+    box-shadow: 10px 10px 10px darkorchid;
+    width: 96%;
+    overflow: scroll;
+    padding: 1em;
+    height: auto !important;
+}
+
+button {
+    border-radius: 1em;
+}
+
+button:hover {
+    background-color: rgba(225, 130, 180, 0.7);
+}
+
+.hide,
+.show {
+    width: 30px;
+    height: 30px;
+    border-radius: 30px;
+    font-size: 20px;
+    color: #fff;
+    text-shadow: 0 1px 0 #666;
+    text-align: center;
+    text-decoration: none;
+    box-shadow: 1px 1px 2px #000;
+    background: darkseagreen;
+    opacity: .95;
+    margin-right: 0;
+    float: left;
+    margin-bottom: 25px;
+}
+
+.hide:hover,
+.show:hover {
+    background-color: blue;
+    color: lightgoldenrodyellow;
+}
+
+.show {
+    display: none;
+}
+
+.hide:target {
+    display: none;
+}
+
+.hide:target+.show {
+    display: inline;
 }

@@ -75,7 +75,7 @@
 }
 
 .syntaxhighlighter .line {
-    /*  white-space: pre !important;*/
+    white-space: pre !important;
 }
 
 .syntaxhighlighter table {
