@@ -8,6 +8,7 @@
     <title>数表处理</title>
     <!-- css -->
     <link rel="stylesheet" href="libs/katex/katex.min.css">
+    <link rel="stylesheet" href="libs/pseudocode/pseudocode.min.css">
     <link rel="stylesheet" href="libs/SyntaxHighlighter/styles/shCoreDefault.css" />
     <link rel="stylesheet" href="css/style.css">
     <!-- javascript libs -->
@@ -15,6 +16,10 @@
     <script src="libs/katex/katex.min.js"></script>
     <script type="text/javascript" src="libs/SyntaxHighlighter/scripts/shCore.js"></script>
     <script type="text/javascript" src="libs/SyntaxHighlighter/scripts/shBrushJScript.js"></script>
+    <script src="libs/d3/d3.min.js"></script>
+    <script src="libs/function-plot/dist/function-plot.js"></script>
+
+    <script src="libs/pseudocode/pseudocode.min.js"></script>
     <script type="text/javascript">
         SyntaxHighlighter.all();
     </script>
@@ -121,12 +126,11 @@
                 </li>
             </ul>
         </p>
-        <p>对于本题，是属于特定要求，因为：平键的长度L取决于轮毂的长度B，考虑到倒角，轮毂长度B和平键长度L满足关系式：<span id="公式2-1-1"></span>, 同时为了保证键的强度，又要键的长度尽可能的长，以<span id="公式2-1-2"></span>为例，得到：<span id="公式2-1-3"></span>，查到表中最接近的是40.</p>
-        <script>
-            katex.render("B-L \\ge 5", document.getElementById("公式2-1-1"));
-            katex.render("B=48", document.getElementById("公式2-1-2"));
-            katex.render("48-L \\ge 5 \\Longrightarrow L \\le 43", document.getElementById("公式2-1-3"));
-        </script>
+        <p>对于本题，是属于特定要求，因为：平键的长度L取决于轮毂的长度B，考虑到倒角，轮毂长度B和平键长度L满足关系式：
+            <katex>B-L \ge 5</katex>, 同时为了保证键的强度，又要键的长度尽可能的长，以
+            <katex>B=48</katex>为例，得到：
+            <katex>48-L \ge 5 \Longrightarrow L \le 43</katex>，查到表中最接近的是40.</p>
+
         <p>对于本例来说，因为要找最接近的最大值，而原数组又是从小到大排列的，所以最好是从后到前查找比较快。</p>
         <form>
             <img src="images/平键1.jpg" alt="平键"><br>
@@ -367,15 +371,15 @@
             str += "<caption>表2-4 链传动工作情况系数K<sub>a</sub></caption>";
             str += "<tr><td rowspan='2'>工作机种类</td><td colspan='3'>动力种类</td></tr>";
             str += "<tr>";
-            for (let i = 0; i < 链传动动力种类.length; i++) {
+            for (var i = 0; i < 链传动动力种类.length; i++) {
                 str += "<td>" + 链传动动力种类[i] + "</td>";
             }
             str += "</tr>";
 
-            for (let i = 0; i < 链传动工作机种类.length; i++) {
+            for (var i = 0; i < 链传动工作机种类.length; i++) {
                 str += "<tr>";
                 str += "<td>" + 链传动工作机种类[i] + "</td>";
-                for (let j = 0; j < 链传动动力种类.length; j++) {
+                for (var j = 0; j < 链传动动力种类.length; j++) {
                     str += "<td>" + 链传动工作情况系数Ka[i][j] + "</td>";
                 }
                 str += "</tr>";
@@ -402,15 +406,15 @@
                 str += "&lt;caption&gt;表2-4 链传动工作情况系数K&lt;sub&gt;a&lt;/sub&gt;&lt;/caption&gt;";
                 str += "&lt;tr&gt;&lt;td rowspan='2'&gt;工作机种类&lt;/td&gt;&lt;td colspan='3'&gt;动力种类&lt;/td&gt;&lt;/tr&gt;";
                 str += "&lt;tr&gt;";
-                for (let i = 0; i &lt; 链传动动力种类.length; i++) {
+                for (var i = 0; i &lt; 链传动动力种类.length; i++) {
                     str += "&lt;td&gt;" + 链传动动力种类[i] + "&lt;/td&gt;";
                 }
                 str += "&lt;/tr&gt;";
     
-                for (let i = 0; i &lt; 链传动工作机种类.length; i++) {
+                for (var i = 0; i &lt; 链传动工作机种类.length; i++) {
                     str += "&lt;tr&gt;";
                     str += "&lt;td&gt;" + 链传动工作机种类[i] + "&lt;/td&gt;";
-                    for (let j = 0; j &lt; 链传动动力种类.length; j++) {
+                    for (var j = 0; j &lt; 链传动动力种类.length; j++) {
                         str += "&lt;td&gt;" + 链传动工作情况系数Ka[i][j] + "&lt;/td&gt;";
                     }
                     str += "&lt;/tr&gt;";
@@ -441,12 +445,12 @@
         <script>
             function 导入工作情况系数Ka() {
                 var s = "";
-                for (let i = 0; i < 链传动工作机种类.length; i++) {
+                for (var i = 0; i < 链传动工作机种类.length; i++) {
                     s += "<option value='" + i + "'>" + 链传动工作机种类[i] + "</option>";
                 }
                 document.getElementById("工作机种类").innerHTML = s;
                 s = "";
-                for (let i = 0; i < 链传动动力种类.length; i++) {
+                for (var i = 0; i < 链传动动力种类.length; i++) {
                     s += "<option value='" + i + "'>" + 链传动动力种类[i] + "</option>";
                 }
                 document.getElementById("原动机种类").innerHTML = s;
@@ -481,12 +485,12 @@
             &lt;script&gt;
                 function 导入工作情况系数Ka() {
                     var s = "";
-                    for (let i = 0; i &lt; 链传动工作机种类.length; i++) {
+                    for (var i = 0; i &lt; 链传动工作机种类.length; i++) {
                         s += "&lt;option value='" + i + "'&gt;" + 链传动工作机种类[i] + "&lt;/option&gt;";
                     }
                     document.getElementById("工作机种类").innerHTML = s;
                     s = "";
-                    for (let i = 0; i &lt; 链传动动力种类.length; i++) {
+                    for (var i = 0; i &lt; 链传动动力种类.length; i++) {
                         s += "&lt;option value='" + i + "'&gt;" + 链传动动力种类[i] + "&lt;/option&gt;";
                     }
                     document.getElementById("原动机种类").innerHTML = s;
@@ -535,18 +539,18 @@
             s += "</tr>";
             s += "<tr><td colspan='6'>每天工作小时(单位：小时)</td></tr>";
             s += "<tr>";
-            for (let j = 0; j < 2; j++) {
-                for (let i = 0; i < 普通V带每天工作情况.length; i++) {
+            for (var j = 0; j < 2; j++) {
+                for (var i = 0; i < 普通V带每天工作情况.length; i++) {
                     s += "<td>" + 普通V带每天工作情况[i] + "</td>";
                 }
             }
             s += "</tr>";
 
-            for (let i = 0; i < 普通V带工况.length; i++) {
+            for (var i = 0; i < 普通V带工况.length; i++) {
                 s += "<tr>";
                 s += "<td>" + 普通V带工况[i] + "</td>";
-                for (let key in 普通V带传动工作系数KA) {
-                    for (let j = 0; j < 普通V带每天工作情况.length; j++) {
+                for (var key in 普通V带传动工作系数KA) {
+                    for (var j = 0; j < 普通V带每天工作情况.length; j++) {
                         s += "<td>" + 普通V带传动工作系数KA[key][i][j] + "</td>";
                     }
                 }
@@ -588,18 +592,18 @@
                 s += "&lt;/tr&gt;";
                 s += "&lt;tr&gt;&lt;td colspan='6'&gt;每天工作小时(单位：小时)&lt;/td&gt;&lt;/tr&gt;";
                 s += "&lt;tr&gt;";
-                for (let j = 0; j &lt; 2; j++) {
-                    for (let i = 0; i &lt; 普通V带每天工作情况.length; i++) {
+                for (var j = 0; j &lt; 2; j++) {
+                    for (var i = 0; i &lt; 普通V带每天工作情况.length; i++) {
                         s += "&lt;td&gt;" + 普通V带每天工作情况[i] + "&lt;/td&gt;";
                     }
                 }
                 s += "&lt;/tr&gt;";
     
-                for (let i = 0; i &lt; 普通V带工况.length; i++) {
+                for (var i = 0; i &lt; 普通V带工况.length; i++) {
                     s += "&lt;tr&gt;";
                     s += "&lt;td&gt;" + 普通V带工况[i] + "&lt;/td&gt;";
-                    for (let key in 普通V带传动工作系数KA) {
-                        for (let j = 0; j &lt; 普通V带每天工作情况.length; j++) {
+                    for (var key in 普通V带传动工作系数KA) {
+                        for (var j = 0; j &lt; 普通V带每天工作情况.length; j++) {
                             s += "&lt;td&gt;" + 普通V带传动工作系数KA[key][i][j] + "&lt;/td&gt;";
                         }
                     }
@@ -634,17 +638,17 @@
         <script>
             function 导入V带传动的工作系数KA数据() {
                 var s = "";
-                for (let i = 0; i < 普通V带启动类型.length; i++) {
+                for (var i = 0; i < 普通V带启动类型.length; i++) {
                     s += "<option value='" + 普通V带启动类型[i] + "'>" + 普通V带启动类型[i] + "</option>";
                 }
                 document.getElementById("V带传动的启动情况").innerHTML = s;
                 s = "";
-                for (let i = 0; i < 普通V带工况.length; i++) {
+                for (var i = 0; i < 普通V带工况.length; i++) {
                     s += "<option value='" + i + "'>" + 普通V带工况[i] + "</option>";
                 }
                 document.getElementById("V带传动的载荷情况").innerHTML = s;
                 s = "";
-                for (let i = 0; i < 普通V带每天工作情况.length; i++) {
+                for (var i = 0; i < 普通V带每天工作情况.length; i++) {
                     s += "<option value='" + i + "'>" + 普通V带每天工作情况[i] + "</option>";
                 }
                 document.getElementById("V带传动的每天工作小时").innerHTML = s;
@@ -683,17 +687,17 @@
             &lt;script&gt;
                 function 导入V带传动的工作系数KA数据() {
                     var s = "";
-                    for (let i = 0; i &lt; 普通V带启动类型.length; i++) {
+                    for (var i = 0; i &lt; 普通V带启动类型.length; i++) {
                         s += "&lt;option value='" + 普通V带启动类型[i] + "'&gt;" + 普通V带启动类型[i] + "&lt;/option&gt;";
                     }
                     document.getElementById("V带传动的启动情况").innerHTML = s;
                     s = "";
-                    for (let i = 0; i &lt; 普通V带工况.length; i++) {
+                    for (var i = 0; i &lt; 普通V带工况.length; i++) {
                         s += "&lt;option value='" + i + "'&gt;" + 普通V带工况[i] + "&lt;/option&gt;";
                     }
                     document.getElementById("V带传动的载荷情况").innerHTML = s;
                     s = "";
-                    for (let i = 0; i &lt; 普通V带每天工作情况.length; i++) {
+                    for (var i = 0; i &lt; 普通V带每天工作情况.length; i++) {
                         s += "&lt;option value='" + i + "'&gt;" + 普通V带每天工作情况[i] + "&lt;/option&gt;";
                     }
                     document.getElementById("V带传动的每天工作小时").innerHTML = s;
@@ -730,7 +734,7 @@
             var s = "<table border='1'>";
             s += "<caption>表2-7-1 渐开线圆柱齿轮标准模数第一系列</caption>";
             s += "<tr>";
-            for (let i = 0; i < 渐开线圆柱齿轮标准模数第一系列.length; i++) {
+            for (var i = 0; i < 渐开线圆柱齿轮标准模数第一系列.length; i++) {
                 s += "<td>" + 渐开线圆柱齿轮标准模数第一系列[i] + "</td>";
             }
             s += "</tr>";
@@ -739,7 +743,7 @@
             s += "<table border='1'>";
             s += "<caption>表2-7-2 渐开线圆柱齿轮标准模数第二系列</caption>";
             s += "<tr>";
-            for (let i = 0; i < 渐开线圆柱齿轮标准模数第二系列.length; i++) {
+            for (var i = 0; i < 渐开线圆柱齿轮标准模数第二系列.length; i++) {
                 s += "<td>" + 渐开线圆柱齿轮标准模数第二系列[i] + "</td>";
             }
             s += "</tr>";
@@ -748,7 +752,7 @@
             s += "<table border='1'>";
             s += "<caption>表2-7-3 渐开线圆柱齿轮标准模数混合系列</caption>";
             s += "<tr>";
-            for (let i = 0; i < 渐开线圆柱齿轮标准模数混合系列.length; i++) {
+            for (var i = 0; i < 渐开线圆柱齿轮标准模数混合系列.length; i++) {
                 s += "<td>" + 渐开线圆柱齿轮标准模数混合系列[i] + "</td>";
             }
             s += "</tr>";
@@ -776,7 +780,7 @@
                     var s = "&lt;table border='1'&gt;";
                     s += "&lt;caption&gt;表2-7-1 渐开线圆柱齿轮标准模数第一系列&lt;/caption&gt;";
                     s += "&lt;tr&gt;";
-                    for (let i = 0; i &lt; 渐开线圆柱齿轮标准模数第一系列.length; i++) {
+                    for (var i = 0; i &lt; 渐开线圆柱齿轮标准模数第一系列.length; i++) {
                         s += "&lt;td&gt;" + 渐开线圆柱齿轮标准模数第一系列[i] + "&lt;/td&gt;";
                     }
                     s += "&lt;/tr&gt;";
@@ -785,7 +789,7 @@
                     s += "&lt;table border='1'&gt;";
                     s += "&lt;caption&gt;表2-7-2 渐开线圆柱齿轮标准模数第二系列&lt;/caption&gt;";
                     s += "&lt;tr&gt;";
-                    for (let i = 0; i &lt; 渐开线圆柱齿轮标准模数第二系列.length; i++) {
+                    for (var i = 0; i &lt; 渐开线圆柱齿轮标准模数第二系列.length; i++) {
                         s += "&lt;td&gt;" + 渐开线圆柱齿轮标准模数第二系列[i] + "&lt;/td&gt;";
                     }
                     s += "&lt;/tr&gt;";
@@ -794,7 +798,7 @@
                     s += "&lt;table border='1'&gt;";
                     s += "&lt;caption&gt;表2-7-3 渐开线圆柱齿轮标准模数混合系列&lt;/caption&gt;";
                     s += "&lt;tr&gt;";
-                    for (let i = 0; i &lt; 渐开线圆柱齿轮标准模数混合系列.length; i++) {
+                    for (var i = 0; i &lt; 渐开线圆柱齿轮标准模数混合系列.length; i++) {
                         s += "&lt;td&gt;" + 渐开线圆柱齿轮标准模数混合系列[i] + "&lt;/td&gt;";
                     }
                     s += "&lt;/tr&gt;";
@@ -837,7 +841,7 @@
                 }
                 var 初选模数 = Number(document.getElementById("齿轮初选模数").value);
                 var 标准模数;
-                for (let i = data.length - 1; i >= 0; i--) {
+                for (var i = data.length - 1; i >= 0; i--) {
                     if (data[i - 1] < 初选模数) {
                         标准模数 = data[i];
                         document.getElementById("齿轮标准模数").value = String(标准模数);
@@ -886,7 +890,7 @@
                         }
                         var 初选模数 = Number(document.getElementById("齿轮初选模数").value);
                         var 标准模数;
-                        for (let i = data.length - 1; i &gt;= 0; i--) {
+                        for (var i = data.length - 1; i &gt;= 0; i--) {
                             if (data[i - 1] &lt; 初选模数) {
                                 标准模数 = data[i];
                                 document.getElementById("齿轮标准模数").value = String(标准模数);
@@ -978,17 +982,17 @@
             s += "<tr><td rowspan='3'>基准带长<br>L<sub>d</sub>(单位：mm)</td><td colspan='11'>K<sub>L</sub></td></tr>";
             s += "<tr><td colspan='7'>普通V带</td><td colspan='4'>窄V带</td></tr>";
             s += "<tr>";
-            for (let i = 0; i < V带带长修正系数KL['普通V带'].length; i++) {
+            for (var i = 0; i < V带带长修正系数KL['普通V带'].length; i++) {
                 s += "<td>" + V带带长修正系数KL['普通V带'][i].type + "</td>";
             }
-            for (let i = 0; i < V带带长修正系数KL['窄V带'].length; i++) {
+            for (var i = 0; i < V带带长修正系数KL['窄V带'].length; i++) {
                 s += "<td>" + V带带长修正系数KL['窄V带'][i].type + "</td>";
             }
             s += "</tr>";
-            for (let i = 0; i < V带基准带长.length; i++) {
+            for (var i = 0; i < V带基准带长.length; i++) {
                 s += "<tr>";
                 s += "<td>" + V带基准带长[i] + "</td>";
-                for (let j = 0; j < V带带长修正系数KL['普通V带'].length; j++) {
+                for (var j = 0; j < V带带长修正系数KL['普通V带'].length; j++) {
                     s += "<td>";
                     if (V带带长修正系数KL['普通V带'][j].start <= i && V带带长修正系数KL['普通V带'][j].end >= i) {
                         s += String(V带带长修正系数KL['普通V带'][j].data[i - V带带长修正系数KL['普通V带'][j].start]);
@@ -997,7 +1001,7 @@
                     }
                     s += "</td>";
                 }
-                for (let j = 0; j < V带带长修正系数KL['窄V带'].length; j++) {
+                for (var j = 0; j < V带带长修正系数KL['窄V带'].length; j++) {
                     s += "<td>";
                     if (V带带长修正系数KL['窄V带'][j].start <= i && V带带长修正系数KL['窄V带'][j].end >= i) {
                         s += String(V带带长修正系数KL['窄V带'][j].data[i - V带带长修正系数KL['窄V带'][j].start]);
@@ -1089,17 +1093,17 @@
                     s += "&lt;tr&gt;&lt;td rowspan='3'&gt;基准带长&lt;br&gt;L&lt;sub&gt;d&lt;/sub&gt;(单位：mm)&lt;/td&gt;&lt;td colspan='11'&gt;K&lt;sub&gt;L&lt;/sub&gt;&lt;/td&gt;&lt;/tr&gt;";
                     s += "&lt;tr&gt;&lt;td colspan='7'&gt;普通V带&lt;/td&gt;&lt;td colspan='4'&gt;窄V带&lt;/td&gt;&lt;/tr&gt;";
                     s += "&lt;tr&gt;";
-                    for (let i = 0; i &lt; V带带长修正系数KL['普通V带'].length; i++) {
+                    for (var i = 0; i &lt; V带带长修正系数KL['普通V带'].length; i++) {
                         s += "&lt;td&gt;" + V带带长修正系数KL['普通V带'][i].type + "&lt;/td&gt;";
                     }
-                    for (let i = 0; i &lt; V带带长修正系数KL['窄V带'].length; i++) {
+                    for (var i = 0; i &lt; V带带长修正系数KL['窄V带'].length; i++) {
                         s += "&lt;td&gt;" + V带带长修正系数KL['窄V带'][i].type + "&lt;/td&gt;";
                     }
                     s += "&lt;/tr&gt;";
-                    for (let i = 0; i &lt; V带基准带长.length; i++) {
+                    for (var i = 0; i &lt; V带基准带长.length; i++) {
                         s += "&lt;tr&gt;";
                         s += "&lt;td&gt;" + V带基准带长[i] + "&lt;/td&gt;";
-                        for (let j = 0; j &lt; V带带长修正系数KL['普通V带'].length; j++) {
+                        for (var j = 0; j &lt; V带带长修正系数KL['普通V带'].length; j++) {
                             s += "&lt;td&gt;";
                             if (V带带长修正系数KL['普通V带'][j].start &lt;= i && V带带长修正系数KL['普通V带'][j].end &gt;= i) {
                                 s += String(V带带长修正系数KL['普通V带'][j].data[i - V带带长修正系数KL['普通V带'][j].start]);
@@ -1108,7 +1112,7 @@
                             }
                             s += "&lt;/td&gt;";
                         }
-                        for (let j = 0; j &lt; V带带长修正系数KL['窄V带'].length; j++) {
+                        for (var j = 0; j &lt; V带带长修正系数KL['窄V带'].length; j++) {
                             s += "&lt;td&gt;";
                             if (V带带长修正系数KL['窄V带'][j].start &lt;= i && V带带长修正系数KL['窄V带'][j].end &gt;= i) {
                                 s += String(V带带长修正系数KL['窄V带'][j].data[i - V带带长修正系数KL['窄V带'][j].start]);
@@ -1175,12 +1179,835 @@
 
             function V带长度系数查询() {
                 var len = Number(document.getElementById("V带基准带长").value);
-                var i = 0;
+                //查询基准带长,输入的值会在表中查到比它大的第一个值
+                var index = -1;
+                for (var i = V带基准带长.length - 1; i > 0; i--) {
+                    if (V带基准带长[i - 1] < len) {
+                        index = i;
+                        break;
+                    }
+                }
+                if (index >= 0) {
+                    var vtype = document.getElementById("V带类型选择").value;
+                    var vtype2 = Number(document.getElementById(vtype + "类型").value);
+
+                    //V带带长修正系数KL
+                    var obj = V带带长修正系数KL[vtype][vtype2];
+                    if (index >= obj.start && length <= obj.end) {
+                        document.getElementById("V带长度系数").value = String(obj.data[index - obj.start]);
+                    } else {
+                        document.getElementById("V带长度系数").value = "未定义";
+                    }
+
+                }
             }
         </script>
+        <dt>代码：</dt>
+        <div class="code-box">
+            <pre class="brush:js; highlight:[9,22,39];">
+                &lt;form action="#"&gt;
+                    &lt;legend&gt;查询V带带长系数&lt;/legend&gt;
+                    &lt;fieldset&gt;
+                        &lt;legend&gt;输入参数&lt;/legend&gt;
+                        &lt;label for="V带基准带长"&gt;V带基准带长&lt;/label&gt;
+                        &lt;input type="text" id="V带基准带长"&gt;
+                        &lt;hr&gt;
+                        &lt;label for="V带类型选择"&gt;选择V带类型&lt;/label&gt;
+                        &lt;select name="V带类型选择" id="V带类型选择" onchange="v带类型切换()"&gt;
+                            &lt;option value="普通V带"&gt;普通V带&lt;/option&gt;
+                            &lt;option value="窄V带"&gt;窄V带&lt;/option&gt;
+                        &lt;/select&gt;
+                        &lt;select name="普通V带类型" id="普通V带类型"&gt;
+                            &lt;option value="0"&gt;Z&lt;/option&gt;
+                            &lt;option value="1"&gt;Y&lt;/option&gt;
+                            &lt;option value="2"&gt;A&lt;/option&gt;
+                            &lt;option value="3"&gt;B&lt;/option&gt;
+                            &lt;option value="4"&gt;C&lt;/option&gt;
+                            &lt;option value="5"&gt;D&lt;/option&gt;
+                            &lt;option value="6"&gt;E&lt;/option&gt;
+                        &lt;/select&gt;
+                        &lt;select name="窄V带类型" id="窄V带类型" class="display:none;"&gt;
+                                &lt;option value="0"&gt;SPZ&lt;/option&gt;
+                                &lt;option value="1"&gt;SPA&lt;/option&gt;
+                                &lt;option value="2"&gt;SPB&lt;/option&gt;
+                                &lt;option value="3"&gt;SPC&lt;/option&gt;
+                        &lt;/select&gt;
+                    &lt;/fieldset&gt;
+                    &lt;fieldset&gt;
+                        &lt;legend&gt;结果&lt;/legend&gt;
+                        &lt;label for="V带长度系数"&gt;K&lt;sub&gt;L&lt;/sub&gt;&lt;/label&gt;
+                        &lt;input type="text" id="V带长度系数" disabled="disabled"&gt;
+                    &lt;/fieldset&gt;
+                    &lt;button type="button" onclick="V带长度系数查询()"&gt;查询&lt;/button&gt;
+                &lt;/form&gt;
+                &lt;script&gt;
+                    document.getElementById("窄V带类型").style.display = "none";
+        
+                    function v带类型切换() {
+                        var sel = document.getElementById("V带类型选择").value;
+                        if (sel === "普通V带") {
+                            document.getElementById("普通V带类型").style.display = "inline";
+                            document.getElementById("窄V带类型").style.display = "none";
+                        } else {
+                            document.getElementById("普通V带类型").style.display = "none";
+                            document.getElementById("窄V带类型").style.display = "inline";
+                        }
+                    }
+        
+                    function V带长度系数查询() {
+                        var len = Number(document.getElementById("V带基准带长").value);
+                        //查询基准带长,输入的值会在表中查到比它大的第一个值
+                        var index = -1;
+                        for (var i = V带基准带长.length - 1; i &gt; 0; i--) {
+                            if (V带基准带长[i - 1] &lt; len) {
+                                index = i;
+                                break;
+                            }
+                        }
+                        if (index &gt;= 0) {
+                            var vtype = document.getElementById("V带类型选择").value;
+                            var vtype2 = Number(document.getElementById(vtype + "类型").value);
+        
+                            //V带带长修正系数KL
+                            var obj = V带带长修正系数KL[vtype][vtype2];
+                            if (index &gt;= obj.start && length &lt;= obj.end) {
+                                document.getElementById("V带长度系数").value = String(obj.data[index - obj.start]);
+                            } else {
+                                document.getElementById("V带长度系数").value = "未定义";
+                            }
+        
+                        }
+                    }
+                &lt;/script&gt;
+            </pre>
+        </div>
+    </section>
+
+    <section>
+        <h2>2.2 函数数表和函数插值</h2>
+        <dt>函数数表</dt>
+        <dd>表中各值有函数关系的数据表格。</dd>
+        <dt>函数插值</dt>
+        <dd>基本思想就是构造一个简单的函数<i>g(x)</i>作为列表函数<i>f(x)</i>的近似表达式，然后计算插值点的值，以近似代替<i>f(x)</i>的值。</dd>
+        <h3>2.2.1 线性插值</h3>
+        <dd>由已知的两点
+            <katex>P_1[x_i,y_i],P_2[x_{i+1},y_{i+1}]</katex>, 求给定点
+            <katex>P[x,y]</katex> , 其公式为：
+            <katex>y=y_i+\dfrac{y_{i+1}-y_i}{x_{i+1}-x_i}(x-x_i), i=1,2,3,...,n-1</katex>
+        </dd>
+        <div id="图2-2-1-1"></div>
+        <script>
+            functionPlot({
+                target: "#图2-2-1-1",
+                xAxis: {
+                    domain: [0, 5]
+                },
+                yAxis: {
+                    domain: [0, 5]
+                },
+                disableZoom: true,
+                data: [{
+                    fn: "y=x",
+                    range: [1, 4],
+                }, {
+                    fn: "y=x^2/4-x/4+1",
+                    range: [1, 4],
+                }, {
+                    points: [
+                        [1, 1],
+                        [4, 4]
+                    ],
+                    fnType: 'points',
+                    graphType: 'scatter'
+                }],
+                annotations: [{
+                    x: 2.3,
+                    text: "x"
+                }]
+            });
+        </script>
+        <dt>例 2.2.1.1 检索普通V带的包角系数</dt>
+        <div id="表2-2-1-1" class="code-box"></div>
+        <script>
+            var 普通V带包角系数 = [{
+                alpha: 90,
+                ka: 0.69
+            }, {
+                alpha: 95,
+                ka: 0.72
+            }, {
+                alpha: 100,
+                ka: 0.74
+            }, {
+                alpha: 105,
+                ka: 0.76
+            }, {
+                alpha: 110,
+                ka: 0.78
+            }, {
+                alpha: 115,
+                ka: 0.80
+            }, {
+                alpha: 120,
+                ka: 0.82
+            }, {
+                alpha: 125,
+                ka: 0.84
+            }, {
+                alpha: 130,
+                ka: 0.86
+            }, {
+                alpha: 135,
+                ka: 0.88
+            }, {
+                alpha: 140,
+                ka: 0.89
+            }, {
+                alpha: 145,
+                ka: 0.91
+            }, {
+                alpha: 150,
+                ka: 0.92
+            }, {
+                alpha: 155,
+                ka: 0.93
+            }, {
+                alpha: 160,
+                ka: 0.95
+            }, {
+                alpha: 165,
+                ka: 0.96
+            }, {
+                alpha: 170,
+                ka: 0.98
+            }, {
+                alpha: 175,
+                ka: 0.99
+            }, {
+                alpha: 180,
+                ka: 1.0
+            }];
+            var s = "<table border='1'>";
+            s += "<caption>表2.2.1.1 包角系数K<sub>a</sub>";
+            for (var j in 普通V带包角系数[0]) {
+                s += "<tr>" + "<td>" + j + "</td>";
+                for (var i = 0; i < 普通V带包角系数.length; i++) {
+                    s += "<td>" + 普通V带包角系数[i][j] + "</td>";
+                }
+                s += "</tr>";
+            }
+            s += "</table>";
+            document.getElementById("表2-2-1-1").innerHTML = s;
+        </script>
+        <hr>
+        <dt>检索</dt>
+        <form action="#">
+            <legend>V带包角系数查询</legend>
+            <fieldset>
+                <legend>输入参数</legend>
+                <label for="小带轮包角">小带轮包角&alpha;</label>
+                <input type="text" id="小带轮包角">
+            </fieldset>
+            <fieldset>
+                <legend>输出</legend>
+                <label for="普通V带包角系数">包角系数</label>
+                <input type="text" disabled="disabled" id="普通V带包角系数">
+            </fieldset>
+            <button type="button" onclick="普通V带包角系数查询()">查询</button>
+        </form>
+        <script>
+            function 普通V带包角系数查询() {
+                var alpha = Number(document.getElementById("小带轮包角").value);
+                var pos1 = 0,
+                    pos2 = 1;
+                if (普通V带包角系数[0].alpha > alpha) {
+                    pos1 = 0;
+                    pos2 = 1;
+                } else if (普通V带包角系数[普通V带包角系数.length - 1].alpha < alpha) {
+                    pos1 = 普通V带包角系数.length - 1;
+                    pos2 = 普通V带包角系数.length - 2;
+                } else {
+                    for (var i = 普通V带包角系数.length - 1; i > 0; i--) {
+                        if (普通V带包角系数[i - 1].alpha < alpha) {
+                            pos1 = i - 1;
+                            pos2 = i;
+                            break;
+                        }
+                    }
+                }
+                var ka = 普通V带包角系数[pos1].ka + (普通V带包角系数[pos2].ka - 普通V带包角系数[pos1].ka) / (普通V带包角系数[pos2].alpha - 普通V带包角系数[pos1].alpha) * (alpha - 普通V带包角系数[pos1].alpha);
+                document.getElementById("普通V带包角系数").value = String(ka);
+            }
+        </script>
+        <dt>算法：</dt>
+        <textarea id="hello-world-code" style="display:none">
+\begin{algorithm}
+\caption{Quicksort}
+\begin{algorithmic}
+    \STATE $alpha \gets $input alpha
+    \STATE $pos1 \gets $0
+    \STATE $pos2 \gets $1
+    \STATE $last \gets data.length$ - 1
+    \IF{ $alpha <= data[0].alpha$}
+        \STATE $pos1 \gets $0 
+        \STATE $pos2 \gets $1  
+    \ELIF{ $alpha >= data[last].alpha$ }
+        \STATE $pos1 \gets last$-1
+        \STATE $pos2 \gets last$
+    \ELSE
+        \FOR{ $i = last$ \TO 1}
+            \IF{ $data[i-1].alpha < alpha $}
+                \STATE $pos1 \gets i$-1
+                \STATE $pos2 \gets i$
+                \STATE break
+            \ENDIF
+        \ENDFOR
+    \ENDIF
+    \STATE $x1 \gets data[pos1].alpha$
+    \STATE $y1 \gets data[pos1].ka$
+    \STATE $x2 \gets data[pos2].alpha$
+    \STATE $y2 \gets data[pos2].ka$
+    \STATE $ka \gets y1+\dfrac{y2-y1}{x2-x1}(alpha - x1)$    
+\end{algorithmic}
+\end{algorithm}
+        </textarea>
+        <div id="show-it"></div>
+        <script>
+            var code = document.getElementById("hello-world-code").textContent;
+            var parentEl = document.getElementById("show-it");
+            var options = {
+                captionCount: 0,
+                lineNumber: false
+            };
+            var htmlStr = pseudocode.renderToString(code, options);
+            document.getElementById("show-it").innerHTML = htmlStr;
+        </script>
+        <dt>程序</dt>
+        <div class="code-box">
+            <pre class="brush:js; ">
+                    var 普通V带包角系数 = [{
+                        alpha: 90,
+                        ka: 0.69
+                    }, {
+                        alpha: 95,
+                        ka: 0.72
+                    }, {
+                        alpha: 100,
+                        ka: 0.74
+                    }, {
+                        alpha: 105,
+                        ka: 0.76
+                    }, {
+                        alpha: 110,
+                        ka: 0.78
+                    }, {
+                        alpha: 115,
+                        ka: 0.80
+                    }, {
+                        alpha: 120,
+                        ka: 0.82
+                    }, {
+                        alpha: 125,
+                        ka: 0.84
+                    }, {
+                        alpha: 130,
+                        ka: 0.86
+                    }, {
+                        alpha: 135,
+                        ka: 0.88
+                    }, {
+                        alpha: 140,
+                        ka: 0.89
+                    }, {
+                        alpha: 145,
+                        ka: 0.91
+                    }, {
+                        alpha: 150,
+                        ka: 0.92
+                    }, {
+                        alpha: 155,
+                        ka: 0.93
+                    }, {
+                        alpha: 160,
+                        ka: 0.95
+                    }, {
+                        alpha: 165,
+                        ka: 0.96
+                    }, {
+                        alpha: 170,
+                        ka: 0.98
+                    }, {
+                        alpha: 175,
+                        ka: 0.99
+                    }, {
+                        alpha: 180,
+                        ka: 1.0
+                    }];
+                    function 普通V带包角系数查询() {
+                        var alpha = Number(document.getElementById("小带轮包角").value);
+                        var pos1 = 0,
+                            pos2 = 1;
+                        if (普通V带包角系数[0].alpha &gt; alpha) {
+                            pos1 = 0;
+                            pos2 = 1;
+                        } else if (普通V带包角系数[普通V带包角系数.length - 1].alpha &lt; alpha) {
+                            pos1 = 普通V带包角系数.length - 1;
+                            pos2 = 普通V带包角系数.length - 2;
+                        } else {
+                            for (var i = 普通V带包角系数.length - 1; i &gt; 0; i--) {
+                                if (普通V带包角系数[i - 1].alpha &lt; alpha) {
+                                    pos1 = i - 1;
+                                    pos2 = i;
+                                    break;
+                                }
+                            }
+                        }
+                        var x1 = 普通V带包角系数[pos1].alpha, 
+                            x2 = 普通V带包角系数[pos2].alpha,
+                            y1 = 普通V带包角系数[pos1].ka,
+                            y2 = 普通V带包角系数[pos2].ka;
+                        var ka = y1+(y2-y1)/(x2-x1)*(x-x1);
+                        document.getElementById("普通V带包角系数").value = String(ka);
+                    }
+            </pre>
+        </div>
+    </section>
+
+    <section>
+        <h3>2.2.2 抛物线插值</h3>
+        <dt>公式</dt>
+        <dd>对于给定
+            <katex>f(x)</katex>上的三个点
+            <katex>P_1[x_1,y_1],P_2[x_2,y_2],P_3[x_3,y_3]</katex>,可以通过<i>二次插值多项式</i>
+            <katex>g(x)=A_1(x)y_1+A_2(x)y_2+A_3(x)y_3</katex>,满足：
+            <katex>g_1(x_1)=f(x_1)=y_1,g_2(x_2)=f(x_2)=y_2,g_3(x_3)=f(x_3)=y_3</katex>，其中
+            <katex>A_1=\dfrac{(x-x_2)(x-x_3)}{(x_1-x_2)(x_1-x_3)} , A_2=\dfrac{(x-x_1)(x-x_3)}{(x_2-x_1)(x_2-x_3)}, A_3=\dfrac{(x-x_1)(x-x_2)}{(x_3-x_1)(x_3-x_2)}</katex>
+        </dd>
+        <dt>示意图</dt>
+        <div class="code-box" id="图2-2-2-1"></div>
+        <script>
+            functionPlot({
+                target: "#图2-2-2-1",
+                xAxis: {
+                    domain: [0, 5]
+                },
+                yAxis: {
+                    domain: [-3, 5]
+                },
+                disableZoom: true,
+                data: [{
+                    title: "[y=x]",
+                    fn: "y=x",
+                    range: [0, 4],
+                }, {
+                    title: "[y=x^2-3*x]",
+                    fn: "y=x^2-3*x",
+                    range: [0, 4],
+                }, {
+                    title: "[y=x^3/4-x^2/2-x]",
+                    fn: "y=x^3/4-x^2/2-x",
+                    range: [-4, 4]
+                }],
+                annotations: [{
+                    x: 2.3,
+                    text: "x"
+                }]
+            });
+        </script>
+        <dt>例2.2.2.1：用二次插值（抛物线插值）来检索V带包角系数</dt>
+        <form action="#">
+            <legend>V带包角系数查询</legend>
+            <fieldset>
+                <legend>输入参数</legend>
+                <label for="小带轮包角1">小带轮包角&alpha;</label>
+                <input type="text" id="小带轮包角1">
+            </fieldset>
+            <fieldset>
+                <legend>输出</legend>
+                <label for="普通V带包角系数1">包角系数</label>
+                <input type="text" disabled="disabled" id="普通V带包角系数1">
+            </fieldset>
+            <button type="button" onclick="普通V带包角系数查询1()">查询</button>
+        </form>
+        <script>
+            function 普通V带包角系数查询1() {
+                var alpha = Number(document.getElementById("小带轮包角1").value);
+                var pos1, pos2, pos3;
+                var last = 普通V带包角系数.length - 1;
+                if (alpha <= 普通V带包角系数[0].alpha) {
+                    pos1 = 0;
+                    pos2 = 1;
+                    pos3 = 2;
+                } else if (普通V带包角系数[last].alpha <= alpha) {
+                    pos1 = last - 2;
+                    pos2 = last - 1;
+                    pos3 = last;
+                } else if (普通V带包角系数[last - 1].alpha <= alpha) {
+                    pos1 = last - 2;
+                    pos2 = last - 1;
+                    pos2 = last;
+                } else {
+                    for (var i = last - 1; i > 0; i--) {
+                        if (普通V带包角系数[i - 1].alpha <= alpha) {
+                            pos1 = i - 1;
+                            pos2 = i;
+                            pos3 = i + 1;
+                            break;
+                        }
+                    }
+                }
+                var x1 = 普通V带包角系数[pos1].alpha,
+                    y1 = 普通V带包角系数[pos1].ka,
+                    x2 = 普通V带包角系数[pos2].alpha,
+                    y2 = 普通V带包角系数[pos2].ka,
+                    x3 = 普通V带包角系数[pos3].alpha,
+                    y3 = 普通V带包角系数[pos3].ka,
+                    x = alpha;
+                var a1 = (x - x2) * (x - x3) / ((x1 - x2) * (x1 - x3)),
+                    a2 = (x - x1) * (x - x3) / ((x2 - x1) * (x2 - x3)),
+                    a3 = (x - x1) * (x - x2) / ((x3 - x1) * (x3 - x2));
+                var ka = a1 * y1 + a2 * y2 + a3 * y3;
+                document.getElementById("普通V带包角系数1").value = String(ka);
+            }
+        </script>
+        <dt>代码</dt>
+        <div class="code-box">
+            <pre class="brush:js; ">
+                    function 普通V带包角系数查询1() {
+                        var alpha = Number(document.getElementById("小带轮包角1").value);
+                        var pos1, pos2, pos3;
+                        var last = 普通V带包角系数.length - 1;
+                        if (alpha &lt;= 普通V带包角系数[0].alpha) {
+                            pos1 = 0;
+                            pos2 = 1;
+                            pos3 = 2;
+                        } else if (普通V带包角系数[last].alpha &lt;= alpha) {
+                            pos1 = last - 2;
+                            pos2 = last - 1;
+                            pos3 = last;
+                        } else if (普通V带包角系数[last - 1].alpha &lt;= alpha) {
+                            pos1 = last - 2;
+                            pos2 = last - 1;
+                            pos2 = last;
+                        } else {
+                            for (var i = last - 1; i &gt; 0; i--) {
+                                if (普通V带包角系数[i - 1].alpha &lt;= alpha) 
+                                    pos1 = i - 1;
+                                    pos2 = i;
+                                    pos3 = i + 1;
+                                    break;
+                                }
+                            }
+                        }
+                        var x1 = 普通V带包角系数[pos1].alpha,
+                            y1 = 普通V带包角系数[pos1].ka,
+                            x2 = 普通V带包角系数[pos2].alpha,
+                            y2 = 普通V带包角系数[pos2].ka,
+                            x3 = 普通V带包角系数[pos3].alpha,
+                            y3 = 普通V带包角系数[pos3].ka,
+                            x = alpha;
+                        var a1 = (x - x2) * (x - x3) / ((x1 - x2) * (x1 - x3)),
+                            a2 = (x - x1) * (x - x3) / ((x2 - x1) * (x2 - x3)),
+                            a3 = (x - x1) * (x - x2) / ((x3 - x1) * (x3 - x2));
+                        var ka = a1 * y1 + a2 * y2 + a3 * y3;
+                        document.getElementById("普通V带包角系数1").value = String(ka);
+                    }
+                </pre>
+        </div>
+    </section>
+
+    <section>
+        <h2>2.3 曲线拟合</h2>
+        <dd>由多个实际数据归纳出一个函数来满足。两种方法
+            <ul>
+                <li>每个数据都能复合函数</li>
+                <li>数据仅是贴近函数</li>
+            </ul>
+            常见的拟合方法：多项式拟合，指数拟合，B样条拟合。
+        </dd>
+        <h3>2.3.1 多项式拟合</h3>
+        <dt>原理</dt>
+        <dd>设
+            <katex>P_m(x)=a_1+a_2x+a_3x^2+...+a_{m+1}x^m</katex>来拟合一组数据
+            <katex>(x_i,y_i),i=1,2,...,n</katex>，且使
+            <katex>m \ll n</katex>。其方法是使在结点处的偏差的平方和
+            <katex>\delta = \sum_{i=1}^n{[P_m(x_i)-y_i]^2}=F(a_1,a_2,...,a_{m+1})</katex>, 若要使&delta;最小，应保证
+            <katex>\dfrac{\partial{F(a_1,a_2,...,a_{m+1})}}{\partial{a_j}}=2\sum_{i=1}^n{[P_m(x_i)-y_i]x_i^{j-1}}=0,j=1,2,...,m+1</katex>，从而得到线性方程组：
+            <katex>a_1\sum_{i=1}^{n}{x_i^{j-1}}+a_2\sum_{i=1}^{n}{x_i^{j}}+...+a_{m+1}\sum_{i=1}^{n}{x_i^{j+m-1}}=\sum_{i=1}^{n}{x_i^{j-1}}\cdot y_i, j=1,2,...,m+1</katex>, 若令
+            <katex>S_j=\sum_{i=1}^{n}{x_i^{j-1}}, t_j=\sum_{i=1}^{n}{x_i^{j-1}\cdot y_i}, j=1,2,...,m+1</katex>，则上式可写为：
+            <katex> \begin{cases} s_1a_1 &+ s_2a_2 &+...&+ s_{m+1}a_{m+1} &= & t_1 \\ s_2a_1 &+ s_3a_2 &+... &+ s_{m+2}a_{m+1} &= & t_2 \\ .... \\ s_{m+1}a_1 &+ s_{m+2}a_2 &+ ... &+ s_{2m+1}a_{m+1} &= & t_{m+1} \end{cases}
+            </katex>，解此线性方程组，得到唯一的解
+            <katex>a_1,a_2,...,a_{m+1}</katex>,代回
+            <katex>P_m(x)</katex>即可。
+        </dd>
+        <dt>例2-3-1-1：用最小二乘法拟合A型普通V带的长度系数公式</dt>
+        <div class="code-box" id="表2-3-1-1"></div>
+        <form action="#">
+            <fieldset>
+                <legend>输入</legend>
+                <label for="多项式拟合秩m">多项式拟合秩m</label>
+                <input type="text" id="多项式拟合秩m" value="3">
+                <label for="A型V带基准长度">A型V带基准长度:</label>
+                <input type="text" id="A型V带基准长度" value="1800">
+            </fieldset>
+
+            <fieldset>
+                <legend>输出</legend>
+                <label for="输出Sj">输出S<sub>j</sub></label>
+                <input type="text" id="输出Sj" style="width:100%">
+                <label for="输出tj">输出t<sub>j</sub></label>
+                <input type="text" id="输出tj" style="width:100%">
+                <label for="输出aj">输出a<sub>j</sub></label>
+                <input type="text" id="输出aj" style="width:100%">
+                <label id="输出多项式方程" style="width:100%"></label>
+                <hr>
+                <label id="输出长度系数" style="width:100%"></label>
+            </fieldset>
+
+            <button type="button" onclick="get_sj()">求S<sub>j</sub></button>
+            <button type="button" onclick="get_tj()">求t<sub>j</sub></button>
+            <button type="button" onclick="get_aj()">求系数a<sub>j</sub></button>
+            <button type="button" onclick="get_kl()">求长度系数K<sub>L</sub></button>
+        </form>
+        <hr>
+        <div id="图2-3-1-1" clss="code-box"></div>
+        <script>
+            var A型普通V带的基准长度Ld = [630, 710, 800, 900, 1000, 1120, 1250, 1400, 1600, 1800, 2000, 2240, 2500, 2800, 3150, 3550, 4000];
+            var A型普通V带的长度系数KL = [0.81, 0.83, 0.85, 0.87, 0.89, 0.91, 0.93, 0.96, 0.99, 1.01, 1.03, 1.06, 1.09, 1.11, 1.13, 1.17, 1.19];
+            var sj = [],
+                tj = [],
+                aj = [];
+
+            var s = "<table border='1'>";
+            s += "<caption>表2-3-1-1 A型普通V带的基准长度L<sub>d</sub>和长度系数K<sub>L</sub>";
+            s += "<tr>" + "<td>L<sub>d</sub></td>";
+            for (var i = 0; i < A型普通V带的基准长度Ld.length; i++) {
+                s += "<td>" + A型普通V带的基准长度Ld[i] + "</td>";
+            }
+            s += "</td>";
+            s += "<tr>" + "<td>K<sub>L</sub></td>";
+            for (var i = 0; i < A型普通V带的长度系数KL.length; i++) {
+                s += "<td>" + A型普通V带的长度系数KL[i] + "</td>";
+            }
+            s += "</td>";
+            s += "</table>";
+            document.getElementById("表2-3-1-1").innerHTML = s;
+
+            function get_sj() {
+                var m = Number(document.getElementById("多项式拟合秩m").value);
+                var s = "";
+                for (var j = 0; j <= 2 * m; j++) {
+                    sj[j] = 0;
+                    for (var i = 0; i < A型普通V带的基准长度Ld.length; i++) {
+                        sj[j] += math.pow(A型普通V带的基准长度Ld[i], j);
+                    }
+                    s += "s" + (j + 1) + "=" + String(sj[j]) + ",";
+                }
+                document.getElementById("输出Sj").value = s;
+            }
+
+            function get_tj() {
+                var m = Number(document.getElementById("多项式拟合秩m").value);
+                var s = "";
+                for (var j = 0; j <= m; j++) {
+                    tj[j] = 0;
+                    for (var i = 0; i < A型普通V带的基准长度Ld.length; i++) {
+                        tj[j] += A型普通V带的长度系数KL[i] * math.pow(A型普通V带的基准长度Ld[i], j);
+                    }
+                    s += "t" + (j + 1) + "=" + String(tj[j]) + ",";
+                }
+                document.getElementById("输出tj").value = s;
+            }
+
+            function get_aj() {
+                var m = Number(document.getElementById("多项式拟合秩m").value);
+                var kk = [];
+                for (var i = 0; i <= m; i++) {
+                    kk[i] = [];
+                    for (var j = 0; j <= m; j++) {
+                        kk[i][j] = sj[i + j];
+                    }
+                }
+                aj = math.lusolve(kk, tj);
+                var s = "",
+                    s1 = "y=";
+
+                for (var i = 0; i < aj.length; i++) {
+                    s += "a[" + (i + 1) + "]=" + aj[i][0] + ";";
+                    if (i !== 0) s1 += "+";
+                    s1 += aj[i][0] + "x^" + i;
+                }
+                document.getElementById("输出aj").value = s;
+                katex.render(s1, document.getElementById("输出多项式方程"));
+
+                functionPlot({
+                    target: "#图2-3-1-1",
+                    xAxis: {
+                        domain: [500, 4100]
+                    },
+                    yAxis: {
+                        domain: [0, 2]
+                    },
+                    disableZoom: true,
+                    data: [{
+                        title: s1,
+                        fn: s1
+                    }]
+                });
+            }
+
+            function get_kl() {
+                var m = Number(document.getElementById("多项式拟合秩m").value);
+                var ld = Number(document.getElementById("A型V带基准长度").value);
+                var kl = 0;
+                for (var i = 0; i <= m; i++) {
+                    kl += aj[i] * math.pow(ld, i);
+                }
+                document.getElementById("输出长度系数").innerHTML = "基准长度为：" + ld + ", 长度系数K<sub>L</sub>=" + kl;
+            }
+        </script>
+
+        <dt>代码</dt>
+        <div class="code-box">
+            <pre class="brush:js;">
+                    &lt;form action="#"&gt;
+                            &lt;fieldset&gt;
+                                &lt;legend&gt;输入&lt;/legend&gt;
+                                &lt;label for="多项式拟合秩m"&gt;多项式拟合秩m&lt;/label&gt;
+                                &lt;input type="text" id="多项式拟合秩m" value="3"&gt;
+                                &lt;label for="A型V带基准长度"&gt;A型V带基准长度:&lt;/label&gt;
+                                &lt;input type="text" id="A型V带基准长度" value="1800"&gt;
+                            &lt;/fieldset&gt;
+                
+                            &lt;fieldset&gt;
+                                &lt;legend&gt;输出&lt;/legend&gt;
+                                &lt;label for="输出Sj"&gt;输出S&lt;sub&gt;j&lt;/sub&gt;&lt;/label&gt;
+                                &lt;input type="text" id="输出Sj" style="width:100%"&gt;
+                                &lt;label for="输出tj"&gt;输出t&lt;sub&gt;j&lt;/sub&gt;&lt;/label&gt;
+                                &lt;input type="text" id="输出tj" style="width:100%"&gt;
+                                &lt;label for="输出aj"&gt;输出a&lt;sub&gt;j&lt;/sub&gt;&lt;/label&gt;
+                                &lt;input type="text" id="输出aj" style="width:100%"&gt;
+                                &lt;label id="输出多项式方程" style="width:100%"&gt;&lt;/label&gt;
+                                &lt;hr&gt;
+                                &lt;label id="输出长度系数" style="width:100%"&gt;&lt;/label&gt;
+                            &lt;/fieldset&gt;
+                
+                            &lt;button type="button" onclick="get_sj()"&gt;求S&lt;sub&gt;j&lt;/sub&gt;&lt;/button&gt;
+                            &lt;button type="button" onclick="get_tj()"&gt;求t&lt;sub&gt;j&lt;/sub&gt;&lt;/button&gt;
+                            &lt;button type="button" onclick="get_aj()"&gt;求系数a&lt;sub&gt;j&lt;/sub&gt;&lt;/button&gt;
+                            &lt;button type="button" onclick="get_kl()"&gt;求长度系数K&lt;sub&gt;L&lt;/sub&gt;&lt;/button&gt;
+                        &lt;/form&gt;
+                        &lt;hr&gt;
+                        &lt;div id="图2-3-1-1" clss="code-box"&gt;&lt;/div&gt;
+                        &lt;script&gt;
+                            var A型普通V带的基准长度Ld = [630, 710, 800, 900, 1000, 1120, 1250, 1400, 1600, 1800, 2000, 2240, 2500, 2800, 3150, 3550, 4000];
+                            var A型普通V带的长度系数KL = [0.81, 0.83, 0.85, 0.87, 0.89, 0.91, 0.93, 0.96, 0.99, 1.01, 1.03, 1.06, 1.09, 1.11, 1.13, 1.17, 1.19];
+                            var sj = [],
+                                tj = [],
+                                aj = [];
+                
+                            var s = "&lt;table border='1'&gt;";
+                            s += "&lt;caption&gt;表2-3-1-1 A型普通V带的基准长度L&lt;sub&gt;d&lt;/sub&gt;和长度系数K&lt;sub&gt;L&lt;/sub&gt;";
+                            s += "&lt;tr&gt;" + "&lt;td&gt;L&lt;sub&gt;d&lt;/sub&gt;&lt;/td&gt;";
+                            for (var i = 0; i &lt; A型普通V带的基准长度Ld.length; i++) {
+                                s += "&lt;td&gt;" + A型普通V带的基准长度Ld[i] + "&lt;/td&gt;";
+                            }
+                            s += "&lt;/td&gt;";
+                            s += "&lt;tr&gt;" + "&lt;td&gt;K&lt;sub&gt;L&lt;/sub&gt;&lt;/td&gt;";
+                            for (var i = 0; i &lt; A型普通V带的长度系数KL.length; i++) {
+                                s += "&lt;td&gt;" + A型普通V带的长度系数KL[i] + "&lt;/td&gt;";
+                            }
+                            s += "&lt;/td&gt;";
+                            s += "&lt;/table&gt;";
+                            document.getElementById("表2-3-1-1").innerHTML = s;
+                
+                            function get_sj() {
+                                var m = Number(document.getElementById("多项式拟合秩m").value);
+                                var s = "";
+                                for (var j = 0; j &lt;= 2 * m; j++) {
+                                    sj[j] = 0;
+                                    for (var i = 0; i &lt; A型普通V带的基准长度Ld.length; i++) {
+                                        sj[j] += math.pow(A型普通V带的基准长度Ld[i], j);
+                                    }
+                                    s += "s" + (j + 1) + "=" + String(sj[j]) + ",";
+                                }
+                                document.getElementById("输出Sj").value = s;
+                            }
+                
+                            function get_tj() {
+                                var m = Number(document.getElementById("多项式拟合秩m").value);
+                                var s = "";
+                                for (var j = 0; j &lt;= m; j++) {
+                                    tj[j] = 0;
+                                    for (var i = 0; i &lt; A型普通V带的基准长度Ld.length; i++) {
+                                        tj[j] += A型普通V带的长度系数KL[i] * math.pow(A型普通V带的基准长度Ld[i], j);
+                                    }
+                                    s += "t" + (j + 1) + "=" + String(tj[j]) + ",";
+                                }
+                                document.getElementById("输出tj").value = s;
+                            }
+                
+                            function get_aj() {
+                                var m = Number(document.getElementById("多项式拟合秩m").value);
+                                var kk = [];
+                                for (var i = 0; i &lt;= m; i++) {
+                                    kk[i] = [];
+                                    for (var j = 0; j &lt;= m; j++) {
+                                        kk[i][j] = sj[i + j];
+                                    }
+                                }
+                                aj = math.lusolve(kk, tj);
+                                var s = "",
+                                    s1 = "y=";
+                
+                                for (var i = 0; i &lt; aj.length; i++) {
+                                    s += "a[" + (i + 1) + "]=" + aj[i][0] + ";";
+                                    if (i !== 0) s1 += "+";
+                                    s1 += aj[i][0] + "x^" + i;
+                                }
+                                document.getElementById("输出aj").value = s;
+                                katex.render(s1, document.getElementById("输出多项式方程"));
+                
+                                functionPlot({
+                                    target: "#图2-3-1-1",
+                                    xAxis: {
+                                        domain: [500, 4100]
+                                    },
+                                    yAxis: {
+                                        domain: [0, 2]
+                                    },
+                                    disableZoom: true,
+                                    data: [{
+                                        title: s1,
+                                        fn: s1
+                                    }]
+                                });
+                            }
+                
+                            function get_kl() {
+                                var m = Number(document.getElementById("多项式拟合秩m").value);
+                                var ld = Number(document.getElementById("A型V带基准长度").value);
+                                var kl = 0;
+                                for (var i = 0; i &lt;= m; i++) {
+                                    kl += aj[i] * math.pow(ld, i);
+                                }
+                                document.getElementById("输出长度系数").innerHTML = "基准长度为：" + ld + ", 长度系数K&lt;sub&gt;L&lt;/sub&gt;=" + kl;
+                            }
+                        &lt;/script&gt;
+            </pre>
+        </div>
+
     </section>
 
     <script>
+        (function() {
+            var katexes = document.getElementsByTagName("katex");
+            for (var i = 0; i < katexes.length; i++) {
+                var str = katexes[i].textContent;
+                katex.render(str, katexes[i]);
+            }
+        })();
+
         function show_code(id, is_true) {
             var box = document.getElementById(id);
             box.style.display = (is_true === true) ? "block" : "none";

@@ -34,8 +34,12 @@ code {
 }
 
 i {
-    color: red;
-    padding: 2px;
+    background-color: red;
+    color: whitesmoke;
+    border-style: solid;
+    border-radius: 1em;
+    font-family: 'Times New Roman', Times, serif;
+    padding: .5em;
 }
 
 b {
@@ -124,7 +128,7 @@ section {
 }
 
 button {
-    border-radius: 1em;
+    border-radius: .5em;
 }
 
 button:hover {
@@ -165,4 +169,9 @@ button:hover {
 
 .hide:target+.show {
     display: inline;
+}
+
+katex {
+    display: inline;
+    font-family: 'Times New Roman', Times, serif;
 }
