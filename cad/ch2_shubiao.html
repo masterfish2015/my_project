@@ -1870,130 +1870,130 @@
         <dt>代码</dt>
         <div class="code-box">
             <pre class="brush:js;">
-                    &lt;form action="#"&gt;
-                            &lt;fieldset&gt;
-                                &lt;legend&gt;输入&lt;/legend&gt;
-                                &lt;label for="多项式拟合秩m"&gt;多项式拟合秩m&lt;/label&gt;
-                                &lt;input type="text" id="多项式拟合秩m" value="3"&gt;
-                                &lt;label for="A型V带基准长度"&gt;A型V带基准长度:&lt;/label&gt;
-                                &lt;input type="text" id="A型V带基准长度" value="1800"&gt;
-                            &lt;/fieldset&gt;
-                
-                            &lt;fieldset&gt;
-                                &lt;legend&gt;输出&lt;/legend&gt;
-                                &lt;label for="输出Sj"&gt;输出S&lt;sub&gt;j&lt;/sub&gt;&lt;/label&gt;
-                                &lt;input type="text" id="输出Sj" style="width:100%"&gt;
-                                &lt;label for="输出tj"&gt;输出t&lt;sub&gt;j&lt;/sub&gt;&lt;/label&gt;
-                                &lt;input type="text" id="输出tj" style="width:100%"&gt;
-                                &lt;label for="输出aj"&gt;输出a&lt;sub&gt;j&lt;/sub&gt;&lt;/label&gt;
-                                &lt;input type="text" id="输出aj" style="width:100%"&gt;
-                                &lt;label id="输出多项式方程" style="width:100%"&gt;&lt;/label&gt;
-                                &lt;hr&gt;
-                                &lt;label id="输出长度系数" style="width:100%"&gt;&lt;/label&gt;
-                            &lt;/fieldset&gt;
-                
-                            &lt;button type="button" onclick="get_sj()"&gt;求S&lt;sub&gt;j&lt;/sub&gt;&lt;/button&gt;
-                            &lt;button type="button" onclick="get_tj()"&gt;求t&lt;sub&gt;j&lt;/sub&gt;&lt;/button&gt;
-                            &lt;button type="button" onclick="get_aj()"&gt;求系数a&lt;sub&gt;j&lt;/sub&gt;&lt;/button&gt;
-                            &lt;button type="button" onclick="get_kl()"&gt;求长度系数K&lt;sub&gt;L&lt;/sub&gt;&lt;/button&gt;
-                        &lt;/form&gt;
+                &lt;form action="#"&gt;
+                    &lt;fieldset&gt;
+                        &lt;legend&gt;输入&lt;/legend&gt;
+                        &lt;label for="多项式拟合秩m"&gt;多项式拟合秩m&lt;/label&gt;
+                        &lt;input type="text" id="多项式拟合秩m" value="3"&gt;
+                        &lt;label for="A型V带基准长度"&gt;A型V带基准长度:&lt;/label&gt;
+                        &lt;input type="text" id="A型V带基准长度" value="1800"&gt;
+                    &lt;/fieldset&gt;
+        
+                    &lt;fieldset&gt;
+                        &lt;legend&gt;输出&lt;/legend&gt;
+                        &lt;label for="输出Sj"&gt;输出S&lt;sub&gt;j&lt;/sub&gt;&lt;/label&gt;
+                        &lt;input type="text" id="输出Sj" style="width:100%"&gt;
+                        &lt;label for="输出tj"&gt;输出t&lt;sub&gt;j&lt;/sub&gt;&lt;/label&gt;
+                        &lt;input type="text" id="输出tj" style="width:100%"&gt;
+                        &lt;label for="输出aj"&gt;输出a&lt;sub&gt;j&lt;/sub&gt;&lt;/label&gt;
+                        &lt;input type="text" id="输出aj" style="width:100%"&gt;
+                        &lt;label id="输出多项式方程" style="width:100%"&gt;&lt;/label&gt;
                         &lt;hr&gt;
-                        &lt;div id="图2-3-1-1" clss="code-box"&gt;&lt;/div&gt;
-                        &lt;script&gt;
-                            var A型普通V带的基准长度Ld = [630, 710, 800, 900, 1000, 1120, 1250, 1400, 1600, 1800, 2000, 2240, 2500, 2800, 3150, 3550, 4000];
-                            var A型普通V带的长度系数KL = [0.81, 0.83, 0.85, 0.87, 0.89, 0.91, 0.93, 0.96, 0.99, 1.01, 1.03, 1.06, 1.09, 1.11, 1.13, 1.17, 1.19];
-                            var sj = [],
-                                tj = [],
-                                aj = [];
-                
-                            var s = "&lt;table border='1'&gt;";
-                            s += "&lt;caption&gt;表2-3-1-1 A型普通V带的基准长度L&lt;sub&gt;d&lt;/sub&gt;和长度系数K&lt;sub&gt;L&lt;/sub&gt;";
-                            s += "&lt;tr&gt;" + "&lt;td&gt;L&lt;sub&gt;d&lt;/sub&gt;&lt;/td&gt;";
+                        &lt;label id="输出长度系数" style="width:100%"&gt;&lt;/label&gt;
+                    &lt;/fieldset&gt;
+        
+                    &lt;button type="button" onclick="get_sj()"&gt;求S&lt;sub&gt;j&lt;/sub&gt;&lt;/button&gt;
+                    &lt;button type="button" onclick="get_tj()"&gt;求t&lt;sub&gt;j&lt;/sub&gt;&lt;/button&gt;
+                    &lt;button type="button" onclick="get_aj()"&gt;求系数a&lt;sub&gt;j&lt;/sub&gt;&lt;/button&gt;
+                    &lt;button type="button" onclick="get_kl()"&gt;求长度系数K&lt;sub&gt;L&lt;/sub&gt;&lt;/button&gt;
+                &lt;/form&gt;
+                &lt;hr&gt;
+                &lt;div id="图2-3-1-1" clss="code-box"&gt;&lt;/div&gt;
+                &lt;script&gt;
+                    var A型普通V带的基准长度Ld = [630, 710, 800, 900, 1000, 1120, 1250, 1400, 1600, 1800, 2000, 2240, 2500, 2800, 3150, 3550, 4000];
+                    var A型普通V带的长度系数KL = [0.81, 0.83, 0.85, 0.87, 0.89, 0.91, 0.93, 0.96, 0.99, 1.01, 1.03, 1.06, 1.09, 1.11, 1.13, 1.17, 1.19];
+                    var sj = [],
+                        tj = [],
+                        aj = [];
+        
+                    var s = "&lt;table border='1'&gt;";
+                    s += "&lt;caption&gt;表2-3-1-1 A型普通V带的基准长度L&lt;sub&gt;d&lt;/sub&gt;和长度系数K&lt;sub&gt;L&lt;/sub&gt;";
+                    s += "&lt;tr&gt;" + "&lt;td&gt;L&lt;sub&gt;d&lt;/sub&gt;&lt;/td&gt;";
+                    for (var i = 0; i &lt; A型普通V带的基准长度Ld.length; i++) {
+                        s += "&lt;td&gt;" + A型普通V带的基准长度Ld[i] + "&lt;/td&gt;";
+                    }
+                    s += "&lt;/td&gt;";
+                    s += "&lt;tr&gt;" + "&lt;td&gt;K&lt;sub&gt;L&lt;/sub&gt;&lt;/td&gt;";
+                    for (var i = 0; i &lt; A型普通V带的长度系数KL.length; i++) {
+                        s += "&lt;td&gt;" + A型普通V带的长度系数KL[i] + "&lt;/td&gt;";
+                    }
+                    s += "&lt;/td&gt;";
+                    s += "&lt;/table&gt;";
+                    document.getElementById("表2-3-1-1").innerHTML = s;
+        
+                    function get_sj() {
+                        var m = Number(document.getElementById("多项式拟合秩m").value);
+                        var s = "";
+                        for (var j = 0; j &lt;= 2 * m; j++) {
+                            sj[j] = 0;
                             for (var i = 0; i &lt; A型普通V带的基准长度Ld.length; i++) {
-                                s += "&lt;td&gt;" + A型普通V带的基准长度Ld[i] + "&lt;/td&gt;";
+                                sj[j] += math.pow(A型普通V带的基准长度Ld[i], j);
                             }
-                            s += "&lt;/td&gt;";
-                            s += "&lt;tr&gt;" + "&lt;td&gt;K&lt;sub&gt;L&lt;/sub&gt;&lt;/td&gt;";
-                            for (var i = 0; i &lt; A型普通V带的长度系数KL.length; i++) {
-                                s += "&lt;td&gt;" + A型普通V带的长度系数KL[i] + "&lt;/td&gt;";
+                            s += "s" + (j + 1) + "=" + String(sj[j]) + ",";
+                        }
+                        document.getElementById("输出Sj").value = s;
+                    }
+        
+                    function get_tj() {
+                        var m = Number(document.getElementById("多项式拟合秩m").value);
+                        var s = "";
+                        for (var j = 0; j &lt;= m; j++) {
+                            tj[j] = 0;
+                            for (var i = 0; i &lt; A型普通V带的基准长度Ld.length; i++) {
+                                tj[j] += A型普通V带的长度系数KL[i] * math.pow(A型普通V带的基准长度Ld[i], j);
                             }
-                            s += "&lt;/td&gt;";
-                            s += "&lt;/table&gt;";
-                            document.getElementById("表2-3-1-1").innerHTML = s;
-                
-                            function get_sj() {
-                                var m = Number(document.getElementById("多项式拟合秩m").value);
-                                var s = "";
-                                for (var j = 0; j &lt;= 2 * m; j++) {
-                                    sj[j] = 0;
-                                    for (var i = 0; i &lt; A型普通V带的基准长度Ld.length; i++) {
-                                        sj[j] += math.pow(A型普通V带的基准长度Ld[i], j);
-                                    }
-                                    s += "s" + (j + 1) + "=" + String(sj[j]) + ",";
-                                }
-                                document.getElementById("输出Sj").value = s;
+                            s += "t" + (j + 1) + "=" + String(tj[j]) + ",";
+                        }
+                        document.getElementById("输出tj").value = s;
+                    }
+        
+                    function get_aj() {
+                        var m = Number(document.getElementById("多项式拟合秩m").value);
+                        var kk = [];
+                        for (var i = 0; i &lt;= m; i++) {
+                            kk[i] = [];
+                            for (var j = 0; j &lt;= m; j++) {
+                                kk[i][j] = sj[i + j];
                             }
-                
-                            function get_tj() {
-                                var m = Number(document.getElementById("多项式拟合秩m").value);
-                                var s = "";
-                                for (var j = 0; j &lt;= m; j++) {
-                                    tj[j] = 0;
-                                    for (var i = 0; i &lt; A型普通V带的基准长度Ld.length; i++) {
-                                        tj[j] += A型普通V带的长度系数KL[i] * math.pow(A型普通V带的基准长度Ld[i], j);
-                                    }
-                                    s += "t" + (j + 1) + "=" + String(tj[j]) + ",";
-                                }
-                                document.getElementById("输出tj").value = s;
-                            }
-                
-                            function get_aj() {
-                                var m = Number(document.getElementById("多项式拟合秩m").value);
-                                var kk = [];
-                                for (var i = 0; i &lt;= m; i++) {
-                                    kk[i] = [];
-                                    for (var j = 0; j &lt;= m; j++) {
-                                        kk[i][j] = sj[i + j];
-                                    }
-                                }
-                                aj = math.lusolve(kk, tj);
-                                var s = "",
-                                    s1 = "y=";
-                
-                                for (var i = 0; i &lt; aj.length; i++) {
-                                    s += "a[" + (i + 1) + "]=" + aj[i][0] + ";";
-                                    if (i !== 0) s1 += "+";
-                                    s1 += aj[i][0] + "x^" + i;
-                                }
-                                document.getElementById("输出aj").value = s;
-                                katex.render(s1, document.getElementById("输出多项式方程"));
-                
-                                functionPlot({
-                                    target: "#图2-3-1-1",
-                                    xAxis: {
-                                        domain: [500, 4100]
-                                    },
-                                    yAxis: {
-                                        domain: [0, 2]
-                                    },
-                                    disableZoom: true,
-                                    data: [{
-                                        title: s1,
-                                        fn: s1
-                                    }]
-                                });
-                            }
-                
-                            function get_kl() {
-                                var m = Number(document.getElementById("多项式拟合秩m").value);
-                                var ld = Number(document.getElementById("A型V带基准长度").value);
-                                var kl = 0;
-                                for (var i = 0; i &lt;= m; i++) {
-                                    kl += aj[i] * math.pow(ld, i);
-                                }
-                                document.getElementById("输出长度系数").innerHTML = "基准长度为：" + ld + ", 长度系数K&lt;sub&gt;L&lt;/sub&gt;=" + kl;
-                            }
-                        &lt;/script&gt;
+                        }
+                        aj = math.lusolve(kk, tj);
+                        var s = "",
+                            s1 = "y=";
+        
+                        for (var i = 0; i &lt; aj.length; i++) {
+                            s += "a[" + (i + 1) + "]=" + aj[i][0] + ";";
+                            if (i !== 0) s1 += "+";
+                            s1 += aj[i][0] + "x^" + i;
+                        }
+                        document.getElementById("输出aj").value = s;
+                        katex.render(s1, document.getElementById("输出多项式方程"));
+        
+                        functionPlot({
+                            target: "#图2-3-1-1",
+                            xAxis: {
+                                domain: [500, 4100]
+                            },
+                            yAxis: {
+                                domain: [0, 2]
+                            },
+                            disableZoom: true,
+                            data: [{
+                                title: s1,
+                                fn: s1
+                            }]
+                        });
+                    }
+        
+                    function get_kl() {
+                        var m = Number(document.getElementById("多项式拟合秩m").value);
+                        var ld = Number(document.getElementById("A型V带基准长度").value);
+                        var kl = 0;
+                        for (var i = 0; i &lt;= m; i++) {
+                            kl += aj[i] * math.pow(ld, i);
+                        }
+                        document.getElementById("输出长度系数").innerHTML = "基准长度为：" + ld + ", 长度系数K&lt;sub&gt;L&lt;/sub&gt;=" + kl;
+                    }
+                &lt;/script&gt;
             </pre>
         </div>
 
