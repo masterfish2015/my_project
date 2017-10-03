@@ -20,7 +20,7 @@ dd {
     box-shadow: 10px 10px 5px darkcyan;
     font-size: 20px;
     display: inline-block;
-    margin-bottom: 1em;
+    margin: 1em;
     padding: 1em;
 }
 
@@ -123,7 +123,7 @@ section {
 .code-box {
     border-style: solid;
     box-shadow: 10px 10px 10px darkorchid;
-    width: 96%;
+    width: auto;
     overflow: scroll;
     padding: 1em;
     height: auto !important;

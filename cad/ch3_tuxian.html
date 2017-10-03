@@ -20,9 +20,9 @@
     <script src="libs/function-plot/dist/function-plot.js"></script>
 
     <script src="libs/pseudocode/pseudocode.min.js"></script>
-    <script type="text/javascript">
-        SyntaxHighlighter.all();
-    </script>
+
+    <script src="libs/ldcplotjs/ldcplot.js"></script>
+
 </head>
 
 <body>
@@ -33,7 +33,7 @@
     <dd>canvas（画布）是一个矩形区域，可以控制其每一像素。canvas 拥有多种绘制路径、矩形、圆形、字符以及添加图像的方法。</dd>
     <dt>创建 Canvas 元素</dt>
     <dd>向 HTML5 页面添加 canvas 元素。规定元素的 id、宽度和高度：</dd>
-    <pre class="brush:js;"> 
+    <pre class="brush:js;">
         &lt;canvas id="myCanvas" width="200px" height="100px"&gt;&lt;/canvas&gt;
     </pre>
     <dt>通过 JavaScript 来绘制</dt>
@@ -158,14 +158,14 @@
             &lt;script&gt;
             var ctx = document.getElementById("绘图示例2").getContext("2d");
             ctx.save();
-    
+
             ctx.beginPath();
             ctx.lineWidth = 4; //设置线段宽度
             ctx.arc(100, 75, 50, 0, 2 * Math.PI);
             ctx.stroke();
-    
+
             ctx.lineWidth = 15; //设置线段宽度
-    
+
             ctx.beginPath();
             ctx.lineCap = "round"; //设置直线结束线帽: 圆
             ctx.lineJoin = "round"; //设置折线边角：圆角
@@ -176,7 +176,7 @@
             ctx.arc(100, 75, 110, 90 * Math.PI / 180, 0, true); //画圆弧，圆心[100,75],半径100,开始角90°,结束角0°，逆时针，
             //注意y轴正向向下，所以90°是向下的。
             ctx.stroke();
-    
+
             ctx.beginPath();
             ctx.lineCap = "butt"; //设置直线结束线帽： 缺省
             ctx.lineJoin = "bevel"; //设置折线边角：斜角
@@ -188,7 +188,7 @@
             ctx.closePath();
             ctx.fill();
             ctx.stroke();
-    
+
             ctx.beginPath();
             ctx.lineCap = "square"; //设置直线结束线帽：方形（突出）
             ctx.lineJoin = "miter"; //设置折线边角：尖角（缺省）
@@ -197,7 +197,7 @@
             ctx.lineTo(220, 340);
             ctx.lineTo(80, 300);
             ctx.stroke();
-    
+
             function draw_平键(ctx, x, y, width, length, angle, strock_width, strock_color, fill_color) {
                 ctx.save();
                 ctx.beginPath();
@@ -217,7 +217,7 @@
                 ctx.stroke();
                 ctx.restore();
             }
-    
+
             var dx = 300,
                 dy = 80,
                 width = 50,
@@ -232,6 +232,166 @@
         </pre>
     </div>
     <h2>3.1 直线处理</h2>
+    <h3>3.1.1 普通坐标的直线处理</h3>
+
+    <table>
+      <tr>
+        <td style="width:30%;">
+          <dd>
+            对于普通笛卡尔坐标下的一般直线，可以取其任意的两个点
+                <katex>P_1(x_1,y_1),P_2(x_2,y_2)</katex>，得到两点式直线方程
+                <katex>y=y1+\dfrac{y_2-y_1}{x_2-x_1}(x-x_1)</katex>，这样，即可根据
+                <katex>x</katex>来求出
+                <katex>y</katex>。
+          </dd>
+        </td>
+        <td  style="width:70%;">
+            <div class="code-box" id="图3-1-1-1"></div>
+        </td>
+        <tr>
+          <td   style="width:30%;">
+            <form class="" action="#">
+                <label >检索</label>
+                <fieldset>
+                    <legend>输入参数</legend>
+                    <label for="input齿面硬度">齿面硬度</label>
+                    <input type="text" name="input齿面硬度" id="input齿面硬度">
+                </fieldset>
+                <fieldset>
+                    <legend>输出参数</legend>
+                    <label for="input齿面接触疲劳极限">齿面接触疲劳极限</label>
+                    <input type="text" name="input齿面接触疲劳极限" id="input齿面接触疲劳极限" value="">
+                </fieldset>
+                <button type="button" name="button" id="btn齿面接触疲劳极限查询">查询</button>
+            </form>
+        </td>
+        <td  style="width:70%;">
+          <pre class="brush:js">
+            &lt;form class="" action="#"&gt;
+              &lt;fieldset&gt;
+                &lt;legend&gt;输入参数&lt;/legend&gt;
+                &lt;label for="input齿面硬度"&gt;齿面硬度&lt;/label&gt;
+                &lt;input type="text" name="input齿面硬度" id="input齿面硬度"&gt;
+              &lt;/fieldset&gt;
+              &lt;fieldset&gt;
+                &lt;legend&gt;输出参数&lt;/legend&gt;
+                &lt;label for="input齿面接触疲劳极限"&gt;齿面接触疲劳极限&lt;/label&gt;
+                &lt;input type="text" name="input齿面接触疲劳极限" id="input齿面接触疲劳极限"value=""&gt;
+              &lt;/fieldset&gt;
+              &lt;button type="button" name="button" id="btn齿面接触疲劳极限查询"&gt;查询&lt;/button&gt;
+            &lt;/form&gt;
+            &lt;script type="text/javascript"&gt;
+              var btn = document.getElementById("btn齿面接触疲劳极限查询");
+              btn.onclick=function (e){
+                var 齿面硬度  = Number(document.getElementById("input齿面硬度").value);
+                var 齿面接触疲劳极限 = 320+(410-320)*(齿面硬度-110)/(200-110);
+                document.getElementById("input齿面接触疲劳极限").value = String(齿面接触疲劳极限);
+              }
+            &lt;/script&gt;
+          </pre>
+        </td>
+      </tr>
+    </table>
+    <script>
+        ldc_plot.init({
+            target_id: "图3-1-1-1",
+            height: 400,
+            width: 600,
+            x_axis: {
+                label: "HBS",
+                range: [50, 250]
+            },
+            y_axis: {
+                label: "Hlim/MPa",
+                range: [200, 850]
+            },
+            data: [{
+                fn: "y=320+(410-320)*(x-110)/(200-100)",
+                range: [70,250],
+                title: "y=320+(410-320)*(x-110)/(200-100)",
+                color: "red",
+                width: 3,
+            }, {
+                points: [
+                    [110, 320,"P1"],
+                    [200, 410,"P2"],
+                    [180, 390,"P"]
+                ],
+                title: "samples",
+                color: "blue",
+                width: 4,
+                type: "points"
+            }]
+        });
+        var btn = document.getElementById("btn齿面接触疲劳极限查询");
+        btn.onclick = function(e) {
+            var 齿面硬度 = Number(document.getElementById("input齿面硬度").value);
+            var 齿面接触疲劳极限 = 320 + (410 - 320) * (齿面硬度 - 110) / (200 - 110);
+            document.getElementById("input齿面接触疲劳极限").value = String(齿面接触疲劳极限);
+        }
+    </script>
+
+    <h3>3.1.2 对数坐标的处理</h3>
+    <table>
+      <tr>
+        <td style="width:40%">
+          <dd>对于双对数坐标下的方程，设有
+              <katex>m=f(a)</katex>，从图上获得的两点
+              <katex>p_1(a_1,m_1),p_2(a_2,m_2)</katex>，有
+              <katex>log(m)=log(m_1)+\dfrac{log(m_2)-log(m_1)}{log(a_1)-log(a_2)}(log(a)-log(a_1))</katex>, <katex>\rightarrow log(m)=log(m_1)+\dfrac{log(\dfrac{m_2}{m_1})}{log(\dfrac{a_1}{a_2})}\cdot log(\dfrac{a}{a_1})</katex>，若令
+              <katex>k=\dfrac{log(\dfrac{m_2}{m_1})}{log(\dfrac{a_1}{a_2})}</katex>，则有
+              <katex>log(m)=log(m_1)+log\left( \dfrac{a}{a_1}\right)^k </katex>, <katex>\rightarrow  log(m)=log\left(m_1 \cdot \left(\dfrac{a}{a_1}\right)^k\right)</katex>, <katex>\rightarrow  m=m_1\cdot\left(\dfrac{a}{a_1}\right)^k</katex>
+          </dd>
+        </td>
+        <td  style="width:60%">
+          <div class="code-box" id="图3-1-2-1"></div>
+        </td>
+      </tr>
+    </table>
+    <script>
+        ldc_plot.init({
+            target_id: "图3-1-2-1",
+            height: 400,
+            width: 700,
+            x_axis: {
+                label: "Pd/kW",
+                range: [0, 4]
+            },
+            y_axis: {
+                label: "n1/(r/min)",
+                range: [0, 1800]
+            },
+            data: [{
+                fn: "y=465*x^1.0616",
+                range: [0.8, 3.5],
+                title: "y=465*x^1.0616",
+                color: "red",
+                width: 5,
+            }, {
+                points: [
+                    [1, 450, "P1"],
+                    [2.5, 1250, "P2"],
+                    [2.2, 1073,"P"]
+                ],
+                title: "samples",
+                color: "blue",
+                width: 4,
+                type: "points"
+            }]
+        });
+    </script>
+
+
+    <script type="text/javascript">
+        SyntaxHighlighter.all();
+        (function() {
+            var katexes = document.getElementsByTagName("katex");
+            for (var i = 0; i < katexes.length; i++) {
+                var str = katexes[i].textContent;
+                katex.render(str, katexes[i]);
+            }
+        })();
+    </script>
 </body>
 
 </html>
