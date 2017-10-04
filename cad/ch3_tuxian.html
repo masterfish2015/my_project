@@ -152,7 +152,7 @@
             draw_平键(ctx, dx + i * 2 * length, dy + 200, width, length, i * 90, 5, "black", "red");
         }
     </script>
-    <div class="code-box;">
+    <div class="draw-box;">
         <pre class="brush:js;">
             &lt;canvas width="400px" height="400px" id="绘图示例2"&gt;&lt;/canvas&gt;
             &lt;script&gt;
@@ -246,7 +246,7 @@
           </dd>
         </td>
         <td  style="width:70%;">
-            <div class="code-box" id="图3-1-1-1"></div>
+            <div class="draw-box" id="图3-1-1-1"></div>
         </td>
         <tr>
           <td   style="width:30%;">
@@ -306,9 +306,9 @@
                 range: [200, 850]
             },
             data: [{
-                fn: "y=320+(410-320)*(x-110)/(200-100)",
+                fn: "y=320+(410-320)*(x-110)/(200-110)",
                 range: [70,250],
-                title: "y=320+(410-320)*(x-110)/(200-100)",
+                title: "y=320+(410-320)*(x-110)/(200-110)",
                 color: "red",
                 width: 3,
             }, {
@@ -344,7 +344,7 @@
           </dd>
         </td>
         <td  style="width:60%">
-          <div class="code-box" id="图3-1-2-1"></div>
+          <div class="draw-box" id="图3-1-2-1"></div>
         </td>
       </tr>
     </table>
@@ -355,23 +355,25 @@
             width: 700,
             x_axis: {
                 label: "Pd/kW",
-                range: [0, 4]
+                range: [0.7, 4],
+                type:"log"
             },
             y_axis: {
                 label: "n1/(r/min)",
-                range: [0, 1800]
+                range: [300, 1800],
+                type:"log"
             },
             data: [{
                 fn: "y=465*x^1.0616",
-                range: [0.8, 3.5],
+                range: [0.8, 2.8],
                 title: "y=465*x^1.0616",
                 color: "red",
-                width: 5,
+                width: 5
             }, {
                 points: [
-                    [1, 450, "P1"],
-                    [2.5, 1250, "P2"],
-                    [2.2, 1073,"P"]
+                    [1, 465, "P1"],
+                    [2.5, 1230, "P2"],
+                    [2.2, 1074,"P"]
                 ],
                 title: "samples",
                 color: "blue",
@@ -381,6 +383,21 @@
         });
     </script>
 
+    <h2>3.2 曲线处理</h2>
+    <table>
+      <tr>
+        <td colspan="2">
+          <dd>对于曲线，可以从曲线上获得多个点的数据，根据这些点生成函数方程，再进行查询。</dd>
+        </td>
+      </tr>
+      <tr>
+        <td><div class="draw-box" id="图3-2-1"></div></td>
+        <td><div class="code-box" id="表3-2-1"></div></td>
+      </tr>
+    </table>
+    <script type="text/javascript">
+      
+    </script>
 
     <script type="text/javascript">
         SyntaxHighlighter.all();
