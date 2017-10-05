@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>vue.js demo</title>
+    <script src="libs/vuejs/vue.min.js"></script>
+</head>
+
+<body>
+    <h1>Vue.js demo</h1>
+    <div id="app">
+        {{ message }}
+    </div>
+    <div id="app-2">
+        <span v-bind:title="message">
+          鼠标悬停几秒钟查看此处动态绑定的提示信息！
+        </span>
+    </div>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                message: 'Hello Vue!'
+            }
+        });
+        var app2 = new Vue({
+            el: '#app-2',
+            data: {
+                message: '页面加载于 ' + new Date().toLocaleString()
+            }
+        });
+    </script>
+</body>
+
+</html>
