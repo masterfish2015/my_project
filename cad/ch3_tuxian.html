@@ -499,6 +499,106 @@
       ]
     });
   </script>
+  <hr>
+  <h2>3.3 区域处理</h2>
+  <dd>机械设计中，有时还需要处理图线围成的区域。如设计链传动时，根据输入的链节距
+    <katex>p</katex>（横坐标）和链轮速度
+    <katex>v</katex>（纵坐标），查出相应的润滑方式（横、 纵坐标交点所在的区域）， 如下图3-3-1所示（注意是双对数坐标）， 提取数据点后得到各区域分界线直线的方程
+<ul>
+    <li>I-II之间的方程：<katex>v=1*\left(\dfrac{p}{6}\right)^{0.5461151}</katex></li>
+    <li>II-III之间的方程：<katex>v=7.9*\left(\dfrac{p}{6}\right)^{0.9575233}</katex></li>
+    <li>III-IV之间的方程：<katex>v=10*\left(\dfrac{p}{9.525}\right)^{0.5473737}</katex></li>
+</ul></dd>
+  <table>
+    <tr>
+      <td>
+        <div class="draw-box" id="图3-3-1">
+        </div>
+      </td>
+      <td>
+        <div class="draw-box" id="表3-3-1">
+        </div>
+      </td>
+    </tr>
+  </table>
+  <script type="text/javascript">
+    ldc_plot.init({
+      target_id: "图3-3-1",
+      width: 500,
+      height: 400,
+      x_axis: {
+        label: "p/mm",
+        type: "log",
+        range: [6, 120],
+      },
+      y_axis: {
+        label: "v/m*s^(-1)",
+        type: "log",
+        range: [0.2, 20],
+      },
+      data: [{
+        fn: "1*(x/6)^-0.5461151",
+        range: [6, 120],
+        title: "I-II",
+        color: "red",
+        width: 3
+      }, {
+        fn: "7.9*(x/6)^-0.9575233",
+        range: [6, 120],
+        title: "II-III",
+        color: "blue",
+        width: 3
+      }, {
+        fn: "10*(x/9.525)^-0.5473737",
+        range: [6, 120],
+        title: "I-II",
+        color: "green",
+        width: 3
+      }, {
+        points: [
+          [19.05, 0.4, "I"],
+          [19.05, 1.4, "II"],
+          [19.05, 5, "III"],
+          [19.05, 18, "IV"]
+        ],
+        type: "points",
+        color: "fuchsia",
+        width: 0.1,
+        title: "region"
+      }, {
+        points: [
+          [31.75, 4, "k"]
+        ],
+        type: "points",
+        color: "mediumblue",
+        width: 4,
+        title: "sample"
+      }]
+    });
+    var data = [
+      [6, 1, 114.3, 0.2, -0.5461151, "I、II交界线"],
+      [6, 7.9, 114.3, 0.47, -0.9575233, "II、III交界线"],
+      [9.525, 10, 50.8, 4, -0.5473737, "III、IV交界线"]
+    ];
+    var str="<table border='1'>";
+    str+="<caption>"+"表3-3-1 链传动推荐润滑方式图中各直线上的典型结点"+"</caption>";
+    str+="<tr><th rowspan='2'>线号</th>";
+    str+="<th colspan='2'>第1点</th>";
+    str+="<th colspan='2'>第2点</th>";
+    str+="<th rowspan='2'>k</th>";
+    str+="<th rowspan='2'>直线名称</th>"+"</tr>";
+    str+="<tr><th>p1</th><th>v1</th><th>p2</th><th>v2</th></tr>";
+
+    data.forEach(function(v,i){
+        str+="<tr><td class='right'>"+(i+1)+"</td>";
+        v.forEach(function(v1,i1){
+            str+="<td  class='right'>"+v1+"</td>";
+        });
+        str+"</tr>";
+    })
+    str+="</table>";
+    document.getElementById("表3-3-1").innerHTML = str;
+  </script>
 
   <script type="text/javascript">
     SyntaxHighlighter.all();
