@@ -1,7 +1,7 @@
 var ldc_plot = {}
 ldc_plot.init = function(option) {
     ldc_plot.target = document.getElementById(option.target_id)
-    if (this.target === undefined)
+    if (this.target === null)
         return
 
     // create canvas and set width && height
@@ -60,6 +60,10 @@ ldc_plot.init = function(option) {
     ldc_plot._draw_y_axis()
 
     // draw dates
+    ctx.save();
+    ctx.lineCap = "round";
+    ctx.lineJoin= "round";
+    
     this.data.forEach(function(value, index, array) {
         var type = value.type || 'function'
         var fn = value.fn
@@ -129,6 +133,7 @@ ldc_plot.init = function(option) {
         ctx.lineWidth = 1
         ctx.strokeText(title, canvas.width - legend_width, index * 50 + 30)
     })
+    ctx.restore();
 }
 
 ldc_plot._project = function(x, y) {
@@ -231,6 +236,9 @@ ldc_plot._draw_x_axis = function() {
     }
     // //刻度之间的
     ctx.stroke()
+    ctx.lineWidth = 1;
+    ctx.strokeStyle ="black";
+    ctx.strokeText(label, cp[0]- ctx.measureText(label).width, cp[1]-10);
     ctx.restore()
 }
 
@@ -309,4 +317,8 @@ ldc_plot._draw_y_axis = function() {
             ctx.strokeText(tick_label, cp[0] + 10, cp[1])
         }
     }
+    ctx.lineWidth = 1;
+    ctx.strokeStyle ="black";
+    ctx.strokeText(label, cp[0]+20 , cp[1]+10);
+    ctx.restore();
 }

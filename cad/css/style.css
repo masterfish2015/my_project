@@ -118,7 +118,9 @@ table {
     width: 100%;
     text-align: left;
 }
-
+th,td{
+    padding-right: 1em;
+}
 section {
     border-style: solid;
     margin: 1em;
@@ -188,4 +190,12 @@ katex {
     box-shadow: 10px 10px 10px rgba(35, 128, 78, .7);
     border-radius: .5em;
     text-align: center;
+}
+
+th{
+    text-align: center;
+}
+
+.right{
+    text-align: right;
 }
