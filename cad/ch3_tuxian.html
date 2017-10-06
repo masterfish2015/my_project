@@ -2,43 +2,43 @@
 <html lang="zh-CN">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>第三讲 图线处理</title>
-  <!-- css -->
-  <link rel="stylesheet" href="libs/katex/katex.min.css">
-  <link rel="stylesheet" href="libs/pseudocode/pseudocode.min.css">
-  <link rel="stylesheet" href="libs/SyntaxHighlighter/styles/shCoreDefault.css" />
-  <link rel="stylesheet" href="css/style.css">
-  <!-- javascript libs -->
-  <script src="libs/mathjs/math.min.js"></script>
-  <script src="libs/katex/katex.min.js"></script>
-  <script type="text/javascript" src="libs/SyntaxHighlighter/scripts/shCore.js"></script>
-  <script type="text/javascript" src="libs/SyntaxHighlighter/scripts/shBrushJScript.js"></script>
-  <script src="libs/d3/d3.min.js"></script>
-  <script src="libs/function-plot/dist/function-plot.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>第三讲 图线处理</title>
+    <!-- css -->
+    <link rel="stylesheet" href="libs/katex/katex.min.css">
+    <link rel="stylesheet" href="libs/pseudocode/pseudocode.min.css">
+    <link rel="stylesheet" href="libs/SyntaxHighlighter/styles/shCoreDefault.css" />
+    <link rel="stylesheet" href="css/style.css">
+    <!-- javascript libs -->
+    <script src="libs/mathjs/math.min.js"></script>
+    <script src="libs/katex/katex.min.js"></script>
+    <script type="text/javascript" src="libs/SyntaxHighlighter/scripts/shCore.js"></script>
+    <script type="text/javascript" src="libs/SyntaxHighlighter/scripts/shBrushJScript.js"></script>
+    <script src="libs/d3/d3.min.js"></script>
+    <script src="libs/function-plot/dist/function-plot.js"></script>
 
-  <script src="libs/pseudocode/pseudocode.min.js"></script>
+    <script src="libs/pseudocode/pseudocode.min.js"></script>
 
-  <script src="libs/ldcplotjs/ldcplot.js"></script>
+    <script src="libs/ldcplotjs/ldcplot.js"></script>
 
 </head>
 
 <body>
-  <h1>3 图线处理</h1>
-  <h2>3.0 HTML中用JavaScript来进行2D绘图</h2>
-  <h3>[1]. HTML5中canvas 元素用于在网页上绘制图形</h3>
-  <dt> canvas 元素</dt>
-  <dd>canvas（画布）是一个矩形区域，可以控制其每一像素。canvas 拥有多种绘制路径、矩形、圆形、字符以及添加图像的方法。</dd>
-  <dt>创建 Canvas 元素</dt>
-  <dd>向 HTML5 页面添加 canvas 元素。规定元素的 id、宽度和高度：</dd>
-  <pre class="brush:js;">
+    <h1>3 图线处理</h1>
+    <h2>3.0 HTML中用JavaScript来进行2D绘图</h2>
+    <h3>[1]. HTML5中canvas 元素用于在网页上绘制图形</h3>
+    <dt> canvas 元素</dt>
+    <dd>canvas（画布）是一个矩形区域，可以控制其每一像素。canvas 拥有多种绘制路径、矩形、圆形、字符以及添加图像的方法。</dd>
+    <dt>创建 Canvas 元素</dt>
+    <dd>向 HTML5 页面添加 canvas 元素。规定元素的 id、宽度和高度：</dd>
+    <pre class="brush:js;">
         &lt;canvas id="myCanvas" width="200px" height="100px"&gt;&lt;/canvas&gt;
     </pre>
-  <dt>通过 JavaScript 来绘制</dt>
-  <dd>canvas 元素本身是没有绘图能力的。所有的绘制工作必须在 JavaScript 内部完成：</dd>
-  <pre class="brush:js;">
+    <dt>通过 JavaScript 来绘制</dt>
+    <dd>canvas 元素本身是没有绘图能力的。所有的绘制工作必须在 JavaScript 内部完成：</dd>
+    <pre class="brush:js;">
         &lt;script type="text/javascript"&gt;
             var c=document.getElementById("myCanvas"); //使用 id 来寻找 canvas 元素
             var cxt=c.getContext("2d");                //创建 context 对象
@@ -46,114 +46,114 @@
             cxt.fillRect(0,0,150,75);                  //左上角坐标（0，0），宽：150，高：75
         &lt;/script&gt;
     </pre>
-  <canvas id="myCanvas" width="200" height="100"></canvas>
-  <script type="text/javascript">
-    var c = document.getElementById("myCanvas");
-    var cxt = c.getContext("2d");
-    cxt.fillStyle = "#FF0000";
-    cxt.fillRect(0, 0, 150, 75);
-  </script>
-  <dt>理解坐标</dt>
-  <dd>在缺省的canvas坐标中，从左到右是x的正方向，从上到下是y的正方向，坐标原点在左上角。</dd>
-  <canvas id="coordiv" style="float:left;width:199px;height:99px;border:1px solid #c3c3c3" onmousemove="cnvs_getCoordinates(event)" onmouseout="cnvs_clearCoordinates()"></canvas>
-  <br />
-  <br />
-  <br />
-  <div id="xycoordinates"></div>
-  <script type="text/javascript">
-    function cnvs_getCoordinates(evt) {
-      var canvas = document.getElementById("coordiv");
-      var rect = canvas.getBoundingClientRect();
-      x = math.round((evt.clientX - rect.left) / (rect.right - rect.left) * canvas.width);
-      y = math.round((evt.clientY - rect.top) / (rect.bottom - rect.top) * canvas.height);
-      document.getElementById("xycoordinates").innerHTML = "Coordinates: (" + x + "," + y + ")";
-    }
+    <canvas id="myCanvas" width="200" height="100"></canvas>
+    <script type="text/javascript">
+        var c = document.getElementById("myCanvas");
+        var cxt = c.getContext("2d");
+        cxt.fillStyle = "#FF0000";
+        cxt.fillRect(0, 0, 150, 75);
+    </script>
+    <dt>理解坐标</dt>
+    <dd>在缺省的canvas坐标中，从左到右是x的正方向，从上到下是y的正方向，坐标原点在左上角。</dd>
+    <canvas id="coordiv" style="float:left;width:199px;height:99px;border:1px solid #c3c3c3" onmousemove="cnvs_getCoordinates(event)" onmouseout="cnvs_clearCoordinates()"></canvas>
+    <br />
+    <br />
+    <br />
+    <div id="xycoordinates"></div>
+    <script type="text/javascript">
+        function cnvs_getCoordinates(evt) {
+            var canvas = document.getElementById("coordiv");
+            var rect = canvas.getBoundingClientRect();
+            x = math.round((evt.clientX - rect.left) / (rect.right - rect.left) * canvas.width);
+            y = math.round((evt.clientY - rect.top) / (rect.bottom - rect.top) * canvas.height);
+            document.getElementById("xycoordinates").innerHTML = "Coordinates: (" + x + "," + y + ")";
+        }
 
-    function cnvs_clearCoordinates() {
-      document.getElementById("xycoordinates").innerHTML = "";
-    }
-  </script>
-  <dt>常见绘图操作</dt>
-  <dd>下面的程序绘制了：直线段、圆（弧）、矩形。注意，对于直线段、圆（弧）来说，必须先包含在一个path中，而矩形则可以自己绘制。</dd>
-  <draw-box class="float:left;">
-    <canvas width="1000px" height="400px" id="绘图示例2"></canvas>
-  </draw-box>
-  <script>
-    var ctx = document.getElementById("绘图示例2").getContext("2d");
-    ctx.save();
+        function cnvs_clearCoordinates() {
+            document.getElementById("xycoordinates").innerHTML = "";
+        }
+    </script>
+    <dt>常见绘图操作</dt>
+    <dd>下面的程序绘制了：直线段、圆（弧）、矩形。注意，对于直线段、圆（弧）来说，必须先包含在一个path中，而矩形则可以自己绘制。</dd>
+    <draw-box class="float:left;">
+        <canvas width="1000px" height="400px" id="绘图示例2"></canvas>
+    </draw-box>
+    <script>
+        var ctx = document.getElementById("绘图示例2").getContext("2d");
+        ctx.save();
 
-    ctx.beginPath();
-    ctx.lineWidth = 4; //设置线段宽度
-    ctx.arc(100, 75, 50, 0, 2 * Math.PI);
-    ctx.stroke();
+        ctx.beginPath();
+        ctx.lineWidth = 4; //设置线段宽度
+        ctx.arc(100, 75, 50, 0, 2 * Math.PI);
+        ctx.stroke();
 
-    ctx.lineWidth = 15; //设置线段宽度
+        ctx.lineWidth = 15; //设置线段宽度
 
-    ctx.beginPath();
-    ctx.lineCap = "round"; //设置直线结束线帽: 圆
-    ctx.lineJoin = "round"; //设置折线边角：圆角
-    ctx.strokeStyle = "rgb(255,0,0)";
-    ctx.moveTo(20, 220);
-    ctx.lineTo(220, 220);
-    ctx.lineTo(100, 185);
-    ctx.arc(100, 75, 110, 90 * Math.PI / 180, 0, true); //画圆弧，圆心[100,75],半径100,开始角90°,结束角0°，逆时针，
-    //注意y轴正向向下，所以90°是向下的。
-    ctx.stroke();
+        ctx.beginPath();
+        ctx.lineCap = "round"; //设置直线结束线帽: 圆
+        ctx.lineJoin = "round"; //设置折线边角：圆角
+        ctx.strokeStyle = "rgb(255,0,0)";
+        ctx.moveTo(20, 220);
+        ctx.lineTo(220, 220);
+        ctx.lineTo(100, 185);
+        ctx.arc(100, 75, 110, 90 * Math.PI / 180, 0, true); //画圆弧，圆心[100,75],半径100,开始角90°,结束角0°，逆时针，
+        //注意y轴正向向下，所以90°是向下的。
+        ctx.stroke();
 
-    ctx.beginPath();
-    ctx.lineCap = "butt"; //设置直线结束线帽： 缺省
-    ctx.lineJoin = "bevel"; //设置折线边角：斜角
-    ctx.strokeStyle = "rgb(0,255,0)";
-    ctx.fillStyle = "rgba(120,45,230,0.8)"; //设置带透明度的填充色
-    ctx.moveTo(20, 280);
-    ctx.lineTo(220, 280);
-    ctx.lineTo(30, 180);
-    ctx.closePath();
-    ctx.fill();
-    ctx.stroke();
+        ctx.beginPath();
+        ctx.lineCap = "butt"; //设置直线结束线帽： 缺省
+        ctx.lineJoin = "bevel"; //设置折线边角：斜角
+        ctx.strokeStyle = "rgb(0,255,0)";
+        ctx.fillStyle = "rgba(120,45,230,0.8)"; //设置带透明度的填充色
+        ctx.moveTo(20, 280);
+        ctx.lineTo(220, 280);
+        ctx.lineTo(30, 180);
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
 
-    ctx.beginPath();
-    ctx.lineCap = "square"; //设置直线结束线帽：方形（突出）
-    ctx.lineJoin = "miter"; //设置折线边角：尖角（缺省）
-    ctx.strokeStyle = "rgb(0,0,255)";
-    ctx.moveTo(20, 340);
-    ctx.lineTo(220, 340);
-    ctx.lineTo(80, 300);
-    ctx.stroke();
+        ctx.beginPath();
+        ctx.lineCap = "square"; //设置直线结束线帽：方形（突出）
+        ctx.lineJoin = "miter"; //设置折线边角：尖角（缺省）
+        ctx.strokeStyle = "rgb(0,0,255)";
+        ctx.moveTo(20, 340);
+        ctx.lineTo(220, 340);
+        ctx.lineTo(80, 300);
+        ctx.stroke();
 
-    function draw_平键(ctx, x, y, width, length, angle, strock_width, strock_color, fill_color) {
-      ctx.save();
-      ctx.beginPath();
-      ctx.strokeStyle = strock_color;
-      ctx.lineCap = "round";
-      ctx.lineJoin = "round";
-      ctx.fillStyle = fill_color;
-      ctx.lineWidth = strock_width;
-      ctx.translate(x, y);
-      ctx.rotate(angle * Math.PI / 180.0);
-      ctx.moveTo(0, width / 2);
-      ctx.arc(0, 0, width / 2, 90 * Math.PI / 180.0, -90 * Math.PI / 180.0, false);
-      ctx.lineTo(length, -width / 2);
-      ctx.lineTo(length, width / 2);
-      ctx.lineTo(0, width / 2);
-      ctx.fill();
-      ctx.stroke();
-      ctx.restore();
-    }
+        function draw_平键(ctx, x, y, width, length, angle, strock_width, strock_color, fill_color) {
+            ctx.save();
+            ctx.beginPath();
+            ctx.strokeStyle = strock_color;
+            ctx.lineCap = "round";
+            ctx.lineJoin = "round";
+            ctx.fillStyle = fill_color;
+            ctx.lineWidth = strock_width;
+            ctx.translate(x, y);
+            ctx.rotate(angle * Math.PI / 180.0);
+            ctx.moveTo(0, width / 2);
+            ctx.arc(0, 0, width / 2, 90 * Math.PI / 180.0, -90 * Math.PI / 180.0, false);
+            ctx.lineTo(length, -width / 2);
+            ctx.lineTo(length, width / 2);
+            ctx.lineTo(0, width / 2);
+            ctx.fill();
+            ctx.stroke();
+            ctx.restore();
+        }
 
-    var dx = 300,
-      dy = 80,
-      width = 50,
-      length = 80;
-    for (var i = 0; i < 4; i++) {
-      draw_平键(ctx, dx + i * 2 * length, dy, width, length, 0, 5, "black", "yellow");
-    }
-    for (var i = 0; i < 4; i++) {
-      draw_平键(ctx, dx + i * 2 * length, dy + 200, width, length, i * 90, 5, "black", "red");
-    }
-  </script>
-  <div class="draw-box;">
-    <pre class="brush:js;">
+        var dx = 300,
+            dy = 80,
+            width = 50,
+            length = 80;
+        for (var i = 0; i < 4; i++) {
+            draw_平键(ctx, dx + i * 2 * length, dy, width, length, 0, 5, "black", "yellow");
+        }
+        for (var i = 0; i < 4; i++) {
+            draw_平键(ctx, dx + i * 2 * length, dy + 200, width, length, i * 90, 5, "black", "red");
+        }
+    </script>
+    <div class="code-box;">
+        <pre class="brush:js;">
             &lt;canvas width="400px" height="400px" id="绘图示例2"&gt;&lt;/canvas&gt;
             &lt;script&gt;
             var ctx = document.getElementById("绘图示例2").getContext("2d");
@@ -222,51 +222,45 @@
                 dy = 80,
                 width = 50,
                 length = 80;
-            for (var i = 0; i < 4; i++) {
+            for (var i = 0; i &lt; 4; i++) {
                 draw_平键(ctx, dx + i * 2 * length, dy, width, length, 0, 5, "black", "yellow");
             }
-            for (var i = 0; i < 4; i++) {
+            for (var i = 0; i &lt; 4; i++) {
                 draw_平键(ctx, dx + i * 2 * length, dy + 200, width, length, i * 90, 5, "black", "red");
             }
             &lt;/script&gt;
         </pre>
-  </div>
-  <h2>3.1 直线处理</h2>
-  <h3>3.1.1 普通坐标的直线处理</h3>
+    </div>
+    <h2>3.1 直线处理</h2>
+    <h3>3.1.1 普通坐标的直线处理</h3>
 
-  <table>
-    <tr>
-      <td style="width:30%;">
-        <dd>
-          对于普通笛卡尔坐标下的一般直线，可以取其任意的两个点
-          <katex>P_1(x_1,y_1),P_2(x_2,y_2)</katex>，得到两点式直线方程
-          <katex>y=y1+\dfrac{y_2-y_1}{x_2-x_1}(x-x_1)</katex>，这样，即可根据
-          <katex>x</katex>来求出
-          <katex>y</katex>。
-        </dd>
-      </td>
-      <td style="width:70%;">
-        <div class="draw-box" id="图3-1-1-1"></div>
-      </td>
-      <tr>
-        <td style="width:30%;">
-          <form class="" action="#">
-            <label>检索</label>
-            <fieldset>
-              <legend>输入参数</legend>
-              <label for="input齿面硬度">齿面硬度</label>
-              <input type="text" name="input齿面硬度" id="input齿面硬度">
-            </fieldset>
-            <fieldset>
-              <legend>输出参数</legend>
-              <label for="input齿面接触疲劳极限">齿面接触疲劳极限</label>
-              <input type="text" name="input齿面接触疲劳极限" id="input齿面接触疲劳极限" value="">
-            </fieldset>
-            <button type="button" name="button" id="btn齿面接触疲劳极限查询">查询</button>
-          </form>
-        </td>
-        <td style="width:70%;">
-          <pre class="brush:js">
+    <dd>
+        对于普通笛卡尔坐标下的一般直线，可以取其任意的两个点
+        <katex>P_1(x_1,y_1),P_2(x_2,y_2)</katex>，得到两点式直线方程
+        <katex>y=y1+\dfrac{y_2-y_1}{x_2-x_1}(x-x_1)</katex>，这样，即可根据
+        <katex>x</katex>来求出
+        <katex>y</katex>。
+    </dd>
+
+    <div class="draw-box" id="图3-1-1-1">
+    </div>
+
+    <form class="" action="#">
+        <label>检索</label>
+        <fieldset>
+            <legend>输入参数</legend>
+            <label for="input齿面硬度">齿面硬度</label>
+            <input type="text" name="input齿面硬度" id="input齿面硬度" value="117">
+        </fieldset>
+        <fieldset>
+            <legend>输出参数</legend>
+            <label for="input齿面接触疲劳极限">齿面接触疲劳极限</label>
+            <input type="text" name="input齿面接触疲劳极限" id="input齿面接触疲劳极限" value="">
+        </fieldset>
+        <button type="button" name="button" id="btn齿面接触疲劳极限查询">查询</button>
+    </form>
+
+    <pre class="brush:js">
             &lt;form class="" action="#"&gt;
               &lt;fieldset&gt;
                 &lt;legend&gt;输入参数&lt;/legend&gt;
@@ -289,327 +283,491 @@
               }
             &lt;/script&gt;
           </pre>
-        </td>
-      </tr>
-  </table>
-  <script>
-    ldc_plot.init({
-      target_id: "图3-1-1-1",
-      height: 400,
-      width: 600,
-      x_axis: {
-        label: "HBS",
-        range: [50, 250]
-      },
-      y_axis: {
-        label: "Hlim/MPa",
-        range: [200, 850]
-      },
-      data: [{
-        fn: "y=320+(410-320)*(x-110)/(200-110)",
-        range: [70, 250],
-        title: "y=320+(410-320)*(x-110)/(200-110)",
-        color: "red",
-        width: 3,
-      }, {
-        points: [
-          [110, 320, "P1"],
-          [200, 410, "P2"],
-          [180, 390, "P"]
-        ],
-        title: "samples",
-        color: "blue",
-        width: 4,
-        type: "points"
-      }]
-    });
-    var btn = document.getElementById("btn齿面接触疲劳极限查询");
-    btn.onclick = function(e) {
-      var 齿面硬度 = Number(document.getElementById("input齿面硬度").value);
-      var 齿面接触疲劳极限 = 320 + (410 - 320) * (齿面硬度 - 110) / (200 - 110);
-      document.getElementById("input齿面接触疲劳极限").value = String(齿面接触疲劳极限);
-    }
-  </script>
 
-  <h3>3.1.2 对数坐标的处理</h3>
-  <table>
-    <tr>
-      <td style="width:40%">
-        <dd>对于双对数坐标下的方程，设有
-          <katex>m=f(a)</katex>，从图上获得的两点
-          <katex>p_1(a_1,m_1),p_2(a_2,m_2)</katex>，有
-          <katex>log(m)=log(m_1)+\dfrac{log(m_2)-log(m_1)}{log(a_1)-log(a_2)}(log(a)-log(a_1))</katex>,
-          <katex>\rightarrow log(m)=log(m_1)+\dfrac{log(\dfrac{m_2}{m_1})}{log(\dfrac{a_1}{a_2})}\cdot log(\dfrac{a}{a_1})</katex>，若令
-          <katex>k=\dfrac{log(\dfrac{m_2}{m_1})}{log(\dfrac{a_1}{a_2})}</katex>，则有
-          <katex>log(m)=log(m_1)+log\left( \dfrac{a}{a_1}\right)^k </katex>,
-          <katex>\rightarrow log(m)=log\left(m_1 \cdot \left(\dfrac{a}{a_1}\right)^k\right)</katex>,
-          <katex>\rightarrow m=m_1\cdot\left(\dfrac{a}{a_1}\right)^k</katex>
-        </dd>
-      </td>
-      <td style="width:60%">
-        <div class="draw-box" id="图3-1-2-1"></div>
-      </td>
-    </tr>
-  </table>
-  <script>
-    ldc_plot.init({
-      target_id: "图3-1-2-1",
-      height: 400,
-      width: 700,
-      x_axis: {
-        label: "Pd/kW",
-        range: [0.7, 4],
-        type: "log"
-      },
-      y_axis: {
-        label: "n1/(r/min)",
-        range: [300, 1800],
-        type: "log"
-      },
-      data: [{
-        fn: "y=465*x^1.0616",
-        range: [0.8, 2.8],
-        title: "y=465*x^1.0616",
-        color: "red",
-        width: 5
-      }, {
-        points: [
-          [1, 465, "P1"],
-          [2.5, 1230, "P2"],
-          [2.2, 1074, "P"]
-        ],
-        title: "samples",
-        color: "blue",
-        width: 4,
-        type: "points"
-      }]
-    });
-  </script>
-
-  <h2>3.2 曲线处理</h2>
-  <table>
-    <tr>
-      <td colspan="2">
-        <dd>对于曲线，可以从曲线上获得多个点的数据，根据这些点生成函数方程，再进行查询, 从表中可得，
-          <ul>
-            <li>对于
-              <katex>n_1=1500</katex>,可得
-              <katex>v= 0.0002*p^3 - 0.02455*p^2 + 0.81374*p + 2.153</katex>
-            </li>
-            <li>对于
-              <katex>n_1=1000</katex>,可得
-              <katex>v= 0.00096*p^3 - 0.05363*p^2 + 1.079*p + 0.20606</katex>
-            </li>
-        </dd>
-      </td>
-    </tr>
-    <tr>
-      <td class="height:500px;">
-        <div class="draw-box" id="图3-2-1"></div>
-      </td>
-      <td class="height:500px;">
-        <div class="code-box" id="表3-2-1"></div>
-      </td>
-    </tr>
-  </table>
-  <script type="text/javascript">
-    var 蜗杆传动的相对滑动速度概略值 = {
-      "p": [2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22],
-      "v": [{
-          n1: 1500,
-          data: [3.7, 5, 6.2, 7.2, 8, 8.8, 9.25, 9.7, 10, 10.2, 10.3]
-        },
-        {
-          n1: 1000,
-          data: [1.9, 4.1, 5.1, 5.8, 6.4, 7, 7.4, 7.8, 8, 8.1, 8.15]
-        }
-      ]
-    };
-    var str = "<table border='1'>";
-    str += "<caption>表3-2-1 蜗杆传动的相对滑动速度概略值</caption>";
-    str += "<tr><th rowspan='2'>n<sub>1</sub></th><th  colspan='11'>p</th></tr>";
-    str += "<tr>";
-    蜗杆传动的相对滑动速度概略值["p"].forEach(function(value, index) {
-      str += "<th  class='right'>" + value + "</th>";
-    });
-    str += "</tr>";
-
-    蜗杆传动的相对滑动速度概略值["v"].forEach(function(value, index) {
-      str += "<tr>" + "<th>" + value.n1 + "</th>";
-      value.data.forEach(function(v, i) {
-        str += "<td class='right'>" + v + "</td>";
-      })
-      str += "</tr>";
-    });
-
-    str + "</table>";
-    document.getElementById("表3-2-1").innerHTML = str;
-
-    var samples1 = [],
-      samples2 = [];
-    for (var i = 0; i < 蜗杆传动的相对滑动速度概略值["p"].length; i++) {
-      samples1.push([
-        蜗杆传动的相对滑动速度概略值["p"][i],
-        蜗杆传动的相对滑动速度概略值["v"][0].data[i], "p0-" + i
-      ]);
-      samples2.push([
-        蜗杆传动的相对滑动速度概略值["p"][i],
-        蜗杆传动的相对滑动速度概略值["v"][1].data[i], "p1-" + i
-      ]);
-    }
-
-    ldc_plot.init({
-      target_id: "图3-2-1",
-      width: 600,
-      height: 500,
-      x_axis: {
-        label: "p/kW",
-        range: [0, 24]
-      },
-      y_axis: {
-        label: "v/m*s^(-1)",
-        range: [0, 12]
-      },
-      data: [{
-          fn: "y = 0.0002*x^3 - 0.02455*x^2 + 0.81374*x + 2.153",
-          range: [2, 22],
-          color: "red",
-          title: "n1=1500",
-          width: 4,
-        },
-        {
-          fn: "y = 0.00096*x^3 - 0.05363*x^2 + 1.079*x + 0.20606",
-          range: [2, 22],
-          color: "blue",
-          title: "n1=1000",
-          width: 3,
-        }, {
-          points: samples1,
-          type: "points",
-          color: "green",
-          width: 4,
-          title: "n1-samples"
-        }, {
-          points: samples2,
-          type: "points",
-          color: "fuchsia",
-          width: 4,
-          title: "n2-samples"
-        }
-      ]
-    });
-  </script>
-  <hr>
-  <h2>3.3 区域处理</h2>
-  <dd>机械设计中，有时还需要处理图线围成的区域。如设计链传动时，根据输入的链节距
-    <katex>p</katex>（横坐标）和链轮速度
-    <katex>v</katex>（纵坐标），查出相应的润滑方式（横、 纵坐标交点所在的区域）， 如下图3-3-1所示（注意是双对数坐标）， 提取数据点后得到各区域分界线直线的方程
-<ul>
-    <li>I-II之间的方程：<katex>v=1*\left(\dfrac{p}{6}\right)^{0.5461151}</katex></li>
-    <li>II-III之间的方程：<katex>v=7.9*\left(\dfrac{p}{6}\right)^{0.9575233}</katex></li>
-    <li>III-IV之间的方程：<katex>v=10*\left(\dfrac{p}{9.525}\right)^{0.5473737}</katex></li>
-</ul></dd>
-  <table>
-    <tr>
-      <td>
-        <div class="draw-box" id="图3-3-1">
-        </div>
-      </td>
-      <td>
-        <div class="draw-box" id="表3-3-1">
-        </div>
-      </td>
-    </tr>
-  </table>
-  <script type="text/javascript">
-    ldc_plot.init({
-      target_id: "图3-3-1",
-      width: 500,
-      height: 400,
-      x_axis: {
-        label: "p/mm",
-        type: "log",
-        range: [6, 120],
-      },
-      y_axis: {
-        label: "v/m*s^(-1)",
-        type: "log",
-        range: [0.2, 20],
-      },
-      data: [{
-        fn: "1*(x/6)^-0.5461151",
-        range: [6, 120],
-        title: "I-II",
-        color: "red",
-        width: 3
-      }, {
-        fn: "7.9*(x/6)^-0.9575233",
-        range: [6, 120],
-        title: "II-III",
-        color: "blue",
-        width: 3
-      }, {
-        fn: "10*(x/9.525)^-0.5473737",
-        range: [6, 120],
-        title: "I-II",
-        color: "green",
-        width: 3
-      }, {
-        points: [
-          [19.05, 0.4, "I"],
-          [19.05, 1.4, "II"],
-          [19.05, 5, "III"],
-          [19.05, 18, "IV"]
-        ],
-        type: "points",
-        color: "fuchsia",
-        width: 0.1,
-        title: "region"
-      }, {
-        points: [
-          [31.75, 4, "k"]
-        ],
-        type: "points",
-        color: "mediumblue",
-        width: 4,
-        title: "sample"
-      }]
-    });
-    var data = [
-      [6, 1, 114.3, 0.2, -0.5461151, "I、II交界线"],
-      [6, 7.9, 114.3, 0.47, -0.9575233, "II、III交界线"],
-      [9.525, 10, 50.8, 4, -0.5473737, "III、IV交界线"]
-    ];
-    var str="<table border='1'>";
-    str+="<caption>"+"表3-3-1 链传动推荐润滑方式图中各直线上的典型结点"+"</caption>";
-    str+="<tr><th rowspan='2'>线号</th>";
-    str+="<th colspan='2'>第1点</th>";
-    str+="<th colspan='2'>第2点</th>";
-    str+="<th rowspan='2'>k</th>";
-    str+="<th rowspan='2'>直线名称</th>"+"</tr>";
-    str+="<tr><th>p1</th><th>v1</th><th>p2</th><th>v2</th></tr>";
-
-    data.forEach(function(v,i){
-        str+="<tr><td class='right'>"+(i+1)+"</td>";
-        v.forEach(function(v1,i1){
-            str+="<td  class='right'>"+v1+"</td>";
+    <script>
+        ldc_plot.init({
+            target_id: "图3-1-1-1",
+            height: 400,
+            width: 500,
+            x_axis: {
+                label: "HBS",
+                range: [50, 250]
+            },
+            y_axis: {
+                label: "Hlim/MPa",
+                range: [200, 850]
+            },
+            data: [{
+                fn: "y=320+(410-320)*(x-110)/(200-110)",
+                range: [70, 250],
+                title: "y=320+(410-320)*(x-110)/(200-110)",
+                color: "red",
+                width: 3,
+            }, {
+                points: [
+                    [110, 320, "P1"],
+                    [200, 410, "P2"],
+                    [180, 390, "P"]
+                ],
+                title: "samples",
+                color: "blue",
+                width: 4,
+                type: "points"
+            }]
         });
-        str+"</tr>";
-    })
-    str+="</table>";
-    document.getElementById("表3-3-1").innerHTML = str;
-  </script>
+        var btn = document.getElementById("btn齿面接触疲劳极限查询");
+        btn.onclick = function(e) {
+            var 齿面硬度 = Number(document.getElementById("input齿面硬度").value);
+            var 齿面接触疲劳极限 = 320 + (410 - 320) * (齿面硬度 - 110) / (200 - 110);
+            document.getElementById("input齿面接触疲劳极限").value = String(齿面接触疲劳极限);
+        }
+    </script>
 
-  <script type="text/javascript">
-    SyntaxHighlighter.all();
-    (function() {
-      var katexes = document.getElementsByTagName("katex");
-      for (var i = 0; i < katexes.length; i++) {
-        var str = katexes[i].textContent;
-        katex.render(str, katexes[i]);
-      }
-    })();
-  </script>
+    <h3>3.1.2 对数坐标的处理</h3>
+    <table>
+        <tr>
+            <td style="width:40%">
+                <dd>对于双对数坐标下的方程，设有
+                    <katex>m=f(a)</katex>，从图上获得的两点
+                    <katex>p_1(a_1,m_1),p_2(a_2,m_2)</katex>，有
+                    <katex>log(m)=log(m_1)+\dfrac{log(m_2)-log(m_1)}{log(a_1)-log(a_2)}(log(a)-log(a_1))</katex>,
+                    <katex>\rightarrow log(m)=log(m_1)+\dfrac{log(\dfrac{m_2}{m_1})}{log(\dfrac{a_1}{a_2})}\cdot log(\dfrac{a}{a_1})</katex>，若令
+                    <katex>k=\dfrac{log(\dfrac{m_2}{m_1})}{log(\dfrac{a_1}{a_2})}</katex>，则有
+                    <katex>log(m)=log(m_1)+log\left( \dfrac{a}{a_1}\right)^k </katex>,
+                    <katex>\rightarrow log(m)=log\left(m_1 \cdot \left(\dfrac{a}{a_1}\right)^k\right)</katex>,
+                    <katex>\rightarrow m=m_1\cdot\left(\dfrac{a}{a_1}\right)^k</katex>
+                </dd>
+            </td>
+            <td class="draw-box" id="图3-1-2-1">
+            </td>
+        </tr>
+    </table>
+    <script>
+        ldc_plot.init({
+            target_id: "图3-1-2-1",
+            height: 400,
+            width: 700,
+            x_axis: {
+                label: "Pd/kW",
+                range: [0.7, 4],
+                type: "log"
+            },
+            y_axis: {
+                label: "n1/(r/min)",
+                range: [300, 1800],
+                type: "log"
+            },
+            data: [{
+                fn: "y=465*x^1.0616",
+                range: [0.8, 2.8],
+                title: "y=465*x^1.0616",
+                color: "red",
+                width: 5
+            }, {
+                points: [
+                    [1, 465, "P1"],
+                    [2.5, 1230, "P2"],
+                    [2.2, 1074, "P"]
+                ],
+                title: "samples",
+                color: "blue",
+                width: 4,
+                type: "points"
+            }]
+        });
+    </script>
+
+    <h2>3.2 曲线处理</h2>
+    <table>
+        <tr>
+            <td colspan="2">
+                <dd>对于曲线，可以从曲线上获得多个点的数据，根据这些点生成函数方程，再进行查询, 从表中可得，
+                    <ul>
+                        <li>对于
+                            <katex>n_1=1500</katex>,可得
+                            <katex>v= 0.0002*p^3 - 0.02455*p^2 + 0.81374*p + 2.153</katex>
+                        </li>
+                        <li>对于
+                            <katex>n_1=1000</katex>,可得
+                            <katex>v= 0.00096*p^3 - 0.05363*p^2 + 1.079*p + 0.20606</katex>
+                        </li>
+                </dd>
+            </td>
+        </tr>
+        <tr>
+            <td id="图3-2-1">
+            </td>
+            <td id="表3-2-1">
+            </td>
+        </tr>
+    </table>
+    <script type="text/javascript">
+        var 蜗杆传动的相对滑动速度概略值 = {
+            "p": [2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22],
+            "v": [{
+                    n1: 1500,
+                    data: [3.7, 5, 6.2, 7.2, 8, 8.8, 9.25, 9.7, 10, 10.2, 10.3]
+                },
+                {
+                    n1: 1000,
+                    data: [1.9, 4.1, 5.1, 5.8, 6.4, 7, 7.4, 7.8, 8, 8.1, 8.15]
+                }
+            ]
+        };
+        var str = "<table border='1'>";
+        str += "<caption>表3-2-1 蜗杆传动的相对滑动速度概略值</caption>";
+        str += "<tr><th rowspan='2'>n<sub>1</sub></th><th  colspan='11'>p</th></tr>";
+        str += "<tr>";
+        蜗杆传动的相对滑动速度概略值["p"].forEach(function(value, index) {
+            str += "<th  class='right'>" + value + "</th>";
+        });
+        str += "</tr>";
+
+        蜗杆传动的相对滑动速度概略值["v"].forEach(function(value, index) {
+            str += "<tr>" + "<th>" + value.n1 + "</th>";
+            value.data.forEach(function(v, i) {
+                str += "<td class='right'>" + v + "</td>";
+            })
+            str += "</tr>";
+        });
+
+        str + "</table>";
+        document.getElementById("表3-2-1").innerHTML = str;
+
+        var samples1 = [],
+            samples2 = [];
+        for (var i = 0; i < 蜗杆传动的相对滑动速度概略值["p"].length; i++) {
+            samples1.push([
+                蜗杆传动的相对滑动速度概略值["p"][i],
+                蜗杆传动的相对滑动速度概略值["v"][0].data[i], "p0-" + i
+            ]);
+            samples2.push([
+                蜗杆传动的相对滑动速度概略值["p"][i],
+                蜗杆传动的相对滑动速度概略值["v"][1].data[i], "p1-" + i
+            ]);
+        }
+
+        ldc_plot.init({
+            target_id: "图3-2-1",
+            width: 600,
+            height: 500,
+            x_axis: {
+                label: "p/kW",
+                range: [0, 24]
+            },
+            y_axis: {
+                label: "v/m*s^(-1)",
+                range: [0, 12]
+            },
+            data: [{
+                    fn: "y = 0.0002*x^3 - 0.02455*x^2 + 0.81374*x + 2.153",
+                    range: [2, 22],
+                    color: "red",
+                    title: "n1=1500",
+                    width: 4,
+                },
+                {
+                    fn: "y = 0.00096*x^3 - 0.05363*x^2 + 1.079*x + 0.20606",
+                    range: [2, 22],
+                    color: "blue",
+                    title: "n1=1000",
+                    width: 3,
+                }, {
+                    points: samples1,
+                    type: "points",
+                    color: "green",
+                    width: 4,
+                    title: "n1-samples"
+                }, {
+                    points: samples2,
+                    type: "points",
+                    color: "fuchsia",
+                    width: 4,
+                    title: "n2-samples"
+                }
+            ]
+        });
+    </script>
+    <hr>
+    <h2>3.3 区域处理</h2>
+    <h3>3.3.1 简单区域</h3>
+    <dd>机械设计中，有时还需要处理图线围成的区域。如设计链传动时，根据输入的链节距
+        <katex>p</katex>（横坐标）和链轮速度
+        <katex>v</katex>（纵坐标），查出相应的润滑方式（横、 纵坐标交点所在的区域）， 如下图3-3-1所示（注意是双对数坐标）， 提取数据点后得到各区域分界线直线的方程
+        <ul>
+            <li>I-II之间的方程：
+                <katex>v=1*\left(\dfrac{p}{6}\right)^{0.5461151}</katex>
+            </li>
+            <li>II-III之间的方程：
+                <katex>v=7.9*\left(\dfrac{p}{6}\right)^{0.9575233}</katex>
+            </li>
+            <li>III-IV之间的方程：
+                <katex>v=10*\left(\dfrac{p}{9.525}\right)^{0.5473737}</katex>
+            </li>
+        </ul>
+    </dd>
+    <table>
+        <tr>
+            <td id="图3-3-1"></td>
+            <td id="表3-3-1"></td>
+        </tr>
+        <tr>
+            <td>
+                <dt>链传动推荐润滑方式查询</dt>
+                <form>
+                    <fieldset>
+                        <legend>输入参数</legend>
+                        <label for="input链节距">链节距/mm</label>
+                        <input type="text" name="input链节距" id="input链节距" value="81.75">
+                        <hr>
+                        <label for="input链速">链速/(m/s)</label>
+                        <input type="text" name="input链速" id="input链速" value="3">
+                    </fieldset>
+                    <fieldset>
+                        <legend>结果</legend>
+                        <label for="input润滑方式">推荐的润滑方式</label>
+                        <input type="text" name="input润滑方式" id="input润滑方式" value="">
+                    </fieldset>
+                    <button type="button" id="button链传动推荐润滑方式查询">查询</button>
+                </form>
+            </td>
+            <td>
+                <dt>参考程序</dt>
+                <div class="code-box">
+                    <pre class="brush:js;">
+                        var 链节距 = Number(document.getElementById("input链节距").value);
+                        var 链速 = Number(document.getElementById("input链速").value);
+
+                        var line_I_II_链速 = 1 * math.pow(链节距/6, -0.5461151);
+                        var line_II_III_链速 = 7.9 * math.pow(链节距/6, -0.9575233);
+                        var line_III_IV_链速 = 10 * math.pow(链节距/9.525, -0.5473737);
+
+                        var type;
+                        if (链速 &gt;= 0 &amp;&amp; 链速 &lt;= line_I_II_链速) {
+                            type = "I";
+                        } else if (链速 &gt; line_I_II_链速  &amp;&amp; 链速 &lt;= line_II_III_链速) {
+                            type = "II";
+                        } else if (链速 &gt; line_II_III_链速  &amp;&amp; 链速 &lt;= line_III_IV_链速) {
+                            type = "III";
+                        } else if (链速 &gt; line_III_IV_链速) {
+                            type = "IV";
+                        }
+
+                        document.getElementById("input润滑方式").value = type;
+                    </pre>
+                </div>
+            </td>
+        </tr>
+    </table>
+    <script type="text/javascript">
+        ldc_plot.init({
+            target_id: "图3-3-1",
+            width: 500,
+            height: 400,
+            x_axis: {
+                label: "p/mm",
+                type: "log",
+                range: [6, 120],
+            },
+            y_axis: {
+                label: "v/m*s^(-1)",
+                type: "log",
+                range: [0.2, 20],
+            },
+            data: [{
+                fn: "1*(x/6)^-0.5461151",
+                range: [6, 120],
+                title: "I-II",
+                color: "red",
+                width: 3
+            }, {
+                fn: "7.9*(x/6)^-0.9575233",
+                range: [6, 120],
+                title: "II-III",
+                color: "blue",
+                width: 3
+            }, {
+                fn: "10*(x/9.525)^-0.5473737",
+                range: [6, 120],
+                title: "III-IV",
+                color: "green",
+                width: 3
+            }, {
+                points: [
+                    [19.05, 0.4, "I"],
+                    [19.05, 1.4, "II"],
+                    [19.05, 5, "III"],
+                    [19.05, 18, "IV"]
+                ],
+                type: "points",
+                color: "fuchsia",
+                width: 0.1,
+                title: "region"
+            }, {
+                points: [
+                    [31.75, 4, "k"]
+                ],
+                type: "points",
+                color: "mediumblue",
+                width: 4,
+                title: "sample"
+            }]
+        });
+        var data = [
+            [6, 1, 114.3, 0.2, -0.5461151, "I、II交界线"],
+            [6, 7.9, 114.3, 0.47, -0.9575233, "II、III交界线"],
+            [9.525, 10, 50.8, 4, -0.5473737, "III、IV交界线"]
+        ];
+        var str = "<table border='1'>";
+        str += "<caption>" + "表3-3-1 链传动推荐润滑方式图中各直线上的典型结点" + "</caption>";
+        str += "<tr><th rowspan='2'>线号</th>";
+        str += "<th colspan='2'>第1点</th>";
+        str += "<th colspan='2'>第2点</th>";
+        str += "<th rowspan='2'>k</th>";
+        str += "<th rowspan='2'>直线名称</th>" + "</tr>";
+        str += "<tr><th>p1</th><th>v1</th><th>p2</th><th>v2</th></tr>";
+
+        data.forEach(function(v, i) {
+            str += "<tr><td class='right'>" + (i + 1) + "</td>";
+            v.forEach(function(v1, i1) {
+                str += "<td  class='right'>" + v1 + "</td>";
+            });
+            str + "</tr>";
+        })
+        str += "</table>";
+        document.getElementById("表3-3-1").innerHTML = str;
+
+        document.getElementById("button链传动推荐润滑方式查询").onclick = function(e) {
+            var 链节距 = Number(document.getElementById("input链节距").value);
+            var 链速 = Number(document.getElementById("input链速").value);
+
+            var line_I_II_链速 = 1 * math.pow(链节距 / 6, -0.5461151);
+            var line_II_III_链速 = 7.9 * math.pow(链节距 / 6, -0.9575233);
+            var line_III_IV_链速 = 10 * math.pow(链节距 / 9.525, -0.5473737);
+
+            var type;
+            if (链速 >= 0 && 链速 <= line_I_II_链速) {
+                type = "I";
+            } else if (链速 > line_I_II_链速 && 链速 <= line_II_III_链速) {
+                type = "II";
+            } else if (链速 > line_II_III_链速 && 链速 <= line_III_IV_链速) {
+                type = "III";
+            } else if (链速 > line_III_IV_链速) {
+                type = "IV";
+            }
+
+            document.getElementById("input润滑方式").value = type;
+        };
+    </script>
+    <hr>
+
+    <h3>3.3.2 复杂区域判断</h3>
+
+    <dd>
+        一般情况下，某个区域可以用一个多边形（polygon）来表示，用下面的算法来判断某个点
+        <katex>P(x,y)</katex>是否在此区域中。
+    </dd>
+    <chapter1>
+        <div class="draw-box;">
+            <svg width="400" height="260">
+                <polygon points="120,210 220,210 330,110 240, 80"
+                    style="fill:#cccccc;
+                    stroke:#000000;stroke-width:3"/>
+                <circle cx="120" cy="210" r="4"
+                    stroke="blue"    stroke-width="2"
+                    fill="red"/>
+                <text x="120" y="230">
+                    P0(x0,y0)
+                </text>
+                <circle cx="220" cy="210" r="4"
+                    stroke="blue"    stroke-width="2"
+                    fill="red"/>
+                <text x="220" y="230">
+                    P1(x1,y1)
+                </text>
+                <circle cx="330" cy="110" r="4"
+                    stroke="blue"    stroke-width="2"
+                    fill="red"/>
+                <text x="330" y="100">
+                    P2(x2,y2)
+                </text>
+                <circle cx="240" cy="80" r="4"
+                    stroke="blue"    stroke-width="2"
+                    fill="red"/>
+                <text x="240" y="70">
+                    P3(x3,y3)
+                </text>
+                <circle cx="250" cy="150" r="4"
+                    stroke="blue"    stroke-width="2"
+                    fill="red"/>
+                <text x="250" y="140">
+                    P(x,y)
+                </text>
+                <line x1="100" y1="150" x2="320" y2="150"
+                style="stroke:blue;stroke-width:2"/>
+            </svg>
+        </div>
+
+        <div class="code-box">
+            <pre class="brush:js;">
+                function(point, polygon_points){
+                    var is_in = false;
+                    var last = polygon_points.length -1;
+                    for(var i=0; i&lt;polygon_points.length; i++){
+                        var x = point[0], y=point[1];
+                        var first_x = polygon_points[i][0],
+                            first_y = polygon_points[i][1],
+                            second_x= polygon_points[last][0],
+                            second_y= polygon_points[last][1];
+                        if( (  first_y &lt;  y &amp;&amp; second_y &gt;= y
+                            || first_y &gt;= y &amp;&amp; second_y &lt;  y)
+                            &amp;&amp;(first_x &lt;= x || second_x &lt;= x) ){
+                                if(first_x+(y-first_y)/(second_y-first_y)*(second_x-first_x)&lt;x){
+                                    is_in = ! is_in;
+                                }
+                            }
+                        last = i;
+                    }
+                    return is_in;
+                }
+            </pre>
+        </div>
+    </chapter1>
+
+    <hr>
+    <chapter1>
+        <div class="draw-box">
+            <img src="images/普通V带选型图.png" alt="普通V带选型图">
+        </div>
+        <form >
+            <h3>普通V带选型</h3>
+            <fieldset>
+                <legend>输入参数</legend>
+                <label for="input设计功率">设计功率</label>
+                <input type="text" name="input设计功率" id="input设计功率" value="5.4">
+                <hr>
+                <label for="input小带轮转速">小带轮转速</label>
+                <input type="text" name="input小带轮转速"  id="input小带轮转速" value="450">
+            </fieldset>
+            <fieldset>
+                <legend>输出</legend>
+                <label for="input普通V带型号">普通V带型号</label>
+                <input type="text" id="input普通V带型号" name="input普通V带型号" value="">
+            </fieldset>
+            <button type="button" name="button普通V带型号查询">查询</button>
+        </form>
+    </chapter1>
+
+    <script type="text/javascript">
+        SyntaxHighlighter.all();
+        (function() {
+            var katexes = document.getElementsByTagName("katex");
+            for (var i = 0; i < katexes.length; i++) {
+                var str = katexes[i].textContent;
+                katex.render(str, katexes[i]);
+            }
+        })();
+    </script>
 </body>
 
 </html>

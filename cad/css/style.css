@@ -20,8 +20,9 @@ dd {
     box-shadow: 10px 10px 5px darkcyan;
     font-size: 20px;
     display: inline-block;
-    margin: 1em;
-    padding: 1em;
+    margin-bottom: 1em;
+    margin-left: 1em;
+    padding:  1em;
     text-align: left;
 }
 
@@ -115,11 +116,12 @@ h5 {
 }
 
 table {
-    width: 100%;
+    width: 95%;
     text-align: left;
 }
 th,td{
-    padding-right: 1em;
+    padding-right: 50px;
+    vertical-align: top;
 }
 section {
     border-style: solid;
@@ -198,4 +200,12 @@ th{
 
 .right{
     text-align: right;
+}
+
+chapter1{
+    display: grid;
+    grid-template-columns: 3fr 7fr;
+    border-style: double;
+    box-shadow: 10px 10px 10px darkgreen;
+    grid-gap: 2em;
 }

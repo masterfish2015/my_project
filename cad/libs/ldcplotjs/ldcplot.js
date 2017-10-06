@@ -38,11 +38,11 @@ ldc_plot.init = function(option) {
         ldc_plot.y_label = option.y_axis.label
     }
     // ticks of each axis
-    ldc_plot.x_axis_ticks = 10
+    ldc_plot.x_axis_ticks = 11
     if (option.x_axis && option.x_axis.ticks) {
         ldc_plot.x_axis_ticks = option.x_axis.ticks
     }
-    ldc_plot.y_axis_ticks = 10
+    ldc_plot.y_axis_ticks = 11
     if (option.y_axis && option.y_axis.ticks) {
         ldc_plot.y_axis_ticks = option.y_axis.ticks
     }
@@ -63,7 +63,7 @@ ldc_plot.init = function(option) {
     ctx.save();
     ctx.lineCap = "round";
     ctx.lineJoin= "round";
-    
+
     this.data.forEach(function(value, index, array) {
         var type = value.type || 'function'
         var fn = value.fn
@@ -98,10 +98,10 @@ ldc_plot.init = function(option) {
                     }
                 }
             } else if (ldc_plot.x_axis_type === 'log') {
-                var x0 = math.log(range[0])
-                var step = (math.log(range[1] / range[0])) / ldc_plot.x_axis_ticks
+                var x0 = math.log10(range[0])
+                var step = (math.log10(range[1] / range[0])) / ldc_plot.x_axis_ticks
                 for (var i = 0; i <= ldc_plot.x_axis_ticks; i++) {
-                    var x = math.exp(x0 + i * step)
+                    var x = math.pow(10, x0 + i * step)
                     var y = math.eval(fn, {
                         x: x
                     })
@@ -125,13 +125,14 @@ ldc_plot.init = function(option) {
                 ctx.fillText(points[i][2], cp[0] + 10, cp[1] + 10)
             }
         }
-
+        //画标示
         ctx.stroke()
         var legend_width = ctx.measureText(title).width
         ctx.fillStyle = color
-        ctx.fillRect(canvas.width - legend_width, index * 50, legend_width, 20)
+        ctx.fillRect(canvas.width - 40, index * 50, 50, 20)
         ctx.lineWidth = 1
-        ctx.strokeText(title, canvas.width - legend_width, index * 50 + 30)
+        ctx.textAlign = "right";
+        ctx.strokeText(title, canvas.width -5, index * 50 + 30)
     })
     ctx.restore();
 }
@@ -142,17 +143,17 @@ ldc_plot._project = function(x, y) {
         xmax = ldc_plot.x_axis_range[1],
         ymin = ldc_plot.y_axis_range[0],
         ymax = ldc_plot.y_axis_range[1],
-        cw = ldc_plot.canvas.width - 20, // 左右两边留出各10px的空间画刻度或其他
-        ch = ldc_plot.canvas.height - 20; // 上下两边留出各10px的空间画刻度或其他
+        cw = ldc_plot.canvas.width - 50, // 右边留出空间画其他
+        ch = ldc_plot.canvas.height - 50; //下边留出空间画其他
     if (ldc_plot.x_axis_type === 'normal') {
-        cx = cw * (x - xmin) / (xmax - xmin) + 10
+        cx = cw * (x - xmin) / (xmax - xmin)+15
     } else if (ldc_plot.x_axis_type === 'log') {
-        cx = cw * (Math.log(x / xmin)) / (Math.log(xmax / xmin)) + 10
+        cx = cw * (math.log10(x / xmin)) / (math.log10(xmax / xmin))+15
     }
     if (ldc_plot.y_axis_type === 'normal') {
-        cy = ch * (ymax - y) / (ymax - ymin) + 10
+        cy = ch * (ymax - y) / (ymax - ymin)+15
     } else if (ldc_plot.y_axis_type === 'log') {
-        cy = ch * (Math.log(ymax / y)) / (Math.log(ymax / ymin)) + 10
+        cy = ch * (math.log10(ymax / y)) / (math.log10(ymax / ymin))+15
     }
 
     return [cx, cy]
@@ -178,6 +179,7 @@ ldc_plot._draw_x_axis = function() {
     var ctx = ldc_plot.ctx
 
     ctx.save()
+    ctx.textAlign = "left"
     ctx.beginPath()
     ctx.lineWidth = 5
     ctx.strokeStyle = 'black'
@@ -211,33 +213,36 @@ ldc_plot._draw_x_axis = function() {
             ctx.strokeText(tick_label, cp[0] - ctx.measureText(tick_label).width / 2, cp[1] + 10)
         }
     } else if (type === 'log') {
-        step = Math.log(rangex[1] / rangex[0]) / ticks
-        var x = math.log(rangex[0])
+        step = math.log10(rangex[1] / rangex[0]) / (ticks-1)
+        var x = rangex[0]
 
         for (var i = 0; i <= ticks; i++) {
             ctx.beginPath()
             ctx.lineWidth = 1
             ctx.strokeStyle = 'grey'
 
-            var xx = Math.exp(x + i * step)
-            cp = ldc_plot._project(xx, rangey[1])
+
+            cp = ldc_plot._project(x, rangey[1])
             ctx.moveTo(cp[0], cp[1])
-            cp = ldc_plot._project(xx, rangey[0])
+            cp = ldc_plot._project(x, rangey[0])
             ctx.lineTo(cp[0], cp[1])
             ctx.stroke()
 
-            var tick_label = math.format(xx, {
+            var tick_label = math.format(x, {
                 notation: 'auto',
                 precision: 2
             })
             ctx.strokeStyle = 'black'
             ctx.strokeText(tick_label, cp[0] - ctx.measureText(tick_label).width / 2, cp[1] + 10)
+
+            x *= math.pow(10,step);
         }
     }
     // //刻度之间的
     ctx.stroke()
     ctx.lineWidth = 1;
     ctx.strokeStyle ="black";
+    cp = ldc_plot._project(rangex[1],rangey[0]);
     ctx.strokeText(label, cp[0]- ctx.measureText(label).width, cp[1]-10);
     ctx.restore()
 }
@@ -262,6 +267,7 @@ ldc_plot._draw_y_axis = function() {
     var ctx = ldc_plot.ctx
 
     ctx.save()
+    ctx.textAlign = "left"
     ctx.beginPath()
     ctx.lineWidth = 5
     ctx.strokeStyle = 'black'
@@ -295,30 +301,54 @@ ldc_plot._draw_y_axis = function() {
             ctx.strokeText(tick_label, cp[0] + 10, cp[1])
         }
     } else if (type === 'log') {
-        step = Math.log(rangey[1] / rangey[0]) / ticks
-        var y = math.log(rangey[0])
+        step = math.log10(rangey[1] / rangey[0]) / (ticks-1)
+        var y = rangey[0]
         for (var i = 0; i <= ticks; i++) {
             ctx.beginPath()
             ctx.lineWidth = 1
             ctx.strokeStyle = 'grey'
 
-            var yy = Math.exp(y + i * step)
-            cp = ldc_plot._project(rangex[1], yy)
+
+            cp = ldc_plot._project(rangex[1], y)
             ctx.moveTo(cp[0], cp[1])
-            cp = ldc_plot._project(rangex[0], yy)
+            cp = ldc_plot._project(rangex[0], y)
             ctx.lineTo(cp[0], cp[1])
             ctx.stroke()
 
-            var tick_label = math.format(yy, {
+            var tick_label = math.format(y, {
                 notation: 'auto',
                 precision: 2
             })
             ctx.strokeStyle = 'black'
             ctx.strokeText(tick_label, cp[0] + 10, cp[1])
+
+            y *= math.pow(10, step)
         }
     }
     ctx.lineWidth = 1;
     ctx.strokeStyle ="black";
-    ctx.strokeText(label, cp[0]+20 , cp[1]+10);
+    cp = ldc_plot._project(rangex[0], rangey[1]);
+    ctx.strokeText(label, cp[0]+20 , cp[1]+15);
     ctx.restore();
+}
+
+ldc_plot.point_in_polygon=function(point, polygon_points){
+    var is_in = false;
+    var last = polygon_points.length -1;
+    for(var i=0; i<polygon_points.length; i++){
+        var x = point[0], y=point[1];
+        var first_x = polygon_points[i][0],
+            first_y = polygon_points[i][1],
+            second_x= polygon_points[last][0],
+            second_y= polygon_points[last][1];
+        if( (  first_y <  y && second_y >= y
+            || first_y >= y && second_y <  y)
+            &&(first_x <= x || second_x <= x) ){
+                if(first_x+(y-first_y)/(second_y-first_y)*(second_x-first_x)<x){
+                    is_in = ! is_in;
+                }
+            }
+        last = i;
+    }
+    return is_in;
 }
