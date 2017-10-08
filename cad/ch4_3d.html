@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>第四讲 3D绘制</title>
+    <!-- css -->
+    <link rel="stylesheet" href="libs/katex/katex.min.css">
+    <link rel="stylesheet" href="libs/pseudocode/pseudocode.min.css">
+    <link rel="stylesheet" href="libs/SyntaxHighlighter/styles/shCoreDefault.css" />
+    <link rel="stylesheet" href="css/style.css">
+    <!-- javascript libs -->
+    <script src="libs/mathjs/math.min.js"></script>
+    <script src="libs/katex/katex.min.js"></script>
+    <script type="text/javascript" src="libs/SyntaxHighlighter/scripts/shCore.js"></script>
+    <script type="text/javascript" src="libs/SyntaxHighlighter/scripts/shBrushJScript.js"></script>
+    <script src="libs/d3/d3.min.js"></script>
+    <script src="libs/function-plot/dist/function-plot.js"></script>
+
+    <script src="libs/pseudocode/pseudocode.min.js"></script>
+    <script src="libs/three/three.js" charset="utf-8"></script>
+    <script src="libs/three/examples/js/controls/OrbitControls.js" charset="utf-8"></script>
+
+    <script src="libs/ldcplotjs/ldcplot.js"></script>
+
+</head>
+
+<body>
+    <h1>第四讲 3D绘制</h1>
+
+    <section>
+        <h2>4.1 最简单的three.js场景</h2>
+        <p>注意，本课程使用的是three.js的r87版, 本讲内容绝大部分参见官网<a href="https://threejs.org/">https://threejs.org/</a>和<a href="">https://stemkoski.github.io/Three.js/</a>，后者有大量的简单范例可以参考。</p>
+        <div class="double_cols">
+            <div id="exam1-draw-box" class="draw-box"></div>
+            <div class="code-box">
+                <pre class="brush:js;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;script src="libs/three/three.js" charset="utf-8"&gt;&lt;/script&gt;
+    &lt;script src="libs/three/examples/js/controls/OrbitControls.js"&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div id="exam1-draw-box" class="draw-box" &gt;&lt;/div&gt;
+&lt;script type="text/javascript"&gt;
+var exam_1 = {};
+//创建场景
+exam_1.scene = new THREE.Scene();
+//创建摄像机
+exam_1.camera = new THREE.PerspectiveCamera(
+//透视摄像机
+    70,    //视角：70度
+    1,  //视角的宽高比
+    0.01,  //显示的最近距离（到摄像头的距离）
+    10     //显示的最远距离（到摄像头的距离）
+);
+//调整摄像机的位置
+exam_1.camera.position.set(0.5,0.5,1);
+//摄像头对准的位置
+exam_1.camera.lookAt(new THREE.Vector3( 0, 0, 0 ));
+//创建几何体：长方体（长，宽，高），中心在坐标原点
+exam_1.geometry = new THREE.BoxGeometry(0.2,0.2,0.2);
+//创建材质：普通材质（不同平面被赋予不同颜色）
+exam_1.material = new THREE.MeshNormalMaterial();
+//创建三维实体（网格单元）：根据几何体和材质
+exam_1.mesh = new THREE.Mesh( exam_1.geometry,
+                        exam_1.material );
+//将实体加入场景中
+exam_1.scene.add(exam_1.mesh);
+//创建渲染器并嵌入画图标签中
+exam_1.renderer = new THREE.WebGLRenderer(
+    { antialias: true } );
+var box = document.getElementById("exam1-draw-box");
+exam_1.renderer.setSize(300, 300);
+box.appendChild(exam_1.renderer.domElement);
+
+//设置卫星视角观测控制器
+exam_1.controls = new THREE.OrbitControls( exam_1.camera,
+    exam_1.renderer.domElement);
+
+//开始动画（响应鼠标控制）
+animate();
+
+function animate(){
+    requestAnimationFrame( animate );
+    exam_1.renderer.render( exam_1.scene,  exam_1.camera );
+    exam_1.controls.update();
+}
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+                </pre>
+            </div>
+        </div>
+        <script type="text/javascript">
+            var exam_1 = {};
+            //创建场景
+            exam_1.scene = new THREE.Scene();
+            //创建摄像机
+            exam_1.camera = new THREE.PerspectiveCamera( //透视摄像机
+                70, //视角：70度
+                1, //视角的宽高比
+                0.01, //显示的最近距离（到摄像头的距离）
+                10 //显示的最远距离（到摄像头的距离）
+            );
+            exam_1.camera.position.set(0.5, 0.5, 1); //调整摄像机的位置
+            exam_1.camera.lookAt(new THREE.Vector3(0, 0, 0)); //摄像头对准的位置
+            //创建几何体：长方体（长，宽，高），中心在坐标原点
+            exam_1.geometry = new THREE.BoxGeometry(0.2, 0.2, 0.2);
+            //创建材质：普通材质（不同平面被赋予不同颜色）
+            exam_1.material = new THREE.MeshNormalMaterial();
+            //创建三维实体（网格单元）：根据几何体和材质
+            exam_1.mesh = new THREE.Mesh(exam_1.geometry, exam_1.material);
+            //将实体加入场景中
+            exam_1.scene.add(exam_1.mesh);
+            //创建渲染器并嵌入画图标签中
+            exam_1.renderer = new THREE.WebGLRenderer({
+                antialias: true
+            });
+            var box = document.getElementById("exam1-draw-box");
+            exam_1.renderer.setSize(300, 300);
+            box.appendChild(exam_1.renderer.domElement);
+
+            //设置卫星视角观测控制器
+            exam_1.controls = new THREE.OrbitControls(exam_1.camera,
+                exam_1.renderer.domElement);
+
+            animate();
+
+            function animate() {
+                requestAnimationFrame(animate);
+                exam_1.renderer.render(exam_1.scene, exam_1.camera);
+                exam_1.controls.update();
+            }
+        </script>
+    </section>
+    <section>
+        <h2>4.2 一些简单的three.js概念</h2>
+        <dt>场景Scene</dt>
+        <dd>Scenes allow you to set up what and where is to be rendered by three.js. This is where you place <b>objects</b>, <b>lights</b> and <b>cameras</b>.</dd>
+        <pre class="brush:js;">
+            var scene = new THREE.Scene();
+        </pre>
+        <dt>摄像头Camera</dt>
+        <dd>创建一个摄像头以进行观察，注意实际显示在网页中的内容是通过<i>摄像头</i><b>看到</b>的结果。无法直接使用Camera对象，必须使用下面的两种具体的摄像头对象。
+            <hr> 通用的属性和方法：
+            <ul>
+                <li>[属性]<code>.position</code>：表示摄像头位置，类型是<code>THREE.Vector3</code>，可以用下面的方法来读取和设置其值；
+                    <pre class="brush:js;">
+                    //创建一个全新的3维点，并分别赋予其三个坐标轴上的值
+                    var p1 = new THREE.Vector3();
+                    p1.x = 1; p1.y=2; p1.z=3;
+                    //也可以用set方法直接设置三个值
+                    p1.set(4,5,6);
+                    ...
+                    var camera = new THREE.PerspectiveCamera(...);
+                    //在创建新的点的时候，可以直接进行初始化
+                    camera.position = new THREE.Vector3(3,8,10);
+                    //用distanceTo方法计算两点之间的距离
+                    var distance = camera.position.distanceTo(p1);
+                </pre>
+                </li>
+                <li>[方法]<code>.lookAt(target:THREE.Vector3)</code>：设置摄像头聚焦的点，注意使用方法：
+                    <pre class="brush:js;">
+                    //创建一个全新的3维点，并分别赋予其三个坐标轴上的值
+                    var p1 = new THREE.Vector3();
+                    p1.set(1,2,3);
+                    var p2 = new THREE.Vector3(4,5,6);
+                    ...
+                    var camera = new THREE.PerspectiveCamera(...);
+                    camera.position = p1.clone(); //创建一个新的三维点（和p1分开）
+                    ...
+                    camera.lookAt(p2);
+                    //看向一个新的点
+                    camera.lookAt(new THREE.Vector3(0,0,0));
+                </pre>
+                </li>
+            </ul>
+            <hr> 两种可用的摄像头：
+            <ol>
+                <li>透视摄像头(<i>PerspectiveCamera</i>)：显示效果比较好
+                    <hr>
+                    <img src="images/透视1.png" alt="透视">
+                    <img src="images/透视投影对比平行投影.jpeg" alt="透视投影对比平行投影">
+                </li>
+            </ol>
+
+        </dd>
+        <pre class="brush:js;">
+            var scene = new THREE.Scene();
+        </pre>
+    </section>
+    <script type="text/javascript">
+        SyntaxHighlighter.all();
+        (function() {
+            var katexes = document.getElementsByTagName("katex");
+            for (var i = 0; i < katexes.length; i++) {
+                var str = katexes[i].textContent;
+                katex.render(str, katexes[i]);
+            }
+        })();
+    </script>
+
+</body>
+
+</html>
