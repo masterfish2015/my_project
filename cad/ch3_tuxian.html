@@ -739,7 +739,10 @@
         <div class="draw-box">
             <img src="images/普通V带选型图.png" alt="普通V带选型图">
         </div>
-        <form >
+        <div class="draw-box">
+            <img src="images/普通V带选型图-1.png" alt="普通V带选型图各个边界点">
+        </div>
+        <form>
             <h3>普通V带选型</h3>
             <fieldset>
                 <legend>输入参数</legend>
@@ -747,16 +750,350 @@
                 <input type="text" name="input设计功率" id="input设计功率" value="5.4">
                 <hr>
                 <label for="input小带轮转速">小带轮转速</label>
-                <input type="text" name="input小带轮转速"  id="input小带轮转速" value="450">
+                <input type="text" name="input小带轮转速" id="input小带轮转速" value="450">
             </fieldset>
             <fieldset>
                 <legend>输出</legend>
                 <label for="input普通V带型号">普通V带型号</label>
                 <input type="text" id="input普通V带型号" name="input普通V带型号" value="">
+                <label for="input普通V带型号dd">d<sub>d</sub>范围：</label>
+                <input type="text" id="input普通V带型号dd范围" name="input普通V带型号dd范围" value="">
             </fieldset>
-            <button type="button" name="button普通V带型号查询">查询</button>
+            <button type="button" id="button普通V带型号查询">查询</button>
         </form>
+        <div class="code-box" style="height:600px;overflow-y:scroll">
+            <pre class="brush:js;">
+                var 普通V带选型图边界点 = [
+                //下面是曲线边界点的坐标，注意是图上的测量坐标，
+                //不是实际的坐标轴的坐标
+                    [703, 464], //0
+                    [703, 291], //1
+                    [669, 291], //2
+                    [530, 464], //3
+                    [442, 464], //4
+                    [603, 277], //5
+                    [515, 229], //6
+                    [509, 263], //7
+                    [340, 464], //8
+                    [228, 464], //9
+                    [430, 235], //10
+                    [438, 190], //11
+                    [397, 209], //12
+                    [176, 464], //13
+                    [113, 464], //14
+                    [359, 192], //15
+                    [369, 146], //16
+                    [343, 99], //17
+                    [327, 160], //18
+                    [82, 415], //19
+                    [82, 464], //20
+                    [84, 325], //21
+                    [288, 120], //22
+                    [296, 81], //23
+                    [266, 56], //24
+                    [246, 102], //25
+                    [84, 274], //26
+                    [86, 50], //27
+                ];
+                var 普通V带选型图区域 = [{
+                    type: "E",
+                    points: [普通V带选型图边界点[0],
+                        普通V带选型图边界点[1],
+                        普通V带选型图边界点[2],
+                        普通V带选型图边界点[3]
+                    ],
+                    dd范围: [450, 550]
+                }, {
+                    type: "D",
+                    points: [普通V带选型图边界点[3],
+                        普通V带选型图边界点[2],
+                        普通V带选型图边界点[5],
+                        普通V带选型图边界点[4]
+                    ],
+                    dd范围: [450, 550]
+                }, {
+                    type: "D",
+                    points: [普通V带选型图边界点[4],
+                        普通V带选型图边界点[5],
+                        普通V带选型图边界点[6],
+                        普通V带选型图边界点[7],
+                        普通V带选型图边界点[8]
+                    ],
+                    dd范围: [355, 400]
+                }, {
+                    type: "C",
+                    points: [普通V带选型图边界点[8],
+                        普通V带选型图边界点[7],
+                        普通V带选型图边界点[6],
+                        普通V带选型图边界点[11],
+                        普通V带选型图边界点[10],
+                        普通V带选型图边界点[9]
+                    ],
+                    dd范围: [200, 315]
+                }, {
+                    type: "B",
+                    points: [普通V带选型图边界点[9],
+                        普通V带选型图边界点[10],
+                        普通V带选型图边界点[11],
+                        普通V带选型图边界点[12],
+                        普通V带选型图边界点[13]
+                    ],
+                    dd范围: [160, 200]
+                }, {
+                    type: "B",
+                    points: [普通V带选型图边界点[13],
+                        普通V带选型图边界点[12],
+                        普通V带选型图边界点[16],
+                        普通V带选型图边界点[15],
+                        普通V带选型图边界点[14]
+                    ],
+                    dd范围: [125, 140]
+                }, {
+                    type: "A",
+                    points: [普通V带选型图边界点[14],
+                        普通V带选型图边界点[15],
+                        普通V带选型图边界点[16],
+                        普通V带选型图边界点[17],
+                        普通V带选型图边界点[18],
+                        普通V带选型图边界点[19],
+                        普通V带选型图边界点[20]
+                    ],
+                    dd范围: [112, 140]
+                }, {
+                    type: "A",
+                    points: [普通V带选型图边界点[19],
+                        普通V带选型图边界点[18],
+                        普通V带选型图边界点[17],
+                        普通V带选型图边界点[23],
+                        普通V带选型图边界点[22],
+                        普通V带选型图边界点[21]
+                    ],
+                    dd范围: [75, 100]
+                }, {
+                    type: "Z",
+                    points: [普通V带选型图边界点[21],
+                        普通V带选型图边界点[22],
+                        普通V带选型图边界点[23],
+                        普通V带选型图边界点[24],
+                        普通V带选型图边界点[25],
+                        普通V带选型图边界点[26]
+                    ],
+                    dd范围: [80, 100]
+                }, {
+                    type: "Z",
+                    points: [普通V带选型图边界点[26],
+                        普通V带选型图边界点[25],
+                        普通V带选型图边界点[24],
+                        普通V带选型图边界点[27]
+                    ],
+                    dd范围: [50, 71]
+                }];
+
+                document.getElementById("button普通V带型号查询").onclick =
+                    function(e) {
+                        var pd设计功率 = Number(document.getElementById(
+                        "input设计功率").value);
+                        var n1小带轮转速 = Number(document.getElementById(
+                        "input小带轮转速").value);
+                        var pd设计功率_x = math.log10(pd设计功率);
+                        var n1小带轮转速_y = math.log10(n1小带轮转速);
+
+                        //为了换算，需要知道几个参数
+                        var  xmin=math.log10(0.8) //x轴最小值
+                            ,xmax=math.log10(250) //x轴最大值
+                            ,ymin=math.log10(100) //y轴最小值
+                            ,ymax=math.log10(5000)//y轴最大值
+                        var cw = 746     //整个图片的宽度
+                            ,ch=562      //整个图片的高度
+                            ,org_cx=82   //坐标原点在图片中位置x
+                            ,org_cy=457  //坐标原点在图片中位置y
+                            ,ymax_cy=50  //y坐标最大值在图片中的位置
+                            ,xmax_cx=703;//x坐标最大值在图片中的位置
+
+                        var cx,cy;       //[x,y]在图片中的位置
+                        cx = (pd设计功率_x-xmin) *
+                        (xmax_cx-org_cx) / (xmax-xmin)+ org_cx;
+                        cy = org_cy-
+                        (n1小带轮转速_y-ymin)*(org_cy-ymax_cy)/(ymax-ymin) ;
+
+                        for (var i=0; i&lt;普通V带选型图区域.length; i++) {
+                            if (ldc_plot.point_in_polygon(
+                                  [cx,cy],
+                                  普通V带选型图区域[i].points)
+                                === true) {
+                                //找到了input普通V带型号
+                                document.getElementById(
+                                "input普通V带型号").value =
+                                普通V带选型图区域[i].type;
+                                document.getElementById(
+                                "input普通V带型号dd范围").value ="["+
+                                普通V带选型图区域[i].dd范围[0]+
+                                ","+
+                                普通V带选型图区域[i].dd范围[1]+
+                                "]";
+                                return;
+                            }
+                        }
+                    }
+            </pre>
+        </div>
     </chapter1>
+    <script type="text/javascript">
+        var 普通V带选型图边界点 = [
+            [703, 464], //0
+            [703, 291], //1
+            [669, 291], //2
+            [530, 464], //3
+            [442, 464], //4
+            [603, 277], //5
+            [515, 229], //6
+            [509, 263], //7
+            [340, 464], //8
+            [228, 464], //9
+            [430, 235], //10
+            [438, 190], //11
+            [397, 209], //12
+            [176, 464], //13
+            [113, 464], //14
+            [359, 192], //15
+            [369, 146], //16
+            [343, 99], //17
+            [327, 160], //18
+            [82, 415], //19
+            [82, 464], //20
+            [84, 325], //21
+            [288, 120], //22
+            [296, 81], //23
+            [266, 56], //24
+            [246, 102], //25
+            [84, 274], //26
+            [86, 50], //27
+        ]; //原图像素点
+        var 普通V带选型图区域 = [{
+            type: "E",
+            points: [普通V带选型图边界点[0],
+                普通V带选型图边界点[1],
+                普通V带选型图边界点[2],
+                普通V带选型图边界点[3]
+            ],
+            dd范围: [450, 550]
+        }, {
+            type: "D",
+            points: [普通V带选型图边界点[3],
+                普通V带选型图边界点[2],
+                普通V带选型图边界点[5],
+                普通V带选型图边界点[4]
+            ],
+            dd范围: [450, 550]
+        }, {
+            type: "D",
+            points: [普通V带选型图边界点[4],
+                普通V带选型图边界点[5],
+                普通V带选型图边界点[6],
+                普通V带选型图边界点[7],
+                普通V带选型图边界点[8]
+            ],
+            dd范围: [355, 400]
+        }, {
+            type: "C",
+            points: [普通V带选型图边界点[8],
+                普通V带选型图边界点[7],
+                普通V带选型图边界点[6],
+                普通V带选型图边界点[11],
+                普通V带选型图边界点[10],
+                普通V带选型图边界点[9]
+            ],
+            dd范围: [200, 315]
+        }, {
+            type: "B",
+            points: [普通V带选型图边界点[9],
+                普通V带选型图边界点[10],
+                普通V带选型图边界点[11],
+                普通V带选型图边界点[12],
+                普通V带选型图边界点[13]
+            ],
+            dd范围: [160, 200]
+        }, {
+            type: "B",
+            points: [普通V带选型图边界点[13],
+                普通V带选型图边界点[12],
+                普通V带选型图边界点[16],
+                普通V带选型图边界点[15],
+                普通V带选型图边界点[14]
+            ],
+            dd范围: [125, 140]
+        }, {
+            type: "A",
+            points: [普通V带选型图边界点[14],
+                普通V带选型图边界点[15],
+                普通V带选型图边界点[16],
+                普通V带选型图边界点[17],
+                普通V带选型图边界点[18],
+                普通V带选型图边界点[19],
+                普通V带选型图边界点[20]
+            ],
+            dd范围: [112, 140]
+        }, {
+            type: "A",
+            points: [普通V带选型图边界点[19],
+                普通V带选型图边界点[18],
+                普通V带选型图边界点[17],
+                普通V带选型图边界点[23],
+                普通V带选型图边界点[22],
+                普通V带选型图边界点[21]
+            ],
+            dd范围: [75, 100]
+        }, {
+            type: "Z",
+            points: [普通V带选型图边界点[21],
+                普通V带选型图边界点[22],
+                普通V带选型图边界点[23],
+                普通V带选型图边界点[24],
+                普通V带选型图边界点[25],
+                普通V带选型图边界点[26]
+            ],
+            dd范围: [80, 100]
+        }, {
+            type: "Z",
+            points: [普通V带选型图边界点[26],
+                普通V带选型图边界点[25],
+                普通V带选型图边界点[24],
+                普通V带选型图边界点[27]
+            ],
+            dd范围: [50, 71]
+        }];
+
+        document.getElementById("button普通V带型号查询").onclick =
+            function(e) {
+                var pd设计功率 = Number(document.getElementById("input设计功率").value);
+                var n1小带轮转速 = Number(document.getElementById("input小带轮转速").value);
+                var pd设计功率_x = math.log10(pd设计功率);
+                var n1小带轮转速_y = math.log10(n1小带轮转速);
+
+                var xmin=math.log10(0.8),
+                    xmax=math.log10(250),
+                    ymin=math.log10(100),
+                    ymax=math.log10(5000);
+                var cw = 746, ch=562, org_cx=82, org_cy=457, ymax_cy=50, xmax_cx=703;
+
+                var cx,cy;
+                cx = (pd设计功率_x-xmin) * (xmax_cx-org_cx) / (xmax-xmin) + org_cx;
+                cy = org_cy- (n1小带轮转速_y-ymin) * (org_cy-ymax_cy) / ( ymax - ymin ) ;
+
+                for (var i = 0; i < 普通V带选型图区域.length; i++) {
+                    if (ldc_plot.point_in_polygon([cx, cy],
+                        普通V带选型图区域[i].points) === true) {
+                        //找到了input普通V带型号
+                        document.getElementById("input普通V带型号").value = 普通V带选型图区域[i].type;
+                        document.getElementById("input普通V带型号dd范围").value="["+普通V带选型图区域[i].dd范围[0]+","+普通V带选型图区域[i].dd范围[1]+"]";
+                        return;
+                    }
+                }
+                //找不到
+                document.getElementById("input普通V带型号").value = "无法找到适合的型号";
+                document.getElementById("input普通V带型号dd范围").value="无法找到适合的型号";
+            }
+    </script>
 
     <script type="text/javascript">
         SyntaxHighlighter.all();
