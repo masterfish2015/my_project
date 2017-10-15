@@ -3,19 +3,26 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>第四讲 3D绘制</title>
     <!-- css -->
     <link rel="stylesheet" href="libs/katex/katex.min.css">
     <link rel="stylesheet" href="libs/pseudocode/pseudocode.min.css">
-    <link rel="stylesheet" href="libs/SyntaxHighlighter/styles/shCoreDefault.css" />
+
+    <link rel="stylesheet" href="libs/highlight/styles/xcode.css">
+    <!-- <link rel="stylesheet" href="libs/SyntaxHighlighter/styles/shCoreDefault.css" /> -->
+
+    <!-- <link rel="stylesheet" href="libs/bootstrap/v3/css/bootstrap.css"> -->
     <link rel="stylesheet" href="css/style.css">
     <!-- javascript libs -->
     <script src="libs/mathjs/math.min.js"></script>
     <script src="libs/katex/katex.min.js"></script>
-    <script type="text/javascript" src="libs/SyntaxHighlighter/scripts/shCore.js"></script>
-    <script type="text/javascript" src="libs/SyntaxHighlighter/scripts/shBrushJScript.js"></script>
+    <!-- <script type="text/javascript" src="libs/SyntaxHighlighter/scripts/shCore.js"></script>
+    <script type="text/javascript" src="libs/SyntaxHighlighter/scripts/shBrushJScript.js"></script> -->
+    <script src="libs/highlight/highlight.pack.js"></script>
+
+
     <script src="libs/d3/d3.min.js"></script>
     <script src="libs/function-plot/dist/function-plot.js"></script>
 
@@ -23,21 +30,23 @@
     <script src="libs/three/three.js" charset="utf-8"></script>
     <script src="libs/three/examples/js/controls/OrbitControls.js" charset="utf-8"></script>
 
+    <!-- <script src="libs/jquery/dist/jquery.js"></script>
+    <script src="libs/bootstrap/v3/js/bootstrap.js"></script> -->
+
     <script src="libs/ldcplotjs/ldcplot.js"></script>
+    <script src="libs/ldcplotjs/ldc3d.js"></script>
 
 </head>
 
 <body>
     <h1>第四讲 3D绘制</h1>
 
-    <section>
+    <section class="container-fluid">
         <h2>4.1 最简单的three.js场景</h2>
         <p>注意，本课程使用的是three.js的r87版, 本讲内容绝大部分参见官网<a href="https://threejs.org/">https://threejs.org/</a>和<a href="">https://stemkoski.github.io/Three.js/</a>，后者有大量的简单范例可以参考。</p>
-        <div class="double_cols">
-            <div id="exam1-draw-box" class="draw-box"></div>
-            <div class="code-box">
-                <pre class="brush:js;">
-&lt;!DOCTYPE html&gt;
+
+        <div id="exam1-draw-box"></div>
+        <pre><code class="html">&lt;!DOCTYPE html&gt;
 &lt;html&gt;
 &lt;head&gt;
     &lt;script src="libs/three/three.js" charset="utf-8"&gt;&lt;/script&gt;
@@ -92,91 +101,63 @@ function animate(){
 &lt;/script&gt;
 &lt;/body&gt;
 &lt;/html&gt;
-                </pre>
-            </div>
-        </div>
+             </code></pre>
         <script type="text/javascript">
-            var exam_1 = {};
-            //创建场景
-            exam_1.scene = new THREE.Scene();
-            //创建摄像机
-            exam_1.camera = new THREE.PerspectiveCamera( //透视摄像机
-                70, //视角：70度
-                1, //视角的宽高比
-                0.01, //显示的最近距离（到摄像头的距离）
-                10 //显示的最远距离（到摄像头的距离）
-            );
-            exam_1.camera.position.set(0.3, 0.3, 0.3); //调整摄像机的位置
-            exam_1.camera.lookAt(new THREE.Vector3(0, 0, 0)); //摄像头对准的位置
-            //创建几何体：长方体（长，宽，高），中心在坐标原点
-            exam_1.geometry = new THREE.BoxGeometry(0.2, 0.2, 0.2);
-            //创建材质：普通材质（不同平面被赋予不同颜色）
-            exam_1.material = new THREE.MeshNormalMaterial();
-            //创建三维实体（网格单元）：根据几何体和材质
-            exam_1.mesh = new THREE.Mesh(exam_1.geometry, exam_1.material);
-            //将实体加入场景中
-            exam_1.scene.add(exam_1.mesh);
-            //创建渲染器并嵌入画图标签中
-            exam_1.renderer = new THREE.WebGLRenderer({
-                antialias: true
+            let exam1 = new ldc_3D("exam1-draw-box");
+            exam1.init({
+                camera_fov: 70,
+                camera_aspect: 1,
+                camera_near: 0.01,
+                camera_far: 10,
+                camera_position: [0.3, 0.3, 0.3],
+                camera_lookat: [0, 0, 0],
+                width: 300,
+                height: 300
             });
-            var box = document.getElementById("exam1-draw-box");
-            exam_1.renderer.setSize(300, 300);
-            box.appendChild(exam_1.renderer.domElement);
+            exam1.add_normal_mesh({
+                type: "box",
+                length: 0.2,
+                height: 0.2,
+                width: 0.2,
+            });
 
-            //设置卫星视角观测控制器
-            exam_1.controls = new THREE.OrbitControls(exam_1.camera,
-                exam_1.renderer.domElement);
-
-            animate();
-
-            function animate() {
-                requestAnimationFrame(animate);
-                exam_1.renderer.render(exam_1.scene, exam_1.camera);
-                exam_1.controls.update();
-            }
+            exam1.animate();
         </script>
     </section>
     <section>
         <h2>4.2 一些简单的three.js概念</h2>
         <dt>场景Scene</dt>
         <dd>Scenes allow you to set up what and where is to be rendered by three.js. This is where you place <b>objects</b>, <b>lights</b> and <b>cameras</b>.</dd>
-        <pre class="brush:js;">
-            var scene = new THREE.Scene();
-        </pre>
+        <pre><code class="js">var scene = new THREE.Scene();</code></pre>
         <dt>摄像头Camera</dt>
         <dd>创建一个摄像头以进行观察，注意实际显示在网页中的内容是通过<i>摄像头</i><b>看到</b>的结果。无法直接使用Camera对象，必须使用下面的两种具体的摄像头对象。
             <hr> 通用的属性和方法：
             <ul>
                 <li>[属性]<code>.position</code>：表示摄像头位置，类型是<code>THREE.Vector3</code>，可以用下面的方法来读取和设置其值；
-                    <pre class="brush:js;">
-                    //创建一个全新的3维点，并分别赋予其三个坐标轴上的值
-                    var p1 = new THREE.Vector3();
-                    p1.x = 1; p1.y=2; p1.z=3;
-                    //也可以用set方法直接设置三个值
-                    p1.set(4,5,6);
-                    ...
-                    var camera = new THREE.PerspectiveCamera(...);
-                    //在创建新的点的时候，可以直接进行初始化
-                    camera.position = new THREE.Vector3(3,8,10);
-                    //用distanceTo方法计算两点之间的距离
-                    var distance = camera.position.distanceTo(p1);
-                </pre>
+                    <pre><code class="js">//创建一个全新的3维点，并分别赋予其三个坐标轴上的值
+var p1 = new THREE.Vector3();
+p1.x = 1; p1.y=2; p1.z=3;
+//也可以用set方法直接设置三个值
+p1.set(4,5,6);
+...
+var camera = new THREE.PerspectiveCamera(...);
+//在创建新的点的时候，可以直接进行初始化
+camera.position = new THREE.Vector3(3,8,10);
+//用distanceTo方法计算两点之间的距离
+var distance = camera.position.distanceTo(p1);</code></pre>
                 </li>
                 <li>[方法]<code>.lookAt(target:THREE.Vector3)</code>：设置摄像头聚焦的点，注意使用方法：
-                    <pre class="brush:js;">
-                    //创建一个全新的3维点，并分别赋予其三个坐标轴上的值
-                    var p1 = new THREE.Vector3();
-                    p1.set(1,2,3);
-                    var p2 = new THREE.Vector3(4,5,6);
-                    ...
-                    var camera = new THREE.PerspectiveCamera(...);
-                    camera.position = p1.clone(); //创建一个新的三维点（和p1分开）
-                    ...
-                    camera.lookAt(p2);
-                    //看向一个新的点
-                    camera.lookAt(new THREE.Vector3(0,0,0));
-                </pre>
+                    <pre><code class="js">//创建一个全新的3维点，并分别赋予其三个坐标轴上的值
+var p1 = new THREE.Vector3();
+p1.set(1,2,3);
+var p2 = new THREE.Vector3(4,5,6);
+...
+var camera = new THREE.PerspectiveCamera(...);
+camera.position = p1.clone(); //创建一个新的三维点（和p1分开）
+...
+camera.lookAt(p2);
+//看向一个新的点
+camera.lookAt(new THREE.Vector3(0,0,0));</code></pre>
                 </li>
             </ul>
             <hr> 两种可用的摄像头：
@@ -187,12 +168,10 @@ function animate(){
                         <img src="images/透视2.png" alt="透视">
                         <img src="images/透视3.png" alt="透视">
                     </div>
-                    <div class="code-box">
-                        <pre class="brush:js;">
-                                var fov=75, aspect=16/9, near=0.01, far=1000;
-                                var pcamera=new THREE.PerspectiveCamera(fov, aspect, near, far);
+                    <pre><code class="js">
+var fov=75, aspect=16/9, near=0.01, far=1000;
+var pcamera=new THREE.PerspectiveCamera(fov, aspect, near, far);</code>
                             </pre>
-                    </div>
                     <hr>
                 </li>
                 <li>平行投影摄像机<i>OrthographicCamera</i>:
@@ -201,12 +180,10 @@ function animate(){
                         <img src="images/平行投影1.png" alt="平行投影">
                         <img src="images/平行投影2.png" alt="平行投影">
                     </div>
-                    <div class="code-box">
-                        <pre class="brush:js;">
-                                var xleft=-5, xright=5, ytop=5, ybottom=-5, znear=0.01, zfar=1000;
-                                var ocamera=new THREE.OrthographicCamera( xleft, xright, ytop, ybottom, znear, zfar );
-                            </pre>
-                    </div>
+
+                    <pre><code class="js">
+var xleft=-5, xright=5, ytop=5, ybottom=-5, znear=0.01, zfar=1000;
+var ocamera=new THREE.OrthographicCamera( xleft, xright, ytop, ybottom, znear, zfar );</code></pre>
                 </li>
             </ol>
         </dd>
@@ -215,324 +192,197 @@ function animate(){
             Light不能直接用，而是要用下面的几个派生的灯光类。
             <ol>
                 <li>环境光-AmbientLight：给所有的物体都打上光，不会造成影子（shadow）。
-                    <pre class="brush:js;">
-                        var color = 0x404040   //光的颜色
-                            , intensity=0.8      //光强度，0（最弱）--1（最强）
-                        ;
-                        var light = new THREE.AmbientLight( color, intensity ); 
-                        scene.add( light );
-                    </pre>
+                    <pre><code class="js">var color = 0x404040   //光的颜色
+    , intensity=0.8      //光强度，0（最弱）--1（最强）
+;
+var light = new THREE.AmbientLight( color, intensity ); 
+scene.add( light );</code></pre>
                     <div id="exam2-draw-box"></div>
                     <button type="button" id="button增加环境光">+</button>
                     <button type="button" id="button减少环境光">-</button>
                     <script type="text/javascript">
-                        var exam2 = {};
-                        //创建场景
-                        exam2.scene = new THREE.Scene();
-                        //创建摄像机
-                        exam2.camera = new THREE.PerspectiveCamera( //透视摄像机
-                            70, //视角：70度
-                            1, //视角的宽高比
-                            0.01, //显示的最近距离（到摄像头的距离）
-                            10 //显示的最远距离（到摄像头的距离）
-                        );
-                        exam2.camera.position.set(0.3, 0.3, 0.3); //调整摄像机的位置
-                        exam2.camera.lookAt(new THREE.Vector3(0, 0, 0)); //摄像头对准的位置
-                        //创建几何体：长方体（长，宽，高），中心在坐标原点
-                        exam2.geometry = new THREE.BoxGeometry(0.2, 0.2, 0.2);
-                        //创建材质：普通材质（不同平面被赋予不同颜色）
-                        exam2.material = new THREE.MeshStandardMaterial({
-                            color: 0x2194ce
+                        let exam2 = new ldc_3D("exam2-draw-box");
+
+                        exam2.init({});
+
+                        exam2.add_normal_mesh({
+                            type: "box",
+                            material_type: "standard"
                         });
-                        //创建三维实体（网格单元）：根据几何体和材质
-                        exam2.mesh = new THREE.Mesh(exam2.geometry, exam2.material);
-                        //将实体加入场景中
-                        exam2.scene.add(exam2.mesh);
-                        //创建渲染器并嵌入画图标签中
-                        exam2.renderer = new THREE.WebGLRenderer({
-                            antialias: true
+
+                        exam2.add_light({
+                            type: "AmbientLight"
                         });
-                        var box = document.getElementById("exam2-draw-box");
-                        exam2.renderer.setSize(300, 300);
-                        box.appendChild(exam2.renderer.domElement);
-
-                        exam2.light = new THREE.AmbientLight(0xffffff, 0.8);
-                        exam2.scene.add(exam2.light);
-
-                        //设置卫星视角观测控制器
-                        exam2.controls = new THREE.OrbitControls(
-                            exam2.camera,
-                            exam2.renderer.domElement
-                        );
-
-                        exam2.animate = function() {
-                            requestAnimationFrame(exam2.animate);
-                            exam2.renderer.render(exam2.scene, exam2.camera);
-                            exam2.controls.update();
-                        };
 
                         exam2.animate();
 
                         document.getElementById("button增加环境光").onclick = function(e) {
-                            exam2.light.intensity += 0.1;
+                            exam2.lights[0].intensity += 0.1;
                         }
                         document.getElementById("button减少环境光").onclick = function(e) {
-                            exam2.light.intensity -= 0.1;
+                            exam2.lights[0].intensity -= 0.1;
                         }
                     </script>
                 </li>
                 <li>平行光-DirectionalLight：沿一个方向发射的平行光，一般用来表示太阳光，可以造成影子（shadow）。
-                    <pre class="brush:js;">
-                        var   color = 0x404040   //光的颜色
-                            , intensity=0.8      //光强度，0（最弱）--1（最强）
-                        ;
-                        var directionalLight = new THREE.DirectionalLight( color, intensity );
-                        scene.add( directionalLight );
-                        //设置平行光的光源位置（其实只是方向，没有距离）
-                        directionalLight.position.set(1, 0.5, 0.5).normalize(); //normalize()进行正规化
-                        //设置光源的方向
-                        var target = new THREE.Object3D(); //创建一个光对准的物体
-                        target.position = new THREE.Vector3(1,0,0);  //设置其位置
-                        directionalLight.target = target;  //光（从其position）指向对准的物体（position）
-                        scene.add(target);  //场景要把对准的物体加入，以方便进行转换时自动更新
-                    </pre>
+                    <pre><code class="js">
+var   color = 0x404040   //光的颜色
+    , intensity=0.8      //光强度，0（最弱）--1（最强）
+;
+var directionalLight = new THREE.DirectionalLight( color, intensity );
+scene.add( directionalLight );
+//设置平行光的光源位置（其实只是方向，没有距离）
+directionalLight.position.set(1, 0.5, 0.5).normalize(); //normalize()进行正规化
+//设置光源的方向
+var target = new THREE.Object3D(); //创建一个光对准的物体
+target.position = new THREE.Vector3(1,0,0);  //设置其位置
+directionalLight.target = target;  //光（从其position）指向对准的物体（position）
+scene.add(target);  //场景要把对准的物体加入，以方便进行转换时自动更新
+                    </code></pre>
                     <div id="exam3-draw-box"></div>
                     <script type="text/javascript">
-                        var exam3 = {};
-                        //创建场景
-                        exam3.scene = new THREE.Scene();
-                        exam3.scene.background = new THREE.Color(0xf0f0f0);
-                        //创建摄像机
-                        exam3.camera = new THREE.PerspectiveCamera( //透视摄像机
-                            70, //视角：70度
-                            1, //视角的宽高比
-                            0.01, //显示的最近距离（到摄像头的距离）
-                            10 //显示的最远距离（到摄像头的距离）
-                        );
-                        exam3.camera.position.set(0.3, 0.3, 0.3); //调整摄像机的位置
-                        exam3.camera.lookAt(new THREE.Vector3(0, 0, 0)); //摄像头对准的位置
-                        //创建几何体：长方体（长，宽，高），中心在坐标原点
-                        exam3.geometry = new THREE.BoxGeometry(0.2, 0.2, 0.2);
-                        //创建材质：普通材质（不同平面被赋予不同颜色）
-                        exam3.material = new THREE.MeshStandardMaterial({
-                            color: 0x2194ce
+                        let exam3 = new ldc_3D("exam3-draw-box");
+
+                        exam3.init({});
+
+                        exam3.add_normal_mesh({
+                            type: "box",
+                            material_type: "standard",
+                            material_color: 0x2194ce
                         });
-                        //创建三维实体（网格单元）：根据几何体和材质
-                        exam3.mesh = new THREE.Mesh(exam3.geometry, exam3.material);
-                        //将实体加入场景中
-                        exam3.scene.add(exam3.mesh);
-                        //创建渲染器并嵌入画图标签中
-                        exam3.renderer = new THREE.WebGLRenderer({
-                            antialias: true
+
+                        exam3.add_light({
+                            type: "DirectionalLight",
+                            position: [1, 0.5, 0.5],
                         });
-                        var box = document.getElementById("exam3-draw-box");
-                        exam3.renderer.setSize(300, 300);
-                        box.appendChild(exam3.renderer.domElement);
-
-                        exam3.light = new THREE.DirectionalLight(0xffffff, 0.8);
-                        exam3.light.position.set(1, 0.5, 0.5).normalize();
-                        exam3.light_target = new THREE.Object3D();
-                        exam3.light_target.position = new THREE.Vector3(0, 0, 0);
-                        exam3.scene.add(exam3.light_target);
-                        exam3.light.target = exam3.light_target;
-
-                        exam3.scene.add(exam3.light);
-
-                        //设置卫星视角观测控制器
-                        exam3.controls = new THREE.OrbitControls(
-                            exam3.camera,
-                            exam3.renderer.domElement
-                        );
-
-                        exam3.animate = function() {
-                            requestAnimationFrame(exam3.animate);
-                            exam3.renderer.render(exam3.scene, exam3.camera);
-                            exam3.controls.update();
-                        };
 
                         exam3.animate();
                     </script>
                 </li>
                 <li>点光源-PointLight：点光源，可以造成影子（shadow）。
-                    <pre class="brush:js;">
-                        var color = 0x00ff00,  //颜色
-                            intensity = 0.8,   //光强度，0（最弱）--1（最强）
-                            distance = 20,     //光衰到强度为0的距离
-                            decay = 1;         //光衰乘积因子
-                        exam4.light = new THREE.PointLight(color, intensity, distance, decay);
-                        exam4.light.position.set(0, 0, -0.5);
-                        exam4.scene.add(exam4.light);
-                    </pre>
+                    <pre><code class="js">
+var color = 0x00ff00,  //颜色
+    intensity = 0.8,   //光强度，0（最弱）--1（最强）
+    distance = 20,     //光衰到强度为0的距离
+    decay = 1;         //光衰乘积因子
+exam4.light = new THREE.PointLight(color, intensity, distance, decay);
+exam4.light.position.set(0, 0, -0.5);
+exam4.scene.add(exam4.light);
+                    </code></pre>
                     <div id="exam4-draw-box"></div>
                     <script type="text/javascript">
-                        var exam4 = {};
-                        //创建场景
-                        exam4.scene = new THREE.Scene();
-                        exam4.scene.background = new THREE.Color(0xf0f0f0);
-                        //创建摄像机
-                        exam4.camera = new THREE.PerspectiveCamera( //透视摄像机
-                            70, //视角：70度
-                            1, //视角的宽高比
-                            0.01, //显示的最近距离（到摄像头的距离）
-                            10 //显示的最远距离（到摄像头的距离）
-                        );
-                        exam4.camera.position.set(0.7, 0.3, 0.3); //调整摄像机的位置
-                        exam4.camera.lookAt(new THREE.Vector3(0, 0, 0)); //摄像头对准的位置
-                        //创建几何体：长方体（长，宽，高），中心在坐标原点
-                        exam4.cube1 = new THREE.BoxGeometry(0.2, 0.2, 0.2);
-                        exam4.cube3 = new THREE.BoxGeometry(0.2, 0.2, 0.2);
-                        exam4.cube2 = new THREE.BoxGeometry(0.01, 0.01, 0.01);
-                        //创建材质：普通材质（不同平面被赋予不同颜色）
-                        exam4.material = new THREE.MeshStandardMaterial({
-                            color: 0x2194ce
+                        let exam4 = new ldc_3D("exam4-draw-box");
+
+                        exam4.init({
+                            width: 600,
+                            height: 600,
+                            background: 0xf0f0f0,
+                            camera_position: [0.7, 0.3, 0.3],
                         });
-                        //创建三维实体（网格单元）：根据几何体和材质
-                        exam4.mesh1 = new THREE.Mesh(exam4.cube1, exam4.material);
-                        //将实体加入场景中
-                        exam4.scene.add(exam4.mesh1);
 
-                        exam4.mesh2 = new THREE.Mesh(exam4.cube2, exam4.material);
-                        exam4.mesh2.position.set(1, 0, 1);
-                        exam4.scene.add(exam4.mesh2);
-
-                        exam4.mesh3 = new THREE.Mesh(exam4.cube3, exam4.material);
-                        exam4.mesh3.position.set(0.5, 0, 0);
-                        exam4.scene.add(exam4.mesh3);
-                        //创建渲染器并嵌入画图标签中
-                        exam4.renderer = new THREE.WebGLRenderer({
-                            antialias: true
+                        [{
+                            type: "box",
+                            position: [0, 0, 0],
+                            material_type: "standard",
+                            material_color: 0x2194ce
+                        }, {
+                            type: "box",
+                            width: 0.01,
+                            length: 0.01,
+                            height: 0.01,
+                            position: [1, 0, 1],
+                            material_type: "normal",
+                        }, {
+                            type: "box",
+                            position: [0.5, 0, 0],
+                            material_type: "standard",
+                            material_color: 0x9421ce
+                        }].forEach(function(v, i) {
+                            exam4.add_normal_mesh(v);
                         });
-                        var box = document.getElementById("exam4-draw-box");
-                        exam4.renderer.setSize(600, 600);
-                        box.appendChild(exam4.renderer.domElement);
 
-                        var color = 0x00ff00,
-                            intensity = 0.8,
-                            distance = 20,
-                            decay = 1;
-                        exam4.light = new THREE.PointLight(color, intensity, distance, decay);
-                        exam4.light.position.set(0, 0, -0.5);
-                        exam4.scene.add(exam4.light);
+                        exam4.add_light({
+                            type: "PointLight",
+                            position: [0, 0, -0.5],
+                        });
 
-                        //设置卫星视角观测控制器
-                        exam4.controls = new THREE.OrbitControls(
-                            exam4.camera,
-                            exam4.renderer.domElement
-                        );
-                        var theta = 0;
-                        exam4.animate = function() {
-                            requestAnimationFrame(exam4.animate);
-                            theta += 1;
-                            var x = Math.cos(theta * Math.PI / 180.0) * 0.23,
-                                z = Math.sin(theta * Math.PI / 180.0) * 0.23;
-                            exam4.light.position.x = x;
-                            exam4.light.position.z = z;
-                            exam4.mesh2.position.x = x;
-                            exam4.mesh2.position.z = z;
-                            exam4.renderer.render(exam4.scene, exam4.camera);
-                            exam4.controls.update();
-                        };
-
-                        exam4.animate();
+                        exam4.theta = 0;
+                        exam4.animate(function() {
+                            exam4.theta += 1;
+                            var x = Math.cos(exam4.theta * Math.PI / 180.0) * 0.23,
+                                z = Math.sin(exam4.theta * Math.PI / 180.0) * 0.23;
+                            exam4.lights[0].position.x = x;
+                            exam4.lights[0].position.z = z;
+                            exam4.meshs[1].position.x = x;
+                            exam4.meshs[1].position.z = z;
+                        });
                     </script>
                 </li>
                 <li>聚光光源-SpotLight：聚光光源，可以造成影子（shadow）。
-                    <pre class="brush:js;">
-                        var color = 0x00ff00, //颜色
-                            intensity = 0.8, //光强
-                            distance = 20, //光衰距离
-                            angle = 70 * Math.PI / 180, //光罩角度，最大到90°，π/2
-                            penumbra = 0.1, //半影比例，0-1
-                            decay = 1; //光衰比例
-                        exam5.light = new THREE.SpotLight(color, intensity, distance, angle, penumbra, decay);
-                        exam5.light.position.set(0, 0, -0.5);
-                        exam5.scene.add(exam5.light);
+                    <pre><code class="js">
+var color = 0x00ff00, //颜色
+    intensity = 0.8, //光强
+    distance = 20, //光衰距离
+    angle = 70 * Math.PI / 180, //光罩角度，最大到90°，π/2
+    penumbra = 0.1, //半影比例，0-1
+    decay = 1; //光衰比例
+exam5.light = new THREE.SpotLight(color, intensity, distance, angle, penumbra, decay);
+exam5.light.position.set(0, 0, -0.5);
+exam5.scene.add(exam5.light);
 
-                        var targetObject = new THREE.Object3D();
-                        targetObject.position.set(0, 0, 0);
-                        exam5.scene.add(targetObject);
+var targetObject = new THREE.Object3D();
+targetObject.position.set(0, 0, 0);
+exam5.scene.add(targetObject);
 
-                        exam5.light.target = targetObject;
-                    </pre>
+exam5.light.target = targetObject;
+                    </code></pre>
                     <div id="exam5-draw-box"></div>
                     <script type="text/javascript">
-                        var exam5 = {};
-                        //创建场景
-                        exam5.scene = new THREE.Scene();
-                        exam5.scene.background = new THREE.Color(0xf0f0f0);
-                        //创建摄像机
-                        exam5.camera = new THREE.PerspectiveCamera( //透视摄像机
-                            70, //视角：70度
-                            1, //视角的宽高比
-                            0.01, //显示的最近距离（到摄像头的距离）
-                            10 //显示的最远距离（到摄像头的距离）
-                        );
-                        exam5.camera.position.set(0.7, 0.3, 0.3); //调整摄像机的位置
-                        exam5.camera.lookAt(new THREE.Vector3(0, 0, 0)); //摄像头对准的位置
-                        //创建几何体：长方体（长，宽，高），中心在坐标原点
-                        exam5.cube1 = new THREE.BoxGeometry(0.2, 0.2, 0.2);
-                        exam5.cube2 = new THREE.BoxGeometry(0.01, 0.01, 0.01);
-                        exam5.cube3 = new THREE.BoxGeometry(0.2, 0.2, 0.2);
-                        //创建材质：普通材质（不同平面被赋予不同颜色）
-                        exam5.material = new THREE.MeshStandardMaterial({
-                            color: 0x2194ce
+                        let exam5 = new ldc_3D("exam5-draw-box");
+
+                        exam5.init({
+                            width: 600,
+                            height: 600,
+                            background: 0xf0f0f0,
+                            camera_position: [0.7, 0.3, 0.3],
                         });
-                        //创建三维实体（网格单元）：根据几何体和材质
-                        exam5.mesh1 = new THREE.Mesh(exam5.cube1, exam5.material);
-                        //将实体加入场景中
-                        exam5.scene.add(exam5.mesh1);
 
-                        exam5.mesh2 = new THREE.Mesh(exam5.cube2, exam5.material);
-                        exam5.mesh2.position.set(0.3, 0, 0.3);
-                        exam5.scene.add(exam5.mesh2);
-
-                        exam5.mesh3 = new THREE.Mesh(exam5.cube3, exam5.material);
-                        exam5.mesh3.position.set(0.5, 0, 0);
-                        exam5.scene.add(exam5.mesh3);
-                        //创建渲染器并嵌入画图标签中
-                        exam5.renderer = new THREE.WebGLRenderer({
-                            antialias: true
+                        [{
+                            type: "box",
+                            position: [0, 0, 0],
+                            material_type: "standard",
+                            material_color: 0x2194ce
+                        }, {
+                            type: "box",
+                            width: 0.01,
+                            length: 0.01,
+                            height: 0.01,
+                            position: [1, 0, 1],
+                            material_type: "normal",
+                        }, {
+                            type: "box",
+                            position: [0.5, 0, 0],
+                            material_type: "standard",
+                            material_color: 0x9421ce
+                        }].forEach(function(v, i) {
+                            exam5.add_normal_mesh(v);
                         });
-                        var box = document.getElementById("exam5-draw-box");
-                        exam5.renderer.setSize(600, 600);
-                        box.appendChild(exam5.renderer.domElement);
 
-                        var color = 0x00ff00, //颜色
-                            intensity = 0.8, //光强
-                            distance = 0.8, //光衰距离
-                            angle = 70 * Math.PI / 180, //光罩角度，最大到90°，π/2
-                            penumbra = 0.1, //半影比例，0-1
-                            decay = 1; //光衰比例
-                        exam5.light = new THREE.SpotLight(color, intensity, distance, angle, penumbra, decay);
-                        exam5.light.position.set(0, 0, -0.5);
-                        exam5.scene.add(exam5.light);
+                        exam5.add_light({
+                            type: "SpotLight",
+                            position: [0, 0, -0.5],
+                        });
 
-                        var targetObject = new THREE.Object3D();
-                        targetObject.position.set(0, 0, 0);
-                        exam5.scene.add(targetObject);
-
-                        exam5.light.target = targetObject;
-
-                        //设置卫星视角观测控制器
-                        exam5.controls = new THREE.OrbitControls(
-                            exam5.camera,
-                            exam5.renderer.domElement
-                        );
-                        var theta = 0;
-                        exam5.animate = function() {
-                            requestAnimationFrame(exam5.animate);
-                            theta += 1;
-                            var x = Math.cos(theta * Math.PI / 180.0) * 0.23,
-                                z = Math.sin(theta * Math.PI / 180.0) * 0.23;
-                            exam5.light.position.x = x;
-                            exam5.light.position.z = z;
-                            exam5.mesh2.position.x = x;
-                            exam5.mesh2.position.z = z;
-                            exam5.renderer.render(exam5.scene, exam5.camera);
-                            exam5.controls.update();
-                        };
-
-                        exam5.animate();
+                        exam5.theta = 0;
+                        exam5.animate(function() {
+                            exam5.theta += 1;
+                            var x = Math.cos(exam5.theta * Math.PI / 180.0) * 0.23,
+                                z = Math.sin(exam5.theta * Math.PI / 180.0) * 0.23;
+                            exam5.lights[0].position.x = x;
+                            exam5.lights[0].position.z = z;
+                            exam5.meshs[1].position.x = x;
+                            exam5.meshs[1].position.z = z;
+                        });
                     </script>
                 </li>
             </ol>
@@ -541,471 +391,303 @@ function animate(){
         <dd>Material不能直接用，必须使用下面介绍的几个派生的材质类型。（还有不少其他材质，以及组合材质，请查阅参考资料）
             <ol>
                 <li>简单材质-MeshBasicMaterial ：只有颜色，没有明暗，适合光源等简单无需考虑立体效果的物体。
-                    <pre class="brush:js;">
-                            exam6.cube1 = new THREE.BoxGeometry(0.2, 0.2, 0.2);
-                            exam6.cube2 = new THREE.BoxGeometry(0.1, 0.1, 0.1);
-                            //创建材质
-                            exam6.material1 = new THREE.MeshBasicMaterial({
-                                color: 0x2194ce
-                            });
-                            exam6.material2 = new THREE.MeshBasicMaterial({
-                                color: 0x2194ce,
-                                wireframe: true //设定为线框显示
-                            });
-                            //创建三维实体（网格单元）：根据几何体和材质
-                            exam6.mesh1 = new THREE.Mesh(exam6.cube1, exam6.material1);
-                            //将实体加入场景中
-                            exam6.scene.add(exam6.mesh1);
-    
-                            exam6.mesh2 = new THREE.Mesh(exam6.cube2, exam6.material2);
-                            exam6.mesh2.position.set(0.3, 0, 0.3);
-                            exam6.scene.add(exam6.mesh2);
-                        </pre>
+                    <pre><code class="js">
+exam6.cube1 = new THREE.BoxGeometry(0.2, 0.2, 0.2);
+exam6.cube2 = new THREE.BoxGeometry(0.1, 0.1, 0.1);
+//创建材质
+exam6.material1 = new THREE.MeshBasicMaterial({
+    color: 0x2194ce
+});
+exam6.material2 = new THREE.MeshBasicMaterial({
+    color: 0x2194ce,
+    wireframe: true //设定为线框显示
+});
+//创建三维实体（网格单元）：根据几何体和材质
+exam6.mesh1 = new THREE.Mesh(exam6.cube1, exam6.material1);
+//将实体加入场景中
+exam6.scene.add(exam6.mesh1);
+
+exam6.mesh2 = new THREE.Mesh(exam6.cube2, exam6.material2);
+exam6.mesh2.position.set(0.3, 0, 0.3);
+exam6.scene.add(exam6.mesh2);
+                        </code></pre>
                     <div id="exam6-draw-box"></div>
                     <script type="text/javascript">
-                        var exam6 = {};
-                        //创建场景
-                        exam6.scene = new THREE.Scene();
-                        exam6.scene.background = new THREE.Color(0xf0f0f0);
-                        //创建摄像机
-                        exam6.camera = new THREE.PerspectiveCamera( //透视摄像机
-                            70, //视角：70度
-                            1, //视角的宽高比
-                            0.01, //显示的最近距离（到摄像头的距离）
-                            10 //显示的最远距离（到摄像头的距离）
-                        );
-                        exam6.camera.position.set(0.7, 0.3, 0.3); //调整摄像机的位置
-                        exam6.camera.lookAt(new THREE.Vector3(0, 0, 0)); //摄像头对准的位置
-                        //创建几何体：长方体（长，宽，高），中心在坐标原点
-                        exam6.cube1 = new THREE.BoxGeometry(0.2, 0.2, 0.2);
-                        exam6.cube2 = new THREE.BoxGeometry(0.1, 0.1, 0.1);
-                        //创建材质：普通材质（不同平面被赋予不同颜色）
-                        exam6.material1 = new THREE.MeshBasicMaterial({
-                            color: 0x2194ce
+                        let exam6 = new ldc_3D("exam6-draw-box");
+
+                        exam6.init({
+                            width: 600,
+                            height: 600,
+                            background: 0xf0f0f0,
+                            camera_position: [0.3, 0.3, 0.3],
                         });
-                        exam6.material2 = new THREE.MeshBasicMaterial({
-                            color: 0x2194ce,
-                            wireframe: true
+
+                        [{
+                            type: "box",
+                            position: [0, 0, 0],
+                            material_type: "basic",
+                            material_color: 0x2194ce
+                        }, {
+                            type: "box",
+                            width: 0.1,
+                            length: 0.1,
+                            height: 0.1,
+                            position: [1, 0, 1],
+                            material_type: "basic",
+                            material_wireframe: true,
+                        }].forEach(function(v, i) {
+                            exam6.add_normal_mesh(v);
                         });
-                        //创建三维实体（网格单元）：根据几何体和材质
-                        exam6.mesh1 = new THREE.Mesh(exam6.cube1, exam6.material1);
-                        //将实体加入场景中
-                        exam6.scene.add(exam6.mesh1);
 
-                        exam6.mesh2 = new THREE.Mesh(exam6.cube2, exam6.material2);
-                        exam6.mesh2.position.set(0.3, 0, 0.3);
-                        exam6.scene.add(exam6.mesh2);
+                        exam6.theta = 0;
+                        exam6.animate(function() {
+                            exam6.theta += 1;
+                            var x = Math.cos(exam6.theta * Math.PI / 180.0) * 0.23,
+                                z = Math.sin(exam6.theta * Math.PI / 180.0) * 0.23;
 
-                        //创建渲染器并嵌入画图标签中
-                        exam6.renderer = new THREE.WebGLRenderer({
-                            antialias: true
+                            exam6.meshs[1].position.x = x;
+                            exam6.meshs[1].position.z = z;
                         });
-                        var box = document.getElementById("exam6-draw-box");
-                        exam6.renderer.setSize(600, 600);
-                        box.appendChild(exam6.renderer.domElement);
-
-                        var color = 0x00ff00, //颜色
-                            intensity = 0.8, //光强
-                            distance = 0.8, //光衰距离
-                            angle = 70 * Math.PI / 180, //光罩角度，最大到90°，π/2
-                            penumbra = 0.1, //半影比例，0-1
-                            decay = 1; //光衰比例
-                        exam6.light = new THREE.SpotLight(color, intensity, distance, angle, penumbra, decay);
-                        exam6.light.position.set(0, 0, -0.5);
-                        exam6.scene.add(exam6.light);
-
-                        var targetObject = new THREE.Object3D();
-                        targetObject.position.set(0, 0, 0);
-                        exam6.scene.add(targetObject);
-
-                        exam6.light.target = targetObject;
-
-                        //设置卫星视角观测控制器
-                        exam6.controls = new THREE.OrbitControls(
-                            exam6.camera,
-                            exam6.renderer.domElement
-                        );
-                        var theta = 0;
-                        exam6.animate = function() {
-                            requestAnimationFrame(exam6.animate);
-                            theta += 1;
-                            var x = Math.cos(theta * Math.PI / 180.0) * 0.23,
-                                z = Math.sin(theta * Math.PI / 180.0) * 0.23;
-                            exam6.light.position.x = x;
-                            exam6.light.position.z = z;
-                            exam6.mesh2.position.x = x;
-                            exam6.mesh2.position.z = z;
-                            exam6.renderer.render(exam6.scene, exam6.camera);
-                            exam6.controls.update();
-                        };
-
-                        exam6.animate();
                     </script>
                 </li>
                 <li>普通材质-MeshNormalMaterial ：颜色根据平面的法线向量来定，每个不同夹角的法线的平面颜色不同（不能自定义颜色），适合简单区分立体效果的物体。
-                    <pre class="brush:js;">
-                                exam6.cube1 = new THREE.BoxGeometry(0.2, 0.2, 0.2);
-                                exam6.cube2 = new THREE.BoxGeometry(0.1, 0.1, 0.1);
-                                //创建材质
-                                exam6.material = new THREE.MeshNormalMaterial();
-                               
-                                //创建三维实体（网格单元）：根据几何体和材质
-                                exam6.mesh1 = new THREE.Mesh(exam6.cube1, exam6.material);
-                                //将实体加入场景中
-                                exam6.scene.add(exam6.mesh1);
-        
-                                exam6.mesh2 = new THREE.Mesh(exam6.cube2, exam6.material);
-                                exam6.mesh2.position.set(0.3, 0, 0.3);
-                                exam6.scene.add(exam6.mesh2);
-                            </pre>
+                    <pre><code class="js">
+exam6.cube1 = new THREE.BoxGeometry(0.2, 0.2, 0.2);
+exam6.cube2 = new THREE.BoxGeometry(0.1, 0.1, 0.1);
+//创建材质
+exam6.material = new THREE.MeshNormalMaterial();
+
+//创建三维实体（网格单元）：根据几何体和材质
+exam6.mesh1 = new THREE.Mesh(exam6.cube1, exam6.material);
+//将实体加入场景中
+exam6.scene.add(exam6.mesh1);
+
+exam6.mesh2 = new THREE.Mesh(exam6.cube2, exam6.material);
+exam6.mesh2.position.set(0.3, 0, 0.3);
+exam6.scene.add(exam6.mesh2);
+                            </code></pre>
                     <div id="exam7-draw-box"></div>
                     <script type="text/javascript">
-                        var exam7 = {};
-                        //创建场景
-                        exam7.scene = new THREE.Scene();
-                        exam7.scene.background = new THREE.Color(0xf0f0f0);
-                        //创建摄像机
-                        exam7.camera = new THREE.PerspectiveCamera( //透视摄像机
-                            70, //视角：70度
-                            1, //视角的宽高比
-                            0.01, //显示的最近距离（到摄像头的距离）
-                            10 //显示的最远距离（到摄像头的距离）
-                        );
-                        exam7.camera.position.set(0.7, 0.3, 0.3); //调整摄像机的位置
-                        exam7.camera.lookAt(new THREE.Vector3(0, 0, 0)); //摄像头对准的位置
-                        //创建几何体：长方体（长，宽，高），中心在坐标原点
-                        exam7.cube1 = new THREE.BoxGeometry(0.2, 0.2, 0.2);
-                        exam7.cube2 = new THREE.BoxGeometry(0.1, 0.1, 0.1);
-                        //创建材质：普通材质（不同平面被赋予不同颜色）
-                        exam7.material = new THREE.MeshNormalMaterial();
-                        //创建三维实体（网格单元）：根据几何体和材质
-                        exam7.mesh1 = new THREE.Mesh(exam7.cube1, exam7.material);
-                        //将实体加入场景中
-                        exam7.scene.add(exam7.mesh1);
+                        let exam7 = new ldc_3D("exam7-draw-box");
 
-                        exam7.mesh2 = new THREE.Mesh(exam7.cube2, exam7.material);
-                        exam7.mesh2.position.set(0.3, 0, 0.3);
-                        exam7.scene.add(exam7.mesh2);
-
-                        //创建渲染器并嵌入画图标签中
-                        exam7.renderer = new THREE.WebGLRenderer({
-                            antialias: true
+                        exam7.init({
+                            width: 600,
+                            height: 600,
+                            background: 0xf0f0f0,
+                            camera_position: [0.3, 0.3, 0.3],
                         });
-                        var box = document.getElementById("exam7-draw-box");
-                        exam7.renderer.setSize(600, 600);
-                        box.appendChild(exam7.renderer.domElement);
 
-                        var color = 0x00ff00, //颜色
-                            intensity = 0.8, //光强
-                            distance = 0.8, //光衰距离
-                            angle = 70 * Math.PI / 180, //光罩角度，最大到90°，π/2
-                            penumbra = 0.1, //半影比例，0-1
-                            decay = 1; //光衰比例
-                        exam7.light = new THREE.SpotLight(color, intensity, distance, angle, penumbra, decay);
-                        exam7.light.position.set(0, 0, -0.5);
-                        exam7.scene.add(exam7.light);
+                        [{
+                            type: "box",
+                            position: [0, 0, 0],
+                            material_type: "normal",
+                            material_color: 0x2194ce
+                        }, {
+                            type: "box",
+                            width: 0.1,
+                            length: 0.1,
+                            height: 0.1,
+                            position: [1, 0, 1],
+                            material_type: "basic",
+                            material_wireframe: true,
+                        }].forEach(function(v, i) {
+                            exam7.add_normal_mesh(v);
+                        });
 
-                        var targetObject = new THREE.Object3D();
-                        targetObject.position.set(0, 0, 0);
-                        exam7.scene.add(targetObject);
+                        exam7.theta = 0;
+                        exam7.animate(function() {
+                            exam7.theta += 1;
+                            var x = Math.cos(exam7.theta * Math.PI / 180.0) * 0.23,
+                                z = Math.sin(exam7.theta * Math.PI / 180.0) * 0.23;
 
-                        exam7.light.target = targetObject;
-
-                        //设置卫星视角观测控制器
-                        exam7.controls = new THREE.OrbitControls(
-                            exam7.camera,
-                            exam7.renderer.domElement
-                        );
-                        var theta = 0;
-                        exam7.animate = function() {
-                            requestAnimationFrame(exam7.animate);
-                            theta += 1;
-                            var x = Math.cos(theta * Math.PI / 180.0) * 0.23,
-                                z = Math.sin(theta * Math.PI / 180.0) * 0.23;
-                            exam7.light.position.x = x;
-                            exam7.light.position.z = z;
-                            exam7.mesh2.position.x = x;
-                            exam7.mesh2.position.z = z;
-                            exam7.renderer.render(exam7.scene, exam7.camera);
-                            exam7.controls.update();
-                        };
-
-                        exam7.animate();
+                            exam7.meshs[1].position.x = x;
+                            exam7.meshs[1].position.z = z;
+                        });
                     </script>
                 </li>
                 <li>标准材质-MeshStandardMaterial ：根据颜色来设定材质，可以有阴影。
-                    <pre class="brush:js;">
-                            exam8.cube1 = new THREE.BoxGeometry(0.2, 0.2, 0.2);
-                            exam8.cube2 = new THREE.BoxGeometry(0.01, 0.01, 0.01);
-                            //创建材质：
-                            exam8.material = new THREE.MeshStandardMaterial({
-                                color: 0xffff00
-                            });
-                            //创建三维实体（网格单元）：根据几何体和材质
-                            exam8.mesh1 = new THREE.Mesh(exam8.cube1, exam8.material);
-                            //将实体加入场景中
-                            exam8.scene.add(exam8.mesh1);
-    
-                            exam8.mesh2 = new THREE.Mesh(exam8.cube2, exam8.material);
-                            exam8.mesh2.position.set(0.3, 0, 0.3);
-                            exam8.scene.add(exam8.mesh2);
-                        </pre>
+                    <pre><code class="js">
+exam8.cube1 = new THREE.BoxGeometry(0.2, 0.2, 0.2);
+exam8.cube2 = new THREE.BoxGeometry(0.01, 0.01, 0.01);
+//创建材质：
+exam8.material = new THREE.MeshStandardMaterial({
+    color: 0xffff00
+});
+//创建三维实体（网格单元）：根据几何体和材质
+exam8.mesh1 = new THREE.Mesh(exam8.cube1, exam8.material);
+//将实体加入场景中
+exam8.scene.add(exam8.mesh1);
+
+exam8.mesh2 = new THREE.Mesh(exam8.cube2, exam8.material);
+exam8.mesh2.position.set(0.3, 0, 0.3);
+exam8.scene.add(exam8.mesh2);
+                        </code></pre>
                     <div id="exam8-draw-box"></div>
                     <script type="text/javascript">
-                        var exam8 = {};
-                        //创建场景
-                        exam8.scene = new THREE.Scene();
-                        exam8.scene.background = new THREE.Color(0xf0f0f0);
-                        //创建摄像机
-                        exam8.camera = new THREE.PerspectiveCamera( //透视摄像机
-                            70, //视角：70度
-                            1, //视角的宽高比
-                            0.01, //显示的最近距离（到摄像头的距离）
-                            10 //显示的最远距离（到摄像头的距离）
-                        );
-                        exam8.camera.position.set(0.7, 0.3, 0.3); //调整摄像机的位置
-                        exam8.camera.lookAt(new THREE.Vector3(0, 0, 0)); //摄像头对准的位置
-                        //创建几何体：长方体（长，宽，高），中心在坐标原点
-                        exam8.cube1 = new THREE.BoxGeometry(0.2, 0.2, 0.2);
-                        exam8.cube2 = new THREE.BoxGeometry(0.01, 0.01, 0.01);
-                        //创建材质：普通材质（不同平面被赋予不同颜色）
-                        exam8.material = new THREE.MeshStandardMaterial({
-                            color: 0xffff00
+                        let exam8 = new ldc_3D("exam8-draw-box");
+
+                        exam8.init({
+                            width: 600,
+                            height: 600,
+                            background: 0xf0f0f0,
+                            camera_position: [0.3, 0.3, 0.3],
                         });
-                        //创建三维实体（网格单元）：根据几何体和材质
-                        exam8.mesh1 = new THREE.Mesh(exam8.cube1, exam8.material);
-                        //将实体加入场景中
-                        exam8.scene.add(exam8.mesh1);
 
-                        exam8.mesh2 = new THREE.Mesh(exam8.cube2, exam8.material);
-                        exam8.mesh2.position.set(0.3, 0, 0.3);
-                        exam8.scene.add(exam8.mesh2);
-
-                        //创建渲染器并嵌入画图标签中
-                        exam8.renderer = new THREE.WebGLRenderer({
-                            antialias: true
+                        [{
+                            type: "box",
+                            position: [0, 0, 0],
+                            material_type: "standard",
+                            material_color: 0x2194ce
+                        }, {
+                            type: "box",
+                            width: 0.01,
+                            length: 0.01,
+                            height: 0.01,
+                            position: [1, 0, 1],
+                            material_type: "basic",
+                            material_wireframe: true,
+                        }].forEach(function(v, i) {
+                            exam8.add_normal_mesh(v);
                         });
-                        var box = document.getElementById("exam8-draw-box");
-                        exam8.renderer.setSize(600, 600);
-                        box.appendChild(exam8.renderer.domElement);
 
-                        var color = 0xffffff, //颜色
-                            intensity = 0.8, //光强
-                            distance = 20, //光衰距离
-                            angle = 90 * Math.PI / 180, //光罩角度，最大到90°，π/2
-                            penumbra = 0.1, //半影比例，0-1
-                            decay = 1; //光衰比例
-                        exam8.light = new THREE.PointLight(color, intensity, distance, decay);
-                        exam8.light.position.set(0, 0, -0.5);
-                        exam8.scene.add(exam8.light);
+                        exam8.add_light({
+                            type: "PointLight",
+                            position: [0.3, 0.3, -0.3]
+                        });
 
-                        exam8.light1 = new THREE.AmbientLight(color);
-                        exam8.scene.add(exam8.light1);
+                        exam8.theta = 0;
+                        exam8.animate(function() {
+                            exam8.theta += 1;
+                            var x = Math.cos(exam8.theta * Math.PI / 180.0) * 0.23,
+                                z = Math.sin(exam8.theta * Math.PI / 180.0) * 0.23;
 
-                        //设置卫星视角观测控制器
-                        exam8.controls = new THREE.OrbitControls(
-                            exam8.camera,
-                            exam8.renderer.domElement
-                        );
-                        var theta = 0;
-                        exam8.animate = function() {
-                            requestAnimationFrame(exam8.animate);
-                            theta += 1;
-                            var x = Math.cos(theta * Math.PI / 180.0) * 0.23,
-                                z = Math.sin(theta * Math.PI / 180.0) * 0.23;
-                            exam8.light.position.x = x;
-                            exam8.light.position.z = z;
-                            exam8.mesh2.position.x = x;
-                            exam8.mesh2.position.z = z;
-                            exam8.renderer.render(exam8.scene, exam8.camera);
-                            exam8.controls.update();
-                        };
-
-                        exam8.animate();
+                            exam8.meshs[1].position.x = x;
+                            exam8.meshs[1].position.z = z;
+                        });
                     </script>
                 </li>
 
                 <li>非金属材质-MeshLambertMaterial ：有非金属质感的材质，可以设定贴图，可以有阴影。
-                    <pre class="brush:js;">
-                                exam8.cube1 = new THREE.BoxGeometry(0.2, 0.2, 0.2);
-                                exam8.cube2 = new THREE.BoxGeometry(0.01, 0.01, 0.01);
-                                //创建材质：
-                                exam8.material = new THREE.MeshLambertMaterial({
-                                    color: 0xffff00
-                                });
-                                //创建三维实体（网格单元）：根据几何体和材质
-                                exam8.mesh1 = new THREE.Mesh(exam8.cube1, exam8.material);
-                                //将实体加入场景中
-                                exam8.scene.add(exam8.mesh1);
-        
-                                exam8.mesh2 = new THREE.Mesh(exam8.cube2, exam8.material);
-                                exam8.mesh2.position.set(0.3, 0, 0.3);
-                                exam8.scene.add(exam8.mesh2);
-                            </pre>
+                    <pre><code class="js">
+exam8.cube1 = new THREE.BoxGeometry(0.2, 0.2, 0.2);
+exam8.cube2 = new THREE.BoxGeometry(0.01, 0.01, 0.01);
+//创建材质：
+exam8.material = new THREE.MeshLambertMaterial({
+    color: 0xffff00
+});
+//创建三维实体（网格单元）：根据几何体和材质
+exam8.mesh1 = new THREE.Mesh(exam8.cube1, exam8.material);
+//将实体加入场景中
+exam8.scene.add(exam8.mesh1);
+
+exam8.mesh2 = new THREE.Mesh(exam8.cube2, exam8.material);
+exam8.mesh2.position.set(0.3, 0, 0.3);
+exam8.scene.add(exam8.mesh2);
+                            </code></pre>
                     <div id="exam9-draw-box"></div>
                     <script type="text/javascript">
-                        var exam9 = {};
-                        //创建场景
-                        exam9.scene = new THREE.Scene();
-                        exam9.scene.background = new THREE.Color(0xf0f0f0);
-                        //创建摄像机
-                        exam9.camera = new THREE.PerspectiveCamera( //透视摄像机
-                            70, //视角：70度
-                            1, //视角的宽高比
-                            0.01, //显示的最近距离（到摄像头的距离）
-                            10 //显示的最远距离（到摄像头的距离）
-                        );
-                        exam9.camera.position.set(0.7, 0.3, 0.3); //调整摄像机的位置
-                        exam9.camera.lookAt(new THREE.Vector3(0, 0, 0)); //摄像头对准的位置
-                        //创建几何体：长方体（长，宽，高），中心在坐标原点
-                        exam9.cube1 = new THREE.BoxGeometry(0.2, 0.2, 0.2);
-                        exam9.cube2 = new THREE.BoxGeometry(0.01, 0.01, 0.01);
-                        //创建材质：普通材质（不同平面被赋予不同颜色）
-                        exam9.material = new THREE.MeshLambertMaterial({
-                            color: 0xffff00
+                        let exam9 = new ldc_3D("exam9-draw-box");
+
+                        exam9.init({
+                            width: 600,
+                            height: 600,
+                            background: 0xf0f0f0,
+                            camera_position: [0.3, 0.3, 0.3],
                         });
-                        //创建三维实体（网格单元）：根据几何体和材质
-                        exam9.mesh1 = new THREE.Mesh(exam9.cube1, exam9.material);
-                        //将实体加入场景中
-                        exam9.scene.add(exam9.mesh1);
 
-                        exam9.mesh2 = new THREE.Mesh(exam9.cube2, exam9.material);
-                        exam9.mesh2.position.set(0.3, 0, 0.3);
-                        exam9.scene.add(exam9.mesh2);
-
-                        //创建渲染器并嵌入画图标签中
-                        exam9.renderer = new THREE.WebGLRenderer({
-                            antialias: true
+                        [{
+                            type: "cylinder",
+                            position: [0, 0, 0],
+                            material_type: "lambert",
+                            material_color: 0x2194ce
+                        }, {
+                            type: "ball",
+                            radius: 0.01,
+                            position: [1, 0, 1],
+                            material_type: "lambert",
+                            material_color: 0xce2194
+                        }].forEach(function(v, i) {
+                            exam9.add_normal_mesh(v);
                         });
-                        var box = document.getElementById("exam9-draw-box");
-                        exam9.renderer.setSize(600, 600);
-                        box.appendChild(exam9.renderer.domElement);
 
-                        var color = 0xffffff, //颜色
-                            intensity = 0.8, //光强
-                            distance = 10, //光衰距离
-                            angle = 90 * Math.PI / 180, //光罩角度，最大到90°，π/2
-                            penumbra = 0.1, //半影比例，0-1
-                            decay = 1; //光衰比例
-                        exam9.light = new THREE.PointLight(color, intensity, distance, decay);
-                        exam9.light.position.set(0, 0, -0.5);
-                        exam9.scene.add(exam9.light);
+                        exam9.add_light({
+                            type: "PointLight",
+                            distance: 10,
+                            position: [0.3, 0.3, -0.3]
+                        });
 
-                        exam9.light1 = new THREE.AmbientLight(0x001f00);
-                        exam9.scene.add(exam9.light1);
-
-                        //设置卫星视角观测控制器
-                        exam9.controls = new THREE.OrbitControls(
-                            exam9.camera,
-                            exam9.renderer.domElement
-                        );
-                        var theta = 0;
-                        exam9.animate = function() {
-                            requestAnimationFrame(exam9.animate);
-                            theta += 1;
-                            var x = Math.cos(theta * Math.PI / 180.0) * 0.23,
-                                z = Math.sin(theta * Math.PI / 180.0) * 0.23;
-                            exam9.light.position.x = x;
-                            exam9.light.position.z = z;
-                            exam9.mesh2.position.x = x;
-                            exam9.mesh2.position.z = z;
-                            exam9.renderer.render(exam9.scene, exam9.camera);
-                            exam9.controls.update();
-                        };
-
-                        exam9.animate();
+                        exam9.theta = 0;
+                        exam9.animate(function() {
+                            exam9.theta += 1;
+                            var x = Math.cos(exam9.theta * Math.PI / 180.0) * 0.23,
+                                z = Math.sin(exam9.theta * Math.PI / 180.0) * 0.23;
+                            exam9.lights[0].position.x = x;
+                            exam9.lights[0].position.z = z;
+                            exam9.meshs[1].position.x = x;
+                            exam9.meshs[1].position.z = z;
+                        });
                     </script>
                 </li>
                 <li>金属材质-MeshPhongMaterial ：有金属质感的材质，可以设定贴图，可以有阴影。
-                    <pre class="brush:js;">
-                                    exam8.cube1 = new THREE.BoxGeometry(0.2, 0.2, 0.2);
-                                    exam8.cube2 = new THREE.BoxGeometry(0.01, 0.01, 0.01);
-                                    //创建材质：
-                                    exam8.material = new THREE.MeshPhongMaterial({
-                                        color: 0xffff00
-                                    });
-                                    //创建三维实体（网格单元）：根据几何体和材质
-                                    exam8.mesh1 = new THREE.Mesh(exam8.cube1, exam8.material);
-                                    //将实体加入场景中
-                                    exam8.scene.add(exam8.mesh1);
-            
-                                    exam8.mesh2 = new THREE.Mesh(exam8.cube2, exam8.material);
-                                    exam8.mesh2.position.set(0.3, 0, 0.3);
-                                    exam8.scene.add(exam8.mesh2);
-                                </pre>
+                    <pre><code class="js">
+exam8.cube1 = new THREE.BoxGeometry(0.2, 0.2, 0.2);
+exam8.cube2 = new THREE.BoxGeometry(0.01, 0.01, 0.01);
+//创建材质：
+exam8.material = new THREE.MeshPhongMaterial({
+    color: 0xffff00
+});
+//创建三维实体（网格单元）：根据几何体和材质
+exam8.mesh1 = new THREE.Mesh(exam8.cube1, exam8.material);
+//将实体加入场景中
+exam8.scene.add(exam8.mesh1);
+
+exam8.mesh2 = new THREE.Mesh(exam8.cube2, exam8.material);
+exam8.mesh2.position.set(0.3, 0, 0.3);
+exam8.scene.add(exam8.mesh2);
+                                </code></pre>
                     <div id="exam10-draw-box"></div>
                     <script type="text/javascript">
-                        var exam10 = {};
-                        //创建场景
-                        exam10.scene = new THREE.Scene();
-                        exam10.scene.background = new THREE.Color(0xf0f0f0);
-                        //创建摄像机
-                        exam10.camera = new THREE.PerspectiveCamera( //透视摄像机
-                            70, //视角：70度
-                            1, //视角的宽高比
-                            0.01, //显示的最近距离（到摄像头的距离）
-                            10 //显示的最远距离（到摄像头的距离）
-                        );
-                        exam10.camera.position.set(0.7, 0.3, 0.3); //调整摄像机的位置
-                        exam10.camera.lookAt(new THREE.Vector3(0, 0, 0)); //摄像头对准的位置
-                        //创建几何体：长方体（长，宽，高），中心在坐标原点
-                        exam10.cube1 = new THREE.BoxGeometry(0.2, 0.2, 0.2);
-                        exam10.cube2 = new THREE.BoxGeometry(0.2, 0.2, 0.2);
-                        //创建材质：普通材质（不同平面被赋予不同颜色）
-                        exam10.material1 = new THREE.MeshPhongMaterial({
-                            color: 0xffff00
+                        let exam10 = new ldc_3D("exam10-draw-box");
+
+                        exam10.init({
+                            width: 600,
+                            height: 600,
+                            background: 0xf0f0f0,
+                            camera_position: [0.3, 0.3, 0.3],
                         });
-                        exam10.material2 = new THREE.MeshLambertMaterial({
-                            color: 0xf1f100
+
+                        [{
+                            type: "ball",
+                            position: [0, 0, 0],
+                            radius: 0.15,
+                            material_type: "phong",
+                            material_color: 0x2194ce
+                        }, {
+                            type: "ball",
+                            radius: 0.01,
+                            position: [1, 0, 1],
+                            material_type: "basic",
+                            material_color: 0xce2194
+                        }].forEach(function(v, i) {
+                            exam10.add_normal_mesh(v);
                         });
-                        //创建三维实体（网格单元）：根据几何体和材质
-                        exam10.mesh1 = new THREE.Mesh(exam10.cube1, exam10.material1);
-                        //将实体加入场景中
-                        exam10.scene.add(exam10.mesh1);
 
-                        exam10.mesh2 = new THREE.Mesh(exam10.cube2, exam10.material2);
-                        exam10.mesh2.position.set(0.21, 0, 0);
-                        exam10.scene.add(exam10.mesh2);
-
-                        //创建渲染器并嵌入画图标签中
-                        exam10.renderer = new THREE.WebGLRenderer({
-                            antialias: true
+                        exam10.add_light({
+                            type: "PointLight",
+                            distance: 10,
+                            position: [0.3, 0.3, -0.3]
                         });
-                        var box = document.getElementById("exam10-draw-box");
-                        exam10.renderer.setSize(600, 600);
-                        box.appendChild(exam10.renderer.domElement);
 
-                        var color = 0xffffff, //颜色
-                            intensity = 0.8, //光强
-                            distance = 10, //光衰距离
-                            angle = 90 * Math.PI / 180, //光罩角度，最大到90°，π/2
-                            penumbra = 0.1, //半影比例，0-1
-                            decay = 1; //光衰比例
-                        exam10.light = new THREE.PointLight(color, intensity, distance, decay);
-                        exam10.light.position.set(0, 0, -0.5);
-                        exam10.scene.add(exam10.light);
-
-                        exam10.light1 = new THREE.AmbientLight(0x001f00);
-                        exam10.scene.add(exam10.light1);
-
-                        //设置卫星视角观测控制器
-                        exam10.controls = new THREE.OrbitControls(
-                            exam10.camera,
-                            exam10.renderer.domElement
-                        );
-                        var theta1 = 0;
-                        exam10.animate = function() {
-                            requestAnimationFrame(exam10.animate);
-                            theta1 += .3;
-                            var x = Math.cos(theta1 * Math.PI / 180.0) * 0.23,
-                                z = Math.sin(theta1 * Math.PI / 180.0) * 0.23;
-                            exam10.light.position.x = x;
-                            exam10.light.position.z = z;
-                            exam10.renderer.render(exam10.scene, exam10.camera);
-                            exam10.controls.update();
-                        };
-
-                        exam10.animate();
+                        exam10.theta = 0;
+                        exam10.animate(function() {
+                            exam10.theta += 1;
+                            var x = Math.cos(exam10.theta * Math.PI / 180.0) * 0.23,
+                                z = Math.sin(exam10.theta * Math.PI / 180.0) * 0.23;
+                            exam10.lights[0].position.x = x;
+                            exam10.lights[0].position.z = z;
+                            exam10.meshs[1].position.x = x;
+                            exam10.meshs[1].position.z = z;
+                        });
                     </script>
                 </li>
             </ol>
@@ -1014,205 +696,259 @@ function animate(){
         <dd>在three.js中，网格实体（Mesh）是基本的三维物体，而Mesh是由几何体（geometry）和材质（Material）构成的，上面已经介绍了材质，后面会介绍网格实体，这里介绍几何体。几何体有两种造型方法：基本几何形体，以及采用拉伸和回转的方法生成几何形体。
             <ol>
                 <li>BoxGeometry ：长方体。
-                    <pre class="brush:js;">
-                        exam8.cube1 = new THREE.BoxGeometry(0.2, 0.2, 0.2);
-                        exam8.cube2 = new THREE.BoxGeometry(0.01, 0.01, 0.01);
-                        //创建材质：
-                        exam8.material = new THREE.MeshPhongMaterial({
-                            color: 0xffff00
-                        });
-                        //创建三维实体（网格单元）：根据几何体和材质
-                        exam8.mesh1 = new THREE.Mesh(exam8.cube1, exam8.material);
-                        //将实体加入场景中
-                        exam8.scene.add(exam8.mesh1);
-
-                        exam8.mesh2 = new THREE.Mesh(exam8.cube2, exam8.material);
-                        exam8.mesh2.position.set(0.3, 0, 0.3);
-                        exam8.scene.add(exam8.mesh2);
-                    </pre>
+                    <pre><code class="js">exam8.cube1 = new THREE.BoxGeometry(0.2, 0.2, 0.2); //长,宽,高
+//创建材质：
+exam8.material = new THREE.MeshPhongMaterial({
+    color: 0xffff00
+});
+//创建三维实体（网格单元）：根据几何体和材质
+exam8.mesh1 = new THREE.Mesh(exam8.cube1, exam8.material);
+//将实体加入场景中
+exam8.scene.add(exam8.mesh1);</code> </pre>
                 </li>
-                <li>SphereGeometry ：球体。
-                    <pre class="brush:js;">
-                            //创建几何体：球体
-                            var radius = 0.2, //球径
-                                widthSegments = 18, // number of horizontal segments. Minimum value is 3, and the default is 8.
-                                heightSegments = 18, //number of vertical segments. Minimum value is 2, and the default is 6.
-                                phiStart = 0, //specify horizontal starting angle. Default is 0.
-                                phiLength = Math.PI * 2, //specify horizontal sweep angle size. Default is Math.PI * 2.
-                                thetaStart = 0, // specify vertical starting angle. Default is 0.
-                                thetaLength = Math.PI * 2; //specify vertical sweep angle size. Default is Math.PI.
-    
-                            exam12.ball1 = new THREE.SphereGeometry(
-                                radius,
-                                widthSegments,
-                                heightSegments,
-                                phiStart,
-                                phiLength,
-                                thetaStart,
-                                thetaLength);
-                            exam12.cube2 = new THREE.BoxGeometry(0.2, 0.2, 0.2);
-                            //创建材质：普通材质（不同平面被赋予不同颜色）
-                            exam12.material1 = new THREE.MeshNormalMaterial();
-                            //创建三维实体（网格单元）：根据几何体和材质
-                            exam12.mesh1 = new THREE.Mesh(exam12.ball1, exam12.material1);
-                            //将实体加入场景中
-                            exam12.scene.add(exam12.mesh1);
-    
-                            exam12.mesh2 = new THREE.Mesh(exam12.cube2, exam12.material1);
-                            exam12.mesh2.position.set(0.21, 0, 0);
-                            exam12.scene.add(exam12.mesh2);
-                        </pre>
-                    <div id="exam12-draw-box"></div>
-                    <script type="text/javascript">
-                        var exam12 = {};
-                        //创建场景
-                        exam12.scene = new THREE.Scene();
-                        exam12.scene.background = new THREE.Color(0xf0f0f0);
-                        //创建摄像机
-                        exam12.camera = new THREE.PerspectiveCamera( //透视摄像机
-                            70, //视角：70度
-                            1, //视角的宽高比
-                            0.01, //显示的最近距离（到摄像头的距离）
-                            10 //显示的最远距离（到摄像头的距离）
-                        );
-                        exam12.camera.position.set(0.7, 0.3, 0.3); //调整摄像机的位置
-                        exam12.camera.lookAt(new THREE.Vector3(0, 0, 0)); //摄像头对准的位置
-                        //创建几何体：球体
-                        var radius = 0.2, //球径
-                            widthSegments = 18, // number of horizontal segments. Minimum value is 3, and the default is 8.
-                            heightSegments = 18, //number of vertical segments. Minimum value is 2, and the default is 6.
-                            phiStart = 0, //specify horizontal starting angle. Default is 0.
-                            phiLength = Math.PI * 2, //specify horizontal sweep angle size. Default is Math.PI * 2.
-                            thetaStart = 0, // specify vertical starting angle. Default is 0.
-                            thetaLength = Math.PI * 2; //specify vertical sweep angle size. Default is Math.PI.
+                <li>SphereGeometry ：球体。<br>
+                    <img src="images/ball.png" alt="ball">
+                    <pre><code class="js">//创建几何体：球体
+var radius = 0.2, //球径
+    widthSegments = 18,      // 水平段数. Minimum value is 3, and the default is 8.
+    heightSegments = 18,     //垂直段数. Minimum value is 2, and the default is 6.
+    phiStart = 0,            //水平开始角度. Default is 0.
+    phiLength = Math.PI * 2, //水平横跨角度. Default is Math.PI * 2.
+    thetaStart = 0,          //垂直开始角度. Default is 0.
+    thetaLength = Math.PI ; //垂直横跨角度. Default is Math.PI.
 
-                        exam12.ball1 = new THREE.SphereGeometry(
-                            radius,
-                            widthSegments,
-                            heightSegments,
-                            phiStart,
-                            phiLength,
-                            thetaStart,
-                            thetaLength);
-                        exam12.cube2 = new THREE.BoxGeometry(0.2, 0.2, 0.2);
-                        //创建材质：普通材质（不同平面被赋予不同颜色）
-                        exam12.material1 = new THREE.MeshNormalMaterial();
-                        //创建三维实体（网格单元）：根据几何体和材质
-                        exam12.mesh1 = new THREE.Mesh(exam12.ball1, exam12.material1);
-                        //将实体加入场景中
-                        exam12.scene.add(exam12.mesh1);
-
-                        exam12.mesh2 = new THREE.Mesh(exam12.cube2, exam12.material1);
-                        exam12.mesh2.position.set(0.21, 0, 0);
-                        exam12.scene.add(exam12.mesh2);
-
-                        //创建渲染器并嵌入画图标签中
-                        exam12.renderer = new THREE.WebGLRenderer({
-                            antialias: true
-                        });
-                        var box = document.getElementById("exam12-draw-box");
-                        exam12.renderer.setSize(600, 600);
-                        box.appendChild(exam12.renderer.domElement);
-
-                        var color = 0xffffff, //颜色
-                            intensity = 0.8, //光强
-                            distance = 10, //光衰距离
-                            angle = 90 * Math.PI / 180, //光罩角度，最大到90°，π/2
-                            penumbra = 0.1, //半影比例，0-1
-                            decay = 1; //光衰比例
-                        exam12.light = new THREE.PointLight(color, intensity, distance, decay);
-                        exam12.light.position.set(0, 0, -0.5);
-                        exam12.scene.add(exam12.light);
-
-                        exam12.light1 = new THREE.AmbientLight(0x001f00);
-                        exam12.scene.add(exam12.light1);
-
-                        //设置卫星视角观测控制器
-                        exam12.controls = new THREE.OrbitControls(
-                            exam12.camera,
-                            exam12.renderer.domElement
-                        );
-                        var theta1 = 0;
-                        exam12.animate = function() {
-                            requestAnimationFrame(exam12.animate);
-                            theta1 += .3;
-                            var x = Math.cos(theta1 * Math.PI / 180.0) * 0.23,
-                                z = Math.sin(theta1 * Math.PI / 180.0) * 0.23;
-                            exam12.light.position.x = x;
-                            exam12.light.position.z = z;
-                            exam12.renderer.render(exam12.scene, exam12.camera);
-                            exam12.controls.update();
-                        };
-
-                        exam12.animate();
-                    </script>
+exam12.ball1 = new THREE.SphereGeometry(
+    radius,
+    widthSegments,
+    heightSegments,
+    phiStart,
+    phiLength,
+    thetaStart,
+    thetaLength);
+//创建材质：普通材质（不同平面被赋予不同颜色）
+exam12.material1 = new THREE.MeshNormalMaterial();
+//创建三维实体（网格单元）：根据几何体和材质
+exam12.mesh1 = new THREE.Mesh(exam12.ball1, exam12.material1);
+//将实体加入场景中
+exam12.scene.add(exam12.mesh1);</code> </pre>
                 </li>
                 <li> CylinderGeometry ：圆柱（圆台）体。<br>
                     <img src="images/cylinder1.png" alt="圆柱">
-                    <pre class="brush:js;">
-                                //创建几何体：
-                                var radiusTop, //Radius of the cylinder at the top. Default is 20.
-                                radiusBottom ,//Radius of the cylinder at the bottom. Default is 20.
-                                height ,//Height of the cylinder. Default is 100.
-                                radiusSegments,//Number of segmented faces around the circumference of the cylinder. Default is 8
-                                heightSegments,// — Number of rows of faces along the height of the cylinder. Default is 1.
-                                openEnded ,//— A Boolean indicating whether the ends of the cylinder are open or capped. Default is false, meaning capped.
-                                thetaStart,// — Start angle for first segment, default = 0 (three o'clock position).
-                                thetaLength,// — The central angle, often called theta, of the circular sector. The default is 2*Pi, which makes for a complete cylinder.
-                                 
-                                exam12.cylinder = new THREE.CylinderGeometry(
-                                    radiusTop,
-                                    radiusBottom,
-                                    height,
-                                    radiusSegments,
-                                    heightSegments,
-                                    openEnded,
-                                    thetaStart,
-                                    thetaLength);
-                                
-                                //创建材质：普通材质（不同平面被赋予不同颜色）
-                                exam12.material1 = new THREE.MeshNormalMaterial();
-                                //创建三维实体（网格单元）：根据几何体和材质
-                                exam12.mesh1 = new THREE.Mesh(exam12.cylinder, exam12.material1);
-                                //将实体加入场景中
-                                exam12.scene.add(exam12.mesh1);
-                            </pre>
+                    <pre><code class="js">//创建几何体：
+var radiusTop=20,       //顶部圆半径. Default is 20.
+radiusBottom=20 ,       //底部圆半径. Default is 20.
+height=100 ,            //圆柱高度. Default is 100.
+radiusSegments=8 ,      //圆周段数. Default is 8
+heightSegments=1 ,      //高度段数. Default is 1.
+openEnded=false ,       //端部是否打开. Default is false, meaning capped.
+thetaStart=0,           // 开始角度, default = 0 (three o'clock position).
+thetaLength=2*Math.PI,  // 横跨角度. The default is 2*Pi, which makes for a complete cylinder.
+    
+exam12.cylinder = new THREE.CylinderGeometry(
+    radiusTop,
+    radiusBottom,
+    height,
+    radiusSegments,
+    heightSegments,
+    openEnded,
+    thetaStart,
+    thetaLength);
+
+//创建材质：普通材质（不同平面被赋予不同颜色）
+exam12.material1 = new THREE.MeshNormalMaterial();
+//创建三维实体（网格单元）：根据几何体和材质
+exam12.mesh1 = new THREE.Mesh(exam12.cylinder, exam12.material1);
+//将实体加入场景中
+exam12.scene.add(exam12.mesh1); </code></pre>
                 </li>
                 <li> ConeGeometry ：圆锥体。<br>
                     <img src="images/cone.png" alt="圆柱">
-                    <pre class="brush:js;">
-                                //创建几何体：
-                                var radius, //Radius of the cone at the bottom. Default is 20.
-                                height ,//Height of the cone. Default is 100.
-                                radiusSegments,//Number of segmented faces around the circumference of the cone. Default is 8
-                                heightSegments,// — Number of rows of faces along the height of the cone. Default is 1.
-                                openEnded ,//— A Boolean indicating whether the ends of the cone are open or capped. Default is false, meaning capped.
-                                thetaStart,// — Start angle for first segment, default = 0 (three o'clock position).
-                                thetaLength,// — The central angle, often called theta, of the circular sector. The default is 2*Pi, which makes for a complete cone.
-                                 
-                                exam12.cone = new THREE.ConeGeometry(
-                                    radius, 
-                                    height, 
-                                    radialSegments, 
-                                    heightSegments, 
-                                    openEnded, 
-                                    thetaStart, 
-                                    thetaLength)
-                                
-                                //创建材质：普通材质（不同平面被赋予不同颜色）
-                                exam12.material1 = new THREE.MeshNormalMaterial();
-                                //创建三维实体（网格单元）：根据几何体和材质
-                                exam12.mesh1 = new THREE.Mesh(exam12.cone, exam12.material1);
-                                //将实体加入场景中
-                                exam12.scene.add(exam12.mesh1);
-                            </pre>
-                </li>
+                    <pre><code class="js">//创建几何体：
+var radius=20,          //圆锥底部圆半径. Default is 20.
+height=100 ,            //圆锥高度. Default is 100.
+radiusSegments=8,       //圆段数. Default is 8
+heightSegments=1 ,      //高度段数. Default is 1.
+openEnded=false ,       //端部是否打开. Default is false, meaning capped.
+thetaStart=0,           //开始角度, default = 0 (three o'clock position).
+thetaLength=Math.PI*2,  //横跨角度. The default is 2*Pi, which makes for a complete cone.
+    
+exam12.cone = new THREE.ConeGeometry(
+    radius, 
+    height, 
+    radialSegments, 
+    heightSegments, 
+    openEnded, 
+    thetaStart, 
+    thetaLength);
 
+//创建材质：普通材质（不同平面被赋予不同颜色）
+exam12.material1 = new THREE.MeshNormalMaterial();
+//创建三维实体（网格单元）：根据几何体和材质
+exam12.mesh1 = new THREE.Mesh(exam12.cone, exam12.material1);
+//将实体加入场景中
+exam12.scene.add(exam12.mesh1);</code></pre>
+                </li>
             </ol>
         </dd>
     </section>
+    <section>
+        <h2>4.3 高级造型</h2>
+        <hr>
+        <dt>4.3.1 拉伸(extrude)</dt>
+        <dd>three.js通过<code>THREE.ExtrudeGeometry</code>来生成所需要的复杂截面的形体，截面用<code>THREE.Shape</code>来定义，拉伸的时候可以指定高度或者沿着某条路径拉伸。
+            <pre><code class="js">//拉伸的例子
+var shape = new THREE.Shape();  //创建截面形状
+shape.absarc(0,0,               //圆弧的中心点的绝对位置
+             0.1,               //半径
+             -90*Math.PI/180,   //开始角，弧度
+              90*Math.PI/180,   //结束角，弧度
+             true               //是否顺时针，true表示顺时针，false表示逆时针
+             );
+shape.moveTo(0  ,  0.1);
+shape.lineTo(0.1,  0.1);
+shape.lineTo(0.1, -0.1);
+shape.lineTo(0  , -0.1);
+
+var extrudeSettings = {
+    steps: 1,            //拉伸段数：default=2
+    amount:0.3,          //拉伸高度，default=100
+    bevelEnabled: false,  //是否有斜角，default=true
+    bevelThickness: 1,   //斜角厚度，default=6
+    bevelSize: 1,        //斜角尺寸，default=1
+    bevelSegments: 1,    //斜角分段数，default=3
+    curveSegments：12,   //曲线分段数，default=12，仅适用于沿路径path拉伸时
+    extrudePath:null,    //拉伸路径
+};
+
+var geometry = new THREE.ExtrudeGeometry( shape, extrudeSettings );
+var material = new THREE.MeshNormalMaterial( );
+var mesh = new THREE.Mesh( geometry, material ) ;
+scene.add( mesh );
+            </code></pre>
+            <div id="exam13"></div>
+            <script>
+                var exam13 = new ldc_3D("exam13");
+                exam13.init({
+                    width: 600,
+                    height: 600,
+                });
+                exam13.add_normal_mesh({
+                    type: "extrude",
+                    shapes: [{
+                        type: "arc",
+                        x: 0,
+                        y: 0,
+                        r: 0.1,
+                        start: -90 * Math.PI / 180,
+                        end: 90 * Math.PI / 180,
+                        clock: true
+                    }, {
+                        type: "lines",
+                        points: [
+                            [0, 0.1],
+                            [0.1, 0.1],
+                            [0.1, -0.1],
+                            [0, -0.1]
+                        ]
+                    }],
+                    material_type: "normal"
+                });
+                exam13.animate();
+            </script>
+            <table border="1">
+                <caption>THREE.Shape支持的画图函数</caption>
+                <tr>
+                    <th>函数</th>
+                    <th>作用</th>
+                </tr>
+                <tr>
+                    <td>absarc ( x, y, radius, startAngle, endAngle, clockwise )</td>
+                    <td>按绝对位置画圆弧</td>
+                </tr>
+                <tr>
+                    <td>absellipse ( x, y, xRadius, yRadius, startAngle, endAngle, clockwise, rotation )</td>
+                    <td>按绝对位置画椭圆</td>
+                </tr>
+                <tr>
+                    <td>arc ( x, y, radius, startAngle, endAngle, clockwise )</td>
+                    <td>相对位置（x，y是相对上一次的点）画圆弧</td>
+                </tr>
+                <tr>
+                    <td>ellipse ( x, y, xRadius, yRadius, startAngle, endAngle, clockwise, rotation )</td>
+                    <td>相对位置（x，y是相对上一次的点）画椭圆</td>
+                </tr>
+                <tr>
+                    <td>moveTo ( x, y )</td>
+                    <td>移动到指定位置</td>
+                </tr>
+                <tr>
+                    <td>lineTo ( x, y )</td>
+                    <td>画直线到指定位置</td>
+                </tr>
+                <tr>
+                    <td>fromPoints ( vector2s )</td>
+                    <td>从给定的二维点的坐标数组中绘制折线段</td>
+                </tr>
+                <tr>
+                    <td>quadraticCurveTo ( cpX, cpY, x, y )</td>
+                    <td>从上一个点画一个二次曲线到x，y，控制点是cpx,cpy</td>
+                </tr>
+                <tr>
+                    <td>bezierCurveTo ( cp1X, cp1Y, cp2X, cp2Y, x, y )</td>
+                    <td>从上一个点画一个二次曲线到x，y，控制点是cp1x,cp1y和cp2x,cp2y</td>
+                </tr>
+                <tr>
+                    <td>splineThru ( vector2s ) </td>
+                    <td>根据给定点绘制一条光滑的曲线</td>
+                </tr>
+            </table>
+
+        </dd>
+        <dt>4.3.3 回转(Lathe)</dt>
+        <dd><pre><code class="js">LatheGeometry(points, segments, phiStart, phiLength)</code></pre>
+            <ul>
+                <li>points — Array of Vector2s. The x-coordinate of each point must be greater than zero. </li>
+                <li>segments — the number of circumference segments to generate. Default is 12.</li>
+                <li>phiStart — the starting angle in radians. Default is 0. </li>
+                <li>phiLength — the radian (0 to 2PI) range of the lathed section 2PI is a closed lathe, less than 2PI is a portion. Default is 2PI. </li>
+            </ul> This creates a LatheGeometry based on the parameters.
+            <pre><code class="js">var points = [];
+for ( var i = 0; i &lt; 10; i ++ ) {
+    points.push( new THREE.Vector2( Math.sin( i * 0.2 ) * 10 + 5, ( i - 5 ) * 2 ) );
+}
+var geometry = new THREE.LatheGeometry( points );
+var material = new THREE.MeshBasicMaterial( { color: 0xffff00 } );
+var lathe = new THREE.Mesh( geometry, material );
+scene.add( lathe );</code></pre>
+            <div id="exam14"></div>
+            <script>
+                var exam14 = new ldc_3D("exam14");
+                exam14.init({
+                    width: 600,
+                    height: 600,
+                    camera_position: [16, 10, 10]
+                });
+
+                let points = [];
+
+                for (var i = 0; i < 10; i++) {
+                    points.push([Math.sin(i * 0.2) * 10 + 5, (i - 5) * 2]);
+                }
+
+                exam14.add_normal_mesh({
+                    type: "lathe",
+                    lathe_points: points,
+                    material_type: "normal"
+                });
+
+                exam14.animate();
+            </script>
+        </dd>
+
+    </section>
     <script type="text/javascript">
-        SyntaxHighlighter.all();
+        //SyntaxHighlighter.all();
+        hljs.initHighlightingOnLoad();
         (function() {
             var katexes = document.getElementsByTagName("katex");
             for (var i = 0; i < katexes.length; i++) {

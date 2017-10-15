@@ -1,3 +1,7 @@
+body {
+    width: 100%;
+}
+
 p {
     font-size: 22px;
 }
@@ -22,15 +26,9 @@ dd {
     display: inline-block;
     margin-bottom: 1em;
     margin-left: 1em;
-    padding:  1em;
+    padding: 1em;
     text-align: left;
-}
-
-pre,
-code {
-    background-color: black;
-    color: lightgoldenrodyellow;
-    border-style: double;
+    width: 90%;
 }
 
 i {
@@ -76,6 +74,7 @@ button {
     padding-right: 1em;
     border-radius: .5em;
 }
+
 button:hover {
     background-color: rgba(225, 130, 180, 0.7);
 }
@@ -115,10 +114,13 @@ table {
     width: 95%;
     text-align: left;
 }
-th,td{
+
+th,
+td {
     padding-right: 50px;
     vertical-align: top;
 }
+
 section {
     border-style: solid;
     margin: 1em;
@@ -136,8 +138,6 @@ section {
     height: auto !important;
     text-align: left;
 }
-
-
 
 .hide,
 .show {
@@ -191,15 +191,15 @@ katex {
     vertical-align: middle;
 }
 
-th{
+th {
     text-align: center;
 }
 
-.right{
+.right {
     text-align: right;
 }
 
-chapter1{
+chapter1 {
     display: grid;
     grid-template-columns: 3fr 7fr;
     border-style: double;
@@ -207,11 +207,22 @@ chapter1{
     grid-gap: 2em;
 }
 
-.double_cols{
+.double_cols {
     display: grid;
     grid-template-columns: 30% 70%;
     border-style: double;
     padding: 10px;
     padding-right: 30px;
     grid-column-gap: 1em;
+}
+
+pre {
+    font-size: 16px;
+    border-style: double;
+    box-shadow: 10px 10px 10px darkblue;
+}
+
+code {
+    background-color: darkgreen;
+    color: lightcyan;
 }

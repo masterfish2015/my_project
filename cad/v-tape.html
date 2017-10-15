@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>V-带设计</title>
+    <!-- css -->
+    <link rel="stylesheet" href="libs/bootstrap/v3/css/bootstrap.css">
+    <link rel="stylesheet" href="libs/bootstrap/v3/css/bootstrap-theme.css">
+    <link rel="stylesheet" href="libs/katex/katex.css">
+    <link rel="stylesheet" href="css/v-tape.css">
+    <!-- js libs -->
+    <!--                [1] boostrap                -->
+    <script src="libs/jquery/dist/jquery.js"></script>
+    <script src="libs/bootstrap/v3/js/bootstrap.js"></script>
+    <!--                [2] three.js                -->
+    <script src="libs/three/three.js"></script>
+    <script src="libs/three/examples/js/controls/OrbitControls.js"></script>
+    <!--                [3] math.js                 -->
+    <script src="libs/mathjs/math.js"></script>
+    <!--                [4] katex: translate latex to html-->
+    <script src="libs/katex/katex.js"></script>
+    <!-- 自己写的小程序 -->
+    <script src="libs/ldcplotjs/ldc3d.js"></script>
+    <script src="libs/ldcplotjs/ldcplot.js"></script>
+    <script src="js/v-tape.js"></script>
+</head>
+
+<body>
+    <section>
+        <h1>V带设计</h1>
+        <h2>1.手工计算和校验过程</h2>
+        <div class="panel  panel-info ">
+            <div class="panel-heading ">
+                <h3>1.1、已知条件</h3>
+            </div>
+            <div class="panel-body ">
+                <ol class="list-group ">
+                    <li class="list-group-item ">传动功率
+                        <katex>P=3.4kW</katex>
+                    </li>
+                    <li class="list-group-item ">主动带轮转速
+                        <katex>n_1=960r/min</katex>
+                    </li>
+                    <li class="list-group-item ">传动比
+                        <katex>i=3.5</katex>
+                    </li>
+                    <li class="list-group-item ">原动机及启动类型：软启动-电动机</li>
+                    <li class="list-group-item ">工作机载荷性质：载荷变动较小</li>
+                    <li class="list-group-item ">每天工作时间：16小时</li>
+                </ol>
+            </div>
+        </div>
+        <div class="panel  panel-info ">
+            <div class="panel-heading ">
+                <h3>1.2、计算和设计过程</h3>
+            </div>
+            <div class="panel-body ">
+                <ul class="list-group">
+                    <li class="list-group-item ">
+                        <dt>[1] 确定计算功率<katex>P_d</katex></dt>
+                        <dd>
+                            公式：
+                            <katex>P_d=K_A \cdot P</katex>
+                            ,其中：
+                            <katex>K_A</katex>是工况系数，由下面的<a href="#">表6.1-13</a>来决定，在本例里
+                            <katex>K_A=1.2</katex>
+                            <div id="表6-1-13" class="table-responsive"></div>
+                            所以，
+                            <katex>P_d=K_A\cdot P=1.2*3.4=4.08kW</katex>
+                        </dd>
+                    </li>
+                    <li class="list-group-item ">
+                        <dt>[2] 选定带型</dt>
+                        <dd>
+                            由
+                            <katex>P_d, n_1</katex>根据<a href="#">图6-1-3</a>、<a href="#">图6-1-4</a>和<a href="#">图6-1-5</a>来选取。
+                            <div id="图6-1-3">
+                                <img src="images/普通V带选型图.png" alt="图6-1-3 普通V带选型图" class="img-responsive">
+                            </div>
+                            <div id="图6-1-4">
+                                <img src="images/窄V带-基准宽度制-选型图.png" alt="图6-1-4 窄V带-基准宽度制-选型图" class="img-responsive">
+                            </div>
+                            <div id="图6-1-5">
+                                <img src="images/窄V带-有效宽度制-选型图.png" alt="图6-1-5 窄V带-有效宽度制-选型图" class="img-responsive">
+                            </div>
+                            由
+                            <katex>P_d=4.08kW, n_1=960r/min</katex>,优先选<b>普通</b>系列，可从<a href="#">图6-1-3</a>选得<b>类型</b>为<b>A</b>，小带轮的基准直径范围：
+                            <katex>d_{p1}=112\le d_d \le d_{p2}=140</katex>
+                        </dd>
+                    </li>
+                    <li class="list-group-item ">
+                        <dt>[3] 确定<i>传动比</i><katex>i</katex>或<i>大带轮(从动轮)转速</i><katex>n_2</katex></dt>
+                        <dd>
+                            由
+                            <katex>i=\dfrac{n_1}{n_2}=\dfrac{d_{p2}}{d_{p1}}</katex>，若计入滑动率
+                            <katex>\varepsilon</katex>，有：
+                            <katex>i=\dfrac{n_1}{n_2}=\dfrac{d_{p2}}{(1-\varepsilon)d_{p1}}</katex>，其中
+                            <ul>
+                                <li>
+                                    <katex>\varepsilon
+                                    </katex>是滑动率， 通常 ，
+                                    <katex> \varepsilon=0.01\sim 0.02</katex>，这里取
+                                    <katex> \varepsilon=0.015</katex>
+                                </li>
+                                <li>
+                                    <katex>n_2</katex>是大带轮的转速（r/min）
+                                </li>
+                                <li>
+                                    <katex>d_{p1}</katex>是小带轮节圆直径（mm）
+                                </li>
+                                <li>
+                                    <katex>d_{p2}</katex>是大带轮节圆直径（mm）
+                                </li>
+                            </ul>
+                            <span class="label label-info">节圆直径</span>可视为<span class="label label-success">基准直径</span>。
+                            <hr> 在本例中，
+                            <katex>i,n_1</katex>已知，于是可得
+                            <katex>n_2=\dfrac{n_1}{i}=\dfrac{960}{3.5}=274.3 r/min</katex>
+                        </dd>
+                    </li>
+                    <li class="list-group-item ">
+                        <dt>[4] 确定小带轮的基准直径<katex>d_{d1}</katex></dt>
+                        <dd>
+                            在前面确定带型的时候，已经得到了小带轮的基准直径的范围，可以由此从<a href="#">表6.1-19</a>或<a href="#">表6.1-20</a>来选择一个合适的基准直径，为了提高V带轮的寿命，从最大的开始选起，由于小带轮的基准直径范围：
+                            <katex>d_{p1}=112\le d_d \le d_{p2}=140</katex>，类型是A型，查<a href="#">表6.1-19</a>可初选
+                            <katex>d_{d1}=140mm</katex>
+                            <div id="表6-1-19" class="table-responsive"></div>
+                        </dd>
+                    </li>
+                    <li class="list-group-item ">
+                        <dt>[5] 确定大带轮的基准直径<katex>d_{d2}</katex>及修正后的传动比<katex>i'</katex>并检验其是否误差符合要求</dt>
+                        <dd>
+                            由公式
+                            <katex>d_{d2}=i*d_{d1}*(1-\varepsilon)</katex>，由于
+                            <katex>\varepsilon=0.015</katex>，
+                            <katex>d_{d2}=i*d_{d1}*(1-0.015)=3.5*140*(1-0.015)=482.65mm</katex>，然后由<a href="#">表6.1-19</a>来确定合适的基准直径，要求修正的传动比
+                            <katex>i'=\dfrac{d_2}{(1-\varepsilon)*d1}</katex>和原来的传动比
+                            <katex>i</katex>的相对误差
+                            <katex>\Delta i=\dfrac{i'-i}{i}\le 5\%</katex>：把查出来的值
+                            <katex>d_{d2}=500mm</katex>代入，求出
+                            <katex>i'=\dfrac{d_2}{(1-\varepsilon)*d1}=\dfrac{500}{(1-0.015)*140}=3.626, \Delta i=\dfrac{i'-i}{i}=\dfrac{3.626-3.5}{3.5}=0.036=3.6\% \lt 5\%</katex>，所以
+                            <katex>d_{d2}=500mm</katex>是合适的。
+                        </dd>
+                    </li>
+                    <li class="list-group-item ">
+                        <dt>[6] 确定带速<katex>v</katex>并检验其是否符合要求</dt>
+                        <dd>
+                            由公式
+                            <katex>v=\dfrac{\pi*d_{d1}*n_1}{60*1000}\le v_{max}</katex>，
+                        </dd>
+                    </li>
+                    <li class="list-group-item "></li>
+                    <li class="list-group-item "></li>
+                    <li class="list-group-item "></li>
+                    <li class="list-group-item "></li>
+                    <li class="list-group-item "></li>
+                    <li class="list-group-item "></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    <script type="text/javascript ">
+        (function() {
+            var katexes = document.getElementsByTagName("katex");
+            for (var i = 0; i < katexes.length; i++) {
+                var str = katexes[i].textContent;
+                katex.render(str, katexes[i]);
+            }
+        })();
+        vtape.create_工况系数表("表6-1-13");
+        vtape.create_普通V带和基准宽度窄V带基准直径表("表6-1-19");
+    </script>
+</body>
+
+</html>

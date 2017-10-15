@@ -1,0 +1,1191 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>数表处理</title>
+    <!-- css -->
+    <link rel="stylesheet" href="libs/katex/katex.min.css">
+    <link rel="stylesheet" href="libs/SyntaxHighlighter/styles/shCoreDefault.css" />
+    <link rel="stylesheet" href="css/style.css">
+    <!-- javascript libs -->
+    <script src="libs/mathjs/math.min.js"></script>
+    <script src="libs/katex/katex.min.js"></script>
+    <script type="text/javascript" src="libs/SyntaxHighlighter/scripts/shCore.js"></script>
+    <script type="text/javascript" src="libs/SyntaxHighlighter/scripts/shBrushJScript.js"></script>
+    <script type="text/javascript">
+        SyntaxHighlighter.all();
+    </script>
+</head>
+
+<body>
+    <h1>2.数表处理</h1>
+    <dt>非函数数表</dt>
+    <dd>参数（数据）间无任何联系的纯数表。</dd>
+    <section id="2.1 非函数数表">
+        <h2>2.1 非函数数表</h2>
+        <h3>2.1.1 一维非函数数表</h3>
+        <h4>2.1.1.1 单行表</h4>
+        <dd>仅有一行的数据，一般在JavaScript中采用一维数组来存储。</dd>
+        <h4>例2.1.1.1.1 平键长度查询</h4>
+        <h5>【1】存储</h5>
+        <img src="images/平键1.jpg" alt="平键">
+        <div id="表2.1"></div>
+        <script>
+            var table = document.getElementById("表2.1");
+            var data = [6, 8, 10, 12, 14, 16, 18, 20, 22, 25, 28, 32, 36, 40, 45, 50, 56, 63, 70, 80, 90, 100, 110, 125, 140, 160, 180, 200, 220, 250, 280, 320, 360, 400, 450, 500];
+            var str = "<table border='1'>";
+            str += "<caption>表2.1 普通平键的长度系列（单位：mm）</caption>"
+            str += "<tr>";
+            str += "<th>L系列</th>";
+            for (var i = 0; i < data.length; i++) {
+                str += "<td>" + data[i] + "</td>";
+            }
+            str += "</tr>";
+            str += "</table>";
+            table.innerHTML = str;
+        </script><dt>代码：</dt>
+        <div class="code-box">
+            <pre class="brush: js; htmlScript:true; highlight:[4,9,10]">
+            &lt;div id="表2.1"&gt;&lt;/div&gt;
+            &lt;script&gt;
+                var table = document.getElementById("表2.1");
+                var data = [6, 8, 10, 12, 14, 16, 18, 20, 22, 25, 28, 32, 36, 40, 45, 50, 56, 63, 70, 80, 90, 100, 110, 125, 140, 160, 180, 200, 220, 250, 280, 320, 360, 400, 450, 500];
+                var str = "&lt;table border='1'&gt;";
+                str += "&lt;caption&gt;表2.1 普通平键的长度系列（单位：mm）&lt;/caption&gt;"
+                str += "&lt;tr&gt;";
+                str += "&lt;th&gt;L系列&lt;/th&gt;";
+                for (var i = 0; i &lt; data.length; i++) {
+                    str += "&lt;td&gt;" + data[i] + "&lt;/td&gt;";
+                }
+                str += "&lt;/tr&gt;";
+                str += "&lt;/table&gt;";
+                table.innerHTML = str;
+            &lt;/script&gt;
+        </pre></div>
+        <dt>存储在其他文件中</dt>
+        <dd>采用模块化编程的方法，将数据保存在另外独立的数据文件中，可以得到更好的整合效果。可以采用html中对javascript的外置读入的方法来保存数据。</dd>
+        <dt>数据文件：data/平键标准长度表.js</dt>
+        <pre class="brush: js; htmlScript:true; ">
+            var g平键标准长度=[6, 8, 10, 12, 14, 16, 18, 20, 22, 25, 28, 32, 36, 40, 45, 50, 56, 
+            63, 70, 80, 90, 100, 110, 125, 140, 160, 180, 200, 220, 250, 280, 320, 360, 400, 
+            450, 500];
+        </pre>
+        <dt>项目文件：myprj.html</dt>
+        <div class="code-box">
+            <pre class="brush: js; htmlScript:true; highlight:[9,19,20]">
+            &lt;!DOCTYPE html&gt;
+            &lt;html lang="en"&gt;
+            &lt;head&gt;
+                &lt;meta charset="UTF-8"&gt;
+                &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+                &lt;meta http-equiv="X-UA-Compatible" content="ie=edge"&gt;
+                &lt;title&gt;my project&lt;/title&gt;
+
+                &lt;script src="data/平键标准长度表.js"&gt;&lt;/script&gt;
+            &lt;/head&gt;
+            &lt;body&gt;
+                &lt;div id="表2.1"&gt;&lt;/div&gt;
+                &lt;script&gt;
+                    var table = document.getElementById("表2.1");                    
+                    var str = "&lt;table border='1'&gt;";
+                    str += "&lt;caption&gt;表2.1 普通平键的长度系列（单位：mm）&lt;/caption&gt;"
+                    str += "&lt;tr&gt;";
+                    str += "&lt;th&gt;L系列&lt;/th&gt;";
+                    for (var i = 0; i &lt; g平键标准长度.length; i++) {
+                        str += "&lt;td&gt;" + g平键标准长度[i] + "&lt;/td&gt;";
+                    }
+                    str += "&lt;/tr&gt;";
+                    str += "&lt;/table&gt;";
+                    table.innerHTML = str;
+                &lt;/script&gt;
+            &lt;/body&gt;
+            &lt;/html&gt;
+        </pre></div>
+        <h5>【2】查询</h5>
+        <p>对于非函数数组，要是能直接查到，则返回其下标，若查不到，则有以下几种要求：
+            <ul>
+                <li><dt>精确查询</dt>
+                    <dd>遍历数组比对，查不到就告诉用户没有；</dd>
+                </li>
+                <li><dt>最大保护原则查询</dt>
+                    <dd>遍历数组比对，查不到就返回最接近的比要查的数的数；</dd>
+                </li>
+                <li><dt>最省原则查询</dt>
+                    <dd>遍历数组比对，查不到就返回最接近的比要查的数小的数；</dd>
+                </li>
+                <li><dt>特定要求查询</dt>
+                    <dd>遍历数组比对，按照指定的要求进行设置；</dd>
+                </li>
+            </ul>
+        </p>
+        <p>对于本题，是属于特定要求，因为：平键的长度L取决于轮毂的长度B，考虑到倒角，轮毂长度B和平键长度L满足关系式：<span id="公式2-1-1"></span>, 同时为了保证键的强度，又要键的长度尽可能的长，以<span id="公式2-1-2"></span>为例，得到：<span id="公式2-1-3"></span>，查到表中最接近的是40.</p>
+        <script>
+            katex.render("B-L \\ge 5", document.getElementById("公式2-1-1"));
+            katex.render("B=48", document.getElementById("公式2-1-2"));
+            katex.render("48-L \\ge 5 \\Longrightarrow L \\le 43", document.getElementById("公式2-1-3"));
+        </script>
+        <p>对于本例来说，因为要找最接近的最大值，而原数组又是从小到大排列的，所以最好是从后到前查找比较快。</p>
+        <form>
+            <img src="images/平键1.jpg" alt="平键"><br>
+            <hr>
+            <fieldset>
+                <legend>平键长度查询：</legend>
+                <label for="轮毂长度">输入轮毂长度B：</label>
+                <input type="text" id="轮毂长度">
+            </fieldset>
+            <fieldset>
+                <legend>结果：</legend>
+                <label id="平键长度"></label>
+            </fieldset>
+            <button type="button" onclick="平键长度查询()">开始查询</button>
+        </form>
+        <script>
+            var data = [6, 8, 10, 12, 14, 16, 18, 20, 22, 25, 28, 32, 36, 40, 45, 50, 56, 63, 70, 80, 90, 100, 110, 125, 140, 160, 180, 200, 220, 250, 280, 320, 360, 400, 450, 500];
+
+            function 平键长度查询() {
+                var 轮毂长度 = Number(document.getElementById("轮毂长度").value);
+                for (var i = data.length - 1; i >= 0; i--) {
+                    if (data[i] <= 轮毂长度 - 5) {
+                        //第一个找到的就是要求的
+                        document.getElementById("平键长度").innerHTML = String(data[i]);
+                        return;
+                    }
+                }
+                document.getElementById("平键长度").innerHTML = "未能找到。";
+            }
+        </script><dt>代码：</dt>
+        <div class="code-box">
+            <pre class="brush: js;">
+            &lt;form&gt;
+                &lt;img src="images/平键1.jpg" alt="平键"&gt;&lt;br&gt;
+                &lt;hr&gt;
+                &lt;fieldset&gt;
+                    &lt;legend&gt;平键长度查询：&lt;/legend&gt;
+                    &lt;label for="轮毂长度"&gt;输入轮毂长度B：&lt;/label&gt;
+                    &lt;input type="text" id="轮毂长度"&gt;
+                &lt;/fieldset&gt;
+                &lt;fieldset&gt;
+                    &lt;legend&gt;结果：&lt;/legend&gt;
+                    &lt;label id="平键长度"&gt;&lt;/label&gt;
+                &lt;/fieldset&gt;
+                &lt;button type="button" onclick="平键长度查询()"&gt;开始查询&lt;/button&gt;
+            &lt;/form&gt;
+            &lt;script&gt;
+                var data = [6, 8, 10, 12, 14, 16, 18, 20, 22, 25, 28, 32, 36, 40, 45, 
+                         50, 56, 63, 70, 80, 90, 100, 110, 125, 140, 160, 180, 200, 220, 
+                         250, 280, 320, 360, 400, 450, 500];
+    
+                function 平键长度查询() {
+                    var 轮毂长度 = Number(document.getElementById("轮毂长度").value);
+                    for (var i = data.length - 1; i &gt;= 0; i--) {
+                        if (data[i] &lt;= 轮毂长度 - 5) {
+                            //第一个找到的就是要求的
+                            document.getElementById("平键长度").innerHTML = String(data[i]);
+                            return;
+                        }
+                    }
+                    document.getElementById("平键长度").innerHTML = "未能找到。";
+                }
+            &lt;/script&gt;
+        </pre></div>
+
+        <h5>【3】选择</h5>
+        <p>在UI设计中，有时用户希望直接选择数组中的值，为了不会错选，可以提供下拉列表给用户进行选择。一般选项少的时候比较合适。</p>
+        <form action="#">
+            <fieldset>
+                <legend>平键类型选择</legend>
+                <label for="平键类型选择">平键类型选择</label>
+                <select name="平键类型选择" id="平键类型选择" value="A" onchange="选择平键类型()">
+                    <option value="A">A型：双圆头</option>
+                    <option value="B">B型：双平头</option>
+                    <option value="C">C型：一边圆头一边平头</option>
+                </select>
+            </fieldset>
+            <fieldset>
+                <legend>结果：</legend>
+                <label id="平键类型选择结果">A</label>
+            </fieldset>
+        </form>
+        <script>
+            function 选择平键类型() {
+                document.getElementById("平键类型选择结果").innerHTML = document.getElementById("平键类型选择").value;
+            }
+        </script><dt>代码：</dt>
+        <div class="code-box">
+            <pre class="brush:js;highlight:[5,13,18]">
+            &lt;form action="#"&gt;
+                &lt;fieldset&gt;
+                    &lt;legend&gt;平键类型选择&lt;/legend&gt;
+                    &lt;label for="平键类型选择"&gt;平键类型选择&lt;/label&gt;
+                    &lt;select name="平键类型选择" id="平键类型选择" value="A" onchange="选择平键类型()"&gt;
+                        &lt;option value="A"&gt;A型：双圆头&lt;/option&gt;
+                        &lt;option value="B"&gt;B型：双平头&lt;/option&gt;
+                        &lt;option value="C"&gt;C型：一边圆头一边平头&lt;/option&gt;
+                    &lt;/select&gt;
+                &lt;/fieldset&gt;
+                &lt;fieldset&gt;
+                    &lt;legend&gt;结果：&lt;/legend&gt;
+                    &lt;label id="平键类型选择结果"&gt;A&lt;/label&gt;
+                &lt;/fieldset&gt;
+            &lt;/form&gt;
+            &lt;script&gt;
+                function 选择平键类型() {
+                    document.getElementById("平键类型选择结果").innerHTML = document.getElementById("平键类型选择").value;
+                }
+            &lt;/script&gt;
+        </pre></div>
+
+    </section>
+
+    <section id="test-2-1">
+        <h2>测试2-1 选择V带的型号，并根据V带的型号，输出V带轮的最小基准直径</h2>
+        <div id="表2-2"></div>
+        <script>
+            var vdata = [{
+                type: "Y",
+                dmin: 20
+            }, {
+                type: "Z",
+                dmin: 50
+            }, {
+                type: "A",
+                dmin: 75
+            }, {
+                type: "B",
+                dmin: 125
+            }, {
+                type: "C",
+                dmin: 200
+            }, {
+                type: "D",
+                dmin: 355
+            }, {
+                type: "E",
+                dmin: 500
+            }];
+            var str = "<table border='1' width='100%'>";
+            str += "<caption>表2-2 普通V带轮最小基准直径</caption>";
+            str += "<tr><th>型号</th>";
+            for (var i = 0; i < vdata.length; i++) {
+                str += "<td>" + vdata[i].type + "</td>";
+            }
+            str += "</tr>";
+            str += "<tr><th>d<sub>min</sub></th>";
+            for (var i = 0; i < vdata.length; i++) {
+                str += "<td>" + vdata[i].dmin + "</td>";
+            }
+            str += "</tr>";
+
+            str += "</table>";
+            document.getElementById("表2-2").innerHTML = str;
+        </script>
+        <hr>
+        <form action="#" onload="初始化V带轮最小基准直径表()">
+            <fieldset>
+                <legend>输入参数</legend>
+                <label for="V带型号">V带型号</label>
+                <select name="V带型号" id="V带型号"></select>
+            </fieldset>
+            <fieldset>
+                <legend>输出结果</legend>
+                <label id="V带轮最小基准直径">V带轮最小基准直径:</label>
+            </fieldset>
+            <button type="button" onclick="初始化V带轮最小基准直径表()">初始化数据</button>
+            <button type="button" onclick="查找V带轮最小基准直径()">运行</button>
+        </form>
+        <script>
+            function 初始化V带轮最小基准直径表() {
+                var str = "";
+                for (var i = 0; i < vdata.length; i++) {
+                    str += "<option value='" + vdata[i].dmin + "'>" + vdata[i].type + "</option>";
+                }
+                document.getElementById("V带型号").innerHTML = str;
+            }
+
+            function 查找V带轮最小基准直径() {
+                document.getElementById("V带轮最小基准直径").innerHTML = "V带轮最小基准直径:" +
+                    document.getElementById("V带型号").value;
+            }
+        </script>
+        <hr><dt>代码：</dt>
+        <div class="code-box">
+            <pre class="brush:js;highlight:[5,11,12,15,25]">
+            &lt;form action="#" onload="初始化V带轮最小基准直径表()"&gt;
+                &lt;fieldset&gt;
+                    &lt;legend&gt;输入参数&lt;/legend&gt;
+                    &lt;label for="V带型号"&gt;V带型号&lt;/label&gt;
+                    &lt;select name="V带型号" id="V带型号"&gt;&lt;/select&gt;
+                &lt;/fieldset&gt;
+                &lt;fieldset&gt;
+                    &lt;legend&gt;输出结果&lt;/legend&gt;
+                    &lt;label id="V带轮最小基准直径"&gt;V带轮最小基准直径:&lt;/label&gt;
+                &lt;/fieldset&gt;
+                &lt;button type="button" onclick="初始化V带轮最小基准直径表()"&gt;初始化数据&lt;/button&gt;
+                &lt;button type="button" onclick="查找V带轮最小基准直径()"&gt;运行&lt;/button&gt;
+            &lt;/form&gt;
+            &lt;script&gt;
+                var vdata = [{type: "Y", dmin: 20}, 
+                             {type: "Z", dmin: 50}, 
+                             {type: "A", dmin: 75}, 
+                             {type: "B", dmin: 125}, 
+                             {type: "C", dmin: 200}, 
+                             {type: "D", dmin: 355}, 
+                             {type: "E", dmin: 500}];
+                function 初始化V带轮最小基准直径表() {
+                    var str = "";
+                    for (var i = 0; i &lt; vdata.length; i++) {
+                        str += "&lt;option value='" + vdata[i].dmin + "'&gt;" + vdata[i].type + "&lt;/option&gt;";
+                    }
+                    document.getElementById("V带型号").innerHTML = str;
+                }
+    
+                function 查找V带轮最小基准直径() {
+                    document.getElementById("V带轮最小基准直径").innerHTML = "V带轮最小基准直径:" +
+                        document.getElementById("V带型号").value;
+                }
+            &lt;/script&gt;
+        </pre></div>
+    </section>
+
+    <section>
+        <h3>2.1.2 二维非函数数表</h3>
+        <h4>例：2.1.2.1 查询链传动的工作情况系数</h4>
+        <div id="表2-4"></div>
+        <script>
+            var 链传动工作情况系数Ka = [
+                [1.0, 1.0, 1.2],
+                [1.2, 1.3, 1.4],
+                [1.4, 1.5, 1.7]
+            ];
+            var 链传动动力种类 = ["内燃机-液力传动", "电动机或汽轮机", "内燃机-机械传动"];
+            var 链传动工作机种类 = ["平稳载荷", "中等冲击", "严重冲击"];
+
+            var str = "<table border='1'>";
+            str += "<caption>表2-4 链传动工作情况系数K<sub>a</sub></caption>";
+            str += "<tr><td rowspan='2'>工作机种类</td><td colspan='3'>动力种类</td></tr>";
+            str += "<tr>";
+            for (let i = 0; i < 链传动动力种类.length; i++) {
+                str += "<td>" + 链传动动力种类[i] + "</td>";
+            }
+            str += "</tr>";
+
+            for (let i = 0; i < 链传动工作机种类.length; i++) {
+                str += "<tr>";
+                str += "<td>" + 链传动工作机种类[i] + "</td>";
+                for (let j = 0; j < 链传动动力种类.length; j++) {
+                    str += "<td>" + 链传动工作情况系数Ka[i][j] + "</td>";
+                }
+                str += "</tr>";
+            }
+
+            document.getElementById("表2-4").innerHTML = str;
+        </script>
+        <hr>
+        <dt>数据存储</dt>
+        <dd>可以采用二维数组来保存数据。</dd>
+        <div class="code-box">
+            <pre class="brush:js;highlight:[3,8,9,13,20,23,24]">
+            &lt;div id="表2-4"&gt;&lt;/div&gt;
+            &lt;script&gt;
+                var 链传动工作情况系数Ka = [
+                    [1.0, 1.0, 1.2],
+                    [1.2, 1.3, 1.4],
+                    [1.4, 1.5, 1.7]
+                ];
+                var 链传动动力种类 = ["内燃机-液力传动", "电动机或汽轮机", "内燃机-机械传动"];
+                var 链传动工作机种类 = ["平稳载荷", "中等冲击", "严重冲击"];
+    
+                var str = "&lt;table border='1'&gt;";
+                str += "&lt;caption&gt;表2-4 链传动工作情况系数K&lt;sub&gt;a&lt;/sub&gt;&lt;/caption&gt;";
+                str += "&lt;tr&gt;&lt;td rowspan='2'&gt;工作机种类&lt;/td&gt;&lt;td colspan='3'&gt;动力种类&lt;/td&gt;&lt;/tr&gt;";
+                str += "&lt;tr&gt;";
+                for (let i = 0; i &lt; 链传动动力种类.length; i++) {
+                    str += "&lt;td&gt;" + 链传动动力种类[i] + "&lt;/td&gt;";
+                }
+                str += "&lt;/tr&gt;";
+    
+                for (let i = 0; i &lt; 链传动工作机种类.length; i++) {
+                    str += "&lt;tr&gt;";
+                    str += "&lt;td&gt;" + 链传动工作机种类[i] + "&lt;/td&gt;";
+                    for (let j = 0; j &lt; 链传动动力种类.length; j++) {
+                        str += "&lt;td&gt;" + 链传动工作情况系数Ka[i][j] + "&lt;/td&gt;";
+                    }
+                    str += "&lt;/tr&gt;";
+                }
+    
+                document.getElementById("表2-4").innerHTML = str;
+            &lt;/script&gt;
+        </pre></div>
+        <dt>选择</dt>
+        <dd>对于二维数组，需要两个参数来确定表格中的值。</dd>
+        <hr>
+        <form action="#">
+            <legend>链传动工作情况系数</legend>
+            <fieldset>
+                <legend>输入参数</legend>
+                <label for="工作机种类">工作机种类</label>
+                <select name="工作机种类" id="工作机种类"></select>
+                <label for="原动机种类">原动机种类</label>
+                <select name="原动机种类" id="原动机种类"></select>
+            </fieldset>
+            <fieldset>
+                <legend>输出结果</legend>
+                <label id="工作情况系数Ka">工作情况系数K<sub>a</sub>=</label>
+            </fieldset>
+            <button type="button" onclick="导入工作情况系数Ka()">导入数据</button>
+            <button type="button" onclick="查询工作情况系数Ka()">查询</button>
+        </form>
+        <script>
+            function 导入工作情况系数Ka() {
+                var s = "";
+                for (let i = 0; i < 链传动工作机种类.length; i++) {
+                    s += "<option value='" + i + "'>" + 链传动工作机种类[i] + "</option>";
+                }
+                document.getElementById("工作机种类").innerHTML = s;
+                s = "";
+                for (let i = 0; i < 链传动动力种类.length; i++) {
+                    s += "<option value='" + i + "'>" + 链传动动力种类[i] + "</option>";
+                }
+                document.getElementById("原动机种类").innerHTML = s;
+            }
+
+            function 查询工作情况系数Ka() {
+                var i, j;
+                i = Number(document.getElementById("工作机种类").value);
+                j = Number(document.getElementById("原动机种类").value);
+                document.getElementById("工作情况系数Ka").innerHTML = "工作情况系数K<sub>a</sub>=" + String(链传动工作情况系数Ka[i][j]);
+            }
+        </script>
+        <hr><dt>代码：</dt>
+        <div class="code-box">
+            <pre class="brush:js;highlight:[6,8,14,15,21,26,33,35]">
+            &lt;form action="#"&gt;
+                &lt;legend&gt;链传动工作情况系数&lt;/legend&gt;
+                &lt;fieldset&gt;
+                    &lt;legend&gt;输入参数&lt;/legend&gt;
+                    &lt;label for="工作机种类"&gt;工作机种类&lt;/label&gt;
+                    &lt;select name="工作机种类" id="工作机种类"&gt;&lt;/select&gt;&lt;br&gt;
+                    &lt;label for="原动机种类"&gt;原动机种类&lt;/label&gt;
+                    &lt;select name="原动机种类" id="原动机种类"&gt;&lt;/select&gt;
+                &lt;/fieldset&gt;
+                &lt;fieldset&gt;
+                    &lt;legend&gt;输出结果&lt;/legend&gt;
+                    &lt;label id="工作情况系数Ka"&gt;工作情况系数K&lt;sub&gt;a&lt;/sub&gt;=&lt;/label&gt;
+                &lt;/fieldset&gt;
+                &lt;button type="button" onclick="导入工作情况系数Ka()"&gt;导入数据&lt;/button&gt;
+                &lt;button type="button" onclick="查询工作情况系数Ka()"&gt;查询&lt;/button&gt;
+            &lt;/form&gt;
+            &lt;script&gt;
+                function 导入工作情况系数Ka() {
+                    var s = "";
+                    for (let i = 0; i &lt; 链传动工作机种类.length; i++) {
+                        s += "&lt;option value='" + i + "'&gt;" + 链传动工作机种类[i] + "&lt;/option&gt;";
+                    }
+                    document.getElementById("工作机种类").innerHTML = s;
+                    s = "";
+                    for (let i = 0; i &lt; 链传动动力种类.length; i++) {
+                        s += "&lt;option value='" + i + "'&gt;" + 链传动动力种类[i] + "&lt;/option&gt;";
+                    }
+                    document.getElementById("原动机种类").innerHTML = s;
+                }
+    
+                function 查询工作情况系数Ka() {
+                    var i, j;
+                    i = Number(document.getElementById("工作机种类").value);
+                    j = Number(document.getElementById("原动机种类").value);
+                    document.getElementById("工作情况系数Ka").innerHTML = "工作情况系数K&lt;sub&gt;a&lt;/sub&gt;=" + String(链传动工作情况系数Ka[i][j]);
+                }
+            &lt;/script&gt;
+        </pre></div>
+        <hr>
+    </section>
+    <section>
+        <h3>2.1.3 多维（3维或以上）的非函数表</h3>
+        <h4>例2.1.3.1 普通V带传动工作系数K<sub>A</sub></h4>
+        <dt>存储</dt>
+        <dd>三维或以上的数据，可以保存为多维数组，也可以用对象混合数组来保存。</dd>
+        <div id="表2-5"></div>
+        <script>
+            var 普通V带传动工作系数KA = {
+                "软启动": [
+                    [1.0, 1.1, 1.2],
+                    [1.1, 1.2, 1.3],
+                    [1.2, 1.3, 1.4],
+                    [1.3, 1.4, 1.5]
+                ],
+                "负载启动": [
+                    [1.1, 1.2, 1.3],
+                    [1.2, 1.3, 1.4],
+                    [1.4, 1.5, 1.6],
+                    [1.5, 1.6, 1.8]
+                ]
+            };
+            var 普通V带启动类型 = ["软启动", "负载启动"];
+            var 普通V带工况 = ["载荷变动微小", "载荷变动小", "载荷变动大", "载荷变动很大"];
+            var 普通V带每天工作情况 = ["<10", "10-16", ">16"];
+            var s = "<table border='1'>";
+            s += "<caption>表2-5 普通V带传动工作系数K<sub>A</sub></caption>";
+            s += "<tr><td rowspan='4'>工况</td><td colspan='6'>K<sub>A</sub></td></tr>";
+            s += "<tr>";
+            s += "<td colspan='3'>" + 普通V带启动类型[0] + "</td>";
+            s += "<td colspan='3'>" + 普通V带启动类型[1] + "</td>";
+            s += "</tr>";
+            s += "<tr><td colspan='6'>每天工作小时(单位：小时)</td></tr>";
+            s += "<tr>";
+            for (let j = 0; j < 2; j++) {
+                for (let i = 0; i < 普通V带每天工作情况.length; i++) {
+                    s += "<td>" + 普通V带每天工作情况[i] + "</td>";
+                }
+            }
+            s += "</tr>";
+
+            for (let i = 0; i < 普通V带工况.length; i++) {
+                s += "<tr>";
+                s += "<td>" + 普通V带工况[i] + "</td>";
+                for (let key in 普通V带传动工作系数KA) {
+                    for (let j = 0; j < 普通V带每天工作情况.length; j++) {
+                        s += "<td>" + 普通V带传动工作系数KA[key][i][j] + "</td>";
+                    }
+                }
+                s += "</tr>"
+            }
+
+            s += "</table>";
+            document.getElementById("表2-5").innerHTML = s;
+        </script>
+        <hr>
+        <dt>代码：</dt>
+        <div class="code-box">
+            <pre class="brush:js;highlight:[4,10,17,19,39,41]">
+            &lt;div id="表2-5"&gt;&lt;/div&gt;
+            &lt;script&gt;
+                var 普通V带传动工作系数KA = {
+                    "软启动": [
+                        [1.0, 1.1, 1.2],
+                        [1.1, 1.2, 1.3],
+                        [1.2, 1.3, 1.4],
+                        [1.3, 1.4, 1.5]
+                    ],
+                    "负载启动": [
+                        [1.1, 1.2, 1.3],
+                        [1.2, 1.3, 1.4],
+                        [1.4, 1.5, 1.6],
+                        [1.5, 1.6, 1.8]
+                    ]
+                };
+                var 普通V带启动类型 = ["软启动", "负载启动"];
+                var 普通V带工况 = ["载荷变动微小", "载荷变动小", "载荷变动大", "载荷变动很大"];
+                var 普通V带每天工作情况 = ["&lt;10", "10-16", "&gt;16"];
+                var s = "&lt;table border='1'&gt;";
+                s += "&lt;caption&gt;表2-5 普通V带传动工作系数K&lt;sub&gt;A&lt;/sub&gt;&lt;/caption&gt;";
+                s += "&lt;tr&gt;&lt;td rowspan='4'&gt;工况&lt;/td&gt;&lt;td colspan='6'&gt;K&lt;sub&gt;A&lt;/sub&gt;&lt;/td&gt;&lt;/tr&gt;";
+                s += "&lt;tr&gt;";
+                s += "&lt;td colspan='3'&gt;" + 普通V带启动类型[0] + "&lt;/td&gt;";
+                s += "&lt;td colspan='3'&gt;" + 普通V带启动类型[1] + "&lt;/td&gt;";
+                s += "&lt;/tr&gt;";
+                s += "&lt;tr&gt;&lt;td colspan='6'&gt;每天工作小时(单位：小时)&lt;/td&gt;&lt;/tr&gt;";
+                s += "&lt;tr&gt;";
+                for (let j = 0; j &lt; 2; j++) {
+                    for (let i = 0; i &lt; 普通V带每天工作情况.length; i++) {
+                        s += "&lt;td&gt;" + 普通V带每天工作情况[i] + "&lt;/td&gt;";
+                    }
+                }
+                s += "&lt;/tr&gt;";
+    
+                for (let i = 0; i &lt; 普通V带工况.length; i++) {
+                    s += "&lt;tr&gt;";
+                    s += "&lt;td&gt;" + 普通V带工况[i] + "&lt;/td&gt;";
+                    for (let key in 普通V带传动工作系数KA) {
+                        for (let j = 0; j &lt; 普通V带每天工作情况.length; j++) {
+                            s += "&lt;td&gt;" + 普通V带传动工作系数KA[key][i][j] + "&lt;/td&gt;";
+                        }
+                    }
+                    s += "&lt;/tr&gt;"
+                }
+    
+                s += "&lt;/table&gt;";
+                document.getElementById("表2-5").innerHTML = s;
+            &lt;/script&gt;
+        </pre></div>
+        <dt>查询</dt>
+        <dd>对于3维或更多维度的数表，需要对应的变量来进行定位。</dd>
+        <hr>
+        <form action="#">
+            <legend>V带传动的工作系数K<sub>A</sub></legend>
+            <fieldset>
+                <legend>输入参数:</legend>
+                <label for="V带传动的载荷情况">载荷情况</label>
+                <select name="V带传动的载荷情况" id="V带传动的载荷情况"></select>
+                <label for="V带传动的启动情况">启动情况</label>
+                <select name="V带传动的启动情况" id="V带传动的启动情况"></select>
+                <label for="V带传动的每天工作小时">每天工作小时</label>
+                <select name="V带传动的每天工作小时" id="V带传动的每天工作小时"></select>
+            </fieldset>
+            <fieldset>
+                <legend>结果：</legend>
+                <label id="V带传动的工作系数KA">工作系数K<sub>A</sub>=</label>
+            </fieldset>
+            <button type="button" onclick="导入V带传动的工作系数KA数据()">导入数据</button>
+            <button type="button" onclick="查询V带传动的工作系数KA()">查询</button>
+        </form>
+        <script>
+            function 导入V带传动的工作系数KA数据() {
+                var s = "";
+                for (let i = 0; i < 普通V带启动类型.length; i++) {
+                    s += "<option value='" + 普通V带启动类型[i] + "'>" + 普通V带启动类型[i] + "</option>";
+                }
+                document.getElementById("V带传动的启动情况").innerHTML = s;
+                s = "";
+                for (let i = 0; i < 普通V带工况.length; i++) {
+                    s += "<option value='" + i + "'>" + 普通V带工况[i] + "</option>";
+                }
+                document.getElementById("V带传动的载荷情况").innerHTML = s;
+                s = "";
+                for (let i = 0; i < 普通V带每天工作情况.length; i++) {
+                    s += "<option value='" + i + "'>" + 普通V带每天工作情况[i] + "</option>";
+                }
+                document.getElementById("V带传动的每天工作小时").innerHTML = s;
+            }
+
+            function 查询V带传动的工作系数KA() {
+                var x, y, z;
+                x = document.getElementById("V带传动的启动情况").value;
+                y = Number(document.getElementById("V带传动的载荷情况").value);
+                z = Number(document.getElementById("V带传动的每天工作小时").value);
+
+                document.getElementById("V带传动的工作系数KA").innerHTML = "工作系数K<sub>A</sub>=" + String(普通V带传动工作系数KA[x][y][z]);
+            }
+        </script>
+        <dt>代码：</dt>
+        <div class="code-box">
+            <pre class="brush:js;highlight:[6,8,10,23,28,33,40,42,45]">
+            &lt;form action="#"&gt;
+                &lt;legend&gt;V带传动的工作系数K&lt;sub&gt;A&lt;/sub&gt;&lt;/legend&gt;
+                &lt;fieldset&gt;
+                    &lt;legend&gt;输入参数:&lt;/legend&gt;
+                    &lt;label for="V带传动的载荷情况"&gt;载荷情况&lt;/label&gt;
+                    &lt;select name="V带传动的载荷情况" id="V带传动的载荷情况"&gt;&lt;/select&gt;
+                    &lt;label for="V带传动的启动情况"&gt;启动情况&lt;/label&gt;
+                    &lt;select name="V带传动的启动情况" id="V带传动的启动情况"&gt;&lt;/select&gt;
+                    &lt;label for="V带传动的每天工作小时"&gt;每天工作小时&lt;/label&gt;
+                    &lt;select name="V带传动的每天工作小时" id="V带传动的每天工作小时"&gt;&lt;/select&gt;
+                &lt;/fieldset&gt;
+                &lt;fieldset&gt;
+                    &lt;legend&gt;结果：&lt;/legend&gt;
+                    &lt;label id="V带传动的工作系数KA"&gt;工作系数K&lt;sub&gt;A&lt;/sub&gt;=&lt;/label&gt;
+                &lt;/fieldset&gt;
+                &lt;button type="button" onclick="导入V带传动的工作系数KA数据()"&gt;导入数据&lt;/button&gt;
+                &lt;button type="button" onclick="查询V带传动的工作系数KA()"&gt;查询&lt;/button&gt;
+            &lt;/form&gt;
+            &lt;script&gt;
+                function 导入V带传动的工作系数KA数据() {
+                    var s = "";
+                    for (let i = 0; i &lt; 普通V带启动类型.length; i++) {
+                        s += "&lt;option value='" + 普通V带启动类型[i] + "'&gt;" + 普通V带启动类型[i] + "&lt;/option&gt;";
+                    }
+                    document.getElementById("V带传动的启动情况").innerHTML = s;
+                    s = "";
+                    for (let i = 0; i &lt; 普通V带工况.length; i++) {
+                        s += "&lt;option value='" + i + "'&gt;" + 普通V带工况[i] + "&lt;/option&gt;";
+                    }
+                    document.getElementById("V带传动的载荷情况").innerHTML = s;
+                    s = "";
+                    for (let i = 0; i &lt; 普通V带每天工作情况.length; i++) {
+                        s += "&lt;option value='" + i + "'&gt;" + 普通V带每天工作情况[i] + "&lt;/option&gt;";
+                    }
+                    document.getElementById("V带传动的每天工作小时").innerHTML = s;
+                }
+    
+                function 查询V带传动的工作系数KA() {
+                    var x, y, z;
+                    x = document.getElementById("V带传动的启动情况").value;
+                    y = Number(document.getElementById("V带传动的载荷情况").value);
+                    z = Number(document.getElementById("V带传动的每天工作小时").value);
+    
+                    document.getElementById("V带传动的工作系数KA").innerHTML = "工作系数K&lt;sub&gt;A&lt;/sub&gt;=" + 
+                    String(普通V带传动工作系数KA[x][y][z]);
+                }
+            &lt;/script&gt;
+        </pre></div>
+        <hr>
+    </section>
+    <section>
+        <h3>2.1.4 不规则非函数表</h3>
+        <dt>存储</dt>
+        <dd>对于不规则的数表，一般的存储规则是用<code>undefined</code>来填充不规则的位置; 或者经过转换，将不规则表转为规则表。</dd>
+        <dt>例 2.1.4.1 查询圆柱齿轮标准模数</dt>
+        <div id="表2-7"></div>
+        <script>
+            var 渐开线圆柱齿轮标准模数第一系列 = [0.1, 0.12, 0.15, 0.2, 0.25, 0.3, 0.4, 0.5, 0.6, 0.8, 1, 1.25, 1.5, 2, 2.5, 3, 4, 5, 6, 8, 10, 12, 16, 20, 25, 32, 40, 50];
+            var 渐开线圆柱齿轮标准模数第二系列 = [0.35, 0.7, 0.9, 1.75, 2.25, 2.75, 3.25, 3.5, 3.75, 4.5, 5.5, 6.5, 7, 9, 11, 14, 18, 22, 28, 30, 36, 45];
+            var 渐开线圆柱齿轮标准模数混合系列 = 渐开线圆柱齿轮标准模数第一系列.concat(渐开线圆柱齿轮标准模数第二系列);
+            //重新排序
+            渐开线圆柱齿轮标准模数混合系列.sort(function(a, b) {
+                return a - b;
+            });
+
+            var s = "<table border='1'>";
+            s += "<caption>表2-7-1 渐开线圆柱齿轮标准模数第一系列</caption>";
+            s += "<tr>";
+            for (let i = 0; i < 渐开线圆柱齿轮标准模数第一系列.length; i++) {
+                s += "<td>" + 渐开线圆柱齿轮标准模数第一系列[i] + "</td>";
+            }
+            s += "</tr>";
+            s += "</table>";
+
+            s += "<table border='1'>";
+            s += "<caption>表2-7-2 渐开线圆柱齿轮标准模数第二系列</caption>";
+            s += "<tr>";
+            for (let i = 0; i < 渐开线圆柱齿轮标准模数第二系列.length; i++) {
+                s += "<td>" + 渐开线圆柱齿轮标准模数第二系列[i] + "</td>";
+            }
+            s += "</tr>";
+            s += "</table>";
+
+            s += "<table border='1'>";
+            s += "<caption>表2-7-3 渐开线圆柱齿轮标准模数混合系列</caption>";
+            s += "<tr>";
+            for (let i = 0; i < 渐开线圆柱齿轮标准模数混合系列.length; i++) {
+                s += "<td>" + 渐开线圆柱齿轮标准模数混合系列[i] + "</td>";
+            }
+            s += "</tr>";
+            s += "</table>";
+
+            document.getElementById("表2-7").innerHTML = s;
+        </script>
+        <dt>代码：</dt>
+        <div class="code-box">
+            <pre class="brush:js;highlight:[8,11]">
+                &lt;div id="表2-7"&gt;&lt;/div&gt;
+                &lt;script&gt;
+                    var 渐开线圆柱齿轮标准模数第一系列 = [0.1, 0.12, 0.15, 0.2, 0.25, 0.3, 0.4, 
+                          0.5, 0.6, 0.8, 1, 1.25, 1.5, 2, 2.5, 3, 4, 5, 6, 8, 10, 12, 16, 20, 
+                          25, 32, 40, 50];
+                    var 渐开线圆柱齿轮标准模数第二系列 = [0.35, 0.7, 0.9, 1.75, 2.25, 2.75, 3.25, 
+                          3.5, 3.75, 4.5, 5.5, 6.5, 7, 9, 11, 14, 18, 22, 28, 30, 36, 45];
+                    var 渐开线圆柱齿轮标准模数混合系列 = 渐开线圆柱齿轮标准模数第一系列.concat(
+                                        渐开线圆柱齿轮标准模数第二系列);
+                    //重新排序
+                    渐开线圆柱齿轮标准模数混合系列.sort(function(a, b) {
+                        return a - b;
+                    });
+        
+                    var s = "&lt;table border='1'&gt;";
+                    s += "&lt;caption&gt;表2-7-1 渐开线圆柱齿轮标准模数第一系列&lt;/caption&gt;";
+                    s += "&lt;tr&gt;";
+                    for (let i = 0; i &lt; 渐开线圆柱齿轮标准模数第一系列.length; i++) {
+                        s += "&lt;td&gt;" + 渐开线圆柱齿轮标准模数第一系列[i] + "&lt;/td&gt;";
+                    }
+                    s += "&lt;/tr&gt;";
+                    s += "&lt;/table&gt;";
+        
+                    s += "&lt;table border='1'&gt;";
+                    s += "&lt;caption&gt;表2-7-2 渐开线圆柱齿轮标准模数第二系列&lt;/caption&gt;";
+                    s += "&lt;tr&gt;";
+                    for (let i = 0; i &lt; 渐开线圆柱齿轮标准模数第二系列.length; i++) {
+                        s += "&lt;td&gt;" + 渐开线圆柱齿轮标准模数第二系列[i] + "&lt;/td&gt;";
+                    }
+                    s += "&lt;/tr&gt;";
+                    s += "&lt;/table&gt;";
+        
+                    s += "&lt;table border='1'&gt;";
+                    s += "&lt;caption&gt;表2-7-3 渐开线圆柱齿轮标准模数混合系列&lt;/caption&gt;";
+                    s += "&lt;tr&gt;";
+                    for (let i = 0; i &lt; 渐开线圆柱齿轮标准模数混合系列.length; i++) {
+                        s += "&lt;td&gt;" + 渐开线圆柱齿轮标准模数混合系列[i] + "&lt;/td&gt;";
+                    }
+                    s += "&lt;/tr&gt;";
+                    s += "&lt;/table&gt;";
+        
+                    document.getElementById("表2-7").innerHTML = s;
+                &lt;/script&gt;
+            </pre>
+        </div>
+
+
+        <hr>
+        <form action="#">
+            <legend>渐开线齿轮的标准模数查询</legend>
+            <fieldset>
+                <legend>输入参数</legend>
+                <label for="齿轮初选模数">初选模数</label>
+                <input type="text" id="齿轮初选模数">
+                <label for="齿轮选用系列">只选用第一系列</label>
+                <input type="checkbox" name="齿轮选用系列" id="齿轮选用系列">
+            </fieldset>
+            <fieldset>
+                <legend>输出结果</legend>
+                <label for="齿轮标准模数">标准模数：</label>
+                <input type="text" disabled="disabled" id="齿轮标准模数">
+                <label for="齿轮模数系列">模数系列: </label>
+                <input type="text" disabled="disabled" id="齿轮模数系列">
+            </fieldset>
+            <button type="button" onclick="查询齿轮标准模数()">查询</button>
+        </form>
+        <script>
+            function 查询齿轮标准模数() {
+                var checked = document.getElementById("齿轮选用系列").checked;
+                var data;
+                if (checked === true) {
+                    //选中了，只能用第一系列
+                    data = 渐开线圆柱齿轮标准模数第一系列;
+                } else {
+                    data = 渐开线圆柱齿轮标准模数混合系列;
+                }
+                var 初选模数 = Number(document.getElementById("齿轮初选模数").value);
+                var 标准模数;
+                for (let i = data.length - 1; i >= 0; i--) {
+                    if (data[i - 1] < 初选模数) {
+                        标准模数 = data[i];
+                        document.getElementById("齿轮标准模数").value = String(标准模数);
+                        if (渐开线圆柱齿轮标准模数第一系列.indexOf(标准模数) >= 0) {
+                            document.getElementById("齿轮模数系列").value = "第一系列";
+                        } else {
+                            document.getElementById("齿轮模数系列").value = "第二系列";
+                        }
+                        return;
+                    }
+                }
+                document.getElementById("齿轮标准模数").value = "没找到";
+                document.getElementById("齿轮模数系列").value = "没找到";
+            }
+        </script>
+        <dt>代码:</dt>
+        <div class="code-box">
+            <pre class="brush:js;highlight:[13,15,21,25,27,32,33,35]">
+                &lt;form action="#"&gt;
+                    &lt;legend&gt;渐开线齿轮的标准模数查询&lt;/legend&gt;
+                    &lt;fieldset&gt;
+                        &lt;legend&gt;输入参数&lt;/legend&gt;
+                        &lt;label for="齿轮初选模数"&gt;初选模数&lt;/label&gt;
+                        &lt;input type="text" id="齿轮初选模数"&gt;
+                        &lt;label for="齿轮选用系列"&gt;只选用第一系列&lt;/label&gt;
+                        &lt;input type="checkbox" name="齿轮选用系列" id="齿轮选用系列"&gt;
+                    &lt;/fieldset&gt;
+                    &lt;fieldset&gt;
+                        &lt;legend&gt;输出结果&lt;/legend&gt;
+                        &lt;label for="齿轮标准模数"&gt;标准模数：&lt;/label&gt;
+                        &lt;input type="text" disabled="disabled" id="齿轮标准模数"&gt;
+                        &lt;label for="齿轮模数系列"&gt;模数系列: &lt;/label&gt;
+                        &lt;input type="text" disabled="disabled" id="齿轮模数系列"&gt;
+                    &lt;/fieldset&gt;
+                    &lt;button type="button" onclick="查询齿轮标准模数()"&gt;查询&lt;/button&gt;
+                &lt;/form&gt;
+                &lt;script&gt;
+                    function 查询齿轮标准模数() {
+                        var checked = document.getElementById("齿轮选用系列").checked;
+                        var data;
+                        if (checked === true) {
+                            //选中了，只能用第一系列
+                            data = 渐开线圆柱齿轮标准模数第一系列;
+                        } else {
+                            data = 渐开线圆柱齿轮标准模数混合系列;
+                        }
+                        var 初选模数 = Number(document.getElementById("齿轮初选模数").value);
+                        var 标准模数;
+                        for (let i = data.length - 1; i &gt;= 0; i--) {
+                            if (data[i - 1] &lt; 初选模数) {
+                                标准模数 = data[i];
+                                document.getElementById("齿轮标准模数").value = String(标准模数);
+                                if (渐开线圆柱齿轮标准模数第一系列.indexOf(标准模数) &gt;= 0) {
+                                    document.getElementById("齿轮模数系列").value = "第一系列";
+                                } else {
+                                    document.getElementById("齿轮模数系列").value = "第二系列";
+                                }
+                                return;
+                            }
+                        }
+                        document.getElementById("齿轮标准模数").value = "没找到";
+                        document.getElementById("齿轮模数系列").value = "没找到";
+                    }
+                &lt;/script&gt;
+            </pre>
+        </div>
+        <dt>测试：查询V带带长修正系数K<sub>L</sub></dt>
+        <div id="表-V带带长修正系数KL" class="code-box"></div>
+        <script>
+            var V带基准带长 = [200, 221, 250, 280, 315,
+                355, 400, 450, 500, 560,
+                630, 710, 800, 900, 1000,
+                1120, 1250, 1400, 1600, 1800,
+                2000, 2240, 2500, 2800, 3150,
+                3550, 4000, 4500, 5000, 5600
+            ];
+            var V带带长修正系数KL = {
+                "普通V带": [{
+                    type: 'Y',
+                    start: 0,
+                    end: 8,
+                    data: [0.81, 0.82, 0.84, 0.87, 0.89, 0.92, 0.96, 1.00, 1.02]
+                }, {
+                    type: 'Z',
+                    start: 6,
+                    end: 19,
+                    data: [0.87, 0.89, 0.91, 0.94, 0.96, 0.99, 1.00, 1.03, 1.06, 1.08, 1.11, 1.14, 1.16, 1.18]
+                }, {
+                    type: 'A',
+                    start: 10,
+                    end: 26,
+                    data: [0.81, 0.82, 0.85, 0.87, 0.89, 0.91, 0.93, 0.96, 0.99, 1.01, 1.03, 1.06, 1.09, 1.11, 1.13, 1.17, 1.19]
+                }, {
+                    type: 'B',
+                    start: 13,
+                    end: 28,
+                    data: [0.81, 0.84, 0.86, 0.88, 0.90, 0.93, 0.95, 0.98, 1.00, 1.03, 1.05, 1.07, 1.10, 1.13, 1.15, 1.18]
+                }, {
+                    type: 'C',
+                    start: 18,
+                    end: 29,
+                    data: [0.84, 0.85, 0.88, 0.91, 0.93, 0.95, 0.97, 0.98, 1.02, 1.04, 1.07, 1.09]
+                }, {
+                    type: 'D',
+                    start: 23,
+                    end: 29,
+                    data: [0.83, 0.86, 0.89, 0.91, 0.93, 0.96, 0.98]
+                }, {
+                    type: 'E',
+                    start: 27,
+                    end: 29,
+                    data: [0.90, 0.92, 0.95]
+                }],
+                "窄V带": [{
+                    type: 'SPZ',
+                    start: 10,
+                    end: 25,
+                    data: [0.82, 0.84, 0.86, 0.88, 0.90, 0.93, 0.94, 0.96, 1.00, 1.01, 1.02, 1.05, 1.07, 1.09, 1.11, 1.13]
+                }, {
+                    type: 'SPA',
+                    start: 12,
+                    end: 27,
+                    data: [0.81, 0.83, 0.85, 0.87, 0.89, 0.91, 0.93, 0.95, 0.96, 0.98, 1.00, 1.02, 1.04, 1.06, 1.08, 1.09]
+                }, {
+                    type: 'SPB',
+                    start: 16,
+                    end: 29,
+                    data: [0.82, 0.84, 0.86, 0.88, 0.90, 0.92, 0.94, 0.96, 0.98, 1.00, 1.02, 1.04, 1.06, 1.08]
+                }, {
+                    type: 'SPC',
+                    start: 20,
+                    end: 29,
+                    data: [0.81, 0.83, 0.86, 0.88, 0.90, 0.92, 0.94, 0.96, 0.98, 1.00]
+                }]
+            };
+            var s = "<table border='1'>";
+            s += "<caption>表-V带带长修正系数K<sub>L</sub></caption>";
+            s += "<tr><td rowspan='3'>基准带长<br>L<sub>d</sub>(单位：mm)</td><td colspan='11'>K<sub>L</sub></td></tr>";
+            s += "<tr><td colspan='7'>普通V带</td><td colspan='4'>窄V带</td></tr>";
+            s += "<tr>";
+            for (let i = 0; i < V带带长修正系数KL['普通V带'].length; i++) {
+                s += "<td>" + V带带长修正系数KL['普通V带'][i].type + "</td>";
+            }
+            for (let i = 0; i < V带带长修正系数KL['窄V带'].length; i++) {
+                s += "<td>" + V带带长修正系数KL['窄V带'][i].type + "</td>";
+            }
+            s += "</tr>";
+            for (let i = 0; i < V带基准带长.length; i++) {
+                s += "<tr>";
+                s += "<td>" + V带基准带长[i] + "</td>";
+                for (let j = 0; j < V带带长修正系数KL['普通V带'].length; j++) {
+                    s += "<td>";
+                    if (V带带长修正系数KL['普通V带'][j].start <= i && V带带长修正系数KL['普通V带'][j].end >= i) {
+                        s += String(V带带长修正系数KL['普通V带'][j].data[i - V带带长修正系数KL['普通V带'][j].start]);
+                    } else {
+                        s += "--";
+                    }
+                    s += "</td>";
+                }
+                for (let j = 0; j < V带带长修正系数KL['窄V带'].length; j++) {
+                    s += "<td>";
+                    if (V带带长修正系数KL['窄V带'][j].start <= i && V带带长修正系数KL['窄V带'][j].end >= i) {
+                        s += String(V带带长修正系数KL['窄V带'][j].data[i - V带带长修正系数KL['窄V带'][j].start]);
+                    } else {
+                        s += "--";
+                    }
+                    s += "</td>";
+                }
+            }
+            s += "</table>";
+            document.getElementById("表-V带带长修正系数KL").innerHTML = s;
+        </script>
+        <dt>存储和生成表格代码
+            <a href="#hide1" class="hide" id="hide1" onclick="show_code('V带带长修正系数存储程序',true)">v</a>
+            <a href="#show1" class="show" id="show1"  onclick="show_code('V带带长修正系数存储程序',false)">^</a>
+        </dt>
+        <div class="code-box; display:none" id="V带带长修正系数存储程序">
+            <pre class="brush:js;">
+                &lt;div id="表-V带带长修正系数KL" class="code-box"&gt;&lt;/div&gt;
+                &lt;script&gt;
+                    var V带基准带长 = [200, 221, 250, 280, 315,
+                        355, 400, 450, 500, 560,
+                        630, 710, 800, 900, 1000,
+                        1120, 1250, 1400, 1600, 1800,
+                        2000, 2240, 2500, 2800, 3150,
+                        3550, 4000, 4500, 5000, 5600
+                    ];
+                    var V带带长修正系数KL = {
+                        "普通V带": [{
+                            type: 'Y',
+                            start: 0,
+                            end: 8,
+                            data: [0.81, 0.82, 0.84, 0.87, 0.89, 0.92, 0.96, 1.00, 1.02]
+                        }, {
+                            type: 'Z',
+                            start: 6,
+                            end: 19,
+                            data: [0.87, 0.89, 0.91, 0.94, 0.96, 0.99, 1.00, 1.03, 1.06, 1.08, 1.11, 1.14, 1.16, 1.18]
+                        }, {
+                            type: 'A',
+                            start: 10,
+                            end: 26,
+                            data: [0.81, 0.82, 0.85, 0.87, 0.89, 0.91, 0.93, 0.96, 0.99, 1.01, 1.03, 1.06, 1.09, 1.11, 1.13, 1.17, 1.19]
+                        }, {
+                            type: 'B',
+                            start: 13,
+                            end: 28,
+                            data: [0.81, 0.84, 0.86, 0.88, 0.90, 0.93, 0.95, 0.98, 1.00, 1.03, 1.05, 1.07, 1.10, 1.13, 1.15, 1.18]
+                        }, {
+                            type: 'C',
+                            start: 18,
+                            end: 29,
+                            data: [0.84, 0.85, 0.88, 0.91, 0.93, 0.95, 0.97, 0.98, 1.02, 1.04, 1.07, 1.09]
+                        }, {
+                            type: 'D',
+                            start: 23,
+                            end: 29,
+                            data: [0.83, 0.86, 0.89, 0.91, 0.93, 0.96, 0.98]
+                        }, {
+                            type: 'E',
+                            start: 27,
+                            end: 29,
+                            data: [0.90, 0.92, 0.95]
+                        }],
+                        "窄V带": [{
+                            type: 'SPZ',
+                            start: 10,
+                            end: 25,
+                            data: [0.82, 0.84, 0.86, 0.88, 0.90, 0.93, 0.94, 0.96, 1.00, 1.01, 1.02, 1.05, 1.07, 1.09, 1.11, 1.13]
+                        }, {
+                            type: 'SPA',
+                            start: 12,
+                            end: 27,
+                            data: [0.81, 0.83, 0.85, 0.87, 0.89, 0.91, 0.93, 0.95, 0.96, 0.98, 1.00, 1.02, 1.04, 1.06, 1.08, 1.09]
+                        }, {
+                            type: 'SPB',
+                            start: 16,
+                            end: 29,
+                            data: [0.82, 0.84, 0.86, 0.88, 0.90, 0.92, 0.94, 0.96, 0.98, 1.00, 1.02, 1.04, 1.06, 1.08]
+                        }, {
+                            type: 'SPC',
+                            start: 20,
+                            end: 29,
+                            data: [0.81, 0.83, 0.86, 0.88, 0.90, 0.92, 0.94, 0.96, 0.98, 1.00]
+                        }]
+                    };
+                    var s = "&lt;table border='1'&gt;";
+                    s += "&lt;caption&gt;表-V带带长修正系数K&lt;sub&gt;L&lt;/sub&gt;&lt;/caption&gt;";
+                    s += "&lt;tr&gt;&lt;td rowspan='3'&gt;基准带长&lt;br&gt;L&lt;sub&gt;d&lt;/sub&gt;(单位：mm)&lt;/td&gt;&lt;td colspan='11'&gt;K&lt;sub&gt;L&lt;/sub&gt;&lt;/td&gt;&lt;/tr&gt;";
+                    s += "&lt;tr&gt;&lt;td colspan='7'&gt;普通V带&lt;/td&gt;&lt;td colspan='4'&gt;窄V带&lt;/td&gt;&lt;/tr&gt;";
+                    s += "&lt;tr&gt;";
+                    for (let i = 0; i &lt; V带带长修正系数KL['普通V带'].length; i++) {
+                        s += "&lt;td&gt;" + V带带长修正系数KL['普通V带'][i].type + "&lt;/td&gt;";
+                    }
+                    for (let i = 0; i &lt; V带带长修正系数KL['窄V带'].length; i++) {
+                        s += "&lt;td&gt;" + V带带长修正系数KL['窄V带'][i].type + "&lt;/td&gt;";
+                    }
+                    s += "&lt;/tr&gt;";
+                    for (let i = 0; i &lt; V带基准带长.length; i++) {
+                        s += "&lt;tr&gt;";
+                        s += "&lt;td&gt;" + V带基准带长[i] + "&lt;/td&gt;";
+                        for (let j = 0; j &lt; V带带长修正系数KL['普通V带'].length; j++) {
+                            s += "&lt;td&gt;";
+                            if (V带带长修正系数KL['普通V带'][j].start &lt;= i && V带带长修正系数KL['普通V带'][j].end &gt;= i) {
+                                s += String(V带带长修正系数KL['普通V带'][j].data[i - V带带长修正系数KL['普通V带'][j].start]);
+                            } else {
+                                s += "--";
+                            }
+                            s += "&lt;/td&gt;";
+                        }
+                        for (let j = 0; j &lt; V带带长修正系数KL['窄V带'].length; j++) {
+                            s += "&lt;td&gt;";
+                            if (V带带长修正系数KL['窄V带'][j].start &lt;= i && V带带长修正系数KL['窄V带'][j].end &gt;= i) {
+                                s += String(V带带长修正系数KL['窄V带'][j].data[i - V带带长修正系数KL['窄V带'][j].start]);
+                            } else {
+                                s += "--";
+                            }
+                            s += "&lt;/td&gt;";
+                        }
+                    }
+                    s += "&lt;/table&gt;";
+                    document.getElementById("表-V带带长修正系数KL").innerHTML = s;
+                &lt;/script&gt;
+            </pre>
+        </div>
+        <dt>查询</dt>
+        <form action="#">
+            <legend>查询V带带长系数</legend>
+            <fieldset>
+                <legend>输入参数</legend>
+                <label for="V带基准带长">V带基准带长</label>
+                <input type="text" id="V带基准带长">
+                <hr>
+                <label for="V带类型选择">选择V带类型</label>
+                <select name="V带类型选择" id="V带类型选择" onchange="v带类型切换()">
+                    <option value="普通V带">普通V带</option>
+                    <option value="窄V带">窄V带</option>
+                </select>
+                <select name="普通V带类型" id="普通V带类型">
+                    <option value="0">Z</option>
+                    <option value="1">Y</option>
+                    <option value="2">A</option>
+                    <option value="3">B</option>
+                    <option value="4">C</option>
+                    <option value="5">D</option>
+                    <option value="6">E</option>
+                </select>
+                <select name="窄V带类型" id="窄V带类型" class="display:none;">
+                        <option value="0">SPZ</option>
+                        <option value="1">SPA</option>
+                        <option value="2">SPB</option>
+                        <option value="3">SPC</option>
+                </select>
+            </fieldset>
+            <fieldset>
+                <legend>结果</legend>
+                <label for="V带长度系数">K<sub>L</sub></label>
+                <input type="text" id="V带长度系数" disabled="disabled">
+            </fieldset>
+            <button type="button" onclick="V带长度系数查询()">查询</button>
+        </form>
+        <script>
+            document.getElementById("窄V带类型").style.display = "none";
+
+            function v带类型切换() {
+                var sel = document.getElementById("V带类型选择").value;
+                if (sel === "普通V带") {
+                    document.getElementById("普通V带类型").style.display = "inline";
+                    document.getElementById("窄V带类型").style.display = "none";
+                } else {
+                    document.getElementById("普通V带类型").style.display = "none";
+                    document.getElementById("窄V带类型").style.display = "inline";
+                }
+            }
+
+            function V带长度系数查询() {
+                var len = Number(document.getElementById("V带基准带长").value);
+                var i = 0;
+            }
+        </script>
+    </section>
+
+    <script>
+        function show_code(id, is_true) {
+            var box = document.getElementById(id);
+            box.style.display = (is_true === true) ? "block" : "none";
+        }
+    </script>
+</body>
+
+</html>
