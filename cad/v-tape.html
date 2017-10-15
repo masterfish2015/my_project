@@ -149,12 +149,28 @@
                         <dt>[6] 确定带速<katex>v</katex>并检验其是否符合要求</dt>
                         <dd>
                             由公式
-                            <katex>v=\dfrac{\pi*d_{d1}*n_1}{60*1000}\le v_{max}</katex>，
+                            <katex>v=\dfrac{\pi*d_{d1}*n_1}{60*1000}\leqslant v_{max}</katex>，对于普通V带，<katex>v_{max}=25\sim 30 m/s</katex>；对于窄V带，<katex>v_{max}=35\sim 40 m/s</katex>，实践上，一般<katex>v \geqslant 5m/s</katex>，而为了充分发挥V带的传动能力，应使<katex>v \approx 20m/s</katex>，所以，由<katex>v=\dfrac{\pi*d_{d1}*n_1}{60*1000}=\dfrac{\pi*140*960}{60*1000}=7.037 m/s \leqslant v_{max}=25 m/s</katex>，满足要求。
                         </dd>
                     </li>
-                    <li class="list-group-item "></li>
-                    <li class="list-group-item "></li>
-                    <li class="list-group-item "></li>
+                    <li class="list-group-item ">
+                        <dt>[7] 初定轴间距<katex>a_0</katex></dt>
+                        <dd>
+                            满足<katex>0.7*(d_{d1}+d_{d2})\leqslant a_0 \lt 2*(d_{d1}+d_{d2})</katex>，或者由结构要求来指定，将<katex>d_{d1},d_{d2}</katex>代入，可以得到<katex>0.7*(140+500)\leqslant a_0 \lt 2*(140+500), \longrightarrow , 448 \leqslant a_0 \lt 1280</katex>，可以由用户在这个范围来指定轴间距，这里先设置<katex>a_0=500</katex>
+                        </dd>
+                    </li>
+                    <li class="list-group-item ">
+                        <dt>[8] 确定所需基准长度<katex>L_d</katex></dt>
+                        <dd>
+                            基准长度初值由公式：<katex>L_{d0}=2*a_0+\dfrac{\pi}{2}\left(d_{d1}+d_{d2}\right)+\dfrac{\left(d_{d1}+d_{d2}\right)^2}{4*a_0}</katex>，将<katex>a_0=500, d_{d1}=140, d_{d2}=500</katex>代入，可以得到<katex>L_{d0}=2*500+\dfrac{\pi}{2}\left(140+500\right)+\dfrac{\left(140+500\right)^2}{4*500}=2210.11mm</katex>，再由<a href="#">表6-1-7</a>，<a href="#">表6-1-8</a>，<a href="#">表6-1-9</a>，<a href="#">表6-1-10</a>来选取相近的带长，本例中<katex>L_d=2240mm</katex>
+                            <div id="表6-1-7" class="table-responsive"></div>
+                        </dd>
+                    </li>
+                    <li class="list-group-item ">
+                        <dt>[9] 确定实际轴间距<katex>a</katex></dt>
+                        <dd>
+                            
+                        </dd>
+                    </li>
                     <li class="list-group-item "></li>
                     <li class="list-group-item "></li>
                     <li class="list-group-item "></li>
@@ -172,6 +188,7 @@
         })();
         vtape.create_工况系数表("表6-1-13");
         vtape.create_普通V带和基准宽度窄V带基准直径表("表6-1-19");
+        vtape.create_普通V带基准长度系列表("表6-1-7");
     </script>
 </body>
 
