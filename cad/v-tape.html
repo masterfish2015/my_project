@@ -60,12 +60,15 @@
             <div class="panel-body ">
                 <ul class="list-group">
                     <li class="list-group-item ">
-                        <dt>[1] 确定计算功率<katex>P_d</katex></dt>
+                        <dt>[1] 确定计算功率
+                            <katex>P_d</katex>
+                        </dt>
                         <dd>
                             公式：
                             <katex>P_d=K_A \cdot P</katex>
                             ,其中：
-                            <katex>K_A</katex>是工况系数，由下面的<a href="#">表6.1-13</a>来决定，在本例里
+                            <katex>K_A</katex>是工况系数，由下面的
+                            <a href="#">表6.1-13</a>来决定，在本例里
                             <katex>K_A=1.2</katex>
                             <div id="表6-1-13" class="table-responsive"></div>
                             所以，
@@ -76,7 +79,10 @@
                         <dt>[2] 选定带型</dt>
                         <dd>
                             由
-                            <katex>P_d, n_1</katex>根据<a href="#">图6-1-3</a>、<a href="#">图6-1-4</a>和<a href="#">图6-1-5</a>来选取。
+                            <katex>P_d, n_1</katex>根据
+                            <a href="#">图6-1-3</a>、
+                            <a href="#">图6-1-4</a>和
+                            <a href="#">图6-1-5</a>来选取。
                             <div id="图6-1-3">
                                 <img src="images/普通V带选型图.png" alt="图6-1-3 普通V带选型图" class="img-responsive">
                             </div>
@@ -87,12 +93,21 @@
                                 <img src="images/窄V带-有效宽度制-选型图.png" alt="图6-1-5 窄V带-有效宽度制-选型图" class="img-responsive">
                             </div>
                             由
-                            <katex>P_d=4.08kW, n_1=960r/min</katex>,优先选<b>普通</b>系列，可从<a href="#">图6-1-3</a>选得<b>类型</b>为<b>A</b>，小带轮的基准直径范围：
+                            <katex>P_d=4.08kW, n_1=960r/min</katex>,优先选
+                            <b>普通</b>系列，可从
+                            <a href="#">图6-1-3</a>选得
+                            <b>类型</b>为
+                            <b>A</b>，小带轮的基准直径范围：
                             <katex>d_{p1}=112\le d_d \le d_{p2}=140</katex>
                         </dd>
                     </li>
                     <li class="list-group-item ">
-                        <dt>[3] 确定<i>传动比</i><katex>i</katex>或<i>大带轮(从动轮)转速</i><katex>n_2</katex></dt>
+                        <dt>[3] 确定
+                            <i>传动比</i>
+                            <katex>i</katex>或
+                            <i>大带轮(从动轮)转速</i>
+                            <katex>n_2</katex>
+                        </dt>
                         <dd>
                             由
                             <katex>i=\dfrac{n_1}{n_2}=\dfrac{d_{p2}}{d_{p1}}</katex>，若计入滑动率
@@ -115,58 +130,118 @@
                                     <katex>d_{p2}</katex>是大带轮节圆直径（mm）
                                 </li>
                             </ul>
-                            <span class="label label-info">节圆直径</span>可视为<span class="label label-success">基准直径</span>。
+                            <span class="label label-info">节圆直径</span>可视为
+                            <span class="label label-success">基准直径</span>。
                             <hr> 在本例中，
                             <katex>i,n_1</katex>已知，于是可得
                             <katex>n_2=\dfrac{n_1}{i}=\dfrac{960}{3.5}=274.3 r/min</katex>
                         </dd>
                     </li>
                     <li class="list-group-item ">
-                        <dt>[4] 确定小带轮的基准直径<katex>d_{d1}</katex></dt>
+                        <dt>[4] 确定小带轮的基准直径
+                            <katex>d_{d1}</katex>
+                        </dt>
                         <dd>
-                            在前面确定带型的时候，已经得到了小带轮的基准直径的范围，可以由此从<a href="#">表6.1-19</a>或<a href="#">表6.1-20</a>来选择一个合适的基准直径，为了提高V带轮的寿命，从最大的开始选起，由于小带轮的基准直径范围：
-                            <katex>d_{p1}=112\le d_d \le d_{p2}=140</katex>，类型是A型，查<a href="#">表6.1-19</a>可初选
+                            在前面确定带型的时候，已经得到了小带轮的基准直径的范围，可以由此从
+                            <a href="#">表6.1-19</a>或
+                            <a href="#">表6.1-20</a>来选择一个合适的基准直径，为了提高V带轮的寿命，从最大的开始选起，由于小带轮的基准直径范围：
+                            <katex>d_{p1}=112\le d_d \le d_{p2}=140</katex>，类型是A型，查
+                            <a href="#">表6.1-19</a>可初选
                             <katex>d_{d1}=140mm</katex>
                             <div id="表6-1-19" class="table-responsive"></div>
                         </dd>
                     </li>
                     <li class="list-group-item ">
-                        <dt>[5] 确定大带轮的基准直径<katex>d_{d2}</katex>及修正后的传动比<katex>i'</katex>并检验其是否误差符合要求</dt>
+                        <dt>[5] 确定大带轮的基准直径
+                            <katex>d_{d2}</katex>及修正后的传动比
+                            <katex>i'</katex>并检验其是否误差符合要求</dt>
                         <dd>
                             由公式
                             <katex>d_{d2}=i*d_{d1}*(1-\varepsilon)</katex>，由于
                             <katex>\varepsilon=0.015</katex>，
-                            <katex>d_{d2}=i*d_{d1}*(1-0.015)=3.5*140*(1-0.015)=482.65mm</katex>，然后由<a href="#">表6.1-19</a>来确定合适的基准直径，要求修正的传动比
+                            <katex>d_{d2}=i*d_{d1}*(1-0.015)=3.5*140*(1-0.015)=482.65mm</katex>，然后由
+                            <a href="#">表6.1-19</a>来确定合适的基准直径，要求修正的传动比
                             <katex>i'=\dfrac{d_2}{(1-\varepsilon)*d1}</katex>和原来的传动比
                             <katex>i</katex>的相对误差
                             <katex>\Delta i=\dfrac{i'-i}{i}\le 5\%</katex>：把查出来的值
                             <katex>d_{d2}=500mm</katex>代入，求出
-                            <katex>i'=\dfrac{d_2}{(1-\varepsilon)*d1}=\dfrac{500}{(1-0.015)*140}=3.626, \Delta i=\dfrac{i'-i}{i}=\dfrac{3.626-3.5}{3.5}=0.036=3.6\% \lt 5\%</katex>，所以
+                            <katex>i'=\dfrac{d_2}{(1-\varepsilon)*d1}=\dfrac{500}{(1-0.015)*140}=3.626, \Delta i=\dfrac{i'-i}{i}=\dfrac{3.626-3.5}{3.5}=0.036=3.6\%
+                                \lt 5\%</katex>，所以
                             <katex>d_{d2}=500mm</katex>是合适的。
                         </dd>
                     </li>
                     <li class="list-group-item ">
-                        <dt>[6] 确定带速<katex>v</katex>并检验其是否符合要求</dt>
+                        <dt>[6] 确定带速
+                            <katex>v</katex>并检验其是否符合要求</dt>
                         <dd>
                             由公式
-                            <katex>v=\dfrac{\pi*d_{d1}*n_1}{60*1000}\leqslant v_{max}</katex>，对于普通V带，<katex>v_{max}=25\sim 30 m/s</katex>；对于窄V带，<katex>v_{max}=35\sim 40 m/s</katex>，实践上，一般<katex>v \geqslant 5m/s</katex>，而为了充分发挥V带的传动能力，应使<katex>v \approx 20m/s</katex>，所以，由<katex>v=\dfrac{\pi*d_{d1}*n_1}{60*1000}=\dfrac{\pi*140*960}{60*1000}=7.037 m/s \leqslant v_{max}=25 m/s</katex>，满足要求。
+                            <katex>v=\dfrac{\pi*d_{d1}*n_1}{60*1000}\leqslant v_{max}</katex>，对于普通V带，
+                            <katex>v_{max}=25\sim 30 m/s</katex>；对于窄V带，
+                            <katex>v_{max}=35\sim 40 m/s</katex>，实践上，一般
+                            <katex>v \geqslant 5m/s</katex>，而为了充分发挥V带的传动能力，应使
+                            <katex>v \approx 20m/s</katex>，所以，由
+                            <katex>v=\dfrac{\pi*d_{d1}*n_1}{60*1000}=\dfrac{\pi*140*960}{60*1000}=7.037 m/s \leqslant v_{max}=25
+                                m/s
+                            </katex>，满足要求。
                         </dd>
                     </li>
                     <li class="list-group-item ">
-                        <dt>[7] 初定轴间距<katex>a_0</katex></dt>
+                        <dt>[7] 初定轴间距
+                            <katex>a_0</katex>
+                        </dt>
                         <dd>
-                            满足<katex>0.7*(d_{d1}+d_{d2})\leqslant a_0 \lt 2*(d_{d1}+d_{d2})</katex>，或者由结构要求来指定，将<katex>d_{d1},d_{d2}</katex>代入，可以得到<katex>0.7*(140+500)\leqslant a_0 \lt 2*(140+500), \longrightarrow , 448 \leqslant a_0 \lt 1280</katex>，可以由用户在这个范围来指定轴间距，这里先设置<katex>a_0=500</katex>
+                            满足
+                            <katex>0.7*(d_{d1}+d_{d2})\leqslant a_0 \lt 2*(d_{d1}+d_{d2})</katex>，或者由结构要求来指定，将
+                            <katex>d_{d1},d_{d2}</katex>代入，可以得到
+                            <katex>0.7*(140+500)\leqslant a_0 \lt 2*(140+500), \longrightarrow , 448 \leqslant a_0 \lt 1280</katex>，可以由用户在这个范围来指定轴间距，这里先设置
+                            <katex>a_0=500</katex>
                         </dd>
                     </li>
                     <li class="list-group-item ">
-                        <dt>[8] 确定所需基准长度<katex>L_d</katex></dt>
+                        <dt>[8] 确定所需基准长度
+                            <katex>L_d</katex>
+                        </dt>
                         <dd>
-                            基准长度初值由公式：<katex>L_{d0}=2*a_0+\dfrac{\pi}{2}\left(d_{d1}+d_{d2}\right)+\dfrac{\left(d_{d1}+d_{d2}\right)^2}{4*a_0}</katex>，将<katex>a_0=500, d_{d1}=140, d_{d2}=500</katex>代入，可以得到<katex>L_{d0}=2*500+\dfrac{\pi}{2}\left(140+500\right)+\dfrac{\left(140+500\right)^2}{4*500}=2210.11mm</katex>，再由<a href="#">表6-1-7</a>，<a href="#">表6-1-8</a>，<a href="#">表6-1-9</a>，<a href="#">表6-1-10</a>来选取相近的带长，本例中<katex>L_d=2240mm</katex>
+                            基准长度初值由公式：
+                            <katex>L_{d0}=2*a_0+\dfrac{\pi}{2}\left(d_{d1}+d_{d2}\right)+\dfrac{\left(d_{d1}+d_{d2}\right)^2}{4*a_0}</katex>，将
+                            <katex>a_0=500, d_{d1}=140, d_{d2}=500</katex>代入，可以得到
+                            <katex>L_{d0}=2*500+\dfrac{\pi}{2}\left(140+500\right)+\dfrac{\left(140+500\right)^2}{4*500}=2210.11mm</katex>，再由
+                            <a href="#">表6-1-7</a>，
+                            <a href="#">表6-1-8</a>，
+                            <a href="#">表6-1-9</a>，
+                            <a href="#">表6-1-10</a>来选取相近的带长，本例中
+                            <katex>L_d=2240mm</katex>
                             <div id="表6-1-7" class="table-responsive"></div>
                         </dd>
                     </li>
                     <li class="list-group-item ">
-                        <dt>[9] 确定实际轴间距<katex>a</katex></dt>
+                        <dt>[9] 确定实际轴间距
+                            <katex>a</katex>和变动范围:
+                            <katex>a_{min},a_{max}</katex>
+                        </dt>
+                        <dd>
+                            由公式：
+                            <katex>a\approx a_0+\dfrac{L_d-L_{d0}}{2}=500+\dfrac{2240-2210.11}{2}=514.95mm</katex>，
+                            <br> 其中心距变动范围
+                            <br>
+                            <katex>a_{min}=a-0.015*L_d=514.95-0.015*2240=481.35</katex>,
+                            <katex>a_{max}=a+0.030*L_d=514.95+0.030*2240=582.15</katex>
+                        </dd>
+                    </li>
+                    <li class="list-group-item ">
+                        <dt>[10] 验算小带轮包角
+                            <katex>\alpha_1</katex>
+                        </dt>
+                        <dd>
+                            由
+                            <katex>\alpha_1=180^{\circ}-\dfrac{d_{d2}-d_{d1}}{a}*57.3=180^{\circ}-\dfrac{500-140}{514.95}*57.3=220.06
+                                </katex>, 因为
+                            <katex>\alpha_1 \geqslant 120^{\circ}</katex>，所以符合要求。
+                        </dd>
+                    </li>
+                    <li class="list-group-item ">
+                        <dt>[11] 计算单根V带传递的额定功率<katex>P_1</katex>
+                        </dt>
                         <dd>
                             
                         </dd>

@@ -393,28 +393,28 @@ vtape.create_普通V带基准长度系列表 = function (target_id) {
           </tr>`;
 
     vtape["普通V带基准长度"].forEach(function (v, i) {
-        if(i%2===0)
-            str+=`<tr>`;
+        if (i % 2 === 0)
+            str += `<tr>`;
         else
-            str+=`<tr class="info">`;
+            str += `<tr class="info">`;
 
-        str+=`<td>${v["基本长度"]}</td><td>[${v["极限偏差"]}]</td>`;
-        
-        let type=["Y","Z","A","B","C","D","E"];
-        for(let j=0;j<type.length;j++){
-            let flag=false;
-            for(let k=0;k<v["允许带型"].length;k++){
-                if(v["允许带型"][k]===type[j]){
-                    str+=`<td>&radic;</td>`;
-                    flag=true;
+        str += `<td>${v["基本长度"]}</td><td>[${v["极限偏差"]}]</td>`;
+
+        let type = ["Y", "Z", "A", "B", "C", "D", "E"];
+        for (let j = 0; j < type.length; j++) {
+            let flag = false;
+            for (let k = 0; k < v["允许带型"].length; k++) {
+                if (v["允许带型"][k] === type[j]) {
+                    str += `<td>&radic;</td>`;
+                    flag = true;
                     break;
                 }
             }
-            if(flag===false){
-                str+=`<td></td>`;
+            if (flag === false) {
+                str += `<td></td>`;
             }
         }
-        str+=`<td>${v["配组公差"]}</td></tr>`;
+        str += `<td>${v["配组公差"]}</td></tr>`;
     });
     str += "</table>";
     document.getElementById(target_id).innerHTML = str;
