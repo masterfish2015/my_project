@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>CSS-demo</title>
+    <style>
+        h1 {
+            border-bottom-style: solid;
+        }
+
+        h1:hover {
+            background: rgb(240, 150, 30);
+            color: rgb(35, 12, 220);
+        }
+
+        h2 {
+            font-family: Courier New, Courier, monospace;
+        }
+
+        h2:hover {
+            background: lightblue;
+            color: red;
+        }
+
+        panel {
+            display: flex;
+            border-style: double;
+            flex-flow: row wrap;
+        }
+        panel div{
+            display: flex;
+            flex-flow: column;
+            border-style: dotted;
+        }
+        panel pre{
+            font-family: monospace;
+            border-style: double;
+            display: flex;
+            flex-flow: column;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>CSS Style Demo</h1>
+    <h2>1. CSS Color Module Level 3</h2>
+    <panel>
+        <div>
+            haha
+        </div>
+        <pre>
+            int a=10;
+        </pre>
+    </panel>
+</body>
+
+</html>
