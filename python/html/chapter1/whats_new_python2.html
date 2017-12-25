@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>python what's new</title>
+    <!-- css -->
+    <link rel="stylesheet" href="../node_modules/highlightjs/styles/atom-one-dark.css">
+    <link rel="stylesheet" href="../css/python-style.css">
+    <!-- js -->
+    <script src="../node_modules/highlightjs/highlight.pack.js"></script>
+    <script src="../build/whats_new_python2.js"></script>
+</head>
+<body>
+    <h2>1. Python2.0 的新特性</h2>
+    
+    <h3>1.1.介绍</h3>
+    
+    <p>python 2.0 于2000年10月16日发布</p>
+    
+    <h3>1.2.Unicode</h3>
+    
+    <p>最大的一个新特性是一个基础数据类型：unicode strings 。在代码中，使用<code>u"string"</code>来表示一个unicode string。也可以用<code>"\uHHHH"</code>来表示一些不好表示的特殊字符，其中<code>HHHH</code>是4位的16进制数，从<code>0000</code>到<code>FFFF</code>，基本是unicode的码值。原来的<code>"\xHHHH"</code>表示法还是可以使用，8进制的表示法<code>"\OOO"</code>依然可用，<code>OOO</code>的范围是<code>000</code>到<code>777</code>。</p>
+
+    <p>unicode string和传统string一样，是<b>immutable</b>的，也就是可以<b>indexed</b>和<b>sliced</b>，但不能原地修改。</p>
+
+    <p>unicode string有一个<code>encode</code>函数，可以将unicode string转换为指定编码（用字符串指定，可以用的有<code>"ascii", "utf-8", "iso-8859-1"等</code>）的编码的8-bit字符串，如果没指定编码格式，会转换为7-bit字符串。也可以用定制文件<b>site.py</b>中用<code>sys.setdefaultencoding(encoding)</code>来指定缺省的转换编码。</p>
+
+    <p>unicode string和普通string组合，其结果是unicode string，如<code>u"a"+"bc"</code>结果是<code>u"abc"</code>。</p>
+
+    <p>有新的<b>内建（build-in）函数</b>被加入，以及原来的内建函数进行修正以支持unicode string，如下：</p>
+
+    <ul>
+        <li><code>unichr(ch)</code>：创建一个unicode string，内容是字符<code>ch</code>；</li>
+        <li><code>ord(u)</code>：<code>u</code>是普通或unicode string，返回其<b>码值</b>（整数）;</li>
+        <li><code>unicode(string [, encoding] [, errors] )</code>：将普通字符串<code>string</code>转换为unicode string，其编码方式由<code>encoding</code>字符串来指定，<code>errors</code>字符串指定出错时的处理方式，<code>"strict"</code>表示编码出错时会抛出一个<b>exception</b>，<code>"ignore"</code>表示出错时没有任何处理，<code>"replace"</code>会出现错误时用<code>"\uFFFD"</code>来替换结果。</li>
+        <li><code>exec</code>语句和其他的内建函数，如<code>eval(),getattr(),setattr()</code>等，都支持unicode string。</li>
+    </ul>
+
+    <p>新的module, <code>unicodedata</code>，提供了相关接口函数来对unicode字符（character）进行操作，比如<code>unicodedata.category(u'A')</code>会返回两字符的字符串<code>'Lu'</code>，其中<code>'L'</code>表示这是字母 ( letter ) ，<code>'u'</code>表示大写字母。其他的参考相关模块定义。</p>
+
+    <p><code>codecs</code>module包含函数来查找现存的编码和注册新的编码，利用<code>codecs.lookup(encoding)</code>函数来查询是否该编码存在，其返回四元素的<b>tuple</b>：<code>(encode_func, decode_func, stream_reader, stream_writer)</code></p>
+
+    <ul>
+        <li><code>encode_func(unicode_string)</code>: 返回一个<b>2-tuple</b>:<code>(string, length)</code>, <code>string</code>是8-bit编码好的字符串，<code>length</code>告诉我们有多少unicode string被转换。</li>
+        <li><code>decode_func(8_bit_string)</code>:返回一个<b>2-tuple</b>:<code>(unicode_string, length)</code>，和上面的<code>encode_func</code>相反。</li>
+        <li><code>stream_reader(file_obj)</code>：返回一个对象（object），支持几个函数<code>read(), readline(), readlines()</code>从文件对象中读入数据。</li>
+        <li><code>stream_writer(file_obj)</code>：返回一个对象（object），支持几个函数<code>write(), writelines()</code>将数据写入文件。</li>
+    </ul>
+
+    <h4>例1-2-1：下面例子将unicode转为utf-8并写入文件中。</h4>
+<pre><code class="python">#exam 1-2-1  writes a Unicode string into a file, encoding it as UTF-8
+import codecs
+
+unistr = u'\u0660\u2000ab ...'
+
+(UTF8_encode, UTF8_decode,
+    UTF8_streamreader, UTF8_streamwriter) = codecs.lookup('UTF-8')
+
+output = UTF8_streamwriter( open( '/tmp/output', 'wb') )
+output.write( unistr )
+output.close()</code></pre>
+
+    <h4>例1-2-2：下面例子将写入文件中的utf-8数据读入。</h4>
+<pre><code class="python">#exam 1-2-2  read UTF-8 input from the file
+import codecs
+
+(UTF8_encode, UTF8_decode,
+    UTF8_streamreader, UTF8_streamwriter) = codecs.lookup('UTF-8')
+
+input = UTF8_streamreader( open( '/tmp/output', 'rb') )
+print repr(input.read())
+input.close()</code></pre>
+
+    <p>在命令行中用<code>-U</code>选项可以使python将所有的字符串都转换为unicode string。</p>
+
+    <h3>1.3.List Comprehensions</h3>
+
+    <p> Two common operations on lists are to loop over them, and either pick out the elements that meet a certain criterion, or apply some function to each element. </p>
+
+    <p>The existing <code>map()</code> and <code>filter() </code> functions can be used for this purpose, but they require a <b>function</b> as one of their arguments. This is fine if there’s an existing built-in function that can be passed directly, but if there isn’t, you have to create a little function to do the required work, and Python’s scoping rules make the result ugly if the little function needs additional information. Take the first example in the previous paragraph, finding all the strings in the list containing a given substring. You could write the following to do it:</p>
+
+    <h4>例1-3-1：下面例子查找list L中所有包含sub_string的string</h4>
+<pre><code class="python"># exam 1-3-1  Given the list L, make a list of all strings
+# containing the substring S.
+sublist = filter( lambda s, substring=S:
+                     string.find(s, substring) != -1,
+                  L)</code></pre>
+
+    <p> List comprehensions make this cleaner:</p>
+
+    <h4>例1-3-2：下面例子查找list L中所有包含sub_string的string，用list comprehensions</h4>
+<pre><code class="python"># exam 1-3-1  Given the list L, make a list of all strings
+# containing the substring S.
+sublist = [ s for s in L if string.find(s, S) != -1 ]</code></pre>
+
+    <p>List comprehensions have the form:</p>
+<pre><code class="python">[ expression for expr in sequence1
+        for expr2 in sequence2 ...
+        for exprN in sequenceN
+        if condition ]</code></pre>
+
+    <p>The <code>for…in</code> clauses contain the sequences to be iterated over. The sequences do not have to be the same length, because they are not iterated over in parallel, but from left to right; this is explained more clearly in the following paragraphs. The elements of the generated list will be the successive values of expression. The final <code>if</code> clause is optional; if present, expression is only evaluated and added to the result if condition is <b>true</b>.</p>
+
+    <h4>例1-3-3：多重for的例子</h4>
+<pre><code class="python">seq1 = 'abc'
+seq2 = (1,2,3)
+>>> [ (x,y) for x in seq1 for y in seq2]
+[('a', 1), ('a', 2), ('a', 3), ('b', 1), ('b', 2), ('b', 3), ('c', 1),
+('c', 2), ('c', 3)]</code></pre>
+
+    <p>To avoid introducing an ambiguity into Python’s grammar, <code>if</code> expression is creating a <b>tuple</b>, it must be surrounded with parentheses. The first list comprehension below is a syntax error, while the second one is correct:</p>
+
+    <h4>例1-3-4：多变量时必须加上括号</h4>
+<pre><code class="python"># Syntax error
+[ x,y for x in seq1 for y in seq2]
+# Correct
+[ (x,y) for x in seq1 for y in seq2]</code></pre>
+
+    <h3>1.4.Augmented Assignment</h3>
+
+    <p>Augmented assignment operators, another long-requested feature, have been added to Python 2.0. Augmented assignment operators include <code>+=, -=, *=, </code> and so forth. For example, the statement <code>a += 2</code> increments the value of the variable a by 2, equivalent to the slightly lengthier <code>a = a + 2</code>.</p>
+
+    <p>The full list of supported assignment operators is <code> +=, -=, *=, /=, %=, **=, &amp;=, |=, ^=, &gt;&gt;=, and &lt;&lt;= </code>. Python classes can override the augmented assignment operators by defining methods named <code>__iadd__(), __isub__()</code>, etc. For example, the following Number class stores a number and supports using <code>+=</code> to create a new instance with an incremented value.</p>
+
+    <pre><code class="python">#class Number
+class Number:
+    def __init__(self, value):
+        self.value = value
+    def __iadd__(self, increment):
+        return Number( self.value + increment)
+
+n = Number(5)
+n += 3
+print(n.value)</code></pre>
+
+    <h3>1.5.String Methods</h3>
+
+    <p>Until now string-manipulation functionality was in the <code>string</code> module, which was usually a front-end for the <code>strop</code> module written in C. The addition of Unicode posed a difficulty for the <code>strop</code> module, because the functions would all need to be <b>rewritten</b> in order to accept either 8-bit or Unicode strings. For functions such as <code>string.replace()</code>, which takes 3 string arguments, that means eight possible permutations, and correspondingly complicated code.
+
+    <p>Instead, Python 2.0 pushes the problem onto the <b>string type</b>, making string manipulation functionality available through methods on both 8-bit strings and Unicode strings.</p>
+
+    <p>Two methods which have no parallel in pre-2.0 versions, although they did exist in JPython for quite some time, are <code>startswith() </code> and <code>endswith()</code>. <code>s.startswith(t)</code> is equivalent to <code>s[:len(t)] == t</code>, while <code>s.endswith(t)</code> is equivalent to <code>s[-len(t):] == t</code>.</p>
+
+    <p>One other method which deserves special mention is <code>join()</code>. The <code>join()</code> method of a string receives one parameter, a sequence of strings, and is equivalent to the <code>string.join()</code> function from the old string module, with the arguments reversed. In other words, <code>s.join(seq)</code> is equivalent to the old <code>string.join(seq, s)</code>.</p>
+
+    <h3>1.6.Garbage Collection of Cycles</h3>
+
+    <p>The C implementation of Python uses <b>reference counting</b> to implement <b>garbage collection</b>. Every Python object maintains a <b>count of the number of references</b> pointing to itself, and adjusts the count as references are created or destroyed. Once the reference count reaches zero, the object is no longer accessible, since you need to have a reference to an object to access it, and if the count is zero, no references exist any longer.</p>
+
+    <p>Reference counting has some pleasant properties: it’s easy to understand and implement, and the resulting implementation is portable, fairly fast, and reacts well with other libraries that implement their own memory handling schemes. The major problem with reference counting is that it sometimes doesn’t realise that objects are no longer accessible, resulting in a memory leak. This happens when there are cycles of references.</p>
+
+    <p>Consider the simplest possible cycle, a class instance which has a reference to itself:</p>
+
+    <pre><code class="python">#a class instance which has a reference to itself
+instance = SomeClass()
+instance.myself = instance</code></pre>
+
+    <p>After the above two lines of code have been executed, the reference count of instance is 2; one reference is from the variable named 'instance', and the other is from the myself attribute of the instance.</p>
+
+    <p>If the next line of code is del instance, what happens? The reference count of instance is decreased by 1, so it has a reference count of 1; the reference in the myself attribute still exists. Yet the instance is no longer accessible through Python code, and it could be deleted. Several objects can participate in a cycle if they have references to each other, causing all of the objects to be leaked.</p>
+
+    <p>Python 2.0 fixes this problem by periodically executing a cycle detection algorithm which looks for inaccessible cycles and deletes the objects involved. A new gc module provides functions to perform a garbage collection, obtain debugging statistics, and tuning the collector’s parameters.</p>
+
+    <p>Running the cycle detection algorithm takes some time, and therefore will result in some additional overhead. It is hoped that after we’ve gotten experience with the cycle collection from using 2.0, Python 2.1 will be able to minimize the overhead with careful tuning. It’s not yet obvious how much performance is lost, because benchmarking this is tricky and depends crucially on how often the program creates and destroys objects. The detection of cycles can be disabled when Python is compiled, if you can’t afford even a tiny speed penalty or suspect that the cycle collection is buggy, by specifying the --without-cycle-gc switch when running the configure script.</p>
+
+    <h3>1.7.Other Core Changes</h3>
+    <p>Various minor changes have been made to Python’s syntax and built-in functions. None of the changes are very far-reaching, but they’re handy conveniences.</p>
+
+    <h4>Minor Language Changes</h4>
+    <p>A new syntax makes it more convenient to call a given function with a tuple of arguments and/or a dictionary of keyword arguments. In Python 1.5 and earlier, you’d use the <code>apply()</code> built-in function: <code>apply(f, args, kw)</code> calls the function <code>f()</code> with the argument tuple <code>args</code> and the keyword arguments in the dictionary <code>kw</code>. <code>apply()</code> is the same in 2.0, but thanks to a patch from Greg Ewing, <code>f(*args, **kw)</code> is a shorter and clearer way to achieve the same effect. This syntax is symmetrical with the syntax for defining functions:</p>
+
+    <pre><code class="python">def f(*args, **kw):
+    # args is a tuple of positional args,
+    # kw is a dictionary of keyword args
+    ...</code></pre>
+
+    <p>The <code>print</code> statement can now have its output directed to a file-like object by following the <code>print</code> with <code>>> file</code>, similar to the <code>redirection operator</code> in Unix shells. Previously you’d either have to use the <code>write()</code> method of the file-like object, which lacks the convenience and simplicity of print, or you could assign a new value to <code>sys.stdout</code> and then restore the old value. For sending output to standard error, it’s much easier to write this:</p>
+
+    <pre><code class="python">print >> sys.stderr, "Warning: action field not supplied"</code></pre>
+
+    <p>Modules can now be renamed on importing them, using the syntax <code>import module as name</code> or <code>from module import name as othername</code>. The patch was submitted by Thomas Wouters.</p>
+
+    <p>A new format style is available when using the <code>%</code> operator; <code>‘%r’</code> will insert the <code>repr()</code> of its argument. This was also added from symmetry considerations, this time for symmetry with the existing <code>‘%s’</code> format style, which inserts the <code>str()</code> of its argument. For example, <code>'%r %s' % ('abc', 'abc')</code> returns a string containing <code>'abc' abc</code>.</p>
+
+    <p>Previously there was no way to implement a class that overrode Python’s built-in in operator and implemented a custom version. <code>obj in seq</code> returns <code>true</code> if <code>obj</code> is present in the sequence <code>seq</code>; Python computes this by simply trying every index of the sequence until either obj is found or an <code>IndexError</code> is encountered. Moshe Zadka contributed a patch which adds a <code>__contains__()</code> magic method for providing a custom implementation for <code>in</code>. Additionally, new built-in objects written in C can define what in means for them via a new slot in the sequence protocol.</p>
+
+    <p>Earlier versions of Python used a recursive algorithm for deleting objects. Deeply nested data structures could cause the interpreter to fill up the C stack and crash; Christian Tismer rewrote the deletion logic to fix this problem. On a related note, comparing recursive objects recursed infinitely and crashed; Jeremy Hylton rewrote the code to no longer crash, producing a useful result instead. For example, after this code:</p>
+
+a = []
+b = []
+a.append(a)
+b.append(b)
+
+    <p>The comparison a==b returns true, because the two recursive data structures are isomorphic. See the thread “trashcan and PR#7” in the April 2000 archives of the python-dev mailing list for the discussion leading up to this implementation, and some useful relevant links. Note that comparisons can now also raise exceptions. In earlier versions of Python, a comparison operation such as cmp(a,b) would always produce an answer, even if a user-defined __cmp__() method encountered an error, since the resulting exception would simply be silently swallowed.</p>
+
+<p>Work has been done on porting Python to 64-bit Windows on the Itanium processor, mostly by Trent Mick of ActiveState. (Confusingly, sys.platform is still 'win32' on Win64 because it seems that for ease of porting, MS Visual C++ treats code as 32 bit on Itanium.) PythonWin also supports Windows CE; see the Python CE page at http://pythonce.sourceforge.net/ for more information.</p>
+
+<p>Another new platform is Darwin/MacOS X; initial support for it is in Python 2.0. Dynamic loading works, if you specify “configure –with-dyld –with-suffix=.x”. Consult the README in the Python source distribution for more instructions.</p>
+
+<p>An attempt has been made to alleviate one of Python’s warts, the often-confusing NameError exception when code refers to a local variable before the variable has been assigned a value. For example, the following code raises an exception on the print statement in both 1.5.2 and 2.0; in 1.5.2 a NameError exception is raised, while 2.0 raises a new UnboundLocalError exception. UnboundLocalError is a subclass of NameError, so any existing code that expects NameError to be raised should still work.</p>
+
+def f():
+    print "i=",i
+    i = i + 1
+f()
+Two new exceptions, TabError and IndentationError, have been introduced. They’re both subclasses of SyntaxError, and are raised when Python code is found to be improperly indented.
+
+Changes to Built-in Functions
+A new built-in, zip(seq1, seq2, ...), has been added. zip() returns a list of tuples where each tuple contains the i-th element from each of the argument sequences. The difference between zip() and map(None, seq1, seq2) is that map() pads the sequences with None if the sequences aren’t all of the same length, while zip() truncates the returned list to the length of the shortest argument sequence.
+
+The int() and long() functions now accept an optional “base” parameter when the first argument is a string. int('123', 10) returns 123, while int('123', 16) returns 291. int(123, 16) raises a TypeError exception with the message “can’t convert non-string with explicit base”.
+
+A new variable holding more detailed version information has been added to the sys module. sys.version_info is a tuple (major, minor, micro, level, serial) For example, in a hypothetical 2.0.1beta1, sys.version_info would be (2, 0, 1, 'beta', 1). level is a string such as "alpha", "beta", or "final" for a final release.
+
+Dictionaries have an odd new method, setdefault(key, default), which behaves similarly to the existing get() method. However, if the key is missing, setdefault() both returns the value of default as get() would do, and also inserts it into the dictionary as the value for key. Thus, the following lines of code:
+
+if dict.has_key( key ): return dict[key]
+else:
+    dict[key] = []
+    return dict[key]
+can be reduced to a single return dict.setdefault(key, []) statement.
+
+The interpreter sets a maximum recursion depth in order to catch runaway recursion before filling the C stack and causing a core dump or GPF.. Previously this limit was fixed when you compiled Python, but in 2.0 the maximum recursion depth can be read and modified using sys.getrecursionlimit() and sys.setrecursionlimit(). The default value is 1000, and a rough maximum value for a given platform can be found by running a new script, Misc/find_recursionlimit.py.
+</body>
+</html>
