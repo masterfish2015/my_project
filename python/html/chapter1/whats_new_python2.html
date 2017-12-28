@@ -13,13 +13,13 @@
     <script src="../build/whats_new_python2.js"></script>
 </head>
 <body>
-    <h2>1. Python2.0 的新特性</h2>
+    <h2>Python2.0 的新特性</h2>
     
-    <h3>1.1.介绍</h3>
+    <h3>1.介绍</h3>
     
     <p>python 2.0 于2000年10月16日发布</p>
     
-    <h3>1.2.Unicode</h3>
+    <h3>2.Unicode</h3>
     
     <p>最大的一个新特性是一个基础数据类型：unicode strings 。在代码中，使用<code>u"string"</code>来表示一个unicode string。也可以用<code>"\uHHHH"</code>来表示一些不好表示的特殊字符，其中<code>HHHH</code>是4位的16进制数，从<code>0000</code>到<code>FFFF</code>，基本是unicode的码值。原来的<code>"\xHHHH"</code>表示法还是可以使用，8进制的表示法<code>"\OOO"</code>依然可用，<code>OOO</code>的范围是<code>000</code>到<code>777</code>。</p>
 
@@ -49,8 +49,8 @@
         <li><code>stream_writer(file_obj)</code>：返回一个对象（object），支持几个函数<code>write(), writelines()</code>将数据写入文件。</li>
     </ul>
 
-    <h4>例1-2-1：下面例子将unicode转为utf-8并写入文件中。</h4>
-<pre><code class="python">#exam 1-2-1  writes a Unicode string into a file, encoding it as UTF-8
+    <h4>例2-1：下面例子将unicode转为utf-8并写入文件中。</h4>
+<pre><code class="python">#exam 2-1  writes a Unicode string into a file, encoding it as UTF-8
 import codecs
 
 unistr = u'\u0660\u2000ab ...'
@@ -62,8 +62,8 @@ output = UTF8_streamwriter( open( '/tmp/output', 'wb') )
 output.write( unistr )
 output.close()</code></pre>
 
-    <h4>例1-2-2：下面例子将写入文件中的utf-8数据读入。</h4>
-<pre><code class="python">#exam 1-2-2  read UTF-8 input from the file
+    <h4>例2-2：下面例子将写入文件中的utf-8数据读入。</h4>
+<pre><code class="python">#exam 2-2  read UTF-8 input from the file
 import codecs
 
 (UTF8_encode, UTF8_decode,
@@ -75,14 +75,14 @@ input.close()</code></pre>
 
     <p>在命令行中用<code>-U</code>选项可以使python将所有的字符串都转换为unicode string。</p>
 
-    <h3>1.3.List Comprehensions</h3>
+    <h3>3.List Comprehensions</h3>
 
     <p> Two common operations on lists are to loop over them, and either pick out the elements that meet a certain criterion, or apply some function to each element. </p>
 
     <p>The existing <code>map()</code> and <code>filter() </code> functions can be used for this purpose, but they require a <b>function</b> as one of their arguments. This is fine if there’s an existing built-in function that can be passed directly, but if there isn’t, you have to create a little function to do the required work, and Python’s scoping rules make the result ugly if the little function needs additional information. Take the first example in the previous paragraph, finding all the strings in the list containing a given substring. You could write the following to do it:</p>
 
-    <h4>例1-3-1：下面例子查找list L中所有包含sub_string的string</h4>
-<pre><code class="python"># exam 1-3-1  Given the list L, make a list of all strings
+    <h4>例3-1：下面例子查找list L中所有包含sub_string的string</h4>
+<pre><code class="python"># exam 3-1  Given the list L, make a list of all strings
 # containing the substring S.
 sublist = filter( lambda s, substring=S:
                      string.find(s, substring) != -1,
@@ -90,8 +90,8 @@ sublist = filter( lambda s, substring=S:
 
     <p> List comprehensions make this cleaner:</p>
 
-    <h4>例1-3-2：下面例子查找list L中所有包含sub_string的string，用list comprehensions</h4>
-<pre><code class="python"># exam 1-3-1  Given the list L, make a list of all strings
+    <h4>例3-2：下面例子查找list L中所有包含sub_string的string，用list comprehensions</h4>
+<pre><code class="python"># exam 3-1  Given the list L, make a list of all strings
 # containing the substring S.
 sublist = [ s for s in L if string.find(s, S) != -1 ]</code></pre>
 
@@ -103,7 +103,7 @@ sublist = [ s for s in L if string.find(s, S) != -1 ]</code></pre>
 
     <p>The <code>for…in</code> clauses contain the sequences to be iterated over. The sequences do not have to be the same length, because they are not iterated over in parallel, but from left to right; this is explained more clearly in the following paragraphs. The elements of the generated list will be the successive values of expression. The final <code>if</code> clause is optional; if present, expression is only evaluated and added to the result if condition is <b>true</b>.</p>
 
-    <h4>例1-3-3：多重for的例子</h4>
+    <h4>例3-3：多重for的例子</h4>
 <pre><code class="python">seq1 = 'abc'
 seq2 = (1,2,3)
 >>> [ (x,y) for x in seq1 for y in seq2]
@@ -112,13 +112,13 @@ seq2 = (1,2,3)
 
     <p>To avoid introducing an ambiguity into Python’s grammar, <code>if</code> expression is creating a <b>tuple</b>, it must be surrounded with parentheses. The first list comprehension below is a syntax error, while the second one is correct:</p>
 
-    <h4>例1-3-4：多变量时必须加上括号</h4>
+    <h4>例3-4：多变量时必须加上括号</h4>
 <pre><code class="python"># Syntax error
 [ x,y for x in seq1 for y in seq2]
 # Correct
 [ (x,y) for x in seq1 for y in seq2]</code></pre>
 
-    <h3>1.4.Augmented Assignment</h3>
+    <h3>4.Augmented Assignment</h3>
 
     <p>Augmented assignment operators, another long-requested feature, have been added to Python 2.0. Augmented assignment operators include <code>+=, -=, *=, </code> and so forth. For example, the statement <code>a += 2</code> increments the value of the variable a by 2, equivalent to the slightly lengthier <code>a = a + 2</code>.</p>
 
@@ -135,7 +135,7 @@ n = Number(5)
 n += 3
 print(n.value)</code></pre>
 
-    <h3>1.5.String Methods</h3>
+    <h3>5.String Methods</h3>
 
     <p>Until now string-manipulation functionality was in the <code>string</code> module, which was usually a front-end for the <code>strop</code> module written in C. The addition of Unicode posed a difficulty for the <code>strop</code> module, because the functions would all need to be <b>rewritten</b> in order to accept either 8-bit or Unicode strings. For functions such as <code>string.replace()</code>, which takes 3 string arguments, that means eight possible permutations, and correspondingly complicated code.
 
@@ -145,7 +145,7 @@ print(n.value)</code></pre>
 
     <p>One other method which deserves special mention is <code>join()</code>. The <code>join()</code> method of a string receives one parameter, a sequence of strings, and is equivalent to the <code>string.join()</code> function from the old string module, with the arguments reversed. In other words, <code>s.join(seq)</code> is equivalent to the old <code>string.join(seq, s)</code>.</p>
 
-    <h3>1.6.Garbage Collection of Cycles</h3>
+    <h3>6.Garbage Collection of Cycles</h3>
 
     <p>The C implementation of Python uses <b>reference counting</b> to implement <b>garbage collection</b>. Every Python object maintains a <b>count of the number of references</b> pointing to itself, and adjusts the count as references are created or destroyed. Once the reference count reaches zero, the object is no longer accessible, since you need to have a reference to an object to access it, and if the count is zero, no references exist any longer.</p>
 
@@ -165,7 +165,7 @@ instance.myself = instance</code></pre>
 
     <p>Running the cycle detection algorithm takes some time, and therefore will result in some additional overhead. It is hoped that after we’ve gotten experience with the cycle collection from using 2.0, Python 2.1 will be able to minimize the overhead with careful tuning. It’s not yet obvious how much performance is lost, because benchmarking this is tricky and depends crucially on how often the program creates and destroys objects. The detection of cycles can be disabled when Python is compiled, if you can’t afford even a tiny speed penalty or suspect that the cycle collection is buggy, by specifying the --without-cycle-gc switch when running the configure script.</p>
 
-    <h3>1.7.Other Core Changes</h3>
+    <h3>7.Other Core Changes</h3>
     <p>Various minor changes have been made to Python’s syntax and built-in functions. None of the changes are very far-reaching, but they’re handy conveniences.</p>
 
     <h4>Minor Language Changes</h4>
@@ -188,40 +188,174 @@ instance.myself = instance</code></pre>
 
     <p>Earlier versions of Python used a recursive algorithm for deleting objects. Deeply nested data structures could cause the interpreter to fill up the C stack and crash; Christian Tismer rewrote the deletion logic to fix this problem. On a related note, comparing recursive objects recursed infinitely and crashed; Jeremy Hylton rewrote the code to no longer crash, producing a useful result instead. For example, after this code:</p>
 
-a = []
+    <pre><code class="python">a = []
 b = []
 a.append(a)
-b.append(b)
+b.append(b)</code></pre>
 
-    <p>The comparison a==b returns true, because the two recursive data structures are isomorphic. See the thread “trashcan and PR#7” in the April 2000 archives of the python-dev mailing list for the discussion leading up to this implementation, and some useful relevant links. Note that comparisons can now also raise exceptions. In earlier versions of Python, a comparison operation such as cmp(a,b) would always produce an answer, even if a user-defined __cmp__() method encountered an error, since the resulting exception would simply be silently swallowed.</p>
+    <p>The comparison <code>a==b</code> returns true, because the two recursive data structures are isomorphic. See the thread “trashcan and PR#7” in the April 2000 archives of the python-dev mailing list for the discussion leading up to this implementation, and some useful relevant links. Note that comparisons can now also raise exceptions. In earlier versions of Python, a comparison operation such as <code>cmp(a,b)</code> would always produce an answer, even if a user-defined <code>__cmp__()</code> method encountered an error, since the resulting exception would simply be silently swallowed.</p>
 
-<p>Work has been done on porting Python to 64-bit Windows on the Itanium processor, mostly by Trent Mick of ActiveState. (Confusingly, sys.platform is still 'win32' on Win64 because it seems that for ease of porting, MS Visual C++ treats code as 32 bit on Itanium.) PythonWin also supports Windows CE; see the Python CE page at http://pythonce.sourceforge.net/ for more information.</p>
+    <p>Work has been done on porting Python to 64-bit Windows on the Itanium processor, mostly by Trent Mick of ActiveState. (Confusingly, <code>sys.platform</code> is still 'win32' on Win64 because it seems that for ease of porting, MS Visual C++ treats code as 32 bit on Itanium.) PythonWin also supports Windows CE; see the Python CE page at http://pythonce.sourceforge.net/ for more information.</p>
 
-<p>Another new platform is Darwin/MacOS X; initial support for it is in Python 2.0. Dynamic loading works, if you specify “configure –with-dyld –with-suffix=.x”. Consult the README in the Python source distribution for more instructions.</p>
+    <p>Another new platform is Darwin/MacOS X; initial support for it is in Python 2.0. Dynamic loading works, if you specify “configure –with-dyld –with-suffix=.x”. Consult the README in the Python source distribution for more instructions.</p>
 
-<p>An attempt has been made to alleviate one of Python’s warts, the often-confusing NameError exception when code refers to a local variable before the variable has been assigned a value. For example, the following code raises an exception on the print statement in both 1.5.2 and 2.0; in 1.5.2 a NameError exception is raised, while 2.0 raises a new UnboundLocalError exception. UnboundLocalError is a subclass of NameError, so any existing code that expects NameError to be raised should still work.</p>
+    <p>An attempt has been made to alleviate one of Python’s warts, the often-confusing <code>NameError</code> exception when code refers to a local variable before the variable has been assigned a value. For example, the following code raises an exception on the <code>print</code> statement in both 1.5.2 and 2.0; in 1.5.2 a <code>NameError</code> exception is raised, while 2.0 raises a new <code>UnboundLocalError</code> exception. <code>UnboundLocalError</code> is a subclass of <code>NameError</code>, so any existing code that expects <code>NameError</code> to be raised should still work.</p>
 
-def f():
+<pre><code class="python">def f():
     print "i=",i
     i = i + 1
-f()
-Two new exceptions, TabError and IndentationError, have been introduced. They’re both subclasses of SyntaxError, and are raised when Python code is found to be improperly indented.
+f()</code></pre>
 
-Changes to Built-in Functions
-A new built-in, zip(seq1, seq2, ...), has been added. zip() returns a list of tuples where each tuple contains the i-th element from each of the argument sequences. The difference between zip() and map(None, seq1, seq2) is that map() pads the sequences with None if the sequences aren’t all of the same length, while zip() truncates the returned list to the length of the shortest argument sequence.
+    <p>Two new exceptions, <code>TabError</code> and <code>IndentationError</code>, have been introduced. They’re both subclasses of <code>SyntaxError</code>, and are raised when Python code is found to be improperly indented.</p>
 
-The int() and long() functions now accept an optional “base” parameter when the first argument is a string. int('123', 10) returns 123, while int('123', 16) returns 291. int(123, 16) raises a TypeError exception with the message “can’t convert non-string with explicit base”.
+    <h4>Changes to Built-in Functions</h4>
+    <p>A new built-in, <code>zip(seq1, seq2, ...)</code>, has been added. <code>zip()</code> returns a list of tuples where each tuple contains the i-th element from each of the argument sequences. The difference between <code>zip()</code> and <code>map(None, seq1, seq2)</code> is that <code>map()</code> pads the sequences with None if the sequences aren’t all of the same length, while <code>zip()</code> truncates the returned list to the length of the shortest argument sequence.</p>
 
-A new variable holding more detailed version information has been added to the sys module. sys.version_info is a tuple (major, minor, micro, level, serial) For example, in a hypothetical 2.0.1beta1, sys.version_info would be (2, 0, 1, 'beta', 1). level is a string such as "alpha", "beta", or "final" for a final release.
+    <p>The <code>int()</code> and <code>long()</code> functions now accept an optional “base” parameter when the first argument is a string. <code>int('123', 10)</code> returns 123, while <code>int('123', 16)</code> returns 291. <code>int(123, 16)</code> raises a <code>TypeError</code> exception with the message “can’t convert non-string with explicit base”.</p>
 
-Dictionaries have an odd new method, setdefault(key, default), which behaves similarly to the existing get() method. However, if the key is missing, setdefault() both returns the value of default as get() would do, and also inserts it into the dictionary as the value for key. Thus, the following lines of code:
+    <p>A new variable holding more detailed version information has been added to the <code>sys</code> module. <code>sys.version_info</code> is a tuple <code>(major, minor, micro, level, serial)</code> For example, in a hypothetical 2.0.1beta1, <code>sys.version_info</code> would be (2, 0, 1, 'beta', 1). <code>level</code> is a string such as "alpha", "beta", or "final" for a final release.</p>
 
-if dict.has_key( key ): return dict[key]
+    <p>Dictionaries have an odd new method, <code>setdefault(key, default)</code>, which behaves similarly to the existing <code>get()</code> method. However, if the key is missing, <code>setdefault()</code> both returns the value of default as <code>get()</code> would do, and also inserts it into the dictionary as the value for key. Thus, the following lines of code:</p>
+
+    <pre><code class="python">#exam
+if dict.has_key( key ): 
+    return dict[key]
 else:
     dict[key] = []
-    return dict[key]
-can be reduced to a single return dict.setdefault(key, []) statement.
+    return dict[key]</code></pre>
+    
+    <p>can be reduced to a single </p>
+    <pre><code class="python">return dict.setdefault(key, [])</code></pre>
 
-The interpreter sets a maximum recursion depth in order to catch runaway recursion before filling the C stack and causing a core dump or GPF.. Previously this limit was fixed when you compiled Python, but in 2.0 the maximum recursion depth can be read and modified using sys.getrecursionlimit() and sys.setrecursionlimit(). The default value is 1000, and a rough maximum value for a given platform can be found by running a new script, Misc/find_recursionlimit.py.
+    <p>The interpreter sets a maximum recursion depth in order to catch runaway recursion before filling the C stack and causing a core dump or GPF.. Previously this limit was fixed when you compiled Python, but in 2.0 the maximum recursion depth can be read and modified using <code>sys.getrecursionlimit()</code> and <code>sys.setrecursionlimit()</code>. The default value is 1000, and a rough maximum value for a given platform can be found by running a new script, <b>Misc/find_recursionlimit.py</b>.</p>
+
+    <h3>8.XML Modules</h3>
+    <p>Python 1.5.2 included a simple XML parser in the form of the <code>xmllib</code> module, contributed by Sjoerd Mullender. Since 1.5.2’s release, two different interfaces for processing XML have become common: <code>SAX2</code> (version 2 of the Simple API for XML) provides an event-driven interface with some similarities to <code>xmllib</code>, and the <code>DOM</code> (Document Object Model) provides a tree-based interface, transforming an XML document into a tree of nodes that can be traversed and modified. Python 2.0 includes a <code>SAX2</code> interface and a stripped-down <cod>DOM</code> interface as part of the xml package. Here we will give a brief overview of these new interfaces; consult the Python documentation or the source code for complete details. The Python XML SIG is also working on improved documentation.</p>
+
+    <h4>SAX2 Support</h4>
+    <p>SAX defines an event-driven interface for parsing XML. To use SAX, you must write a SAX handler class. Handler classes inherit from various classes provided by SAX, and override various methods that will then be called by the XML parser. For example, the <code>startElement()</code> and <code>endElement()</code> methods are called for every starting and end tag encountered by the parser, the <code>characters()</code> method is called for every chunk of character data, and so forth.</p>
+
+    <p>The advantage of the event-driven approach is that the whole document doesn’t have to be resident in memory at any one time, which matters if you are processing really huge documents. However, writing the SAX handler class can get very complicated if you’re trying to modify the document structure in some elaborate way.</p>
+
+    <p>For example, this little example program defines a handler that prints a message for every starting and ending tag, and then parses the file hamlet.xml using it:</p>
+    <pre><code class="python">#exam
+from xml import sax
+
+class SimpleHandler(sax.ContentHandler):
+    def startElement(self, name, attrs):
+        print 'Start of element:', name, attrs.keys()
+
+    def endElement(self, name):
+        print 'End of element:', name
+
+# Create a parser object
+parser = sax.make_parser()
+
+# Tell it what handler to use
+handler = SimpleHandler()
+parser.setContentHandler( handler )
+
+# Parse a file!
+parser.parse( 'hamlet.xml' )</code></pre>
+    <p>For more information, consult the Python documentation, or the XML HOWTO at http://pyxml.sourceforge.net/topics/howto/xml-howto.html.</p>
+
+    <h4>DOM Support</h4>
+    <p>The Document Object Model is a tree-based representation for an XML document. A top-level Document instance is the root of the tree, and has a single child which is the top-level Element instance. This Element has children nodes representing character data and any sub-elements, which may have further children of their own, and so forth. Using the DOM you can traverse the resulting tree any way you like, access element and attribute values, insert and delete nodes, and convert the tree back into XML.</p>
+
+    <p>The DOM is useful for modifying XML documents, because you can create a DOM tree, modify it by adding new nodes or rearranging subtrees, and then produce a new XML document as output. You can also construct a DOM tree manually and convert it to XML, which can be a more flexible way of producing XML output than simply writing &lt;tag1&gt;…&lt;/tag1&gt; to a file.</p>
+
+    <p>The DOM implementation included with Python lives in the <code>xml.dom.minidom</code> module. It’s a lightweight implementation of the Level 1 DOM with support for XML namespaces. The <code>parse()</code> and <code>parseString()</code> convenience functions are provided for generating a DOM tree:</code>
+<pre><code class="python">#exam of xml dom
+from xml.dom import minidom
+doc = minidom.parse('hamlet.xml')</code></pre>
+
+    <p>doc is a <code>Document</code> instance. <code>Document</code>, like all the other DOM classes such as <code>Element</code> and <code>Text</code>, is a subclass of the <code>Node</code> base class. All the nodes in a DOM tree therefore support certain common methods, such as <code>toxml()</code> which returns a string containing the XML representation of the node and its children. Each class also has special methods of its own; for example, <code>Element</code> and <code>Document</code> instances have a method to find all child elements with a given tag name. Continuing from the previous 2-line example:</p>
+    
+    <pre><code class="python">#exam of element of xml
+perslist = doc.getElementsByTagName( 'PERSONA' )
+print perslist[0].toxml()
+print perslist[1].toxml()</code></pre>
+
+    <p>For the Hamlet XML file, the above few lines output:</p>
+    <pre><code class="html">
+&lt;PERSONA&gt;CLAUDIUS, king of Denmark. &lt;/PERSONA&gt;
+&lt;PERSONA&gt;HAMLET, son to the late, and nephew to the present king.&lt;/PERSONA&gt;</code></pre>
+    
+    <p>The root element of the document is available as <code>doc.documentElement</code>, and its children can be easily modified by deleting, adding, or removing nodes:</p>
+    <pre><code class="python">#exam of operate dom
+root = doc.documentElement
+
+# Remove the first child
+root.removeChild( root.childNodes[0] )
+
+# Move the new first child to the end
+root.appendChild( root.childNodes[0] )
+
+# Insert the new first child (originally,
+# the third child) before the 20th child.
+root.insertBefore( root.childNodes[0], root.childNodes[20] )</code></pre>
+    
+    <p>Again, I will refer you to the Python documentation for a complete listing of the different Node classes and their various methods.</p>
+
+    <h4>Relationship to PyXML</h4>
+    <p>The XML Special Interest Group has been working on XML-related Python code for a while. Its code distribution, called PyXML, is available from the SIG’s Web pages at https://www.python.org/community/sigs/current/xml-sig. The PyXML distribution also used the package name xml. If you’ve written programs that used PyXML, you’re probably wondering about its compatibility with the 2.0 xml package.</p>
+
+    <p>The answer is that Python 2.0’s xml package isn’t compatible with PyXML, but can be made compatible by installing a recent version PyXML. Many applications can get by with the XML support that is included with Python 2.0, but more complicated applications will require that the full PyXML package will be installed. When installed, PyXML versions 0.6.0 or greater will replace the xml package shipped with Python, and will be a strict superset of the standard package, adding a bunch of additional features. Some of the additional features in PyXML include:</p>
+    <ul>
+        <li>4DOM, a full DOM implementation from FourThought, Inc.</li>
+        <li>The xmlproc validating parser, written by Lars Marius Garshol.</li>
+        <li>The sgmlop parser accelerator module, written by Fredrik Lundh.</li>
+    </ul>
+
+    <h3>9.Module changes</h3>
+    <p>Lots of improvements and bugfixes were made to Python’s extensive standard library; some of the affected modules include <code>readline, ConfigParser, cgi, calendar, posix, readline, xmllib, aifc, chunk, wave, random, shelve</code>, and <code>nntplib</code>. Consult the CVS logs for the exact patch-by-patch details.</p>
+
+    <p>Brian Gallew contributed OpenSSL support for the <code>socket</code> module. OpenSSL is an implementation of the Secure Socket Layer, which encrypts the data being sent over a socket. When compiling Python, you can edit Modules/Setup to include SSL support, which adds an additional function to the socket module: <code>socket.ssl(socket, keyfile, certfile)</code>, which takes a <code>socket</code> object and returns an <code>SSL socket</code>. The <code>httplib</code> and <code>urllib</code> modules were also changed to support https:// URLs, though no one has implemented FTP or SMTP over SSL.</p>
+
+    <p>The <code>httplib</code> module has been rewritten by Greg Stein to support HTTP/1.1. Backward compatibility with the 1.5 version of <code>httplib</code> is provided, though using HTTP/1.1 features such as pipelining will require rewriting code to use a different set of interfaces.</p>
+
+    <p>The <code>Tkinter</code> module now supports Tcl/Tk version 8.1, 8.2, or 8.3, and support for the older 7.x versions has been dropped. The <code>Tkinter</code> module now supports displaying Unicode strings in Tk widgets. Also, Fredrik Lundh contributed an optimization which makes operations like <code>create_line</code> and <code>create_polygon</code> much faster, especially when using lots of coordinates.</p>
+
+    <p>The <code>curses</code> module has been greatly extended, starting from Oliver Andrich’s enhanced version, to provide many additional functions from <code>ncurses</code> and <code>SYSV</code> curses, such as colour, alternative character set support, pads, and mouse support. This means the module is no longer compatible with operating systems that only have BSD curses, but there don’t seem to be any currently maintained OSes that fall into this category.</p>
+
+    <p>As mentioned in the earlier discussion of 2.0’s Unicode support, the underlying implementation of the regular expressions provided by the <code>re</code> module has been changed. <code>SRE</code>, a new regular expression engine written by Fredrik Lundh and partially funded by Hewlett Packard, supports matching against both 8-bit strings and Unicode strings.</p>
+
+    <h3>10.New modules</h3>
+    <p>A number of new modules were added. We’ll simply list them with brief descriptions; consult the 2.0 documentation for the details of a particular module.</p>
+    <ul>
+        <li><code>atexit</code>: For registering functions to be called before the Python interpreter exits. Code that currently sets <code>sys.exitfunc</code> directly should be changed to use the <code>atexit</code> module instead, importing <code>atexit</code> and calling <code>atexit.register()</code> with the function to be called on exit. (Contributed by Skip Montanaro.)</li>
+        <li><code>codecs, encodings, unicodedata</code>: Added as part of the new Unicode support.</li>
+        <li><code>filecmp</code>: Supersedes the old <code>cmp</code>, <code>cmpcache</code> and <code>dircmp</code> modules, which have now become deprecated. (Contributed by Gordon MacMillan and Moshe Zadka.)</li>
+        <li><code>gettext</code>: This module provides internationalization (I18N) and localization (L10N) support for Python programs by providing an interface to the GNU <code>gettext</code> message catalog library. (Integrated by Barry Warsaw, from separate contributions by Martin von Löwis, Peter Funk, and James Henstridge.)</li>
+        <li><code>linuxaudiodev</code>: Support for the /dev/audio device on Linux, a twin to the existing <code>sunaudiodev</code> module. (Contributed by Peter Bosch, with fixes by Jeremy Hylton.)</li>
+        <li><code>mmap</code>: An interface to memory-mapped files on both Windows and Unix. A file’s contents can be mapped directly into memory, at which point it behaves like a mutable string, so its contents can be read and modified. They can even be passed to functions that expect ordinary strings, such as the ，<code>re</code> module. (Contributed by Sam Rushing, with some extensions by A.M. Kuchling.)</li>
+        <li><code>pyexpat</code>: An interface to the Expat XML parser. (Contributed by Paul Prescod.)</li>
+        <li><code>robotparser</code>: Parse a <b>robots.txt</b> file, which is used for writing Web spiders that politely avoid certain areas of a Web site. The parser accepts the contents of a robots.txt file, builds a set of rules from it, and can then answer questions about the fetchability of a given URL. (Contributed by Skip Montanaro.)</li>
+        <li><code>tabnanny</code>: A module/script to check Python source code for ambiguous indentation. (Contributed by Tim Peters.)</li>
+        <li><code>UserString</code>: A base class useful for deriving objects that behave like strings.</li>
+        <li><code>webbrowser</code>: A module that provides a platform independent way to launch a web browser on a specific URL. For each platform, various browsers are tried in a specific order. The user can alter which browser is launched by setting the BROWSER environment variable. (Originally inspired by Eric S. Raymond’s patch to urllib which added similar functionality, but the final module comes from code originally implemented by Fred Drake as Tools/idle/BrowserControl.py, and adapted for the standard library by Fred.)</li>
+        <li><code>_winreg</code>: An interface to the Windows registry. <code>_winreg</code> is an adaptation of functions that have been part of <code>PythonWin</code> since 1995, but has now been added to the core distribution, and enhanced to support Unicode. <code>_winreg</code> was written by Bill Tutt and Mark Hammond.</li>
+        <li><code>zipfile</code>: A module for reading and writing ZIP-format archives. These are archives produced by PKZIP on DOS/Windows or zip on Unix, not to be confused with gzip-format files (which are supported by the gzip module) (Contributed by James C. Ahlstrom.)</li>
+        <li><code>imputil</code>: A module that provides a simpler way for writing customised import hooks, in comparison to the existing <code>ihooks</code> module. (Implemented by Greg Stein, with much discussion on python-dev along the way.)</li>
+    </ul>
+
+    <h3>11.IDLE Improvements</h3>
+    <p>IDLE is the official Python cross-platform IDE, written using <code>Tkinter</code>. Python 2.0 includes IDLE 0.6, which adds a number of new features and improvements. A partial list:</p>
+    <ul>
+        <li>UI improvements and optimizations, especially in the area of syntax highlighting and auto-indentation.</li>
+        <li>The class browser now shows more information, such as the top level functions in a module.</li>
+        <li>Tab width is now a user settable option. When opening an existing Python file, IDLE automatically detects the indentation conventions, and adapts.</li>
+        <li>There is now support for calling browsers on various platforms, used to open the Python documentation in a browser.</li>
+        <li>IDLE now has a command line, which is largely similar to the vanilla Python interpreter.</li>
+        <li>Call tips were added in many places.</li>
+        <li>IDLE can now be installed as a package.</li>
+        <li>In the editor window, there is now a line/column bar at the bottom.</li>
+        <li>Three new keystroke commands: Check module (Alt-F5), Import module (F5) and Run script (Ctrl-F5).</li>
+    </ul>
+
+    <h3>12.Deleted and Deprecated Modules</h3>
+    <p>A few modules have been dropped because they’re obsolete, or because there are now better ways to do the same thing. The <code>stdwin</code> module is gone; it was for a platform-independent windowing toolkit that’s no longer developed.</p>
+
+    <p>A number of modules have been moved to the <b>lib-old subdirectory</b>: <code>cmp, cmpcache, dircmp, dump, find, grep, packmail, poly, util, whatsound, zmod</code>. If you have code which relies on a module that’s been moved to lib-old, you can simply add that directory to sys.path to get them back, but you’re encouraged to update any code that uses these modules.</p>
 </body>
 </html>

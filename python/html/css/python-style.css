@@ -66,3 +66,22 @@ b{
     padding-left: 0.5em;
     padding-right: 0.5em;
 }
+
+h1,h2,h3,h4{
+    display:block;
+    background: darkblue;
+    color:white;
+}
+
+h3{
+    background: rgb(45, 100, 50);
+}
+
+h4{
+    background: green;
+}
+
+q{
+    background: rgb(210,210,210);
+    color: blue;
+}
