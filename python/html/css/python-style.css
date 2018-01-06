@@ -85,3 +85,15 @@ q{
     background: rgb(210,210,210);
     color: blue;
 }
+
+.section{
+    border-style: solid ;
+    padding: 0.2em;
+    margin: 0.2em;
+}
+
+.section2{
+    border-style: dashed;
+    padding: 0.2em;
+    margin: 0.2em;
+}

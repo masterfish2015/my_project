@@ -1,0 +1,185 @@
+<!DOCTYPE html> <html> <title>chapter 1</title> <meta charset="utf-8"> <xmp theme="cerulean" style="display:none;">
+# 1 Introduction
+----
+![image](../images/fig1_1_phases_of_a_compiler_and_interfaces_between_them.PNG)
+----
+## 1.1 Modules and Interfaces
+----
+![image](../images/table_1_2_description_of_compiler_phases.PNG)
+----
+## 1.2 Tools and Software
+----
+two of the most useful abstractions used in modern compilers are:
+1. *context-free grammars*, for parsing, `Yacc` ( converts a grammar into a parsing program );
+2. *regular expressions*, for lexical analysis, `Lex` ( converts a declarative specification into a lexical analysis program ) .
+----
+## 1.3 Data Structures for Tree languages
+----
+A simple programming language with statements and expressions, but no loops or if-statements, which is called a language of *straight-line programs*.
+
+![image](../images/grammar_1_3_a_straight_line_programming_language.PNG)
+The informal semantics of the language is as follows:
+1. Each $Stm$ is a statement;
+2. Each $Exp$ is an expression;
+3. $s_1;s_2$ executes statement $s_1$, then statement $s_2$;
+4. $i:=e$ evaluates the expression $e$, then stores the result in variable $i$;
+5. $print(e_1, e_2, ... , e_n)$ displays the values of all the expressions, evaluated left to right, separated by spaces, terminated by a newline;
+6. An *identifier expression*, such as $i$, yields the current contents of the variable $i$; 
+7. A *number* evaluates to the named integer;
+8. An *operator expression $e_1$ op $e_2$* evaluates $e_1$, then $e_2$, then applies the given binary operator;
+9. An *expression sequence (s, e)* evaluating $s$ for side effects before evaluating (and returning the result of) the expression $e$.
+
+For example, executing this program 
+```
+a := 5+3; b := (print (a, a-1), 10*a); print(b)
+```
+prints
+```
+8 7
+80
+```
+The program be represented inside a compiler:
+1. *source code*, likes above.
+2. *tree data structure*, with one node for each statement (stm) and expression (Exp), likes Figure 1.4 shows.
+![image](../images/figure_1_4_tree_representation_of_a_straight_line_program.PNG)
+
+```c
+typedef char*                string;   //字符串
+typedef struct A_stm_*       A_stm;    //statement节点指针
+typedef struct A_exp_*       A_exp;    //expression节点指针
+typedef struct A_expList_*   A_expList;//expression list节点指针
+
+//操作符类型
+typedef enum { A_plus, A_minus, A_times, A_div } A_binop;
+
+//statement节点类型
+struct A_stm_ {
+    //三种statement：复合型，赋值型，打印型
+    enum { A_compoundStm, A_assignStm, A_printStm } kind;
+
+    //不同类型的statement有不同的数据内容
+    union {
+        //复合型包含两个statement节点的指针
+        struct { A_strm stm1, stm2; } compound; 
+
+        //赋值型包含变量名（字符串指针）和expression节点的指针
+        struct { string id;  A_exp exp; } assign;
+        
+        //打印型包含一个expression list节点的指针
+        struct { A_expList exps; } print;
+    } u;
+};
+
+//创建statement节点
+A_stm A_CompoundStm( A_stm stm1, A_stm stm2 );  //复合statement节点
+A_stm A_AssignStm( string id, A_exp exp );      //赋值节点
+A_stm A_PrintStm( A_expList exps );             //打印节点
+
+//expression节点类型
+struct A_exp_ {
+    //四种expression：id（用字符串指针指向指定名字的变量）
+    //            number（直接就是对应一个整数）
+    //                op（对应一个二元算术表达式：exp1 op exp2， 
+    //                    exp1和exp2都是指向一个表达式节点的指针，
+    //                    op是操作符类型）
+    //              eseq（对应一个“，”表达式：(stm, exp), 
+    //                    stm指向一个statement节点，
+    //                    exp指向一个expression节点）
+    enum { A_idExp, A_numExp, A_opExp, A_eseqExp } kind;
+    
+    //不同的expression节点类型有不同的数据，见上说明。
+    union {
+        string id;
+        int num;
+        struct { A_exp left; A_binop oper; A_exp right; } op;
+        struct { A_stm stm; A_exp exp; } eseq;
+    } u;
+};
+
+//创建expression节点
+A_exp A_IdExp( string id );
+A_exp A_NumExp( int num );
+A_exp A_OpExp( A_exp left, A_binop oper, A_exp right );
+A_exp A_EseqExp( A_stm stm, A_exp exp );
+
+//expression list节点
+struct A_expList_ {
+    // 两种expression list的类型：
+    //        pair型（对应一个pair表达式：(head, tail), 
+    //                head指向一个expression节点，
+    //                tail指向一个expression list节点）
+    //        last型（只对应一个节点指针：last
+    //                last指向一个expression节点）
+    enum { A_pairExpList, A_lastExpList } kind ;
+    union {
+        struct { A_exp head; A_expList tail; } pair;
+        A_exp last;
+    } u;
+};
+
+//创建一个expression list节点
+A_expList A_PairExpList( A_exp head, A_expList tail );
+A_expList A_LastExpList( A_exp last);
+```
+PROGRAM 1.5 representation of straight-line programs.
+---
+Grammar   |   typedef 
+----------|---------------
+$Stm$     |    `A_stm`
+$Exp$     |    `A_exp`
+$ExpList$ |    `A_expList`
+$id$      |    `string`
+$num$     |    `int`
+----
+For each variant ( `CompoundStm`, `AssignStm`, etc. ) we make a *constructor function* to `malloc` and initialize the data structure. In Program 1.5 only the prototypes of these functions are given; the definition of the node creation would look likes this:
+```C
+A_stm A_CompoundStm ( A_stm stm1, A_stm stm2 ){
+    A_stm s = checked_malloc(sizeof(*s));
+    s->kind = A_compoundStm;
+    s->u.compound.stm1 = stm1;
+    s->u.compound.stm2 = stm2;
+    return s;
+}
+```
+### Programming style.
+1. Trees are described by a grammar.
+2. A tree is described by one or more `typedef`s, corresponding to a symbol in the grammar.
+3. Each `typedef` defines a pointer to a corresponding `struct`. The `struct` name is never used.
+4. Each `struct` contains a `kind` field, which is an enum showing different variants, one for each grammar rule; and a `u` field, which is a union.
+5. Every class will have a constructor function that initializes all the fields. The `malloc` function shall never be called directly, expect in these constructor functions.
+6. Each module ( header file ) shall have a prefix unique to that module( example, `A_` in Program 1.5 )
+7. `typedef` names ( after the prefix ) shall start with lowercase letters; constructor functions ( after the prefix ) with uppercase; enumeration atoms ( after the prefix ) with lowercase; and union variants ( which have no prefix ) with lowercase.
+
+### Modularity principles for C programs.
+* Each phase or module of the compiler belongs in its own ".c" file, which will have a corresponding ".h" file.
+* Each module shall have a prefix unique to that module. All global names ( structure and union fields are not global names ) exported by the module shall start with the prefix. Then the human reader of a file will not have to look outside that file to determine where a name comes from.
+* All functions shall have prototypes, and the C compiler shall be told to warn about uses of functions without prototypes.
+* We will `#include "util.h" ` in each file:
+
+```c
+/* util.h */
+#include <assert.h>
+
+typedef char* string;
+string String ( char* );
+
+typedef char bool;
+#define TRUE  1
+#define FALSE 0
+
+void *checked_malloc ( int );
+```
+the inclusion of `assert.h` encourages the liberal use of assertions by the C programmer.
+* The `string` type means a heap-allocated string that will not be modified after its initial creation. The `String` function builds a heap-allocated `string` from a C-Style character pointer ( just like the standard C library function `strdup` ). Functions that take `string`s as arguments assume that the contents will never change.
+* C's `malloc` function returns `NULL` if there is no memory left. We use `checked_malloc` , which guarantees never to return `NULL`:
+```c
+void *checked_malloc( int len ){
+    void* p = malloc( len );
+    assert( p );
+    return p;
+}
+```
+* We will never call `free`. Of course, a production-quality compiler must free its unused data in order to avoid wasting memory.
+
+## Straight-line Program Interpreter
+</xmp> <script src="../js/strapdown-zeta-0.7.4/build/strapdown.min.js"></script> </html>

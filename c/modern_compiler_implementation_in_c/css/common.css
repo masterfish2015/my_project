@@ -1,0 +1,81 @@
+section {
+  border: solid;
+  border-radius: 1em;
+  padding: 0.5em;
+}
+
+section > .section2{
+  border: dotted;
+  border-radius: 1em;
+  padding: 0.5em;
+  margin: 0.5em;
+}
+
+code {
+  background-color: blue;
+  color: lightcyan;
+  margin-right: 0.5em;
+  margin-right: 0.5em;
+  font-family: "Consolas", monospace
+}
+
+.grid-box {
+  display: grid;  
+  height: calc(100vh*0.98);
+  grid-gap: 10px;
+  grid-template-columns: [first] 10% [line2] auto [end];
+  grid-template-rows: [row1-start] 100px [row1-end]  auto [last-line];
+  background-color: #fff;
+  color: #444;
+}
+
+.sidebar {
+  grid-column: first/line2;
+  grid-row: row1-end/last-line;
+}
+
+.sidebar > ul{
+  list-style-type: none;
+  display: block;
+  padding: 0;
+  margin:0;
+}
+
+.sidebar > ul > li{
+  margin-left: -12px;
+  margin-right:-12px;
+  border-bottom-style: inset;
+  background-color: #999;
+}
+
+.sidebar > ul > li:nth-child(odd){
+  background-color: aquamarine;
+}
+
+.sidebar > ul > li:hover{
+  background-color: rgb(82, 82, 204);
+  color: rgba(182, 224, 181, 0.863);
+}
+
+.content {
+  grid-column: line2/end;
+  grid-row: row1-end/last-line;
+}
+
+.header {
+  grid-column: first/end;
+  grid-row: row1-start/row1-end;
+}
+
+.box {
+  background-color: rgb(163, 223, 241);
+  color: rgb(9, 21, 182);
+  border-radius: 5px;
+  padding: 1em;
+  font-size: 100%;
+}
+
+.header {
+  background-color: #999;
+}
+

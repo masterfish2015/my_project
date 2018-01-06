@@ -1,0 +1,19 @@
+{
+  "name": "modern_compiler_implementation_in_c",
+  "version": "1.0.0",
+  "description": "modern compiler implementation in c",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "compiler"
+  ],
+  "author": "ldc",
+  "license": "MIT",
+  "dependencies": {
+    "highlightjs": "^9.10.0",
+    "jquery": "^3.2.1",
+    "syntaxhighlighter": "^4.0.1"
+  }
+}

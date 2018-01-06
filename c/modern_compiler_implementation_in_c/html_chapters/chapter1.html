@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <!-- css -->
+  <link href="https://fonts.lug.ustc.edu.cn/css?family=Fira+Mono" rel="stylesheet">
+  <link rel="stylesheet" href="../node_modules/syntaxhighlighter/styles/shCoreDefault.css">
+  <link rel="stylesheet" href="../css/common.css">
+  <!-- js -->
+  <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+  <script src="../node_modules/syntaxhighlighter/scripts/shCore.js"></script>
+  <script src="../node_modules/syntaxhighlighter/scripts/shBrushCpp.js"></script>
+  <title>chapter 1</title>
+  <script>
+    SyntaxHighlighter.all();
+  </script>
+  <style>
+	code{
+		font-family: 'Fira Mono', monospace;
+	}
+  </style>
+</head>
+
+<body>
+  <h1>chapter 1: Introduction</h1>
+  <section>
+    <img src="../images/fig1_1_phases_of_a_compiler_and_interfaces_between_them.PNG" alt="fig1_1_phases_of_a_compiler_and_interfaces_between_them">
+
+    <div class="section2">
+      <h2>1.1 Modules and Interfaces</h2>
+    </div>
+
+    <div class="section2">
+      <h2>1.2 Tools and Software</h2>
+    </div>
+
+    <div class="section2">
+      <h2>1.3 Data Structures for Tree Languages</h2>
+      <img src="../images/table_1_2_description_of_compiler_phases.PNG" alt="table_1_2_description_of_compiler_phases">
+      <img src="../images/grammar_1_3_a_straight_line_programming_language.PNG" alt="grammar_1_3_a_straight_line_programming_language">
+      <p>
+        <ol type='I'>
+          <li>each
+            <code>Stm</code> is a statement</li>
+          <li>each
+            <code>Exp</code> is an expression</li>
+          <li>
+            <code>s
+              <sub>1</sub>;s
+              <sub>2</sub>
+            </code> executes statement s
+            <sub>1</sub>, then s
+            <sub>2</sub>
+          </li>
+          <li>
+            <code>i:=e</code> evaluates the expression e, then store the result in variable i</li>
+        </ol>
+      </p>
+    </div>
+  </section>
+  <script type="syntaxhighlighter" class="brush: c">
+    <![CDATA[
+    #include<stdio.h>
+    int main(void)
+    {
+      printf("Hello world!\n");
+    }
+  ]]>
+  </script>
+
+</body>
+
+</html>
