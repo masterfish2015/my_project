@@ -1,98 +1,102 @@
-html,body{
+html,
+body {
     height: 100%;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
-.grid-container{
+.grid-container {
     display: grid;
     height: 97%;
-    grid-template-columns:12em auto;
-    grid-gap:5px;
+    grid-template-columns: 12em auto;
+    grid-gap: 5px;
     grid-template-rows: 2fr 10fr;
 }
 
-.grid-container > div {
-    border: 2px solid rgb(233,171,88);
+.grid-container>div {
+    border: 2px solid rgb(233, 171, 88);
     border-radius: 5px;
-    background-color: rgba(233,171,88,.5);
+    background-color: rgba(233, 171, 88, .5);
     padding: 1em;
     color: green;
 }
 
-.banner{
+.banner {
     grid-column: 1/3;
-    grid-row:1;
+    grid-row: 1;
 }
 
-.side-menu{
+.side-menu {
     grid-column: 1/2;
     grid-row: 2;
 }
 
-.side-menu > ul{
-    margin:0;
+.side-menu>ul {
+    margin: 0;
     padding: 0;
     list-style-type: none;
 }
 
-.side-menu > ul >li:nth-child(odd){
+.side-menu>ul>li:nth-child(odd) {
     background-color: cornflowerblue;
-    color:yellow;
+    color: yellow;
 }
 
-.main-pad{
+.main-pad {
     grid-column: 2/3;
-    grid-row:2;
+    grid-row: 2;
 }
 
-.main-pad > iframe{
+.main-pad>iframe {
     width: 100%;
     height: 100%;
 }
 
-code{
-    background-color: rgb(40,44,52);
-    color: rgb(152,195,110);
+code {
+    background-color: rgb(40, 44, 52);
+    color: rgb(152, 195, 110);
     border-radius: 0.4em;
     padding-left: 0.5em;
     padding-right: 0.5em;
     font-family: Consolas, monospace;
 }
 
-b{
+b {
     background-color: red;
-    color:lightblue;
+    color: lightblue;
     border-radius: 0.4em;
     padding-left: 0.5em;
     padding-right: 0.5em;
 }
 
-h1,h2,h3,h4{
-    display:block;
+h1,
+h2,
+h3,
+h4 {
+    display: block;
     background: darkblue;
-    color:white;
+    color: white;
 }
 
-h3{
+h3 {
     background: rgb(45, 100, 50);
 }
 
-h4{
+h4 {
     background: green;
 }
 
-q{
-    background: rgb(210,210,210);
+q {
+    background: rgb(210, 210, 210);
     color: blue;
 }
 
-.section{
-    border-style: solid ;
+.section {
+    border-style: solid;
     padding: 0.2em;
     margin: 0.2em;
 }
 
-.section2{
+.section2 {
     border-style: dashed;
     padding: 0.2em;
     margin: 0.2em;

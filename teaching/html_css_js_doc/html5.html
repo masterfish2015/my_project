@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>html5 new feature</title>
+    <style>
+        dialog {
+            padding: 0;
+            width: 478px;
+            text-align: center;
+            vertical-align: middle;
+            border-radius: 5px;
+            border: 0;
+        }
+        
+        dialog::backdrop {
+            background-color: rgba(126, 184, 60, 0.1);
+        }
+    </style>
+</head>
+
+<body>
+    <dialog id="sweet-modal">
+        <h3 class="modal-header">sweet dialog</h3>
+        <div class="modal-body">
+            <p>This is a sweet dialog, which is much better.</p>
+        </div>
+        <footer class="modal-footer">
+            <button id="get-it" type="button">Get</button>
+        </footer>
+    </dialog>
+    <script>
+        const dlg = document.querySelector("dialog");
+        dlg.showModal();
+    </script>
+</body>
+
+</html>
