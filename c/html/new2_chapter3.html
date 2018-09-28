@@ -1,0 +1,660 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+
+	<title>c 第三章</title>
+
+	<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+	<meta name="author" content="ldc">
+
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<link rel="stylesheet" href="js/reveal.js-3.7.0/css/reveal.css">
+	<link rel="stylesheet" href="js/reveal.js-3.7.0/css/theme/black.css" id="theme">
+
+	<!-- Theme used for syntax highlighting of code -->
+	<link rel="stylesheet" href="js/reveal.js-3.7.0/lib/css/zenburn.css">
+
+	<link rel="stylesheet" href="css/nstyle3.css">
+	<!-- Printing and PDF exports -->
+	<script>
+		var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'js/reveal.js-3.7.0/css/print/pdf.css' : 'js/reveal.js-3.7.0/css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+	<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+</head>
+
+<body>
+
+	<div class="reveal">
+
+		<!-- Any section element inside of this container is displayed as a slide -->
+		<div class="slides">
+			<section>
+				<h1>第三章 </h1>
+				<h1>最简单的C程序设计</h1>
+			</section>
+
+			<section>
+				<h3>学习C语言要具备的知识和能力</h3>
+				<ol>
+					<li>要有正确的解题思路，学会设计算法</li>
+					<li>掌握C的语法</li>
+					<li>学会结构化的程序设计方法</li>
+				</ol>
+			</section>
+
+			<section>
+				<h3>本章的主要内容</h3>
+				<ol>
+					<li>基本C语言程序结构</li>
+					<li>C的基本数据类型</li>
+					<li>C的运算和表达式</li>
+					<li>C的标准输入和输出</li>
+				</ol>
+			</section>
+
+			<section>
+				<section data-markdown>
+					<script type="text/template">
+						## 3.1 `C`的顺序程序设计
+					</script>
+			  </section>
+
+				<section data-markdown>
+					<script type="text/template">
+						### 3.1.1 最简单的`c`程序
+						```c
+						#include "stdio.h"
+						int main() /* 主函数 */
+						{
+							printf("Hello world!\n");
+							return 0; //返回值
+						}
+						```
+						<p class="fragment fade-right">`main`是主函数，是`c`语言程序的开始和结束</p>
+						<p class="fragment fade-right">前面的`int`表示函数有一个返回值，类型是整数</p>
+						<p class="fragment fade-right">后面的`()`表示函数没有参数</p>
+						<p class="fragment fade-right">`main`函数是由操作系统(OS)来调用(call)</p>
+						<p class="fragment fade-right">`{}`是函数体，里面是函数的具体实现，即语句的集合</p>
+					</script>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+						### 3.1.1 最简单的`c`程序
+						```c
+						#include "stdio.h"
+						int main() /* 主函数 */
+						{
+							printf("Hello world!\n");
+							return 0; //返回值
+						}
+						```
+						<p class="fragment fade-right">`printf`是系统库函数，用于输出文字	</p>		
+						<p class="fragment fade-right">	预编译指令`#include"stdio.h"`会将系统头文件插入到开头</p>	
+						
+					</script>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+						### 3.1.1 最简单的`c`程序
+						```c
+						#include "stdio.h"
+						int main() /* 主函数 */
+						{
+							printf("Hello world!\n");
+							return 0; //返回值
+						}
+						```
+						<p class="fragment fade-right">`printf`这一句是`c`语言的**语句**，每一个语句都用`;`来结尾	</p>
+						<p class="fragment fade-right">`return 0;`也是语句，表示函数结束，返回`0`到调用`main`函数的调用者（也就是操作系统），这里`0`表示运行没问题。	</p>
+						<p class="fragment fade-right">`//`和`/* */`是注释，注意前者是`C99`引入的标准	</p>
+					</script>
+				</section>
+			</section>
+
+			<section>
+				<section data-markdown>
+					<script type="text/template">
+						### 3.1.2 变量、表达式、输入和输出
+						华氏温度转换为摄氏温度：	c = (f-32)*5/9
+						
+						```c
+#include "stdio.h"
+int main()
+{
+	float f, c; //定义变量
+	printf("input f=");  
+	scanf("%f", &f);   //输入64.0
+	c = (f-32)*5/9;
+	printf("f=%f， c=%f\n",f,c);  //输出f=64.000000,  c=17.777779
+	return 0;
+}
+								```
+						<img src="images/fig3.1.PNG" alt="">
+					</script>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+						### 3.1.2 变量、表达式、输入和输出
+						华氏温度转换为摄氏温度：
+						
+						```c
+#include "stdio.h"
+int main()
+{
+  float f, c; //定义变量
+  printf("input f=");
+  scanf("%f", &f);
+  c = (f-32)*5/9;
+  printf("f=%f\nc=%f\n",f,c);
+  return 0;
+}
+							```
+						<p class="fragment fade-right"><code>float f,c;</code>定义了两个变量，类型是浮点型。</p>
+						<p class="fragment fade-right"><code>scanf...;</code>从键盘（标准输入设备）中输入一个浮点数。</p>
+						<p class="fragment fade-right"><code>c=(f-32)*5/9;</code>是计算表达式。</p>
+						<p class="fragment fade-right"><code>printf...;</code>将格式化的字符串输出到标准输出设备（即屏幕）。</p>
+						</script>
+				</section>
+			</section>
+
+			<section>
+				<section data-markdown>
+					<script type="text/template">
+						## 3.2 数据类型、表现
+					</script>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+						### 3.2.0 C语言的基本数据类型
+						- 数值类型：
+							- 整数类型：`int, long, long long(c99), short, unsigned, signed`
+							- 浮点类型：`float, double, long double(c99)`
+							- 复数类型(`C99`)：`float _Complex, double _Complex, long double _Complex`
+						- 字符类型：`char, signed char, unsigned char`
+					</script>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+						### 3.2.1 常量
+						- 整型常量： `45, 3u, 26ul, 0x4ab, 0732, -490000L, 3LL`
+						- 实数常量: `-3.14f, 6.18e-5, 3.55L`
+						- 字符常量：'a', 'A', '@', '\n', '\32', '\xff'(课本P40，表3.1, 附录A)
+						- 字符串常量："hello", "I said, \"OK.\""
+						- 符号常量： `#define PI 3.14`
+					</script>
+				</section>
+
+				<section data-markdown>
+						<script type="text/template">
+							### 3.2.2 变量
+							- 变量必须先定义，再使用: `float a, b;`
+							- 变量的定义位置：
+							 - 全局变量：放在函数外，任何函数内都能访问
+							 - 函数内变量：只能在函数中访问，一般放在函数开头定义（C99中可以在函数任意位置定义）
+							 - 复合语句内的局部变量：只能在`{}`内定义和访问
+						</script>
+				</section>
+
+				<section data-markdown>
+						<script type="text/template">
+							### 3.2.2 变量							
+							```c
+#include "stdio.h"
+int a = 4;
+int main()
+{
+  int b = 3;
+  printf("a = %d, b = %d\n", a, b); //输出 a=4, b=3
+  { int a = 5;
+    printf("a = %d, b = %d\n", a, b); //输出 a=5, b=3
+  }
+  printf("a = %d, b = %d\n", a, b); //输出 a=4, b=3
+  return 0;
+}
+							```
+						</script>
+				</section>
+
+				<section data-markdown>
+						<script type="text/template">
+							### 3.2.2 变量
+							- 变量的初始化
+
+							```c
+#include "stdio.h"
+double c;      //全局变量自动初始化为0
+int main()
+{
+	int a = 4;   //定义时初始化
+	float b;     //b只定义但没有初始化
+	return 0;
+}
+							```
+						</script>
+				</section>
+
+				<section data-markdown>
+						<script type="text/template">
+							### 3.2.3 常变量
+							```c
+							#define PI 3.14         //符号常数
+							const float pi = 3.14;  //常变量
+							```
+						</script>
+				</section>
+
+				<section data-markdown>
+						<script type="text/template">
+							### 3.2.4 标识符
+							在C语言中，不管是 <span class="fragment highlight-red">符号常量名</span>、<span class="fragment highlight-blue">变量名</span>、<span class="fragment highlight-green">函数名</span>、<span class="fragment highlight-red">自定义类型名</span>等，都是标识符，都要满足命名规则：
+
+							<p class="fragment fade-right">不能是关键字（见附录B）</p>
+							<p class="fragment fade-right">只能是由大小写字母（`a-zA-Z`）、数字(`0-9`)、下划线`_`来组成，而且第一个字符不能是数字。</p>
+							<p class="fragment fade-right">正确的：`sum, _total, Sum, _123`</p>
+							<p class="fragment fade-right">错误的：`int, 2nd, money$`</p>
+						</script>
+				</section>
+
+				<section data-markdown>
+						<script type="text/template">
+							### 3.2.5 各数据类型占内存的空间以及范围
+							参见课本（P45 表3.2）、（P48 表3.3）、（P50 表3.4）
+							```c
+#include "stdio.h"
+
+int main()
+{
+  signed char a = 65;
+  int b = -32;
+  float c = 3.14;
+  double d = 6.18;
+  printf("size of char = %lu \n", sizeof(a));
+  printf("size of int = %lu \n", sizeof(b));
+  printf("size of float = %lu \n", sizeof(c));
+  printf("size of double = %lu \n", sizeof(d));
+
+  a = a*a*a;
+  printf("a*a*a = %d\n", a);
+  return 0;
+}
+							```
+							```bash
+size of char = 1
+size of int = 4
+size of float = 4
+size of double = 8
+a*a*a = -63
+							```
+						</script>
+					</section>
+			</section>
+
+			<section>
+					<section data-markdown>
+							<script type="text/template">
+								## 3.3 运算符和表达式
+							</script>
+					</section>
+
+					<section data-markdown>
+							<script type="text/template">
+							### 3.3.1 C运算符
+							<ul>
+								<li class="fragment fade-right">算术运算：`+,-,*,/,%,++,--`</li>
+								<li class="fragment fade-right">关系运算符：`>,>=,<,<=,==,!=`</li>
+								<li class="fragment fade-right">逻辑运算符：`&&,||,!`</li>
+								<li class="fragment fade-right">位运算符：`<<,>>,~,|,^,&`</li>
+								<li class="fragment fade-right">赋值运算符：`=,+=,-=,*=,/=,%=`等</li>
+								<li class="fragment fade-right">条件运算符：`?:`</li>
+								<li class="fragment fade-right">逗号运算符：`,`</li>
+								<li class="fragment fade-right">指针运算符：`*,&,+,-`</li>
+								<li class="fragment fade-right">求字节数运算符：`sizeof`</li>
+								<li class="fragment fade-right">强制类型转换：`(int),(float)`等</li>
+								<li class="fragment fade-right">成员运算符：`., ->`</li>
+								<li class="fragment fade-right">下标运算符：`[]`</li>
+								<li class="fragment fade-right">其他：函数调用`()`</li>
+							</ul>
+							</script>
+					</section>
+
+					<section data-markdown>
+							<script type="text/template">
+							### 3.3.2 算术运算符
+							单目运算符：`-,+`，双目运算符：`+,-,*,/,%`。
+
+							<ul>
+									<li class="fragment highlight-blue">注意运算溢出的问题；</li>
+									<li class="fragment highlight-red">`/`运算要注意类型的问题；</li>
+									<li class="fragment highlight-green">`%`必须运算数都是整数</li>
+							</ul>
+							```c
+#include "stdio.h"
+int main()
+{
+  char c = 78, cc = c*c;
+  printf("%d * %d = %d\n",c,c,cc);
+  printf("%d / 10 = %d\n", c, c/10);
+  printf("%d \% 10 = %d\n", c, c%10);
+  return 0;
+}
+							```
+							```bash
+							78 * 78 = -60
+							78 / 10 = 7
+							78 % 10 = 8							
+							```
+							</script>
+					</section>
+
+					<section data-markdown>
+							<script type="text/template">
+							### 3.3.3 自增(`++`)自减(`--`)运算
+							<ul>
+									<li class="fragment highlight-blue">运算符在变量前（左），是表示先自增（自减），然后取值；</li>
+									<li class="fragment highlight-red">运算符在变量后（右），是表示先取值，再对本身自增（自减）；</li>
+									<li class="fragment highlight-green">同一个表达式有多个自增（自减）运算符时，其运算顺序未定义。</li>
+							</ul>
+							```c
+							#include "stdio.h"
+							int main()
+							{
+								int a = 3, b = 3;
+								printf("a++ = %d, a = %d\n", a++, a);
+								printf("++b = %d, b = %d\n", ++b, b);
+								return 0;
+							}
+							```
+							```bash
+							a++ = 3, a = 4
+							++b = 4, b = 4							
+							```
+							</script>
+					</section>
+
+					<section data-markdown>
+							<script type="text/template">
+							### 3.3.4 算术表达式
+							<p>**算术表达式**：用<span class="fragment highlight-blue">算术运算符</span>和<span class="fragment highlight-green">括号</span>把<span class="fragment highlight-red">运算对象（操作数，包括：常量，变量，函数等）</span>连接起来，符合C语法规则的式子；</p>
+							</script>
+					</section>
+
+					<section data-markdown>
+							<script type="text/template">
+							### 3.3.5 运算符的优先级和结合性
+							<table style="position:absolute; left:10px; top: 90px; border:1px solid; width:100%">
+									<tr>
+									<th style="text-align: left"> 优先级</th>
+									<th style="text-align: left"> 操作符</th>
+									<th style="text-align: left"> 描述</th>
+									<th style="text-align: left"> 结合顺序</th></tr>
+									<tr>
+									<th rowspan="6"> 1 </th>
+									<td> <code>a++</code> <code>a--</code></td>
+									<td>后置自增自减</td>
+									<td style="vertical-align: top" rowspan="6"> 左→右</td>
+									</tr>
+									<tr>											
+											<td> <code>()</code></td>
+											<td>函数调用</td>	
+									</tr>
+									<tr>											
+											<td> <code>[]</code></td>
+											<td>数组下标运算</td>	
+									</tr>
+									<tr>											
+											<td> <code>.</code></td>
+											<td>成员运算</td>	
+									</tr>
+									<tr>											
+											<td> <code>-></code></td>
+											<td>(指针)成员运算</td>	
+									</tr>
+									<tr>											
+											<td> <code>(type){list}</code>（C99）</td>
+											<td>初始化列表</td>	
+									</tr>
+							</table>
+							</script>
+					</section>
+
+					<section data-markdown>
+							<script type="text/template">
+							### 3.3.5 运算符的优先级和结合性
+							<table style="position:absolute; left:10px; top: 90px; border:1px solid; width:100%">
+									<tr>
+									<th style="text-align: left; font-size:24px;"> 优先级</th>
+									<th style="text-align: left; font-size:24px;"> 操作符</th>
+									<th style="text-align: left; font-size:24px;"> 描述</th>
+									<th style="text-align: left; font-size:24px;"> 结合顺序</th></tr>
+									<tr>
+									<th  style="text-align: left; font-size:24px;" rowspan="8"> 2 </th>
+									<td style="text-align: left; font-size:24px;"> <code>++a</code> <code>--a</code></td>
+									<td style="text-align: left; font-size:24px;">前置自增自减</td>
+									<td style="vertical-align: top; font-size:24px;" rowspan="8"> 左←右</td>
+									</tr>
+									<tr>											
+											<td style="text-align: left; font-size:24px;"> <code>+, -</code></td>
+											<td style="text-align: left; font-size:24px;">单目运算符，`+`不改变符号，`-`改变符号</td>	
+									</tr>
+									<tr>											
+											<td style="text-align: left; font-size:24px;"> <code>!, ~</code></td>
+											<td style="text-align: left; font-size:24px;">逻辑取反，位取反</td>	
+									</tr>
+									<tr>											
+											<td style="text-align: left; font-size:24px;"> <code>(type)</code></td>
+											<td style="text-align: left; font-size:24px;">强制类型转换</td>	
+									</tr>
+									<tr>											
+											<td style="text-align: left; font-size:24px;"> <code>*</code></td>
+											<td style="text-align: left; font-size:24px;">间接取值</td>	
+									</tr>
+									<tr>											
+											<td style="text-align: left; font-size:24px;"> <code>&</code></td>
+											<td style="text-align: left; font-size:24px;">取地址</td>	
+									</tr>
+									<tr>											
+											<td style="text-align: left; font-size:24px;"> <code>sizeof</code></td>
+											<td style="text-align: left; font-size:24px;">计算占内存字节数</td>	
+									</tr>
+									<tr>											
+											<td style="text-align: left; font-size:24px;"> <code>_Alignof</code>(c99)</td>
+											<td style="text-align: left; font-size:24px;">设置内存对齐</td>	
+									</tr>
+							</table>
+							</script>
+					</section>
+
+					<section data-markdown>
+							<script type="text/template">
+							### 3.3.5 运算符的优先级和结合性
+							<table style="position:absolute; left:10px; top: 90px; border:1px solid; width:100%">
+									<tr>
+									<th style="text-align: left; font-size:24px;"> 优先级</th>
+									<th style="text-align: left; font-size:24px;"> 操作符</th>
+									<th style="text-align: left; font-size:24px;"> 描述</th>
+									<th style="text-align: left; font-size:24px;"> 结合顺序</th></tr>
+									<tr>
+									<th  style="text-align: left; font-size:24px;"> 3 </th>
+									<td style="text-align: left; font-size:24px;"> <code>*, /, %</code></td>
+									<td style="text-align: left; font-size:24px;">乘，除，取余数</td>
+									<td  style="vertical-align: top" rowspan="10"> 左→右</td>
+									</tr>	
+									<tr>
+									<th  style="text-align: left; font-size:24px;"> 4 </th>
+									<td style="text-align: left; font-size:24px;"> <code>+, -</code></td>
+									<td style="text-align: left; font-size:24px;">加，减</td>
+									</tr>	
+									<tr>
+									<th  style="text-align: left; font-size:24px;"> 5 </th>
+									<td style="text-align: left; font-size:24px;"> `<<, >>`</td>
+									<td style="text-align: left; font-size:24px;">位左移，位右移</td>
+									</tr>	
+									<tr>
+									<th  style="text-align: left; font-size:24px;"> 6 </th>
+									<td style="text-align: left; font-size:24px;"> `<,<=,>,>=`</td>
+									<td style="text-align: left; font-size:24px;">小于，小于等于，大于，大于等于</td>
+									</tr>	
+									<tr>
+									<th  style="text-align: left; font-size:24px;"> 7 </th>
+									<td style="text-align: left; font-size:24px;"> `==,!=`</td>
+									<td style="text-align: left; font-size:24px;">判断相等，判断不相等</td>
+									</tr>	
+									<tr>
+									<th  style="text-align: left; font-size:24px;"> 8 </th>
+									<td style="text-align: left; font-size:24px;"> `&`</td>
+									<td style="text-align: left; font-size:24px;">位与</td>
+									</tr>
+									<tr>
+									<th  style="text-align: left; font-size:24px;"> 9 </th>
+									<td style="text-align: left; font-size:24px;"> `^`</td>
+									<td style="text-align: left; font-size:24px;">位异或</td>
+									</tr>
+									<tr>
+									<th  style="text-align: left; font-size:24px;"> 10 </th>
+									<td style="text-align: left; font-size:24px;"> `|`</td>
+									<td style="text-align: left; font-size:24px;">位或</td>
+									</tr>
+									<tr>
+									<th  style="text-align: left; font-size:24px;"> 11 </th>
+									<td style="text-align: left; font-size:24px;"> `&&`</td>
+									<td style="text-align: left; font-size:24px;">逻辑与</td>
+									</tr>
+									<tr>
+									<th  style="text-align: left; font-size:24px;"> 12 </th>
+									<td style="text-align: left; font-size:24px;"> `||`</td>
+									<td style="text-align: left; font-size:24px;">逻辑或</td>
+									</tr>									
+							</table>
+							</script>
+					</section>
+
+					<section data-markdown>
+							<script type="text/template">
+							### 3.3.6 不同类型数据间的混合运算
+							详细的隐式转换参见：
+							<a href="https://zh.cppreference.com/w/c/language/conversion">https://zh.cppreference.com/w/c/language/conversion</a>
+							注意，在`c`中如果字符类型参与数值运算，则取其ASCII值参与运算。
+							<img src="images/convert.png" alt="" style="width:100%">
+						</script>
+					</section>
+
+					<section data-markdown>
+							<script type="text/template">
+							```c
+#include "stdio.h"
+int main()
+{
+	char a = 'A'; 
+  printf("%c -> %c\n", a, a+32); //大写字母转为小写
+  
+  double f = 64.0, c;
+  printf("c = %lf\n", 5/9*(f-32)); //输出 c = 0.000000
+  printf("c = %lf\n", (f-32)*5/9); //输出 c = 17.777778
+  return 0;
+}
+							```
+						</script>
+					</section>
+
+					<section data-markdown>
+							<script type="text/template">
+							### 3.3.7 强制类型转换
+							```c
+							(类型名)(表达式)
+							```
+							```c
+#include "stdio.h"
+int main()
+{
+	char a = 'A'; 
+  printf("%c -> %c\n", a, a+32); //大写字母转为小写
+  
+  double f = 64.0, c;
+  printf("c = %lf\n", 5/9*(f-32)); //输出 c = 0.000000
+  printf("c = %lf\n", (double)5/9*(f-32)); //输出 c = 17.777778
+  return 0;
+}
+							```
+						</script>
+					</section>	
+
+			</section>
+		</div>
+	</div>
+
+	<script src="js/reveal.js-3.7.0/lib/js/head.min.js"></script>
+	<script src="js/reveal.js-3.7.0/js/reveal.js"></script>
+
+	<script>
+		// More info https://github.com/hakimel/reveal.js#configuration
+		Reveal.initialize({
+			controls: true,
+			progress: true,
+			history: true,
+			center: true,
+
+			transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+			// More info https://github.com/hakimel/reveal.js#dependencies
+			dependencies: [{
+					src: 'js/reveal.js-3.7.0/lib/js/classList.js',
+					condition: function () {
+						return !document.body.classList;
+					}
+				},
+				{
+					src: 'js/reveal.js-3.7.0/plugin/markdown/marked.js',
+					condition: function () {
+						return !!document.querySelector('[data-markdown]');
+					}
+				},
+				{
+					src: 'js/reveal.js-3.7.0/plugin/markdown/markdown.js',
+					condition: function () {
+						return !!document.querySelector('[data-markdown]');
+					}
+				},
+				{
+					src: 'js/reveal.js-3.7.0/plugin/highlight/highlight.js',
+					async: true,
+					callback: function () {
+						hljs.initHighlightingOnLoad();
+					}
+				},
+				{
+					src: 'js/reveal.js-3.7.0/plugin/search/search.js',
+					async: true
+				},
+				{
+					src: 'js/reveal.js-3.7.0/plugin/zoom-js/zoom.js',
+					async: true
+				},
+				{
+					src: 'js/reveal.js-3.7.0/plugin/notes/notes.js',
+					async: true
+				}
+			]
+		});
+	</script>
+
+</body>
+
+</html>
