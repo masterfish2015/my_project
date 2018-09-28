@@ -152,13 +152,13 @@ body {
 /* Inline code, no Highlight.js */
 
 code {
-    background-color: darkblue;
-    color: lightyellow;
+    background-color: lightgray;
+    color: red;
     opacity: 1;
     border-radius: 0.2em;
     border-bottom: 1px solid rgba(100, 100, 100, 0.2);
     border-left: 1px solid rgba(100, 100, 100, 0.2);
-    font-family: "Consolas", monospace;
+    font-family: "Ubuntu Mono", "Consolas", monospace;
     /*  "Cutive mono", "Courier New", monospace; */
 }
 

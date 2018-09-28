@@ -61,7 +61,7 @@ int main(void)
                <ul class="fly-in fly-out">
                   <li><span class="green">整型常量</span>，如<code>10</code>，<code>010</code>(八进制，相当于十进制的<code>8</code>)，<code>0x10</code>（十六进制，相当于十进制的<code>16</code>）, <code>-34</code>等;</li>
                   <li><span class="blue">实型常量</span>，如<code>123.46</code>， <code>0.345</code>, <code>-3.</code>, <code>-.123</code>, <code>4e5</code>（相当于\(4 \times 10^5\)), <code>-.4e-5</code>(相当于\(-0.4 \times 10^{-5} \))等，注意后两个是指数形式，C语言中指数不能取小数；</li>
-                  <li><span class="red">字符常量</span>，C语言中用<code>'</code>符号包括起来的符号，如<code>'A'</code>, <code>'b'</code>, <code>'#'</code>, <code>'_'</code>, <code>'\n'</code>, <code>'\\'</code>等，后面两种是转义符号，参见课本P40，表3.1，C语言在程序文件中其实并没有保存符号，而是这个字符在字符表中的序号，这个序号称为字符码，有很多种字符码，最常见的是ASCII码，参见课本附录B；</li>
+                  <li><span class="red">字符常量</span>，C语言中用<code>'</code>符号包括起来的符号，如<code>'A'</code>, <code>'b'</code>, <code>'#'</code>, <code>'_'</code>, <code>'\n'</code>, <code>'\\'</code>等，后面两种是转义符号，参见课本P40，表3.1，C语言在程序文件中其实并没有保存符号，而是这个字符在字符表中的序号，这个序号称为字符码，有很多种字符码，最常见的是ASCII码，参见课本附录A；</li>
                </ul>
             </h5>
          </div>
@@ -75,10 +75,10 @@ int main(void)
                   <li><span class="blue">符号常量</span>，C语言用<code>#define</code>定义的符号名称称为符号常量，如<code>#define PI 3.14159</code>, <code>#define  FALSE 0</code>等，使用符号常量而不是直接用常量字面量的好处是：
                      <ul>
                         <li>含义清楚</li>
-                        <li>修改方便</li>
-                        <li>符号常量常用大写字母来表示</li>
+                        <li>修改方便</li>                        
                      </ul>
                   </li>
+                  <li>符号常量常用大写字母来表示</li>
                </ul>
             </h5>
          </div>
@@ -128,9 +128,9 @@ int main()
             <h4>[4]<span class="green">标识符</span>：用来对变量、符号常量、函数、数组、类型等命名的有效字符序列，称为<span class="red">标识符（identifier)</span>。</h4>
             <h5>
                <ul class="fly-in fly-out">
-                  <li>只能由字母（<code>a-z</code>, <code>A-Z</code>)、数字(<code>0-9</code>)、下划线(<code>_</code>)组成，第一个字符不能是数字，不能是关键字，合法的命名如如<code>sum</code>, <code>average</code>, <code>_total</code>, <code>_123</code>, <code>Class</code>, <code>student_name</code>,
+                  <li>只能由字母（<code>a-z</code>, <code>A-Z</code>)、数字(<code>0-9</code>)、下划线(<code>_</code>)组成，第一个字符不能是数字，不能是<span class="red">关键字</span>(指被C语言保留有特定用途的单词和符号，参见课本附录B)，合法的命名如如<code>sum</code>, <code>average</code>, <code>_total</code>, <code>_123</code>, <code>Class</code>, <code>student_name</code>,
                      非法的例如
-                     <code>int</code>(关键字），<code>#33</code>（非法字符#），<code>1st</code>（不能是数字开头）等；</li>
+                     <code>int</code>(关键字,），<code>#33</code>（非法字符#），<code>1st</code>（不能是数字开头）等；</li>
                   <li>尽量起有意义的名称，用单词组或拼音词组来起名，中间用下划线<code>_</code>来分开；</li>
                   <li>变量名、函数名用全小写的字母，符号常量和类型名用全大写的字母；</li>
                   <li>大小写是不同的，<code>class</code>和<code>Class</code>是两个不同的标识符;</li>
@@ -302,7 +302,7 @@ int main()
          </div>
 
          <div class="step" data-x="-3000" data-y="3300" data-rotate="90" data-scale="1">
-            <h4 class="fade-in fade-out">3.2.3.2.整型数据的符号</h4>
+            <h4 class="fade-in fade-out">3.2.3.2.整型数据</h4>
             <table class="fade-in fade-out" border="1" width="100%" style="font-size: 15px; background-color:moccasin;">
                <tr>
                   <th>类型</th>
@@ -376,7 +376,8 @@ int main()
 
          <div class="step" data-x="-3000" data-y="3300" data-rotate="90" data-scale="1">
             <h4 class="fade-in fade-out">3.2.3.2.1 C99引入的固定字节整数类型</h4>
-            <table class="fade-in fade-out" border="1" width="100%" style="font-size: 15px; background-color:moccasin;">
+            <p>需要包含头文件：<code>#include "stdint.h"</code></p>
+            <table class="fade-in fade-out" border="1" width="100%" style="font-size: 24px; background-color:whitesmoke;">
                <tr>
                   <th>类型</th>
                   <th>字节数</th>
