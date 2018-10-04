@@ -15,10 +15,10 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
 	<link rel="stylesheet" href="js/reveal.js-3.7.0/css/reveal.css">
-	<link rel="stylesheet" href="js/reveal.js-3.7.0/css/theme/black.css" id="theme">
+	<link rel="stylesheet" href="js/reveal.js-3.7.0/css/theme/sky.css" id="theme">
 
 	<!-- Theme used for syntax highlighting of code -->
-	<link rel="stylesheet" href="js/reveal.js-3.7.0/lib/css/zenburn.css">
+	<link rel="stylesheet" href="js/reveal.js-3.7.0/lib/css/xcode.css">
 
 	<link rel="stylesheet" href="css/nstyle3.css">
 	<!-- Printing and PDF exports -->
@@ -594,8 +594,82 @@ int main()
 }
 							```
 						</script>
-					</section>	
+					</section>
+			</section>
 
+			<section>
+				<section data-markdown>
+					<script type="text/template">
+					## 3.4 C语句
+					</script>
+				</section>
+			
+				<section data-markdown>
+					<script type="text/template">
+					### 3.4.1 C语句的作用和分类
+					<h4>C 语言的语句的分类：</h4>
+					<ul>
+						<li class="fragment fade-right">控制语句：完成一定的控制功能：
+							<ul>
+								<li class="fragment fade-right">`if()...else...`</li>
+								<li class="fragment fade-right">`for()...`</li>
+								<li class="fragment fade-right">`while()...`</li>
+								<li class="fragment fade-right">`do...while()`</li>
+								<li class="fragment fade-right">`continue`</li>
+								<li class="fragment fade-right">`break`</li>
+								<li class="fragment fade-right">`switch`</li>
+								<li class="fragment fade-right">`return`</li>
+								<li class="fragment fade-right">`goto`</li>
+							</ul>
+						</li>
+						<li class="fragment fade-right">函数调用：`fun(x,y);`</li>
+						<li class="fragment fade-right">表达式语句：`表达式;`</li>
+						<li class="fragment fade-right">空语句：`;`</li>
+						<li class="fragment fade-right">复合语句：`{语句1;语句2;...;}`</li>
+					</ul>
+					</script>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+					### 3.4.2 赋值语句
+					<ul>
+						<li class="fragment fade-right">普通赋值：`左值 = 右值;`</li>
+						<li class="fragment fade-right">左值：变量</li>
+						<li class="fragment fade-right">右值：变量、常量、表达式、函数返回值</li>
+						<li class="fragment fade-right">赋值运算的结果是右值，所以可以：
+							` a = b = 3; `
+						</li>
+						<li class="fragment fade-right">复合赋值运算符：`+=,-=,*=,/=,%=`</li>
+						<li class="fragment fade-right">赋值表达式和赋值语句:<br>
+							`a = b; //语句`<br>							
+							`if (a=b>10)... //赋值表达式，这里不能用赋值语句`
+						</li>						
+					</ul>
+					</script>
+				</section>
+
+				<section data-markdown>
+						<script type="text/template">
+						### 3.4.2 赋值语句
+						<ul>							
+							<li class="fragment fade-right">赋值过程中的类型转换：
+								<ul>
+										<li class="fragment fade-right">两边类型一致，直接赋值：<br>
+											`int i ; i = 234; `
+										</li>
+										<li class="fragment fade-right">浮点赋值给整数，浮点会被取整，小数点后的被去掉：<br>
+											`int i ; i = 3.14; // i = 3`
+										</li>
+										<li class="fragment fade-right">整数赋值给浮点，整数转为浮点的格式，精度可能会被消减：<br>
+											`float f ; f = 123456789; // f = 1.234568e+08`
+										</li>
+								</ul>	
+							</li>
+						</ul>
+						</script>
+					</section>
+			
 			</section>
 		</div>
 	</div>
