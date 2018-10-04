@@ -664,13 +664,385 @@ int main()
 										<li class="fragment fade-right">整数赋值给浮点，整数转为浮点的格式，精度可能会被消减：<br>
 											`float f ; f = 123456789; // f = 1.234568e+08`
 										</li>
+										<li class="fragment fade-right">`double`赋值给`float`，精度会被消减(只取6~7位有效数字), 但若是大小超过`float`的范围，则会显示`inf`，表示`无穷大`：<br>
+											`float f ; f = 123.456789e100; // 指数超过float的范围`<br> 
+											`//显示：inf`
+										</li>
+										<li class="fragment fade-right">字符数据赋值给`char`，只是把该字符的ASCII码赋值给变量，比如：<br>
+											`char a ; a = 'A'; `<br> 
+											`printf("%c=%d\n",a,a); //显示：A=65`
+										</li>
 								</ul>	
 							</li>
 						</ul>
 						</script>
 					</section>
-			
+
+					<section data-markdown>
+						<script type="text/template">
+						### 3.4.2 赋值语句
+						<ul>							
+							<li class="fragment fade-right">赋值过程中的类型转换：
+								<ul>										
+										<li class="fragment fade-right">如果多字节的整数赋值给少字节的类型变量，会发生截断，例如：<br>
+											`int  b = 0xff12; char a = b; `<br> 
+											`printf("%x --> %x\n", b, a); //显示：ff12 --> 12`
+										</li>
+								</ul>	
+							</li>
+						</ul>
+						</script>
+					</section>			
 			</section>
+
+			<section>
+				<section data-markdown>
+					<script type="text/template">					
+					## 3.5 数据的输入和输出
+					<ul>
+						<li class="fragment fade-right">
+							输入：从其他的设备输入数据到计算机，标准输入设备是<b>键盘</b>; <br>
+							输出：从计算机输出数据到其他的设备，标准输出设备是<b>显示屏</b>。
+						</li>
+						<li class="fragment fade-right">
+						  C语言本身没有输入输出，而是使用<b>标准输入输出函数库</b>中的函数来实现。为了使用该库，需要：`#include "stdio.h"`		
+						</li>
+					</ul>
+					</script>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">					
+					### 3.5.1 `putc`函数
+					- 原型：`int putc(int ch, FILE *output_stream)`
+					- 目的： 输出一个字符`ch`到输出设备（`output_stream`, 标准输出设备，即屏幕，是`stdout`）
+					- 返回：如果成功，返回`ch`，否则返回`EOF`(-1)。
+					
+					示例：
+					```c
+					#include "stdio.h"
+
+int main()
+{
+  putc('H', stdout);
+  putc('e', stdout);
+  putc('l', stdout);
+  putc('l', stdout);
+  putc('o', stdout);
+  putc('\n', stdout);
+  return 0;
+}
+					```
+
+					输出：
+					```bash
+					Hello
+					```
+
+					</script>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">					
+					### 3.5.2 `putchar`函数
+					- 原型：`int putchar( int ch )`
+					- 目的： 输出一个字符`ch`到标准输出设备，即屏幕
+					- 返回：如果成功，返回`ch`，否则返回`EOF`。
+					
+					示例：
+					```c
+						#include "stdio.h"
+	
+	int main()
+	{
+		putchar('H');
+		putchar('e');
+		putchar('l');
+		putchar('l');
+		putchar('o');
+		putchar('\n');
+		return 0;
+	}
+					```
+					输出：
+					```bash
+					Hello
+					```					
+					</script>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">					
+					### 3.5.3 `puts`函数
+					
+					- 原型：`int puts( const char *str )`
+					- 目的： 输出一个字符串`str`到标准输出设备，即屏幕
+					- 返回：如果成功，返回一个非负整数，否则返回`EOF`。
+						
+					示例：
+					```c
+#include "stdio.h"
+		
+int main()
+{
+	puts("Hello");
+	return 0;
+}
+					```
+					输出：
+					```bash
+					Hello
+					```					
+					</script>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">					
+					### 3.5.4 `getc`函数
+						
+					- 原型：`int getc( FILE *stream )`
+					- 目的： 从输入设备（标准输入设备，即键盘，是stdin）输入一个字符
+					- 返回：如果成功，返回输入字符的ASCII码，否则返回`EOF`。
+							
+					示例：
+					```c
+	#include "stdio.h"
+			
+	int main()
+	{
+		char c;
+		c = getc(stdin);
+		printf("%c\n", c);
+		return 0;
+	}
+					```
+					输出：
+					```bash
+					//输入a
+					a  //输出a
+					```					
+					</script>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">					
+					### 3.5.5 `getchar`函数
+						
+					- 原型：`int getchar(void)`
+					- 目的： 从标准输入设备，即键盘输入一个字符
+					- 返回：如果成功，返回输入字符的ASCII码，否则返回`EOF`。
+							
+					示例：
+					```c
+#include "stdio.h"
+	
+int main()
+{
+	char c;
+	c = getchar();
+	printf("%c\n", c);
+	return 0;
+}
+					```
+					输出：
+					```bash
+					//输入a
+					a  //输出a
+					```					
+					</script>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">					
+					### 3.5.6 `gets`和`fgets`函数
+						
+					- 原型：`char *gets( char *str )`（`c11`中已建议废止，由于内存安全的原因）
+					- 原型：`char *fgets(char *str, int count, FILE *stream )`
+					- 目的： 从标准输入设备，即键盘输入一行字符串，存在str开始的地址内
+					- 返回：如果成功，返回str地址，否则返回`NULL`(`0`)。
+							
+					示例：
+					```c
+#include "stdio.h"
+
+int main()
+{
+	char name[100];
+	fgets(name, 100, stdin);
+	printf("Hello, %s\n",name);
+	return 0;
+}
+					```
+					输出：
+					```bash
+					//输入ldc
+					Hello, ldc  //输出
+					```					
+					</script>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">					
+					### 3.5.7 `scanf`函数
+							
+					- 原型：`int scanf( const char *format, 变量地址列表 )`
+					- 目的： 从键盘输入格式化数据，存在列表变量所在地址中
+					- 返回：如果成功，返回非负整数，否则返回`EOF`(`-1`)。
+					- `format`是格式化字符串，包括`普通字符+占位字符+格式字符`，见后面介绍
+								
+					示例：
+					```c
+#include "stdio.h"
+
+int main()
+{
+	int a,b;
+	printf("input a, b = ");
+	scanf("%d,%d", &a, &b);
+	printf("%d + %d = %d\n",a,b,a+b);
+	return 0;
+}
+					```
+					输出：
+					```bash
+						input a, b = 3,5
+						3 + 5 = 8
+					```					
+					</script>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">					
+					### 3.5.8 `printf`函数
+								
+					- 原型：`int printf( const char *format, 变量列表 )`
+					- 目的： 向屏幕输出格式化的字符串
+					- 返回：如果成功，返回非负整数，否则返回`EOF`(`-1`)。
+					- `format`是格式化字符串，包括`普通字符+占位字符+格式字符`，见后面介绍
+					
+					</script>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">					
+					示例：
+					```c
+#include "stdio.h"
+
+int main()
+{
+	int a =25536;
+	double b = 47.65889;
+	printf("a = %d, 0x%x\n", a, a);
+	printf("0123456789\t0123456789\t0123456789\n");
+	printf("%-10d\t%10d\t%010d\n", a, a, a);
+	printf("0123456789\t0123456789\t0123456789\n");
+	printf("%-10.2lf\t%10.2lf\t%010.2lf\n", b, b, b);
+	printf("%-10.2le\t%10.2le\t%010.2le\n", b, b, b);  
+	return 0;
+}
+					```
+					输出：
+					```c
+a = 25536, 0x63c0
+0123456789      0123456789      0123456789
+25536                25536      0000025536
+0123456789      0123456789      0123456789
+47.66                47.66      0000047.66
+4.77e+01          4.77e+01      004.77e+01
+					```
+					</script>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+					### `format`字符串的组成：
+					- `普通字符`:除了下面的特殊字符外，都是原样输出;
+					- `占位字符`:表示这个位置在输出(输入)的时候会被后面的变量或表达式的结果来替代，可用的占位字符用`%`来表示，包括:
+					 - `%d`(整数)，`%ld`(长整数)，`%lld`(长长整数, c99)，
+					 - `%hd`(短整数)，`%hhd`(单字节，即char, c99)，
+					 
+```c
+#include "stdio.h"
+
+int main()
+{
+  int a; long b; long long c;
+  short d; char e;
+  scanf("%d %ld %lld", &a, &b, &c);
+  scanf("%hd %hhd", &d, &e);
+  printf("%d,%ld,%lld, %hd, %hhd\n",a,b,c,d,e);	
+  return 0;
+}				 
+```				 
+					</script>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+					### `format`字符串的组成：
+					- `%u`(非负整数)，`%lu`(长无符号整数)，`%llu`(长长无符号整数,c99)，
+					- `%hu`(无符号短整数)，`%hhu`(无符号单字节，即`unsigned char`, c99)，
+					- `%x`(16进制格式整数)，`%o`(8进制格式整数), `%lx`(16进制格式长整数)，`%lo`(8进制格式长整数)
+						 
+```c
+#include "stdio.h"
+
+int main()
+{
+  unsigned int a;
+  unsigned long b;
+  unsigned long long c;
+  unsigned short d;
+  unsigned char e;
+  scanf("%u %lu %llu", &a, &b, &c);
+  scanf("%hu %hhu", &d, &e);
+  printf("%u,%lu,%llu, %hu, %hhu\n",a,b,c,d,e);
+  printf("%x, %o, %lx, %lo\n", a, a, b, b);
+  return 0;
+}			 
+```				 
+					</script>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+					### `format`字符串的组成：
+					- `占位字符`:表示这个位置在输出(输入)的时候会被后面的变量或表达式的结果来替代，可用的占位字符用`%`来表示，包括:						
+						- `%c`(字符)，`%s`(字符串)，						
+						- `%p`(指针地址类型)，
+
+					```c
+#include "stdio.h"
+
+int main()
+{
+	char c='A', *s1="Hello world!";
+	printf("%c, %s\n", c, s1);
+	printf("%p, %p\n", &c, s1);
+	return 0;
+}
+					```
+					输出：
+					```bash
+					A, Hello world!
+					0x7fffddec9d0f, 0x400694
+					```					
+					</script>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+					### `format`字符串的组成：
+					- `占位字符`:表示这个位置在输出(输入)的时候会被后面的变量或表达式的结果来替代，可用的占位字符用`%`来表示，包括:
+						- `%f`(单精度定点实数)，`%lf`(双精度定点实数)，
+						- `%e`(科学计数的浮点单精度浮点实数)，`%le`(科学计数的浮点双精度实数)，
+						- `%g`(浮点单精度或定点单精度实数)，`%lg`(浮点双精度或定点双精度实数)，
+						- `%a`(以2进制格式显示浮点单精度实数)，`%la`(以2进制格式显示浮点双精度实数)
+					</script>
+				</section>
+
+			</section>			
 		</div>
 	</div>
 
