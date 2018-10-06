@@ -1037,12 +1037,180 @@ int main()
 					- `占位字符`:表示这个位置在输出(输入)的时候会被后面的变量或表达式的结果来替代，可用的占位字符用`%`来表示，包括:
 						- `%f`(单精度定点实数)，`%lf`(双精度定点实数)，
 						- `%e`(科学计数的浮点单精度浮点实数)，`%le`(科学计数的浮点双精度实数)，
-						- `%g`(浮点单精度或定点单精度实数)，`%lg`(浮点双精度或定点双精度实数)，
-						- `%a`(以2进制格式显示浮点单精度实数)，`%la`(以2进制格式显示浮点双精度实数)
+						- `%g`(浮点单精度或定点单精度实数)，`%lg`(浮点双精度或定点双精度实数)
 					</script>
 				</section>
 
-			</section>			
+				<section>
+					<pre><code class="c" data-trim contenteditable>
+#include "stdio.h"
+
+int main()
+{
+	float a=3.14;
+	double b=12345678.9;
+	printf("0123456789\t0123456789\t0123456789\n");
+	printf("%f\t%10.2f\t%-10.2f\n",a,a,a);
+	printf("%le\t%10.2le\t%.2le\n",b,b,b);
+	printf("%f\t%e\t%g\n",a,a,a);
+	return 0;
+}
+					</code></pre>
+					输出：
+					<pre><code class="c" data-trim>
+						0123456789      0123456789      0123456789
+						3.140000              3.14      3.14
+						1.234568e+07      1.23e+07      1.23e+07
+						3.140000        3.140000e+00    3.14
+					</code></pre>
+				</section>
+			</section>
+
+			<section>
+				<section>
+					<h2>小测试</h2>					
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+					<h3>一、判断对错</h3>
+					<ol>
+						<li class="fragment fade-left">
+							`main`函数不是每个独立的`c`程序必须的。
+							<span class="fragment fade-right red">×</span>
+						</li>
+						<li class="fragment fade-left">
+							`c`语句一般都以`;`来结尾。
+							<span class="fragment fade-right green">√</span>
+						</li>
+						<li class="fragment fade-left">
+							一个`int`变量占`4`字节内存。
+							<span class="fragment fade-right red">×</span>
+						</li>
+						<li class="fragment fade-left">
+							`3nd, $money, sizeof`都是非法的变量名。
+							<span class="fragment fade-right green">√</span>
+						</li>
+						<li class="fragment fade-left">
+								`5%3`的结果是`1`。
+								<span class="fragment fade-right red">×</span>
+						</li>
+						<li class="fragment fade-left">
+								`c`字符串的结尾是`'0'`。
+								<span class="fragment fade-right red">×</span>
+							</li>
+					</ol>
+					</script>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+					<h3>二、单项选择</h3>
+					<p>
+						1、下列关于`C`语言的叙述错误的是（<span class="fragment fade-right blue">`a`</span> ）:
+						<ol style="list-style-type: lower-alpha">
+							<li>大写字母和小写字母的意义相同</li>
+							<li>不同类型的变量可以在一个表达式中</li>
+							<li>在赋值表达式中等号(=)左边的变量和右边的值可以是不同类型</li>
+							<li>同一个运算符号在不同的场合可以有不同的含义</li>
+						</ol>
+						
+					</p>	
+					</script>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+					<p>
+						2、C语言基本类型包括（ <span class="fragment fade-right blue">`d`</span> ）:
+						<ol style="list-style-type: lower-alpha">
+							<li>整型、实型、逻辑型</li>
+							<li>整型、实型、字符型、逻辑型</li>
+							<li>整型、字符型、逻辑型</li>
+							<li>整型、实型、字符型</li>
+						</ol>						
+					</p>	
+					</script>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+					<p>
+						3、表达式`18/4*2/8`数据类型是（ <span class="fragment fade-right blue">`a`</span> ）:
+						<ol style="list-style-type: lower-alpha">
+							<li>`int`</li>
+							<li>`char`</li>
+							<li>`float`</li>
+							<li>`double`</li>
+						</ol>						
+					</p>	
+					</script>
+				</section>
+
+				<section>
+					<p>
+						4、如下面的程序，其运行结果是（ <span class="fragment fade-right blue"><code>c</code></span> ）:</p>
+					<pre><code class="c" data-trim>
+						#include "stdio.h"
+						int main()
+						{
+							int k = 011;
+							printf("%d,", k++);
+							printf("%d\n",k);
+							return 0;
+						}
+					</code></pre>
+					<ol style="list-style-type: lower-alpha">
+						<li><code>12,12</code></li>
+						<li><code>11,12</code></li>
+						<li><code>9,10</code></li>
+						<li><code>9,9</code></li>
+					</ol>					
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+					<p>
+						5、若下列表达式的变量已经正确的定义和赋值，符合`c`语言语法的是（ <span class="fragment fade-right blue">`c`</span> ）:
+						<ol style="list-style-type: lower-alpha">
+							<li>`int 10/5`</li>
+							<li>`x*y=4`</li>
+							<li>`a=b=c`</li>
+							<li>`x=5 mod 3`</li>
+						</ol>						
+					</p>	
+					</script>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+					<p>
+						6、`int n=5; n-=n*n;`,则变量`n`的值是：（ <span class="fragment fade-right blue">`c`</span> ）:
+						<ol style="list-style-type: lower-alpha">
+							<li>`0`</li>
+							<li>`25`</li>
+							<li>`-20`</li>
+							<li>`-15`</li>
+						</ol>						
+					</p>	
+					</script>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+					<p>
+						7、对于`scanf`，以下说法正确的是：（ <span class="fragment fade-right blue">`d`</span> ）:
+						<ol style="list-style-type: lower-alpha">
+							<li>输入项可以为一实型常量,如`scanf("%f",3.5)`</li>
+							<li>只有格式控制,没有输入项,也能进行正确输入,如`scanf("a=%d,b=%d");`</li>
+							<li>当输入一个实型数据时,格式控制部分应规定小数点后的位数,如`scanf ("%4.2f",&f);`</li>
+							<li>当输入数据时,必须指明变量的地址,如`scanf("%f",&f);`</li>
+						</ol>						
+					</p>	
+					</script>
+				</section>
+			
+			</section>
 		</div>
 	</div>
 
@@ -1082,6 +1250,9 @@ int main()
 					src: 'js/reveal.js-3.7.0/plugin/highlight/highlight.js',
 					async: true,
 					callback: function () {
+						hljs.configure({
+							tabReplace:'   '
+						});
 						hljs.initHighlightingOnLoad();
 					}
 				},
