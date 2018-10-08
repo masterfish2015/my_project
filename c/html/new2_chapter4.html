@@ -46,6 +46,86 @@
 				<h2>选择结构程序设计</h2>
 			</section>
 
+      <section>
+        <h2>本章主要内容</h2>
+        <ol>
+          <li class="fragment fade-left">关系运算和逻辑运算</li>
+          <li class="fragment fade-left"><code>?:</code>语句</li>
+          <li class="fragment fade-left"><code>if</code>语句</li>
+          <li class="fragment fade-left"><code>switch</code>语句</li>          
+        </ol>
+      </section>
+
+      <section>
+        <section>
+          <h2>4.1 选择结构和条件判断</h2>
+          <p>在<code>C</code>语言中，选择结构有两种形式：</p>
+          <ol>
+            <li class="fragment highlight-blue">二元判断<code>if</code></li>
+            <li class="fragment highlight-green">多选择判断<code>switch</code></li>
+          </ol>
+          <img src="images/conditions.png" alt="">
+        </section>
+      </section>
+
+      <section>
+        <section>
+          <h2>4.2 关系运算</h2>
+        </section>
+
+        <section>
+          <h3>4.2.1 关系运算符及其优先次序</h3>
+          <table border="1" style="width:100%">
+            <tr>
+              <th>运算符</th>
+              <th>意义</th>
+              <th>优先级</th>
+            </tr>
+            <tr>
+              <td><code>&lt;</code></td>
+              <td>小于</td>
+              <td>高</td>
+            </tr>
+            <tr>
+              <td><code>&lt;=</code></td>
+              <td>小于等于</td>
+              <td>高</td>
+            </tr>
+            <tr>
+              <td><code>&gt;</code></td>
+              <td>大于</td>
+              <td>高</td>
+            </tr>
+            <tr>
+              <td><code>&gt;=</code></td>
+              <td>大于等于</td>
+              <td>高</td>
+            </tr>
+            <tr>
+              <td><code>==</code></td>
+              <td>等于</td>
+              <td>低</td>
+            </tr>
+            <tr>
+              <td><code>!=</code></td>
+              <td>不等于</td>
+              <td>低</td>
+            </tr>
+          </table>
+          <p>关系运算的结果是<b class="red">假</b>(<code>false</code>，C里面用<code>0</code>表示)，或<b class="green">真</b>(<code>true</code>，C里面用 <code>1</code>表示)。</p>
+          <p>关系运算的优先级是低于算术运算，高于赋值运算</p>
+          <pre><code class="c" data-trim>
+            int a , b, c;
+            a = b > c + 1; //先算c+1, 然后是 >, 然后是 =
+          </code></pre>
+          <p>相同等级的关系运算符，结合律是从左到右。</p>
+          <p>注意：不能使用连续的关系运算表示区间：</p>
+          <pre><code class="c" data-trim>
+          int a = -3;
+          if ( -6 < a < -2 )...; 
+          </code></pre>
+        </section>
+      </section>
 			
 		</div>
 	</div>

@@ -14,9 +14,9 @@ p{
   text-align: left;
 }
 
-.reveal table th, td{
-  border: 1px solid;
-  font-size: 20px;
+.reveal table th, .reveal table td{
+  border: 2px solid;
+  font-size: 22px;
 }
 
 .reveal table td{
