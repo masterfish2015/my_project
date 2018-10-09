@@ -274,18 +274,14 @@ int main()
 				</section>
 
 				<section data-markdown>
-						<script type="text/template">
-							### 3.2.5 各数据类型占内存的空间以及范围
-							参见课本（P45 表3.2）、（P48 表3.3）、（P50 表3.4）
-							```c
+					<script type="text/template">
+						<h3> 3.2.5 各数据类型占内存空间及范围</h3>
+						<p>参见课本（P45 表3.2）、（P48 表3.3）、（P50 表3.4）</p>
+						```c
 #include "stdio.h"
-
 int main()
-{
-  signed char a = 65;
-  int b = -32;
-  float c = 3.14;
-  double d = 6.18;
+{ signed char a = 65;  int b = -32;
+  float c = 3.14;  double d = 6.18;
   printf("size of char = %lu \n", sizeof(a));
   printf("size of int = %lu \n", sizeof(b));
   printf("size of float = %lu \n", sizeof(c));
@@ -294,17 +290,16 @@ int main()
   a = a*a*a;
   printf("a*a*a = %d\n", a);
   return 0;
-}
-							```
-							```bash
+}						```
+						```bash
 size of char = 1
 size of int = 4
 size of float = 4
 size of double = 8
 a*a*a = -63
-							```
-						</script>
-					</section>
+						```
+					</script>
+				</section>
 			</section>
 
 			<section>
@@ -612,11 +607,8 @@ int main()
 						<li class="fragment fade-right">控制语句：完成一定的控制功能：
 							<ul>
 								<li class="fragment fade-right">`if()...else...`</li>
-								<li class="fragment fade-right">`for()...`</li>
-								<li class="fragment fade-right">`while()...`</li>
-								<li class="fragment fade-right">`do...while()`</li>
-								<li class="fragment fade-right">`continue`</li>
-								<li class="fragment fade-right">`break`</li>
+								<li class="fragment fade-right">`for()...,while()...,do...while()`</li>
+								<li class="fragment fade-right">`continue,break`</li>
 								<li class="fragment fade-right">`switch`</li>
 								<li class="fragment fade-right">`return`</li>
 								<li class="fragment fade-right">`goto`</li>
@@ -655,7 +647,7 @@ int main()
 						<ul>							
 							<li class="fragment fade-right">赋值过程中的类型转换：
 								<ul>
-										<li class="fragment fade-right">两边类型一致，直接赋值：<br>
+										<li class="fragment fade-right">两边类型一致，直接赋值：
 											`int i ; i = 234; `
 										</li>
 										<li class="fragment fade-right">浮点赋值给整数，浮点会被取整，小数点后的被去掉：<br>
@@ -797,24 +789,21 @@ int main()
 				</section>
 
 				<section data-markdown>
-					<script type="text/template">					
-					### 3.5.4 `getc`函数
-						
+					<script type="text/template">
+					### 3.5.4 `getc`函数						
 					- 原型：`int getc( FILE *stream )`
-					- 目的： 从输入设备（标准输入设备，即键盘，是stdin）输入一个字符
+					- 目的： 从输入设备（标准输入设备，即键盘`stdin`）输入一个字符
 					- 返回：如果成功，返回输入字符的ASCII码，否则返回`EOF`。
 							
-					示例：
 					```c
-	#include "stdio.h"
-			
-	int main()
-	{
-		char c;
-		c = getc(stdin);
-		printf("%c\n", c);
-		return 0;
-	}
+#include "stdio.h"		
+int main()
+{
+	char c;
+	c = getc(stdin);
+	printf("%c\n", c);
+	return 0;
+}
 					```
 					输出：
 					```bash
@@ -890,7 +879,6 @@ int main()
 					- 返回：如果成功，返回非负整数，否则返回`EOF`(`-1`)。
 					- `format`是格式化字符串，包括`普通字符+占位字符+格式字符`，见后面介绍
 								
-					示例：
 					```c
 #include "stdio.h"
 
@@ -903,7 +891,6 @@ int main()
 	return 0;
 }
 					```
-					输出：
 					```bash
 						input a, b = 3,5
 						3 + 5 = 8
@@ -1007,10 +994,9 @@ int main()
 
 				<section data-markdown>
 					<script type="text/template">
-					### `format`字符串的组成：
-					- `占位字符`:表示这个位置在输出(输入)的时候会被后面的变量或表达式的结果来替代，可用的占位字符用`%`来表示，包括:						
-						- `%c`(字符)，`%s`(字符串)，						
-						- `%p`(指针地址类型)，
+					### `format`字符串的组成：			
+					- `%c`(字符)，`%s`(字符串)，
+					- `%p`(指针地址类型)，
 
 					```c
 #include "stdio.h"
