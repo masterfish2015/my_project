@@ -20,7 +20,7 @@
 	<!-- Theme used for syntax highlighting of code -->
 	<link rel="stylesheet" href="js/reveal.js-3.7.0/lib/css/xcode.css">
 
-	<link rel="stylesheet" href="css/nstyle3.css">
+	<link rel="stylesheet" href="css/nstyle4.css">
 	<!-- Printing and PDF exports -->
 	<script>
 		var link = document.createElement( 'link' );
@@ -33,6 +33,14 @@
 	<!--[if lt IE 9]>
 		<script src="lib/js/html5shiv.js"></script>
 		<![endif]-->
+	<script type="text/x-mathjax-config">
+	  MathJax.Hub.Config({
+		extensions: ["tex2jax.js"],
+		jax: ["input/TeX","output/HTML-CSS"],
+		tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+	  });
+	</script>
+	<script src="js/mathjax/MathJax.js"></script>
 </head>
 
 <body>
@@ -70,7 +78,7 @@
 
       <section>
         <section>
-          <h2>4.2 关系运算</h2>
+          <h2>4.2 关系运算和逻辑运算</h2>
         </section>
 
         <section>
@@ -113,10 +121,19 @@
             </tr>
           </table>
           <p>关系运算的结果是<b class="red">假</b>(<code>false</code>，C里面用<code>0</code>表示)，或<b class="green">真</b>(<code>true</code>，C里面用 <code>1</code>表示)。</p>
-          <p>关系运算的优先级是低于算术运算，高于赋值运算</p>
+		  <p>注意区别：
+		  <ul>
+		  <li>当判断是否真假时，<code>0</code>表示假，<code>!0</code>(非<code>0</code>)为真；</li>
+		  <li>当计算结果是真假时，C里面用<code>0</code>表示假，<code>1</code>表示真。</li>
+		  </ul>
+          </p>
+        </section>
+		
+		<section>
+			<p>关系运算的优先级是低于算术运算，高于赋值运算</p>
           <pre><code class="c" data-trim>
-            int a , b, c;
-            a = b > c + 1; //先算c+1, 然后是 >, 然后是 =
+int a , b, c;
+a = b > c + 1; //先算c+1, 然后是 >, 然后是 =
           </code></pre>
           <p>相同等级的关系运算符，结合律是从左到右。</p>
           <p>注意：不能使用连续的关系运算表示区间：</p>
@@ -124,15 +141,146 @@
           int a = -3;
           if ( -6 < a < -2 )...; 
           </code></pre>
-        </section>
-      </section>
+		  <p>这里<code>-6 < a </code>得到<b class="red">真</b>即<code>1</code>，随即<code> 1 < -2</code>的结果是<b class="red">假</b>，和原来的结果不符合，这需要使用下面的逻辑运算符。</p>
+		</section>
+		
+		<section>
+			<h3>4.2.2 逻辑运算</h3>
+			<table class="fragment fade-up">
+				<thead>
+					<tr>
+						<th style="font-size:4px;"></th>
+						<th width="10%">含义</th>
+						<th width="20%">举例</th>
+						<th>说明</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td><code>&&</code></td>
+						<td>逻辑与</td>
+						<td><code>-1 &lt; x && x &lt; 5</code></td>
+						<td><code>&&</code>左边和右边的表达式都为真(非<code>0</code>)时，结果为真(<code>1</code>)，否则结果为假(<code>0</code>)；注意，当左边表达式为假(<code>0</code>)，则会触发<b class="red">短路效应</b>，不会计算右边表达式，直接返回假(<code>0</code>)。</td>
+					</tr>
+					<tr>
+						<td><code>||</code></td>
+						<td>逻辑或</td>
+						<td><code>-1 &gt; x && x &gt; 5</code></td>
+						<td><code>||</code>左边和右边的表达式都为假(<code>0</code>)时，结果为假(<code>0</code>)，否则结果为真(<code>1</code>)；注意，当左边表达式为真(非<code>0</code>)，则会触发<b class="red">短路效应</b>，不会计算右边表达式，直接返回真(<code>1</code>)。</td>
+					</tr>
+					<tr>
+						<td><code>!</code></td>
+						<td>逻辑非</td>
+						<td><code>! (-1 &gt; x) </code></td>
+						<td>表达式为假(<code>0</code>)时，结果为真(<code>1</code>)，否则结果为假(<code>0</code>)。</td>
+					</tr>
+				</tbody>
+			</table>
+			<p class="fragment fade-left">多种运算符的优先顺序是：<code>! &gt; 算数运算符 &gt; 关系运算符 &gt; && , || &gt; 赋值运算符</code> </p>
+			<pre class="fragment fade-right"><code class="c" data-trim>
+			int a, b;
+			...
+			b = a &lt; 3 && !a +3 &gt; -4;
+			</code></pre>
+		</section>
+		
+		<section>
+			<h3>几种逻辑组合</h3>
+			<ul>
+				<li class="fragment fade-left">数学上的：$-3 \lt x \lt -1$，对应c代码：<code>-3 &lt; x && x &lt; -1</code></li>
+				<li class="fragment fade-left">数学上的：$-3 \gt x 或 x \gt -1$，对应c代码：<code>-3 &gt; x || x &gt; -1</code></li>
+				<li class="fragment fade-left"><code>x == 0</code> 等效于 <code>!x</code></li>
+				<li class="fragment fade-left"><code>x != 0</code> 等效于 <code>x</code></li>
+				<li class="fragment fade-left">在<code>c99</code>里，引入了新的数据类型：布尔类型，请参见P96</li>
+			</ul>
+		</section>
+		</section>
+		
+		<section>
+			<section>
+				<h2>4.3 二元判断选择结构</h2>
+			</section>
+			
+			<section>
+				<h3>4.3.1 条件运算符和条件表达式</h3>
+				<p>语法：</p>
+				<pre><code class="c" data-trim>
+				表达式1 ? 表达式2 : 表达式3
+				</code></pre>
+				<p>意义：判断表达式1的真假，若为真，则结果是表达式2，否则是表达式3</p>
+				<p>例子：</p>
+				<pre><code class="c" data-trim>
+				max = a &gt; b ? a: b;
+				</code></pre>
+			</section>
+			
+			<section>
+				<h3>4.3.2 <code>if...else...</code>语句</h3>
+				<p>语法：</p>
+				<pre><code class="c" data-trim>
+				if (表达式) 语句1; else 语句2;
+				</code></pre>
+				<p>意义：判断表达式的真假，若为真，则执行语句1，否则执行语句2</p>
+				<pre><code class="c" data-trim>
+				if ( a &gt; b ) max = a; else max = b; 
+				//更加好的写法，采用缩进：
+				if ( a &gt; b )
+					max = a;
+				else
+					max = b;
+				//如果判断分支有多个语句，则需要用{}来组成复合语句
+				if ( a &gt; b ){
+					max = a;
+					printf("%d\n", max);
+				}
+				else{
+					max = b;
+					printf("%d\n", max);
+				}
+				</code></pre>
+			</section>
+			
+			<section>
+				<h3><code>if</code>的嵌套</h3>
+				<h4>例：输入一个年份，判断是否闰年。</h4>
+				<img src="images/fig2-32.png" />
+			</section>
+			
+			<section>
+				<h3><code>if</code>的嵌套</h3>
+				<h4>例：输入一个年份，判断是否闰年。</h4>
+				<pre ><code class="c" data-trim>
+				#include "stdio.h"
+				int main()
+				{
+					int year, flag=0;
+					printf("input year:");
+					scanf("%d", &year);
+					if ( year % 400 == 0) 
+						flag = 1;
+					else if (year % 4 == 0) 
+						flag = 0;
+					else if (year % 100 == 0)
+						flag = 0;
+					else 
+						flag = 1;
+					if( flag == 1 ) 
+						printf("%d is leap year.\n", year);
+					else
+						printf("%d is NOT leap year.\n", year);
+					return 0;
+				}
+				</code></pre>
+				<img src="images/fig2-32.png" style="position:absolute;left:550px;top:160px;"/>
+			</section>
+		</section>     
 			
 		</div>
 	</div>
 
 	<script src="js/reveal.js-3.7.0/lib/js/head.min.js"></script>
 	<script src="js/reveal.js-3.7.0/js/reveal.js"></script>
-
+	
 	<script>
 		// More info https://github.com/hakimel/reveal.js#configuration
 		Reveal.initialize({
