@@ -12,6 +12,10 @@
   
 }
 
+.reveal pre code{
+	max-height: 500px;
+}
+
 code{
   background: lightcyan;
   color: blue;
@@ -55,3 +59,8 @@ p{
 }
 
 tr:nth-child(even) {background-color: #f2f2f2;}
+
+.box {
+	border: solid 1px blue;
+	background-color: lightyellow;
+}

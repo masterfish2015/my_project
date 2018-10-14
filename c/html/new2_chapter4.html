@@ -273,8 +273,129 @@ a = b > c + 1; //先算c+1, 然后是 >, 然后是 =
 				</code></pre>
 				<img src="images/fig2-32.png" style="position:absolute;left:550px;top:160px;"/>
 			</section>
-		</section>     
 			
+			<section>
+				<h4><code>if</code>语句的注意事项</h4>
+				<ul>
+					<li class="fragment fade-left">整个<code>if</code>语句可以写在多行上，也可以写在一行上，如：
+					<pre><code class="c" data-trim style="font-size:24px;">
+					if(x>0) y=1; else y=-1;
+					</code></pre>
+					每一个分支的语句都必须以<code>;</code>结尾。
+					</li>
+					<li class="fragment fade-left">整个<code>if</code>语句是一个整体，每个<code>if</code>或<code>else</code>内的语句称为分支语句，<code>else</code>部分可以省略。
+					</li>
+					<li class="fragment fade-left"><code>if</code>的分支语句只能是一条语句，如果有多行，则必须用<code>{ }</code>把多行包括起来，如：
+					<pre><code class="c" data-trim  style="font-size:24px;">
+					if(x>0){
+						y=1;
+						printf("xxx\n");
+					}else{
+						y=0;
+						printf("yyy\n");
+					}
+					</code></pre>
+					</li>
+				</ul>
+			</section>
+			
+			<section>
+				<h4><code>if</code>语句的注意事项</h4>
+				<ul>
+					<li class="fragment fade-left">嵌套的<code>if</code>中的<code>else</code>语句是匹配离它最近的上一个<code>if</code>语句，所以，如果你不想这样匹配，可以用<code>{ }</code>来确定范围，如：
+					<pre><code class="c" data-trim style="font-size:24px;">
+					if(x>y)
+						if(x>z)
+							printf("xxx\n");
+						else
+							printf("这里匹配上一个if\n");
+					</code></pre>
+					</li>
+					<li class="fragment fade-left">改变如下，：
+					<pre><code class="c" data-trim style="font-size:24px;">
+					if(x>y){
+						if(x>z)
+							printf("xxx\n");
+					}else
+						printf("这里匹配第一个if\n");
+					</code></pre>
+					</li>
+				</ul>
+			</section>
+		</section>     
+		
+		<section>
+			<section>
+				<h2>4.4 <code>switch</code>实现多分支选择</h2>
+				<img src="images/conditions.png"/>
+			</section>
+			
+			<section>
+				<h3>4.4.1 <code>switch</code>的语法</h3>
+				<pre class="fragment fade-up" ><code class="c" 
+				data-trim >
+				switch(表达式){
+					case 整型常数1: 
+						语句11; 
+						语句12;
+						...
+						[break;]
+					case 整型常数2: 
+						语句21;	
+						语句22;
+						...
+						[break;]
+					...
+					default:
+						语句n1;	
+						语句n2;
+						...
+				}
+				</code></pre>
+				<div class="fragment fade-right box" 
+				style="position:absolute;left:450px; top: 120px;">
+					<ul>
+						<li class="fragment fade-right"><code>switch</code>后面的表达式结果必须是<b class="red">整数类型（包括字符类型）</b></li>
+						<li class="fragment fade-right"><code>case</code>后面的表达式结果必须是<b class="red">整数常量（包括字符常量）</b></li>
+						<li class="fragment fade-right"><code>case</code>后面的语句依次执行，当本分支执行完后，会自动执行下面<code>case</code>的分支语句，若不希望这样而是直接跳出<code>switch</code>结构，则可以加上<code>break;</code>语句。</li>
+						<li class="fragment fade-right"><code>default</code>及其语句可以<b class="blue">省略</b></li>
+					</ul>
+				</div>
+			</section>
+			
+			<section>
+				<h3>4.4.2 示例：菜单处理程序</h3>
+				<pre><code class="c" data-trim>
+				#include"stdio.h"
+				void show_menu();
+				void add(int, int);
+				void sub(int, int);
+				int main(void)
+				{
+					int a=3, b=7, selection;
+					int quit_flag = 0;
+					while(quit_flag!=0){
+						show_menu();
+						selection=getchar();
+						switch(selection){
+							case 'a': case 'A':
+								add(a,b);
+								break;
+							case 'b': case 'B':
+								sub(a,b);
+								break;
+							case 'q': case 'Q':
+								quit_flag = 1;
+								break;
+							default:
+								putchar('\a');
+						}
+					}
+					return 0;
+				}
+				</code></pre>
+			</section>
+		</section>
 		</div>
 	</div>
 
