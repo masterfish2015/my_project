@@ -1,6 +1,9 @@
 .reveal h1,.reveal h2,.reveal h3,.reveal h4, .reveal li, .reveal p{
 	font-family: "STXinwei","黑体",serif;
 }
+.reveal h4{
+	text-align: left;
+}
 
 .reveal td{
 	font-family: "黑体",serif;
@@ -63,4 +66,8 @@ tr:nth-child(even) {background-color: #f2f2f2;}
 .box {
 	border: solid 1px blue;
 	background-color: lightyellow;
+}
+
+.sel{
+	list-style-type: upper-alpha;
 }

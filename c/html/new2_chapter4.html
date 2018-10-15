@@ -376,7 +376,7 @@ a = b > c + 1; //先算c+1, 然后是 >, 然后是 =
 					int quit_flag = 0;
 					while(quit_flag!=0){
 						show_menu();
-						selection=getchar();
+					 	selection=getchar();
 						switch(selection){
 							case 'a': case 'A':
 								add(a,b);
@@ -394,7 +394,213 @@ a = b > c + 1; //先算c+1, 然后是 >, 然后是 =
 					return 0;
 				}
 				</code></pre>
+			</section>			
+		</section>
+		
+		<section>
+			<section>
+				<h2>4.5 综合实例</h2>
 			</section>
+			
+			<section>
+				<h3>4.5.1 判断某一年是否是闰年</h3>
+				<img class="fragment fade-right" src="images/fig2_1.png" style="position:absolute; top:100px; left: 10px; height: 600px;max-height:560px;"/>
+				<pre class="fragment fade-left" style="position:absolute;top:100px;left:470px;width:500px;"><code class="c" data-trim >
+				#include "stdio.h"
+				int main()
+				{	
+					int year;
+					puts("input year:");
+					scanf("%d", &year);
+					if ( year % 400 == 0 || 
+						(year % 4 ==0 && year % 100 != 0) )
+							printf("%d is leap year.\n", year);
+					else
+						puts("%d is NOT leap year.\n");
+					
+					return 0;
+				}
+				</code></pre>
+			</section>
+			
+			<section>
+				<h3>4.5.2 求$ax^2+bx+c=0$的根。</h3>
+				<img class="fragment fade-right" src="images/fig2-t-4-8.png" style="position:absolute; top:100px; left: 10px; height: 600px;max-height:560px;"/>
+				<pre class="fragment fade-left" style="position:absolute;top:100px;left:400px;width:550px;"><code class="c" data-trim >
+				#include "stdio.h"
+				#include "math.h"
+				#define DELTA 1e-10
+				int main()
+				{	
+					double a,b,c,d, x1, x2;
+					puts("input a,b,c:");
+					scanf("%lf,%lf,%lf", &a,&b,&c);
+					d = b*b-4*a*c;
+					if ( d >= 0){
+						if (fabs(d) < DELTA) {
+							x1 = x2 = -b/(2*a);
+							printf("x1=x2=%.2lf\n", x1);
+						}
+						else{
+							double dd = sqrt(d);
+							x1 = (-b+dd)/(2*a);
+							x2 = (-b-dd)/(2*a);
+							printf("x1=%.2lf,x2=%.2lf\n",x1,x2);
+						}
+					}
+					else
+						puts("there is no REAL roots.\n");
+					
+					return 0;
+				}
+				</code></pre>
+				<img class = "fragment fade-left" src="images/demo4_1.gif" style="width:100%"/>
+			</section>
+			
+			<section>
+				<h3>4.5.3 输入一个字母表示的成绩(A,B,C,D,E)，转换为数值成绩。</h3>				
+				<pre class="fragment fade-left" style="height:400px;"><code class="c" data-trim >
+				#include "stdio.h"				
+				int main()
+				{	
+					char s; int score;
+					puts("input s(A,B,C,D,E):");
+					s = getchar();
+					switch(s){
+						case 'A': case 'a': score = 90; break;
+						case 'B': case 'b': score = 80; break;
+						case 'C': case 'c': score = 70; break;
+						case 'D': case 'd': score = 60; break;
+						case 'E': case 'e': score = 50; break;
+						default:
+							puts("input error.\n");
+							return -1;
+					}
+					printf("score = %d\n",score);
+					return 0;
+				}
+				</code></pre>
+				<img class = "fragment fade-left" src="images/demo4_2.gif" style="width:100%; position:absolute; top: 400px; left: 10px;"/>
+			</section>
+		</section>
+		
+		<section>
+			<section>
+				<h2>测试和作业</h2>
+			</section>
+			
+			<section>
+				<h3>一、单项选择题</h3>
+			</section>
+			
+			<section>
+				<h4>1. 若有说明语句： <code>int w=1,x=2,y=3,z=4; </code> 则表达试<code>w>x?w:z>y?z:x</code>的值是（ ）</h4>
+				<ol>
+					<li  class="sel">4 <b class="fragment fade-left red">√</b></li>
+					<li  class="sel">3</li>
+					<li  class="sel">2</li>
+					<li  class="sel">1</li>
+				</ol>
+			</section>
+			
+			<section>
+				<h4>2. 设<code>int x,y,t;</code>，则执行语句：<code>x=y=3;t=++x||++y;</code>后，<code>y</code>的值为（ ）</h4>
+				<ol>
+					<li  class="sel">不定值 </li>
+					<li  class="sel">4</li>
+					<li  class="sel">-3</li>
+					<li  class="sel">3 <b class="fragment fade-left red">√</b></li>
+				</ol>
+			</section>
+			
+			<section>
+				<h4>3. 若执行以下程序时从键盘上输入9，则输出结果是：（ ）</h4>
+				<ol>
+					<li  class="sel">11 </li>
+					<li  class="sel">10 <b class="fragment fade-left red">√</b></li>
+					<li  class="sel">9</li>
+					<li  class="sel">8 </li>
+				</ol>
+				<pre ><code class="c" data-trim >
+				#include "stdio.h"				
+				int main()
+				{	
+					int n;
+					scanf("％d",&n);
+					if(n++<10)
+						printf("%d\n",n);
+					else 
+						printf("%d\n",n--);
+					return 0;
+				}
+				</code></pre>
+			</section>
+			
+			<section>
+				<h4>4. 设变量<code>char c;</code>，能正确的判断出<code>c</code>为小写字母的表达式是（ ）</h4>
+				<ol>
+					<li  class="sel"><code>'a'<=c<='z'</code></li>
+					<li  class="sel"><code>'a'<=c || c<='z'</code></li>
+					<li  class="sel"><code>'a'<=c and c<='z'</code></li>
+					<li  class="sel"><code>'a'<=c && c<='z'</code> <b class="fragment fade-left red">√</b></li>
+				</ol>
+			</section>
+			
+			<section>
+				<h4>5. 下面关于<code>if...else</code>正确的是（ ）</h4>
+				<ol>
+					<li  class="sel"><code>if</code>中的判断表达式以<code>0</code>为假，以<code>1</code>为真；</li>
+					<li  class="sel"><code>if</code> 的判断表达式为真时，其执行的语句只能有一条，如果多条，要放入<code>{}</code>中组成复合语句 <b class="fragment fade-left red">√</b></li>
+					<li>多层嵌套的<code>if...else</code> 语句，<code>else</code>语句和离它最近的下一个<code>if</code>语句相匹配</li>
+					<li><code>if</code>和<code>else</code>语句必须要适当的缩进，否则编译错误</li>
+				</ol>
+			</section>
+			
+			<section>
+				<h3>二， 程序填空</h3>
+			</section>
+			
+			<section>
+				<h4>1. 求分段函数：
+				$$
+				Y = \begin{cases}
+				-1, (x \lt 0) \\
+				0, (x = 0) \\
+				1, (x \gt 0) 
+				\end{cases}
+				$$
+				</h4>
+				<pre ><code class="c" data-trim >
+				__(1)__				
+				int main()
+				{	
+					__(2)__;
+					printf("input x:");
+					scanf("％d",__(3)__);
+					if(x<0)
+						y=-1;
+					else
+						if (x==0)
+							y=0;
+						else
+							__(4)__;
+					printf("f(%d)=%d\n", __(5)__);
+					return 0;
+				}
+				</code></pre>
+				<p class="fragment fade-right" style="position:absolute;top:230px;left:150px;"><code>#include"stdio.h"</code></p>
+				<p class="fragment fade-right" style="position:absolute;top:300px;left:250px;"><code>int x,y</code></p>
+				<p class="fragment fade-right" style="position:absolute;top:360px;left:320px;"><code>&x</code></p>
+				<p class="fragment fade-right" style="position:absolute;top:540px;left:250px;"><code>y=-1</code></p>
+				<p class="fragment fade-right" style="position:absolute;top:560px;left:450px;"><code>x,y</code></p>
+			</section>
+			
+			<section>
+				<h3>课后作业</h3>
+				<p>课本 P112, 5;</p>
+				<p>课本 P113, 11;</p>
+			</section>
+		
 		</section>
 		</div>
 	</div>
