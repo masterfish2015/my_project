@@ -80,7 +80,7 @@
   color: blue !important;
 }
 .syntaxhighlighter .keyword {
-  color: #006699 !important;
+  color: blue !important;
 }
 .syntaxhighlighter .preprocessor {
   color: gray !important;
@@ -89,21 +89,21 @@
   color: #aa7700 !important;
 }
 .syntaxhighlighter .value {
-  color: #009900 !important;
+  color: blue !important;
 }
 .syntaxhighlighter .functions {
   color: #ff1493 !important;
 }
 .syntaxhighlighter .constants {
-  color: #0066cc !important;
+  color: blue !important;
 }
 .syntaxhighlighter .script {
   font-weight: bold !important;
-  color: #006699 !important;
+  color: #96dd3b !important;
   background-color: none !important;
 }
 .syntaxhighlighter .color1, .syntaxhighlighter .color1 a {
-  color: gray !important;
+  color: red !important;
 }
 .syntaxhighlighter .color2, .syntaxhighlighter .color2 a {
   color: #ff1493 !important;
