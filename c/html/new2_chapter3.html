@@ -795,7 +795,7 @@ int main()
 {
 	char c;
 	c = getc(stdin);
-	printf("%c\n", c);
+	printf("%c\n", c); //putchar(c);
 	return 0;
 }
 					```
@@ -823,7 +823,7 @@ int main()
 {
 	char c;
 	c = getchar();
-	printf("%c\n", c);
+	printf("%c\n", c);  //putchar(c);
 	return 0;
 }
 					```
@@ -852,7 +852,7 @@ int main()
 {
 	char name[100];
 	fgets(name, 100, stdin);
-	printf("Hello, %s\n",name);
+	printf("Hello, %s\n",name); //puts(name);
 	return 0;
 }
 					```
@@ -1192,9 +1192,131 @@ int main()
 			
 			</section>
 			<section>
-				<h2>课后作业</h2>
-				<p>P81, 第4题</p>
-				<p>P82, 第7题</p>
+				<section>
+					<h2>课后作业</h2>
+					<p>P81, 第4题</p>
+					<p>P82, 第7题</p>
+				</section>
+				
+				<section>
+					<h3>4.分析下面的程序。</h3>
+					<pre><code class="c" data-trim>
+					#include"stdio.h"
+					int main()
+					{
+						char c1,c2;
+						c1=97, c2=98;
+						printf("c1=%c, c2=%c\n",c1,c2);
+						printf("c1=%d, c2=%d\n",c1,c2);
+						return 0;
+					}
+					</code></pre>
+					<p class="fragment fade-left">
+						[1].运行时会输出什么信息？为什么？
+						</p>
+						<pre class="fragment fade-left"><code class="c" data-trim>
+						c1=a,c2=b
+						c1=97,c2=98
+						</code></pre>
+					<p class="fragment fade-left"><code>%c</code>会显示字符，<code>%d</code>显示字符的ASCII码值。</p>
+				</section>
+				
+				<section>
+					<h3>4.分析下面的程序。</h3>
+					<p>						[2.1].若改为下面的程序，运行时会输出什么信息？ 为什么？
+					</p>
+					<pre><code class="c" data-trim>
+					#include"stdio.h"
+					int main()
+					{
+						char c1,c2;
+						c1=197, c2=198;
+						printf("c1=%c, c2=%c\n",c1,c2);
+						printf("c1=%d, c2=%d\n",c1,c2);
+						return 0;
+					}
+					</code></pre>					
+					<pre class="fragment fade-left"><code class="c" data-trim>
+					c1=？,c2=？
+					c1=-59,c2=-58
+					</code></pre>
+					<p class="fragment fade-left">注意缺省情况下，<code>char</code>是有符号的，其范围是<code>-128~127</code>，当超过<code>127</code>时，会产生溢出，成为负数，显示字符会出问题。</p>
+				</section>
+				
+				<section>
+					<h3>4.分析下面的程序。</h3>
+					<p>						[2.2].当修改为下面的程序，运行时会输出什么信息？ 为什么？
+					</p>
+					<pre><code class="c" data-trim>
+					#include"stdio.h"
+					int main()
+					{
+						unsigned char c1,c2;
+						c1=197, c2=198;
+						printf("c1=%c, c2=%c\n",c1,c2);
+						printf("c1=%d, c2=%d\n",c1,c2);
+						return 0;
+					}
+					</code></pre>					
+					<pre class="fragment fade-left"><code class="c" data-trim>
+					c1=？,c2=？
+					c1=197,c2=198
+					</code></pre>
+					<p class="fragment fade-left"><code>unsigned char</code>其范围是<code>0~255</code>，所以第二行显示的整数是正常的，在不同的系统字库下，扩展的字符集ASCII码<code>128~255</code>可能显示，也可能不显示</p>
+				</section>
+				
+				<section>
+					<h3>4.分析下面的程序。</h3>
+					<p>						[3].当修改为下面的程序，运行时会输出什么信息？ 为什么？
+					</p>
+					<pre><code class="c" data-trim>
+					#include"stdio.h"
+					int main()
+					{
+						int c1,c2;
+						c1=97, c2=98;
+						printf("c1=%c, c2=%c\n",c1,c2);
+						printf("c1=%d, c2=%d\n",c1,c2);
+						return 0;
+					}
+					</code></pre>					
+					<pre class="fragment fade-left"><code class="c" data-trim>
+					c1=a,c2=b
+					c1=97,c2=98
+					</code></pre>
+					<p class="fragment fade-left"><code>char</code>本质是整数，所以改为<code>int</code>也是OK的，而且可以保证其范围不会出问题。</p>
+				</section>
+				
+				<section>
+					<h3>7. （题目略）</h3>
+					<pre><code class="c" data-trim>
+					#include"stdio.h"
+					#define PI 3.14
+					int main()
+					{
+						double r,h;
+						double perimeter; //周长
+						double area; //面积
+						double sphere_surface_area;
+						double sphere_volume;
+						double cylinder_volume;
+						
+						puts("input r,h:");
+						scanf("%lf%lf", &r, &h);
+						perimeter=2*PI*r;
+						area=PI*r*r;
+						sphere_surface_area=4*area;
+						sphere_volume=4.0/3*PI*r*r*r;
+						cylinder_volume=area*h;
+						printf("perimeter=%.2lf\n",perimeter);
+						printf("area=%.2lf\n",area);
+						printf("sphere_surface_area=%.2lf\n",sphere_surface_area);
+						printf("sphere_volume=%.2lf\n",sphere_volume);
+						printf("cylinder_volume=%.2lf\n",cylinder_volume);
+						return 0;
+					}
+					</code></pre>
+				</section>
 			</section>
 		</div>
 	</div>

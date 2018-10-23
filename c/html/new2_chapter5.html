@@ -949,9 +949,9 @@ int main()
 	int rabbits;
 	for(rabbits=0,rabbits<=35; rabbits++;)
 		chicken = 35 - rabbits;
-		if( 94 = rabbits*4+chicken*2 )
+		{if( 94 = rabbits*4+chicken*2 )
 			printf("rabbits=%f, chicken=%f\n", 
-			rabbits, chicken);
+			rabbits, chicken);}
 	return 0;
 }						</pre>
 						<table>
@@ -968,8 +968,8 @@ int main()
 								<td><code>rabbits=0</code>后面应该是<code>;</code></td>
 							</tr>
 							<tr class="fragment fade-left">
-								<td>6,9</td>
-								<td>少了<code>{}</code></td>
+								<td>7</td>
+								<td><code>{</code>应该在行尾</td>
 							</tr>
 							<tr class="fragment fade-left">
 								<td>7</td>
