@@ -332,6 +332,243 @@ int main()
 					<h3>6.2.2 二维数组程序举例</h3>
 				</section>
 				
+				<section>
+					<h4>小游戏：消消看</h4>
+				</section>
+				
+				<section>
+					<pre class="brush:c;" data-trim> 
+#include "stdio.h"
+#include "stdlib.h"
+
+//下面是游戏所在的状态 
+#define STATE_START 0
+#define STATE_RUNNING_1 1
+#define STATE_RUNNING_2 2
+#define STATE_WIN 3
+#define STATE_LOSE 4
+
+//行列数目 
+#define ROW_COUNT 4
+#define COL_COUNT 3
+//最大的尝试次数
+#define LIFE_COUNT 5 
+
+int main(int argc, char *argv[]) 
+{
+	int field[ROW_COUNT][COL_COUNT] = {0},  //保存每个行列单元的数值 
+		mask[ROW_COUNT][COL_COUNT]={0};     //是否打开盖子，0：没打开，1：打开 
+	
+	int state = STATE_START,  //游戏状态 
+		quit=0,  	//退出状态 
+		row, col,  	//行、列坐标 
+		value,  	//要消除的数值的个数 
+		lifes,		//能够尝试的次数 
+		first_row=0, first_col=0, 
+		second_row=0, second_col=0;  //第1、2次选中的坐标 </pre>
+				</section>
+				
+				<section>
+					<pre class="brush:c;" data-trim> 
+	do{
+		switch(state){
+			case STATE_START: //游戏初始化
+				{
+					value = ROW_COUNT*COL_COUNT/2; //有多少个要消去的值 
+					lifes = LIFE_COUNT; //能够尝试的次数 
+					
+					//初始化数据
+					//首先是把1--value的数随机放在 ROW * COL 的 二维阵列中 
+					for(int i =1; i&lt;=value; i++){
+						for(int j=0;j&lt;2;j++)
+							do{
+								row=rand()%ROW_COUNT; 
+								col=rand()%COL_COUNT;
+								if(field[row][col]==0){
+									field[row][col]=i;
+									break;
+								}
+							}while(1);
+					}
+					//初始化mask数组为0，表示盖上盖子，当其值为1时，表示打开盖子 
+					for(row=0;row&lt;ROW_COUNT;row++)
+						for(col=0;col&lt;COL_COUNT;col++)
+							mask[row][col]=0;
+				}
+				first_row=0, first_col=0, second_row=0, second_col=0;
+				state = STATE_RUNNING_1; //初始化完后就转为开始状态 
+				break; </pre>
+				</section>
+				
+				<section>
+					<pre class="brush:c;" data-trim>
+			case STATE_RUNNING_1: //游戏开始
+				//绘制游戏区域
+				system("cls");
+				for(int i=1;i&lt;=COL_COUNT;i++)
+					printf("\t%d", i);
+				printf("\n---------------------------------");
+				printf("lifes = %4d | left value = %4d \n", lifes, value);
+				
+				for(row=1;row&lt;=ROW_COUNT;row++){
+					printf("%d\t", row);
+					for(col=1; col&lt;=COL_COUNT;col++){
+						if(mask[row-1][col-1]!=0)  //如果已经打开盖子，就显示该单元内的数值 
+							printf("%d\t",field[row-1][col-1]);
+						else
+							printf("*\t");			//否则显示* 
+					}
+					printf("\n");
+				}
+				printf("输入命令(q:退出, o:打开当前单元):"); 
+				</pre>
+				</section>
+				
+				<section>
+					<pre class="brush:c;" data-trim>
+				int sel=getchar();while(getchar()!='\n'); //消除输入缓冲
+				switch(sel){
+					case 'q': case 'Q': quit=1; break; //退出程序 
+					case 'o': case 'O': //打开一个盖子
+					{	do{
+							printf("输入行、列坐标: row,col:"); 
+							scanf("%d,%d",&row,&col);	
+							while(getchar()!='\n'); //消除输入缓冲
+							
+							if((row&gt;0 && row&lt;=ROW_COUNT) 
+							&& (col&gt;0 && col&lt;=COL_COUNT)){
+								//判断是否已经打开，或者已经消去
+								if(field[row-1][col-1]&gt;0){
+									first_row = row; 
+									first_col = col;
+									//绘制游戏区域 
+									system("cls");
+									for(int i=1;i&lt;=COL_COUNT;i++)
+										printf("\t%d", i);
+									printf("\n----------------------------------");
+									printf("lifes = %4d | left value = %4d \n", lifes, value);</pre>
+				</section>
+				
+				<section>
+					<pre class="brush:c;" data-trim>
+							for(row=1;row&lt;=ROW_COUNT;row++){
+								printf("%d\t", row);
+								for(col=1; col&lt;=COL_COUNT;col++){
+									//判断条件：如果该单元已经打开盖子，
+									//或者是第一次打开 
+									if(mask[row-1][col-1]!=0 || 
+									(row==first_row && col==first_col))
+										printf("%d\t",field[row-1][col-1]);
+									else
+										printf("*\t");
+								}
+								printf("\n");
+							}
+							break; //break do..while
+						}
+					else
+						printf("错误，该单元已经打开或消除.\n");	
+				}else{
+					printf("行、列坐标输入错误。\n");
+				}
+			}while(1);							
+			state = STATE_RUNNING_2;
+		} 
+		break; //end of switch case 'o' and 'O'
+}
+break; //end of case STATE_RUNNING_1
+								</pre>
+				</section>
+				
+				<section>
+					<pre class="brush:c;" data-trim>
+			case STATE_RUNNING_2: 
+				{	do{
+						printf("输入第二个单元的行、列: row,col:"); 
+						scanf("%d,%d",&row,&col);	
+						while(getchar()!='\n'); //消除输入缓冲
+						if((row&gt;0 && row&lt;=ROW_COUNT) && (col&gt;0 && col&lt;=COL_COUNT)) {
+							//判断是否已经打开，或者已经消去
+							if((field[row-1][col-1]&gt;0) && 
+							(row!=first_row || col!=first_col)){
+								second_row=row; second_col=col;
+								//绘制游戏区域 
+								for(int i=1;i&lt;=COL_COUNT;i++)
+									printf("\t%d", i);
+								printf("\n---------------------------------- ");
+								printf("lifes = %4d | left value = %4d \n", lifes, value);
+								for(row=1;row&lt;=ROW_COUNT;row++){
+									printf("%d\t", row);
+									for(col=1; col&lt;=COL_COUNT;col++){
+										if(  (mask[row-1][col-1]!=0 ) || 
+											(row==first_row && col==first_col) || 
+											(row==second_row && col==second_col) 
+										  )
+											printf("%d\t",field[row-1][col-1]);
+										else
+											printf("*\t");
+									}
+									printf("\n");
+								}</pre>
+				</section>
+				
+				<section>
+					<pre class="brush:c;" data-trim>
+						if(field[first_row-1][first_col-1]==
+						   field[second_row-1][second_col-1]){
+							// 
+							printf("\n成功消去一个. 按 &lt;enter&gt; 继续. \n");
+							while(getchar()!='\n');
+							
+							field[first_row-1][first_col-1]=0; mask[first_row-1][first_col-1]=1;
+							field[second_row-1][second_col-1]=0; mask[second_row-1][second_col-1]=1;
+							value --; 
+							state = (value==0)?STATE_WIN:STATE_RUNNING_1;
+						}
+						else{
+							printf("\n不匹配。按&lt;enter&gt; 继续。\n");
+							while(getchar()!='\n');
+							
+							lifes--;
+							state = (lifes==0)?STATE_LOSE:STATE_RUNNING_1;
+						}
+						break;
+					}
+					else
+						printf("该单元已经打开或消除。\n");	
+				}else
+						printf("输入行、列坐标错误。\n");
+			}while(1);
+		}break;</pre>
+				</section>
+				
+				<section>
+					<pre class="brush:c;" data-trim>
+			case STATE_WIN:
+				system("cls"); printf("YOU WIN!!!!!\n");
+				
+				printf("play again?(y/n)"); 
+				sel = getchar(); while(getchar()!='\n');
+				
+				switch(sel){
+					case 'y': case 'Y': state=STATE_START; break; 
+					default : quit = 1; break;							
+				}break;
+			case STATE_LOSE: 
+				system("cls"); printf("YOU LOSE!!!!!\n");
+				
+				printf("play again?(y/n)"); 
+				sel = getchar(); while(getchar()!='\n');
+				
+				switch(sel){
+					case 'y': case 'Y': state=STATE_START; break; 
+					default : quit = 1; break;							
+				}break;
+		} //end of switch state
+	}while(quit==0);
+	return 0;
+}</pre>
+				</section>
 			</section>
 		</div>
 	</div>

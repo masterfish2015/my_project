@@ -770,7 +770,7 @@ int main(void)
 #include "stdio.h"
 int main(void)
 {	
-	int i,sum;
+	int i,sum=0;
 	for(i=1;i<6;i++)sum+=i;
 		printf("%d\n",sum);
 	return 0;
@@ -806,7 +806,7 @@ int main(void)
 							<ol>
 								<li class="sel">1</li>
 								<li class="sel">3 0</li>
-								<li class="sel fragment highlight-red">1-2</li>
+								<li class="sel fragment highlight-red">1-1</li>
 								<li class="sel">死循环</li>
 							</ol>
 						</div>
@@ -839,7 +839,7 @@ int main(void)
 						<ol>
 							<li class="fragment fade-left"><code>int n;</code></li>
 							<li class="fragment fade-left"><code>1000</code></li>
-							<li class="fragment fade-left"><code>(n%10)/10</code></li>
+							<li class="fragment fade-left"><code>(n%100)/10</code></li>
 							<li class="fragment fade-left"><code>a*a*a+b*b*b+c*c*c</code></li>
 							<li class="fragment fade-left"><code>%d</code></li>
 						</ol>
