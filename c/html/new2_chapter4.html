@@ -597,10 +597,56 @@ a = b > c + 1; //先算c+1, 然后是 >, 然后是 =
 			
 			<section>
 				<h3>课后作业</h3>
-				<p>课本 P112, 5;</p>
-				<p>课本 P113, 11;</p>
+				<p>课本 P107, 5;</p>
+				<p>课本 P109, 11;</p>
 			</section>
-		
+			
+			<section>
+				<h4>5, 从键盘输入一个小于1000的正数，要求输出其平方根（只整数部分），要求检查是否小于1000的正数，若不是，则重新输入。</h4>
+				<pre class="fragment fade-left"><code class="c" data-trim>
+				#include "stdio.h"
+				#include "math.h"
+				#define MAX 1000
+				int main()
+				{
+					double x,y;
+					printf("input positive number :");
+					scanf("%lf",&x);
+					if(x>=1000){
+						printf("must < %d, input again:", MAX);
+						scanf("%lf",&x);
+						if(x>=1000)
+							return -1;
+					}
+					y = sqrt(x);
+					printf("the result = %.0lf\n", y);
+					return 0;
+				}
+				</code>
+				</pre>
+			</section>
+			
+			<section>
+				<h4>11, 输入4个整数，按从小到大的顺序排列。</h4>
+				<pre class="fragment fade-left"><code class="c" data-trim>
+				#include "stdio.h"
+				int main()
+				{
+					int a,b,c,d,t;
+					printf("input 4 integer:"); 
+					scanf("%d%d%d%d",&a,&b,&c,&d);
+					
+					if(a>b){t=a;a=b;b=t;}
+					if(b>c){t=b;b=c;c=t;}
+					if(c>d){t=c;c=d;d=t;}
+					if(a>b){t=a;a=b;b=t;}
+					if(b>c){t=b;b=c;c=t;}
+					if(a>b){t=a;a=b;b=t;}
+					printf("%d,%d,%d,%d\n",a,b,c,d);
+				}
+				</code>
+				</pre>
+			</section>
 		</section>
 		</div>
 	</div>
