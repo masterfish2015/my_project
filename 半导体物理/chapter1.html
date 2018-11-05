@@ -1,0 +1,565 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+
+	<title>半导体物理 第一章</title>
+
+	<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+	<meta name="author" content="ldc">
+
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<link rel="stylesheet" href="js/reveal.js-3.7.0/css/reveal.css">
+	<link rel="stylesheet" href="js/reveal.js-3.7.0/css/theme/sky.css" id="theme">
+
+	<script type="text/javascript" src="js/SyntaxHighlighter/scripts/shCore.js"></script>
+	<script type="text/javascript" src="js/SyntaxHighlighter/scripts/shBrushCpp.js"></script>
+	<link type="text/css" rel="stylesheet" href="js/SyntaxHighlighter/styles/shCoreDefault.css"/>
+	<link type="text/css" rel="stylesheet" href="js/SyntaxHighlighter/styles/shThemeDefault.css"/>
+	<script type="text/javascript">SyntaxHighlighter.all();</script>
+
+	<link rel="stylesheet" href="css/style1.css">
+	<!-- Printing and PDF exports -->
+	<script>
+		var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'js/reveal.js-3.7.0/css/print/pdf.css' : 'js/reveal.js-3.7.0/css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+			
+		var ldc;
+	</script>
+
+	<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	<script type="text/x-mathjax-config">
+	  MathJax.Hub.Config({
+		extensions: ["tex2jax.js"],
+		jax: ["input/TeX","output/HTML-CSS"],
+		tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+	  });
+	</script>
+	<script src="js/mathjax/MathJax.js"></script>
+	<script src="js/three/three.js"></script>
+	<script src="js/three/examples/js/controls/OrbitControls.js"></script>
+</head>
+
+<body>
+
+	<div class="reveal">
+
+		<!-- Any section element inside of this container is displayed as a slide -->
+		<div class="slides">
+			<section>
+				<section>
+					<h1>第一章 半导体中的电子状态</h1>
+				</section>
+			</section>
+			
+			<section>
+				<section>
+					<h2>1.1 半导体的晶格结构和结合性质</h2>
+				</section>
+				
+				<section>
+					<h3>1.1.1 金刚石型结构和共价键</h3>
+					<p class="fragment fade-left">硅(Si)和锗（Ge）等元素都是属于<b class="fragment highlight-red">IV族</b>元素，原子的最外层都具有<b class="fragment highlight-blue">4</b>个价电子。</p>
+					<p class="fragment fade-left">大量的硅(Si)和锗（Ge）组成的晶体靠共价键结合，形成<b class="fragment highlight-red">金刚石结构</b>的晶格，<button type="button" onclick="show_3d1();">如下</button>。</p>
+					<div id="金刚石结构" style="width:800px;height:460px;"></div>
+					<script>
+						var ldc={};
+						function show_3d1(){
+							let div = document.getElementById("金刚石结构");
+							let pos_info=div.getBoundingClientRect();
+							let height=pos_info.height;
+							let width =pos_info.width;
+							ldc["3d1"] ={};
+							ldc["3d1"].scene=new THREE.Scene();
+							ldc["3d1"].camera=new THREE.OrthographicCamera(-2,2,2,-2, -0.01, 10);
+							ldc["3d1"].camera.position.z=2;
+							
+							ldc["3d1"].renderer=new THREE.WebGLRenderer();
+							ldc["3d1"].renderer.setSize(height, height);
+							
+							ldc["3d1"].controls = new THREE.OrbitControls( ldc["3d1"].camera );
+							
+							let ball_pos=[
+								[-0.5,-0.5,-0.5], //1
+								[ 0.5,-0.5,-0.5], //2
+								[ 0.5, 0.5,-0.5], //3
+								[-0.5, 0.5,-0.5], //4
+								[-0.5,-0.5, 0.5], //5
+								[ 0.5,-0.5, 0.5], //6
+								[ 0.5, 0.5, 0.5], //7
+								[-0.5, 0.5, 0.5], //8
+								[ 0.0, 0.0,-0.5], //9
+								[ 0.0, 0.0, 0.5], //10
+								[ 0.0,-0.5, 0.0], //11
+								[ 0.5, 0.0, 0.0], //12
+								[ 0.0, 0.5, 0.0], //13
+								[-0.5, 0.0, 0.0], //14
+								[-0.25,-0.25,-0.25], //15
+								[-0.25, 0.25, 0.25], //16
+								[ 0.25,-0.25, 0.25], //17
+								[ 0.25, 0.25,-0.25]  //18
+								];
+							let material = new THREE.MeshNormalMaterial();
+							for(let i=0;i<18;i++){
+								let ball_geo = 
+									new THREE.SphereGeometry(0.1, 32, 32);
+								let mesh = 
+									new THREE.Mesh( ball_geo, material );
+								mesh.position.x=ball_pos[i][0];
+								mesh.position.y=ball_pos[i][1];
+								mesh.position.z=ball_pos[i][2];
+								ldc["3d1"].scene.add( mesh );
+							}
+							let cube_geo=new THREE.BoxGeometry( 1, 1, 1 );
+							let wire_mat=new THREE.MeshBasicMaterial({color:0xff0000, wireframe:true});
+							let cube_mesh=new THREE.Mesh(cube_geo,wire_mat);
+							ldc["3d1"].scene.add( cube_mesh );
+							
+							div.appendChild(ldc["3d1"].renderer.domElement);
+							
+							animate1();
+						}
+						
+						function animate1(){
+							requestAnimationFrame( animate1 );
+							ldc["3d1"].controls.update();
+							ldc["3d1"].renderer.render(
+								ldc["3d1"].scene, 
+								ldc["3d1"].camera);
+						}
+					</script>
+				</section>
+				
+				<section>
+					<h3>1.1.2 几个重要的术语：</h3>
+					<ul>
+						<li class="fragment fade-right"><b class="red">晶胞</b>：构成晶体的最基本的几何单元称为晶胞（Unit Cell）</li>
+						<li class="fragment fade-right"><b class="red">晶格</b>：晶体内部原子排列的具体形式一般称之为晶格(lattice)</li>
+						<li class="fragment fade-right"><b class="red">晶面</b>：晶体在自发生长过程中可发育出由不同取向的平面所组成的多面体外形，这些多面体外形中的平面称为晶面（crystal face），晶面可以用晶向指数来表示。</li>
+						<li class="fragment fade-right"><b class="red">晶向</b>：在晶体中,任意两个原子之间的连线称为原子列,其所指方向称为晶向。</li>
+						<li class="fragment fade-right"><b class="red">晶向指数</b>：标志晶向的一组数称为为晶向指数，一般用米勒（Miller）指数，其定义：
+							<ol>
+								<li>确定该晶面在晶胞坐标轴上的截距(依序为x, y, z轴)</li>
+								<li>取这些值的倒数（默认∞的倒数为0）</li>
+								<li>将这些倒数化作最简整数比</li>
+								<li>用括号将它们括起</li>
+							</ol>
+						</li>
+						<li class="fragment fade-right"><b class="red">共价键</b>：相同核外能量的两个价电子（原子最外层的电子），由于自旋方向不同而结合在一起，形成共价键。</li>
+					</ul>
+				</section>
+				
+				<section>
+					<img src="images/miller.png" style="height:700px;"/>
+				</section>
+				
+				<section>
+					<h3>由此可以得到：</h3>
+					<ul>
+						<li class="fragment fade-right">不同的晶向的晶面上的原子的密度不同，最密集的是[111]</li>
+						<li class="fragment fade-right">金刚石结构的原胞每个顶端原子是和周围8个原胞公用，面中心的原子和2个原胞公用，而内心的4个原子都是属于1个原胞，所以1个原胞的平均的原子数目$n$是：
+						$$ n = 8\times\frac{1}{8}+6\times\frac{1}{2}+4=8$$</li>
+						<li class="fragment fade-right">由此，已知硅的晶格常数$a_{Si}=0.54nm$, 则硅的密度$p_{Si}$（每立方厘米的原子数）是：
+						$ p_{Si}  = \frac{8}{a_{Si}^3}=\frac{8}{(0.54\times10^{-7})^3}=5.08\times10^{22}(/cm^3)$</li>
+						<li class="fragment fade-right">同理，已知锗的晶格常数$a_{Ge}=0.57nm$, 则锗的密度$p_{Ge}$（每立方厘米的原子数）是：
+						$ p_{Ge}  = \frac{8}{a_{Ge}^3}=\frac{8}{(0.57\times10^{-7})^3}=4.32\times10^{22}(/cm^3)$</li>
+					</ul>
+				</section>
+				
+				<section>
+					<h3>1.1.3 其他类型的半导体材料的原胞结构</h3>
+					<table>
+						<tr>
+							<td><b class="red">闪锌矿结构</b>：和金刚石结构类似，只是体内的原子由另一种原子组成，比如III-V族化合物，如砷化镓等</td>
+							<td><b class="red">纤锌矿结构</b>：II-VI族化合物，如硫化锌等
+								
+							</td>
+						</tr>
+						<tr>
+							<td><img src="images/闪锌矿.png" /></td>
+							<td>
+								<img src="images/纤锌矿.png" />
+							</td>
+						</tr>
+					</table>
+				</section>
+			</section>
+			
+			<section>
+				<section>
+					<h2>1.2 半导体的电子状态和能带</h2>
+				</section>
+				
+				<section>
+					<h3>1.2.1 原子的能级和晶体的能带</h3>
+					<h4>1.2.1.1 单一原子的能级</h4>
+					<dl class="mydl">
+						<dt class="fragment fade-up">能级（Energy level）</dt>
+						<dd class="fragment fade-up">能级理论是一种解释原子核外电子运动轨道的一种理论。它认为电子只能在特定的、分立的轨道上运动，各个轨道上的电子具有分立的能量，这些能量值即为能级。电子可以在不同的轨道间发生跃迁，<b class="red">电子吸收能量可以从低能级跃迁到高能级</b>或者<b class="blue">从高能级跃迁到低能级从而辐射出光子</b>。氢原子的能级可以由它的光谱显示出来。<br>
+						<img src="images/能级和轨道之间的简化关系.png" />
+						</dd>					
+					</dl>					
+				</section>
+				
+				<section>
+					<h4>1.2.1.2 晶体中的电子共有化运动</h4>
+					<dl class="mydl">
+						<dt class="fragment fade-up">电子共有化运动（the electron common movement）</dt>
+						<dd class="fragment fade-up">晶体中不同原子相似壳层的交叠，使电子可以不仅仅局限在单一原子上，而是可以在整个晶体中相似能量壳层中运动，称为电子共有化运动。<br>
+						<img src="images/电子共有化运动.png" />
+						</dd>					
+					</dl>					
+				</section>
+				
+				<section>
+					<h4>1.2.1.3 能级分裂</h4>
+					<dl class="mydl">
+						<dt class="fragment fade-up">能级分裂（Energy level splitting）</dt>
+						<dd class="fragment fade-up">两个或多个原子靠近时，同一能级壳层的核外电子的能级会产生微小的扰动（同时受到两个或多个原子核的影响），从而产生能级分裂，一般情况下，有n个原子，就会产生n个分裂。<br>
+						<img src="images/能级分裂.png" />
+						</dd>					
+					</dl>					
+				</section>
+				
+				<section>
+					<h4>1.2.1.4 形成能带</h4>
+					<dl class="mydl">
+						<dt class="fragment fade-up">能带（Energy band）</dt>
+						<dd class="fragment fade-up">当大量原子共存于内部结构规律的晶体中时，密集的能级就变成了带状，即能带。能带结构有两种，一种时电子存在的能带，称为<b class="red">允带</b>，不能存在的称为<b class="red">禁带</b>。<br>
+						<img src="images/能带.png" />
+						</dd>
+					</dl>
+				</section>
+				
+				<section>
+					<h3>1.2.2 半导体中电子的状态和能带的解析</h3>
+				</section>
+				
+				<section>
+					<h4>1.2.2.0 波动方程</h3>
+					<p>电子的一维非相对论的薛定谔波动方程为：
+$$\frac{\hbar^2}{2m}\cdot\frac{\partial^2\Psi(x,t)}{\partial x^2}+V(x)\Psi(x,t)=j\hbar\frac{\partial\Psi(x,t)}{\partial t}  \tag{r2-6}$$</p>
+					<p class="fragment fade-up">$\Psi(x,t)$为<b class="red">波函数</b>，其意义是$|\Psi(x,t)|^2$为电子出现在位置$x$的<b class="red">概率</b>，$|\Psi(x,t)|^2=|\Psi(x)|^2$与时间无关；</p>
+					<p class="fragment fade-up">$V(x)$为与时间无关的<b class="red">势函数</b>，和位置有关，和处于不同状态有关，比如自由电子的势函数$V(x)=0$，而晶体中则电子处于不同的势函数中；</p>
+					<p class="fragment fade-up">$m$是电子的质量，$j=\sqrt{-1}, \hbar=\frac{h}{2\pi}, h=6.625\times 10^{-34}J\cdot s$ 是普朗克常量。</p>
+				</section>
+				
+				<section>
+					<h4>波动方程的分离</h4>
+					<p>我们主要考虑电子出现的概率，所以采用变量分离的技巧，将薛定谔波动方程改写为：</p>
+					<p class="fragment fade-left" >
+						$$\Psi(x,t)=\psi(x)\phi(t) \tag{r2-7}$$
+					</p>
+					<p class="fragment fade-left" style="font-size:24px;">代入并转换为：
+					$$ \frac{-\hbar^2}{2m}\cdot\frac{1}{\psi(x)}\cdot\frac{\partial^2\psi(x)}{\partial x^2}+V(x)=j\hbar\cdot\frac{1}{\phi(t)}\cdot\frac{\partial\phi(t)}{\partial t}=E \tag{r2-9} $$，其中$E$为电子的总能量。
+					</p>
+					<p class="fragment fade-left" style="font-size:24px;" >由此，可以得到薛定谔方程与时间无关的方程：
+					$$ \frac{-\hbar^2}{2m}\cdot\frac{1}{\psi(x)}\cdot\frac{\partial^2\psi(x)}{\partial x^2}+V(x)=E \tag{r2-12} $$</p>
+					<p class="fragment fade-left" style="font-size:24px;" >或：
+					$$\frac{\partial^2\psi(x)}{\partial x^2}+\frac{2m}{\hbar^2}(E-V(x))\psi(x)=0 \tag{r2-13} $$，其解要根据边界条件来求。</p>
+				</section>
+				
+				<section>
+					<p class="fragment fade-left" style="font-size:24px;">
+					$$ \frac{-\hbar^2}{2m}\cdot\frac{1}{\psi(x)}\cdot\frac{\partial^2\psi(x)}{\partial x^2}+V(x)=j\hbar\cdot\frac{1}{\phi(t)}\cdot\frac{\partial\phi(t)}{\partial t}=E \tag{r2-9} $$
+					</p>
+					<p class="fragment fade-left" style="font-size:24px;">与时间$t$有关的部分，$$j\hbar\cdot\frac{1}{\phi(t)}\cdot\frac{\partial\phi(t)}{\partial t}=E \tag{r2-10} $$
+					</p>
+					<p class="fragment fade-left" style="font-size:24px;">上面的方程的解是：
+					$$ \phi(t)=e^{-j\frac{E}{\hbar}t}$$，这是角频率$\omega=\frac{E}{\hbar}$的正弦波。</p>
+				</section>
+				
+				<section>
+					<h4>边界条件<h4>
+					<p class="fragment fade-left">由于$|\Psi(x,t)|^2$为电子出现在位置$x$的<b class="red">概率</b>，$|\Psi(x,t)|^2=|\psi(x)|^2$，在整个$x$范围（整个时间），电子必然会在某处存在，所以：
+					$$ \int_{-\infty}^{+\infty}|\psi(x)|^2 dx = 1 \tag{r2-18} $$, 这个可以来决定波函数的各项系数。
+					</p>
+				</section>
+				
+				<section>
+					<h4>1.2.2.1 自由电子</h4>
+					<p class="fragment fade-left"  style="font-size:24px;">
+						$$\Psi(x,t)=\psi(x)\phi(t) \tag{r2-7}$$
+					</p>
+					<p class="fragment fade-left"  style="font-size:24px;">与时间无关的波动方程：$\psi(x)$的方程：
+					$$\frac{\partial^2\psi(x)}{\partial x^2}+\frac{2m}{\hbar^2}(E-V(x))\psi(x)=0 \tag{r2-13} $$</p>
+					<p class="fragment fade-left"  style="font-size:24px;">因为：$V(x)=0$，所以(r2-13)可以化简为：
+					$$\frac{\partial^2\psi(x)}{\partial x^2}+\frac{2mE}{\hbar^2}\psi(x)=0 \tag{r2-19} $$
+					</p>
+					<p class="fragment fade-left" style="font-size:24px;">解该微分方程：$$\psi(x)=A\exp\left[\frac{jx\sqrt{2mE}}{\hbar}\right]+B\exp\left[\frac{-jx\sqrt{2mE}}{\hbar}\right] \tag{r2-20} $$
+					</p>
+				</section>
+					
+				<section>
+					<h4>1.2.2.1 自由电子</h4>
+					<p class="fragment fade-left"  style="font-size:24px;">
+						$$\Psi(x,t)=\psi(x)\phi(t) \tag{r2-7}$$
+					</p>
+					<p class="fragment fade-left" >与时间有关的波动方程：$\phi(t)$的方程：$$j\hbar\cdot\frac{1}{\phi(t)}\cdot\frac{\partial\phi(t)}{\partial t}=E \tag{r2-10} $$</p>
+					<p class="fragment fade-left" >其解为：$\phi(t)=e^{-j\frac{E}{\hbar}t}$	</p>
+					<p class="fragment fade-left"  style="font-size:22px;">综合可得：$$\Psi(x,t)=A\exp\left[\frac{j}{\hbar}\left(x\sqrt{2mE}-Et\right)\right]+B\exp\left[\frac{-j}{\hbar}\left(x\sqrt{2mE}+Et\right)\right] \tag{r2-22}$$</p>
+				</section>
+				
+				<section>
+					<p class="fragment fade-left"  style="font-size:22px;">$$\Psi(x,t)=A\exp\left[\frac{j}{\hbar}\left(x\sqrt{2mE}-Et\right)\right]+B\exp\left[\frac{-j}{\hbar}\left(x\sqrt{2mE}+Et\right)\right] \tag{r2-22}$$</p>
+					<p class="fragment fade-left"  style="font-size:24px;">
+					上面的解，系数为$A$的部分为沿$+x$传播的行波，系数为$B$的部分为沿$-x$传播的行波，若是明确知道电子沿某个方向传播，可以进行简化，比如，若确定沿$+x$方向传播，可以化简为：
+					$$\Psi(x,t)=A\exp[j(kx-\omega t)]=A\exp(jkx)\exp(-j\omega t) \tag{r2-23}$$，其中$k=\frac{2\pi}{\lambda}=\frac{\sqrt{2mE}}{\hbar}$为波数，波数的方向与波的方向一致, $\omega=\frac{E}{\hbar}=2\pi\nu$为角频率, $\nu$是波的频率。</p>
+					<p class="fragment fade-left" style="font-size:24px;">
+					由欧拉公式可以得到：
+					$$ \Psi(x,t)=A\sin(kx-\omega t) $$
+					</p>
+					<p class="fragment fade-left" style="font-size:24px;">
+					从上面的公式可以得到自由电子的能量：$E=\frac{\hbar^2k^2}{2m}$，可见，当$k$是连续变化的，$E$也是连续的。
+					</p>
+					<div class="flex fragment fade-left" style="height: 200px;">
+						<img src="images/行波3.gif" />
+						<img src="images/e_k.png" />
+					</div>
+				</section>
+				
+				<section>
+					<h4>1.2.2.2 晶体结构中电子的波动方程</h4>
+					<h5 class="fragment fade-left">晶体中原子的势函数分布</h5>
+					<img class="fragment fade-left" src="images/晶体中的势函数分布.png" style="height:600px;"/>
+				</section>
+				
+				<section>
+					<p class="fragment fade-right">根据布洛赫数学定理，所有周期性变化的势函数的单电子波函数写为：
+					$$\psi(x)=u(x)e^{jkx} \tag{r3-1}$$，其中$k$为运动常量，$u(x)$为以$(a+b)$为周期的函数。
+					</p>
+					<p class="fragment fade-right">根据前面的波动方程：
+					$$\Psi(x,t)=\psi(x)\phi(t)=u(x)e^{jkx}\cdot e^{-j\frac{E}{\hbar}t} \tag{r3-2}$$
+					</p>
+					<p class="fragment fade-right">或：
+					$$\Psi(x,t)=\psi(x)\phi(t)=u(x)e^{j(kx-\frac{E}{\hbar}t)} \tag{r3-3}$$，这里$k$即为波数。
+					</p>
+				</section>
+				
+				<section>
+					<img src="images/晶体中的势函数分布1.png"/>
+					<p class="fragment fade-right" style="font-size:24px;">如上图，设$(0\lt x \lt a)$区域I内的$V(x)=0$, 对式(r3-1)二阶求导：
+					$$\psi(x)=u(x)e^{jkx} \tag{r3-1}$$, 代入与时间无关的波动方程:
+					$$ \frac{d^2\psi(x)}{d x^2}+\frac{2m}{\hbar^2}(E-V(x))\psi(x)=0 \tag{r2-13} $$，可以得到关系式：
+					$$
+					\frac{d^2u_1(x)}{d x^2}+2jk\frac{du_1(x)}{dx}-(k^2-\alpha^2)u_1(x)=0 \tag{r3-4}
+					$$，其中,$u_1(x)$为区域I中波函数的振幅，参数$\alpha^2=\frac{2mE}{\hbar^2}$
+					</p>
+				</section>
+				
+				<section>
+					<img src="images/晶体中的势函数分布1.png" style="height:200px;"/>
+					<p class="fragment fade-right" style="font-size:24px;">如上图，设$(-b \lt x \lt 0)$区域II内的$V(x)=V_0$, 相同方法，可以得到关系式：
+					$$
+					\frac{d^2u_2(x)}{d x^2}+2jk\frac{du_2(x)}{dx}-(k^2-\alpha^2+\frac{2mV_0}{\hbar^2})u_2(x)=0 \tag{r3-6}
+					$$，其中,$u_2(x)$为区域II中波函数的振幅</p>
+					<p class="fragment fade-right" style="font-size:24px;">定义:$$\frac{2m}{\hbar^2}(E-V_0)=\alpha^2-\frac{2mV_0}{\hbar^2}=\beta^2 \tag{r3-7}$$，注意，一般情况下，$E \lt V_0$, 所以 $\beta$ 是虚数。
+					</p>
+					<p class="fragment fade-right" style="font-size:24px;">
+					$$
+					\frac{d^2u_2(x)}{d x^2}+2jk\frac{du_2(x)}{dx}-(k^2-\beta^2)u_2(x)=0 \tag{r3-8}
+					$$</p>
+				</section>
+				
+				<section>
+					<img src="images/晶体中的势函数分布1.png" style="height:200px;"/>
+					<p class="fragment fade-right" style="font-size:24px;">
+					方程(r3-4)的解为：
+					$$
+					u_1(x)=A\exp(j(\alpha-k)x)+B\exp(-j(\alpha+k)x), 0 \lt x \lt a 
+					\tag{r3-9}
+					$$</p>
+					<p class="fragment fade-right" style="font-size:24px;">
+					方程(r3-8)的解为：
+					$$
+					u_2(x)=C\exp(j(\beta-k)x)+D\exp(-j(\beta+k)x), -b \lt x \lt 0 
+					\tag{r3-10}
+					$$</p>
+					<p class="fragment fade-left" style="font-size:24px;">
+						应用边界连续条件：
+						<ol >
+							<li class="fragment fade-left" style="font-size:24px;">$u_1(0)=u_2(0)$</li>
+							<li class="fragment fade-left" style="font-size:24px;">$\left.\frac{du_1}{dx}\right|_{x=0}=\left.\frac{du_2}{dx}\right|_{x=0}$</li>
+							<li class="fragment fade-left" style="font-size:24px;">$u_1(a)=u_2(-b)$</li>
+							<li class="fragment fade-left" style="font-size:24px;">$\left.\frac{du_1}{dx}\right|_{x=a}=\left.\frac{du_2}{dx}\right|_{x=b}$</li>
+						</ol>
+					</p>
+				</section>
+				
+				<section>
+					<img src="images/晶体中的势函数分布1.png" style="height:200px;"/>
+					<p class="fragment fade-right" style="font-size:22px;">
+					联立上面的方程，可以求解出$A,B,C,D$四个系数，得到：
+					$$
+					\frac{-(\alpha^2+\beta^2)}{2\alpha\beta}\sin(\alpha \cdot a)\sin(\beta \cdot b)+\cos(\alpha \cdot a)\cos(\beta \cdot b)=\cos(k(a+b))
+					\tag{r3-19}
+					$$</p>
+					<p class="fragment fade-right" style="font-size:22px;">
+					这个方程将$k$与总能量$E$(通过$\alpha$)和势函数$V_0$(通过$\beta$)联系起来。</p>
+					<p class="fragment fade-right" style="font-size:22px;">
+					由于$\beta$为虚数，设$\beta=j\gamma$，这里$\gamma$为实数，式(r3-19)可以转换为：$$
+					\frac{\gamma^2-\alpha^2}{2\alpha\gamma}\sin(\alpha \cdot a)\sinh(\gamma \cdot b)+\cos(\alpha \cdot a)\cosh(\gamma \cdot b)=\cos(k(a+b))
+					\tag{r3-21}
+					$$</p>
+					<p class="fragment fade-right" style="font-size:22px;">
+					为方便图形求解，令$b \to 0, V_0 \to \infty$, 得到：
+					$$
+					P'\frac{\sin(\alpha \cdot a)}{\alpha \cdot a}+\cos(\alpha \cdot a)=\cos(ka) \tag{r3-24}
+					$$，其中$P'=\frac{mV_0ba}{\hbar^2}$
+					</p>
+				</section>
+				
+				<section>
+					<h4>1.2.2.2 $k$空间能带图</h4>
+					<img src="images/晶体中的势函数分布1.png" style="height:200px;"/>
+					<p style="font-size:22px;">
+					$$
+					f(\alpha\cdot a)=P'\frac{\sin(\alpha \cdot a)}{\alpha \cdot a}+\cos(\alpha \cdot a)=\cos(ka) \tag{r3-24}
+					$$，其中$P'=\frac{mV_0ba}{\hbar^2}$
+					</p>
+					<p class="fragment fade-right" style="font-size:22px;">
+					在上式中，$P'$为常数，$f(\alpha\cdot a)$的图像如下图所示：</p>					
+				</section>
+				
+				<section>
+					<div class="flex">
+						<img src="images/e_k2.png" />
+						<p style="font-size:14px; width: 360px;">
+						$$
+					f(\alpha\cdot a)=P'\frac{\sin(\alpha \cdot a)}{\alpha \cdot a}+\cos(\alpha \cdot a)=\cos(ka) \tag{r3-24}
+					$$，其中$P'=\frac{mV_0ba}{\hbar^2}$
+						</p>
+					</div>
+				</section>
+				
+				<section>
+					<p>$\alpha^2=\frac{2mE}{\hbar^2}$, $f(\alpha\cdot a)=P'\frac{\sin(\alpha \cdot a)}{\alpha \cdot a}+\cos(\alpha \cdot a)=\cos(ka)$</p>
+					<div class="flex">
+						<img src="images/e_k2.png" />
+						<img src="images/e_k3.png"/>
+					</div>
+				</section>
+				
+				<section>
+					<p>$f(\alpha\cdot a)=P'\frac{\sin(\alpha \cdot a)}{\alpha \cdot a}+\cos(\alpha \cdot a)=\cos(ka)$，由于$\cos(ka)=\cos(ka\pm 2n\pi)$，所以可以将曲线以$2n\pi$为周期进行平移，下图显示了在$\frac{-\pi}{a} \lt k \lt \frac{\pi}{a}$区间的$E-k$关系图，这个区间称为简约（第一）布里渊区，如课本所示，还有第2、3等布里渊区。</p>
+					<div class="flex">
+						<img src="images/布里渊区.png" />
+					</div>
+				</section>
+				
+				<section>
+					<h4>习题1：设$P'=8, a=4.5\mathring{A}$，试求$ka=\pi$时的禁带宽度。</h4>
+					<p>
+					$$
+					\cos(ka)=P'\frac{\sin(\alpha\cdot a)}{\alpha\cdot a}+\cos(\alpha\cdot a)
+					$$
+					</p>
+					<p>
+					$$
+					-1=8\frac{\sin(\alpha\cdot a)}{\alpha\cdot a}+\cos(\alpha\cdot a)
+					$$，当$ka=\pi$时，可以从图中看到，$\alpha_1 \cdot a=\sqrt{\frac{2mE_1}{\hbar^2}}=\pi $, 求出$E_1=2.972\times 10^{-19}J$, 用数值近似求解求出$1+8\frac{\sin(\alpha\cdot a)}{\alpha\cdot a}+\cos(\alpha\cdot a)=0$在$(\pi, 2\pi)$内的第二个解，得到$\alpha_2 \cdot a=\sqrt{\frac{2mE_2}{\hbar^2}}=5.141$, 求出$E_2=7.958\times 10^{-19}J$，于是禁带宽度为：
+					$E_g=E_2-E_1=4.986\times 10^{-19}J=3.12eV$
+					</p>
+				</section>
+				
+				<section>
+					<h3>1.2.3 导体、半导体、绝缘体</h3>
+					<p>能带结构可以解释固体中导体（没有能隙）、半导体（能隙 &lt; 3 eV)、绝缘体 (能隙 &gt; 3 eV) 三大类区别的由来。材料的导电性是由“传导带”中含有的电子数量决定。当电子从“价带”获得能量而跳跃至“传导带”时，在外电场的作用下，未填满的导带能带中的电子产生净电流，材料表现出导电性。</p>
+<p>
+一般常见的金属材料，因为其传导带与价带之间的“能隙”非常小，在室温下电子很容易获得能量而跳跃至传导带而导电，而绝缘材料则因为能隙很大（通常大于3电子伏特），电子很难跳跃至传导带，所以无法导电。一般半导体材料的能隙约为1至3电子伏特，介于导体和绝缘体之间。因此只要给予适当条件的能量激发，或是改变其能隙之间距，此材料就能导电。</p>
+				</section>
+			</section>
+			
+			<section>
+				<section>
+					<h2>1.3 半导体的电子运动和有效质量</h2>
+				</section>
+			</section>
+			
+			<section>
+				<section>
+					<h2>1.4 本征半导体的导电机构 空穴</h2>
+				</section>
+			</section>
+			
+			<section>
+				<section>
+					<h2>1.5 回旋共振</h2>
+				</section>
+			</section>
+			
+			<section>
+				<section>
+					<h2>1.6 硅和锗的能带结构</h2>
+				</section>
+			</section>
+			
+			<section>
+				<section>
+					<h2>1.7 III-V族化合物半导体的能带结构</h2>
+				</section>
+			</section>
+		</div>
+	</div>
+
+	<script src="js/reveal.js-3.7.0/lib/js/head.min.js"></script>
+	<script src="js/reveal.js-3.7.0/js/reveal.js"></script>
+	
+	<script>
+		// More info https://github.com/hakimel/reveal.js#configuration
+		Reveal.initialize({
+			controls: true,
+			progress: true,
+			history: true,
+			center: true,
+
+			transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+			// More info https://github.com/hakimel/reveal.js#dependencies
+			dependencies: [{
+					src: 'js/reveal.js-3.7.0/lib/js/classList.js',
+					condition: function () {
+						return !document.body.classList;
+					}
+				},
+				{
+					src: 'js/reveal.js-3.7.0/plugin/markdown/marked.js',
+					condition: function () {
+						return !!document.querySelector('[data-markdown]');
+					}
+				},
+				{
+					src: 'js/reveal.js-3.7.0/plugin/markdown/markdown.js',
+					condition: function () {
+						return !!document.querySelector('[data-markdown]');
+					}
+				},
+				{
+					src: 'js/reveal.js-3.7.0/plugin/search/search.js',
+					async: true
+				},
+				{
+					src: 'js/reveal.js-3.7.0/plugin/zoom-js/zoom.js',
+					async: true
+				},
+				{
+					src: 'js/reveal.js-3.7.0/plugin/notes/notes.js',
+					async: true
+				}
+			]
+		});
+	</script>
+
+</body>
+
+</html>

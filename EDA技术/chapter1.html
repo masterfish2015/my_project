@@ -1,0 +1,383 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+
+	<title>EDA技术 第一章</title>
+
+	<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+	<meta name="author" content="ldc">
+
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<link rel="stylesheet" href="js/reveal.js-3.7.0/css/reveal.css">
+	<link rel="stylesheet" href="js/reveal.js-3.7.0/css/theme/sky.css" id="theme">
+
+	<script type="text/javascript" src="js/SyntaxHighlighter/scripts/shCore.js"></script>
+	<script type="text/javascript" src="js/SyntaxHighlighter/scripts/shBrushCpp.js"></script>
+	<link type="text/css" rel="stylesheet" href="js/SyntaxHighlighter/styles/shCoreDefault.css"/>
+	<link type="text/css" rel="stylesheet" href="js/SyntaxHighlighter/styles/shThemeDefault.css"/>
+	<script type="text/javascript">SyntaxHighlighter.all();</script>
+
+	<link rel="stylesheet" href="css/style1.css">
+	<!-- Printing and PDF exports -->
+	<script>
+		var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'js/reveal.js-3.7.0/css/print/pdf.css' : 'js/reveal.js-3.7.0/css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+			
+		var ldc;
+	</script>
+
+	<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	<script type="text/x-mathjax-config">
+	  MathJax.Hub.Config({
+		extensions: ["tex2jax.js"],
+		jax: ["input/TeX","output/HTML-CSS"],
+		tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+	  });
+	</script>
+	<script src="js/mathjax/MathJax.js"></script>
+	<script src="js/three/three.js"></script>
+	<script src="js/three/examples/js/controls/OrbitControls.js"></script>
+</head>
+
+<body>
+
+	<div class="reveal">
+
+		<!-- Any section element inside of this container is displayed as a slide -->
+		<div class="slides">
+			<section>
+				<section>
+					<h1>第一章 EDA技术概述</h1>
+				</section>
+			</section>
+			
+			<section>
+				<section>
+					<h2>1.1 EDA技术及其发展</h2>
+					<p class="fragment far-left">EDA: Electronic design automation, 电子设计自动化, 是指利用计算机辅助设计（CAD）软件，来完成超大规模集成电路（VLSI）芯片的功能设计、综合、验证、物理设计（包括布局、布线、版图、设计规则检查等）等流程的设计方式。</p>
+				</section>
+				
+				<section>
+					<h3>1.1.1 EDA历史</h2>
+					<p class="fragment far-left">在电子设计自动化出现之前，设计人员必须手工完成集成电路的设计、布线等工作，这是因为当时所谓集成电路的复杂程度远不及现在。工业界开始使用几何学方法来制造用于电路光绘（photoplotter）的胶带。</p>
+					<p class="fragment far-left">到了1970年代中期，开发人应尝试将整个设计过程自动化，而不仅仅满足于自动完成掩膜草图。第一个电路布局、布线工具研发成功。设计自动化研讨会（Design Automation Conference）在这一时期被创立，旨在促进电子设计自动化的发展。</p>
+					<p class="fragment far-left">电子设计自动化发展的下一个重要阶段以卡弗尔·米德（Carver Mead）和琳·康维于1980年发表的论文《超大规模集成电路系统导论》（Introduction to VLSI Systems）为标志。这一篇具有重大意义的论文提出了通过编程语言来进行芯片设计的新思想。</p>
+				</section>
+				
+				<section>
+					<h3>1.1.1 EDA历史</h2>					
+					<p class="fragment far-left">从1981年开始，电子设计自动化逐渐开始商业化。Gateway设计自动化在1986年推出了一种硬件描述语言Verilog，这种语言在现在是最流行的高级抽象设计语言。1987年，在美国国防部的资助下，另一种硬件描述语言VHDL被创造出来。现代的电子设计自动化设计工具可以识别、读取不同类型的硬件描述。根据这些语言规范产生的各种仿真系统迅速被推出，使得设计人员可对设计的芯片进行直接仿真。后来，技术的发展更侧重于逻辑综合。</p>
+					<p class="fragment far-left">目前的数字集成电路的设计都比较模块化（参见集成电路设计、设计收敛（Design closure）和设计流（Design flow (EDA)））。半导体器件制造工艺需要标准化的设计描述，高抽象级的描述将被编译为信息单元（cell）的形式。设计人员在进行逻辑设计时尚无需考虑信息单元的具体硬件工艺。利用特定的集成电路制造工艺来实现硬件电路，信息单元就会实施预定义的逻辑或其他电子功能。半导体硬件厂商大多会为它们制造的元件提供“元件库”，并提供相应的标准化仿真模型。</p>
+				</section>
+				<section>
+					<h3>1.1.1 EDA历史</h2>					
+					<p class="fragment far-left">相比数字的电子设计自动化工具，模拟系统的电子设计自动化工具大多并非模块化的，这是因为模拟电路的功能更加复杂，而且不同部分的相互影响较强，而且作用规律复杂，电子元件大多没有那么理想。Verilog AMS就是一种用于模拟电子设计的硬件描述语言。设计人员可以使用硬件验证语言来完成项目的验证工作目前最新的发展趋势是将集描述语言、验证语言集成为一体，典型的例子有SystemVerilog。</p>
+					<p class="fragment far-left">随着集成电路规模的扩大、半导体技术的发展，电子设计自动化的重要性急剧增加。这些工具的使用者包括半导体器件制造中心的硬件技术人员，他们的工作是操作半导体器件制造设备并管理整个工作车间。一些以设计为主要业务的公司，也会使用电子设计自动化软件来评估制造部门是否能够适应新的设计任务。电子设计自动化工具还被用来将设计的功能导入到类似现场可编程逻辑门阵列的半定制可编程逻辑器件，或者生产全定制的专用集成电路。</p>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h2>1.2 EDA技术实现目标</h2>
+					<p class="fragment far-left">一般的eda的最后目标，是完成专用集成电路ASIC或PCB的设计和实现</p>
+					<p class="fragment far-left">ASIC可用下面三种方法实现</p>
+				</section>
+				
+				<section>
+					<h3>1.2.1 可编程逻辑器件：FPGA、CPLD</h3>
+					<p class="fragment far-left">
+					FPGA（Field－Programmable Gate Array），即现场可编程门阵列，它是在PAL、GAL、CPLD等可编程器件的基础上进一步发展的产物。它是作为专用集成电路（ASIC）领域中的一种半定制电路而出现的，既解决了定制电路的不足，又克服了原有可编程器件门电路数有限的缺点。</p>
+					
+				<p class="fragment far-left">	将以乘积项结构方式构成逻辑行为的器件称为CPLD,Complex Programmable Logic Device)复杂可编程逻辑器件，如Lattice的ispLSI系列、Xilinx的XC9500系列、Altera的MAX7000S系列和Lattice(原Vantis)的Mach系列等。</p>
+
+				<p class="fragment far-left">	将以查表法结构方式构成逻辑行为的器件称为FPGA，如Xilinx的SPARTAN系列、Altera的FLEX10K或ACEX1K系列等。</p>
+				</section>
+				
+				<section>
+					<h3>1.2.2 半定制或全定制ASIC</h3>
+					<p class="fragment far-left">全定制设计：全定制ASIC是利用集成电路的最基本设计方法（不使用现有库单元），对集成电路中所有的元器件进行精工细作的设计方法。全定制设计可以实现最小面积，最佳布线布局、最优功耗速度积，得到最好的电特性。该方法尤其适宜于模拟电路，数模混合电路以及对速度、功耗、管芯面积、其它器件特性（如线性度、对称性、电流容量、耐压等）有特殊要求的场合；或者在没有现成元件库的场合。特点：精工细作，设计要求高、周期长，设计成本昂贵。</p>
+					<p class="fragment far-left">
+					半定制设计方法: 
+半定制设计方法又分成基于标准单元的设计方法和基于门阵列的设计方法。
+基于标准单元的设计方法是：将预先设计好的称为标准单元的逻辑单元，如与门，或门，多路开关，触发器等，按照某种特定的规则排列，与预先设计好的大型单元一起组成ASIC。基于标准单元的ASIC又称为CBIC(CellbasedIC)。
+基于门阵列的设计方法是在预先制定的具有晶体管阵列的基片或母片上通过掩膜互连的方法完成专用集成电路设计。半定制相比于全定制，可以缩短开发周期，降低开发成本和风险。</p>
+				</section>
+				
+				<section>
+					<h3>1.2.3 混合ASIC</h3>
+					<p class="fragment far-left">既有FPGA，又有标准硬件单元模块等。</p>
+				</section>
+				
+			</section>
+			<section>
+				<section>
+					<h2>1.3 硬件描述语言 HDL</h2>
+				</section>
+				
+				<section>
+					<h3>1.3.1 VHDL</h3>
+					<p class="fragment far-left">
+					very high-speed hardware description language, 超高速集成电路硬件描述语言, 在基于复杂可程式逻辑装置、现场可编程逻辑门阵列和特殊应用积体电路的数字系统设计中有着广泛的应用。
+					
+					<p class="fragment far-left">VHDL语言诞生于1983年，1987年被美国国防部和IEEE确定为标准的硬件描述语言。自从IEEE发布了VHDL的第一个标准版本IEEE 1076-1987后，各大EDA公司都先后推出了自己支援VHDL的EDA工具。VHDL在电子设计行业得到了广泛的认同。此后IEEE又先后发布了IEEE 1076-1993和IEEE 1076-2000版本。
+				</section>
+				
+				<section>
+				<h3>1.3.2 VHDL优点</h3>
+				<p class="fragment far-left">
+					与其他硬件描述语言相比，VHDL具有以下特点：</p>
+
+					<p class="fragment far-left">
+功能强大、设计灵活</p>
+<p class="fragment far-left">
+VHDL具有功能强大的语言结构，可以用简洁明确的源代码来描述复杂的逻辑控制。它具有多层次的设计描述功能，层层细化，最后可直接生成电路级描述。VHDL支持同步电路、异步电路和随机电路的设计，这是其他硬件描述语言所不能比拟的。VHDL还支持各种设计方法，既支持自底向上的设计，又支持自顶向下的设计；既支持模块化设计，又支持层次化设计。</p>
+<p class="fragment far-left">
+支持广泛、易于修改</p>
+<p class="fragment far-left">
+由于VHDL已经成为IEEE标准所规范的硬件描述语言，大多数EDA工具几乎都支持VHDL，这为VHDL的进一步推广和广泛应用奠定了基础。在硬件电路设计过程中，主要的设计文件是用VHDL编写的源代码，因为VHDL易读和结构化，所以易于修改设计。</p>
+				</section>
+				<section>
+				
+<p class="fragment far-left">
+强大的系统硬件描述能力</p>
+<p class="fragment far-left">
+VHDL具有多层次的设计描述功能，既可以描述系统级电路，又可以描述门级电路。而描述既可以采用行为描述、寄存器传输描述或结构描述，也可以采用三者混合的混合级描述。另外，VHDL支持惯性延迟和传输延迟，还可以准确地建立硬件电路模型。VHDL支持预定义的和自定义的数据类型，给硬件描述带来较大的自由度，使设计人员能够方便地创建高层次的系统模型。</p>
+<p class="fragment far-left">
+独立于器件的设计、与工艺无关</p>
+<p class="fragment far-left">
+设计人员用VHDL进行设计时，不需要首先考虑选择完成设计的器件，就可以集中精力进行设计的优化。当设计描述完成后，可以用多种不同的器件结构来实现其功能。</p>
+					
+				</section>
+				
+				<section>
+				
+<p class="fragment far-left">
+很强的移植能力</p>
+<p class="fragment far-left">
+VHDL是一种标准化的硬件描述语言，同一个设计描述可以被不同的工具所支持，使得设计描述的移植成为可能。</p>
+<p class="fragment far-left">
+易于共享和复用</p>
+<p class="fragment far-left">
+VHDL采用基于库（Library）的设计方法，可以建立各种可再次利用的模块。这些模块可以预先设计或使用以前设计中的存档模块，将这些模块存放到库中，就可以在以后的设计中进行复用，可以使设计成果在设计人员之间进行交流和共享，减少硬件电路设计。  </p>
+					
+				</section>
+				
+				<section>
+				<h3>1.3.3 VHDL缺点</h3>
+<p class="fragment far-left">
+不如Verilog的地方：</p>
+<p class="fragment far-left">
+比较冗长</p>
+<p class="fragment far-left">
+不易入门</p>
+<p class="fragment far-left">
+无法用于集成电路底层建模 </p>
+					
+				</section>
+			</section>
+			
+			<section>
+				<section>
+					<h2>1.4 HDL综合</h2>
+					<p class="fragment far-left">在集成电路设计中，合成（ synthesis）是所设计数字电路的高抽象级描述，经过布尔函数化简、优化后，转换到的逻辑门级别的电路连线网表的过程。</p>
+				</section>
+				
+				<section>
+					<h3>1.4.1 HDL综合的层次</h3>
+					<p class="fragment far-left">
+					1. 从自然语言到VHDL算法描述，自然语言综合</p>
+					<p class="fragment far-left">
+					2. 从算法到寄存器传输级RTL描述，即从行为域到结构域的综合，行为综合</p>
+					<p class="fragment far-left">
+					3. 从RTL到逻辑门转换，逻辑综合</p>
+					<p class="fragment far-left">
+					4. 从逻辑门到版图描述（ASIC，版图综合），或FPGA的配置网表，结构综合</p>
+				</section>
+				
+				<section>
+					<h3>1.4.2 HDL综合和编译的区别</h3>
+					<p class="fragment far-left">
+					1. 综合的结果有独立性，易于移植</p>
+					<p class="fragment far-left">
+					2. 综合会根据具体硬件选择最优的设计</p>
+					<p class="fragment far-left">
+					3. 综合受约束作用</p>
+					<p class="fragment far-left">
+					4. 综合可以不同档次</p>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h2>1.5 自顶向下设计</h2>
+					<p class="fragment far-left">自顶向下的设计方法指首先从系统级入手，从顶层进行功能划分与结构设计，经过系统级、算法级、RTL级、门级、开关级，最后形成物理版图</p>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h2>1.6 EDA技术优势</h2>
+					<p class="fragment far-left">相对手工设计而言的优势：</p>
+					<p class="fragment far-left">1. 降低成本，缩短设计周期</p>
+					<p class="fragment far-left">2. 有各种器件库和IP库</p>
+					<p class="fragment far-left">3. HDL是文档易于管理</p>
+					<p class="fragment far-left">4. 仿真功能</p>
+					<p class="fragment far-left">5. 约束</p>
+					<p class="fragment far-left">6. 完全的电路实现，不受制于人</p>
+					<p class="fragment far-left">7. 自顶向下设计</p>
+					<p class="fragment far-left">8. 硬件优化</p>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h2>1.7 EDA设计流程</h2>
+				</section>
+				<section>
+					<h3>1.7.1 设计输入</h3>
+					<p class="fragment far-left">1. 图形输入：原理图、状态图、波形图</p>
+					<p class="fragment far-left">缺点： 兼容性差，升级性差，不易综合优化</p>
+					<p class="fragment far-left">2. HDL文本输入：VHDL、Verilog等，解决上面的缺点。</p>
+				</section>
+				<section>
+					<h3>1.7.2 综合</h3>
+					<p class="fragment far-left">生成多种网表文件。</p>
+				</section>
+				<section>
+					<h3>1.7.3 适配</h3>
+					<p class="fragment far-left">将网表配置于最终的目标器件，产生最终的下载文件。</p>
+				</section>
+				<section>
+					<h3>1.7.4 时序仿真和功能仿真</h3>
+					<p class="fragment far-left">时序仿真，真实器件运行特性仿真；</p>
+					<p class="fragment far-left">功能仿真，原理性仿真；</p>
+				</section>
+				<section>
+					<h3>1.7.5 编程下载</h3>
+					<p class="fragment far-left">将适配后生成的下载或配置文件，通过编程器或编程电缆向fpga或cpld下载，以实现硬件调试和验证。</p>
+				</section>
+				<section>
+					<h3>1.7.6 硬件测试</h3>
+					<p class="fragment far-left">实际运行硬件，进行功能测试</p>
+				</section>
+				
+			</section>
+			<section>
+				<section>
+					<h2>1.8 ASIC及其设计流程</h2>
+					<p class="fragment far-left">一般流程:</p>
+					<p class="fragment far-left">1.系统规格说明，建立行为模型，进行可行性验证</p>
+					<p class="fragment far-left">2.系统划分模块，验证行为模型，确定时序</p>
+					<p class="fragment far-left">3.逻辑设计和综合</p>
+					<p class="fragment far-left">4.综合后仿真</p>
+					<p class="fragment far-left">5.版图设计</p>
+					<p class="fragment far-left">6.版图验证，包括版图比对，设计规则检查DRC，电气规则检查ERC等</p>
+					<p class="fragment far-left">7.参数提取，后仿真</p>
+					<p class="fragment far-left">8.制版，流片</p>
+					<p class="fragment far-left">9.芯片测试</p>
+				</section>
+			</section>	
+			<section>
+				<section>
+					<h2>1.9 常用EDA工具</h2>
+					<p class="fragment far-left">设计输入编辑器: ISE（xilinx）,MAX+plus II, Quartus II(altera, intel)</p>
+					<p class="fragment far-left">HDL综合器: synplify pro, DC-FPGA(synopsys), Leonardo Spectrum(Mentor)</p>
+					<p class="fragment far-left">仿真器: ModelSim(Model technology)等</p>
+					<p class="fragment far-left">适配器: 各硬件厂家</p>
+					<p class="fragment far-left">下载器: 各硬件厂家</p>
+				</section>
+			</section>	
+			<section>
+				<section>
+					<h2>1.10 Quartus II介绍</h2>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h2>1.11 IP核</h2>
+					<p class="fragment far-left">IP核就是知识产权核或知识产权模块的意思，在EDA技术开发中具有十分重要的地位。美国著名的Dataquest咨询公司将半导体产业的IP定义为“用于ASIC或FPGA中的预先设计好的电路功能模块”。IP主要分为软IP、固IP和硬IP。软IP是用Verilog/VHDL等硬件描述语言描述的功能块，但是并不涉及用什么具体电路元件实现这些功能。固IP是完成了综合的功能块。硬IP提供设计的最终阶段产品——掩膜</p>
+					
+					<p class="fragment far-left">随着CPLD/FPGA的规模越来越大，设计越来越复杂（IC的复杂度以每年55%的速率递增，而设计能力每年仅提高21%），设计者的主要任务是在规定的时间周期内完成复杂的设计。调用IP核能避免重复劳动，大大减轻工程师的负担，因此使用IP核是一个发展趋势，IP核的重用大大缩短了产品上市时间。</p>
+					
+					<p class="fragment far-left">IP核有三种不同的存在形式：HDL语言形式，网表形式、版图形式。分别对应我们常说的三类IP内核：软核、固核和硬核。这种分类主要依据产品交付的方式，而这三种IP内核实现方法也各具特色。</p>
+					
+					
+				</section>
+				
+				<section>
+					<h2>1.11 IP核</h2>
+					
+					
+					<p class="fragment far-left">软核是用VHDL等硬件描述语言描述的功能块，但是并不涉及用什么具体电路元件实现这些功能。</p>
+					
+					<p class="fragment far-left">硬核提供设计阶段最终阶段产品：掩膜。以经过完全的布局布线的网表形式提供，这种硬核既具有可预见性，同时还可以针对特定工艺或购买商进行功耗和尺寸上的优化。尽管硬核由于缺乏灵活性而可移植性差，但由于无须提供寄存器转移级(RTL)文件，因而更易于实现IP保护。</p>
+					
+					<p class="fragment far-left">固核则是软核和硬核的折衷。大多数应用于FPGA的IP内核均为软核，软核有助于用户调节参数并增强可复用性。软核通常以加密形式提供，这样实际的 RTL对用户是不可见的，但布局和布线灵活。在这些加密的软核中，如果对内核进行了参数化，那么用户就可通过头文件或图形用户接口(GUI)方便地对参数进行操作。对于那些对时序要求严格的内核(如PCI接口内核)，可预布线特定信号或分配特定的布线资源，以满足时序要求。这些内核可归类为固核，由于内核是预先设计的代码模块，因此这有可能影响包含该内核的整体设计。由于内核的建立(setup)、保持时间和握手信号都可能是固定的，因此其它电路的设计时都必须考虑与该内核进行正确地接口。如果内核具有固定布局或部分固定的布局，那么这还将影响其它电路的布局。</p>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h2>1.12 EDA技术发展趋势</h2>
+				</section>
+			</section>
+		</div>
+	</div>
+
+	<script src="js/reveal.js-3.7.0/lib/js/head.min.js"></script>
+	<script src="js/reveal.js-3.7.0/js/reveal.js"></script>
+	
+	<script>
+		// More info https://github.com/hakimel/reveal.js#configuration
+		Reveal.initialize({
+			controls: true,
+			progress: true,
+			history: true,
+			center: true,
+
+			transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+			// More info https://github.com/hakimel/reveal.js#dependencies
+			dependencies: [{
+					src: 'js/reveal.js-3.7.0/lib/js/classList.js',
+					condition: function () {
+						return !document.body.classList;
+					}
+				},
+				{
+					src: 'js/reveal.js-3.7.0/plugin/markdown/marked.js',
+					condition: function () {
+						return !!document.querySelector('[data-markdown]');
+					}
+				},
+				{
+					src: 'js/reveal.js-3.7.0/plugin/markdown/markdown.js',
+					condition: function () {
+						return !!document.querySelector('[data-markdown]');
+					}
+				},
+				{
+					src: 'js/reveal.js-3.7.0/plugin/search/search.js',
+					async: true
+				},
+				{
+					src: 'js/reveal.js-3.7.0/plugin/zoom-js/zoom.js',
+					async: true
+				},
+				{
+					src: 'js/reveal.js-3.7.0/plugin/notes/notes.js',
+					async: true
+				}
+			]
+		});
+	</script>
+
+</body>
+
+</html>

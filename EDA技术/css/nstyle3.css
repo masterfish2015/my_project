@@ -1,0 +1,44 @@
+.reveal code {
+  font-family: "Ubuntu Mono", monospace;
+  text-transform: none;
+  
+}
+
+code{
+  background: lightcyan;
+  color: blue;
+  margin-bottom: 1em;
+}
+
+p{
+  text-align: left;
+}
+
+.reveal table th, .reveal table td{
+  border: 2px solid;
+  font-size: 22px;
+}
+
+.reveal table td{
+  border: 1px solid;
+}
+
+.reveal p{
+  font-size: 24px;
+}
+
+.reveal li{
+  font-size: 24px;
+}
+
+.red{
+  color:red;
+}
+
+.blue{
+  color :blue;
+}
+
+.green{
+  color:green;
+}
