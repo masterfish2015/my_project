@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+
+	<title>EDA技术 第二章</title>
+
+	<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+	<meta name="author" content="ldc">
+
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<link rel="stylesheet" href="js/reveal.js-3.7.0/css/reveal.css">
+	<link rel="stylesheet" href="js/reveal.js-3.7.0/css/theme/sky.css" id="theme">
+
+	<script type="text/javascript" src="js/SyntaxHighlighter/scripts/shCore.js"></script>
+	<script type="text/javascript" src="js/SyntaxHighlighter/scripts/shBrushVHDL.js"></script>
+	<link type="text/css" rel="stylesheet" href="js/SyntaxHighlighter/styles/shCoreDefault.css"/>
+	<link type="text/css" rel="stylesheet" href="js/SyntaxHighlighter/styles/shThemeDefault.css"/>
+	<script type="text/javascript">SyntaxHighlighter.all();</script>
+
+	<link rel="stylesheet" href="css/style2.css">
+	<!-- Printing and PDF exports -->
+	<script>
+		var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'js/reveal.js-3.7.0/css/print/pdf.css' : 'js/reveal.js-3.7.0/css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+			
+		var ldc;
+	</script>
+
+	<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	<script type="text/x-mathjax-config">
+	  MathJax.Hub.Config({
+		extensions: ["tex2jax.js"],
+		jax: ["input/TeX","output/HTML-CSS"],
+		tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+	  });
+	</script>
+	<script src="js/mathjax/MathJax.js"></script>
+	<script src="js/three/three.js"></script>
+	<script src="js/three/examples/js/controls/OrbitControls.js"></script>
+</head>
+
+<body>
+
+	<div class="reveal">
+
+		<!-- Any section element inside of this container is displayed as a slide -->
+		<div class="slides">
+			<section>
+				<section>
+					<h1>第二章</h1>
+					<h2>FPGA与CPLD的结构原理</h2>
+				</section>
+				
+				<section>
+					<h2>主要内容</h2>
+					<ol>
+						<li class="fragment fade-left">PLD的基本原理</li>
+						<li class="fragment fade-left">CPLD的结构和原理</li>
+						<li class="fragment fade-left">FPGA的结构原理</li>
+						<li class="fragment fade-left">硬件测试</li>
+						<li class="fragment fade-left">PLD产品概述</li>
+						<li class="fragment fade-left">CPLD/FPGA的编程与配置</li>
+					</ol>
+				</section>
+			</section>
+			
+			<section>
+				<section>
+					<h2 style="font-size: 36px;">2.1 PLD(Programmable logic devices, 可编程逻辑器件)</h2>
+					<p class="fragment fade-left">数字电路都是由基本门构成，包括：<b class="red">与门</b>、<b class="blue">或门</b>、<b class="green">非门</b>、<b class="gold">传输门</b>等。</p>
+					<p class="fragment fade-left">基本的两种数字电路，包括：<b class="red">逻辑组合电路</b>（输出由输入信号的组合来决定）、<b class="blue">时序电路</b>（输出由输入和当前状态来决定）。</p>
+					<p class="fragment fade-left">事实上，任何的逻辑组合电路都可以由<b class="cyan">与非门</b>或<b class="gold">与或非门</b>来组成</p>
+					<p class="fragment fade-left">任何的时序电路都可以由<i class="wavy">组合电路</i>和<i class="wavy">存储元件</i>（包括<b class="Indigo">锁存器</b>、<b class="Crimson">触发器</b>、<b class="Navy">存储器</b>）等来组成。</p>
+				</section>
+				
+				<section>
+					<h3>2.1.1 可编程电路结构</h3>
+					<p>可编程电路结构：<b class="blue">乘积项逻辑可编程结构</b>。</p>
+					<img class="fragment fade-left" src="images/pld原理.png" />
+				</section>
+				
+				<section>
+					<h3>2.1.2 PLD的分类</h3>
+					<p class="fragment fade-left">按集成度分类</p>
+					<img class="fragment fade-left" src="images/pld分类1.png"/>
+				</section>
+				
+				<section>
+					<h3>2.1.2 PLD的分类</h3>
+					<p class="fragment fade-left">按结构分类</p>
+					<table>
+						<tr class="fragment fade-left">
+							<td>乘积项结构器件，其基本结构为“与-或”阵列，大部分简单PLD和CPLD属于这种</td>
+							<td>基于查找表的器件，多数FPGA</td>
+						</tr>
+						<tr class="fragment fade-left">
+							<td><img src="images/cpld.png" /></td>
+							<td><img src="images/fpga.png" /></td>
+						</tr>
+					</table>
+				</section>
+				
+				<section>
+					<h3>2.1. PLD的分类</h3>
+					<p class="fragment fade-left">按编程工艺分类</p>
+					<ol>
+						<li class="fragment fade-right">一次性可编程器件（OTP）：熔丝(fuse)型、反熔丝（antifuse）型</li>
+						<li class="fragment fade-right">紫外线擦除电可编程逻辑器件，EPROM型</li>
+						<li class="fragment fade-right">电可擦写编程器件，EEPROM型</li>
+						<li class="fragment fade-right">静态随机存取存储器-SRAM-型</li>
+						<li class="fragment fade-right">flash型</li>
+					</ol>
+				</section>
+				
+			</section>
+			
+			<section>
+				<section>
+					<h2>2.2 简单PLD结构原理</h2>
+				</section>
+				
+				<section>
+					<h3>2.2.1 逻辑元件符号表示</h3>
+					<table>
+						<tr>
+							<td>标准</td>
+							<td>非门（NOT）</td>
+							<td>与门（AND）</td>
+							<td>或门（OR）</td>
+							<td>异或门（XOR）</td>
+						</tr>
+						<tr>
+							<td>逻辑表达式</td>
+							<td>$\overline{A}=NOT A$</td>
+							<td>$F=A\cdot B$</td>
+							<td>$F=A+B$</td>
+							<td>$F=A\bigoplus B$</td>
+						</tr>
+						<tr>
+							<td>IEEE-1984版</td>
+							<td><img src="images/not_gate1.png" /></td>
+							<td><img src="images/and_gate1.png" /></td>
+							<td><img src="images/or_gate1.png" /></td>
+							<td><img src="images/xor_gate.png" /></td>
+						</tr>
+						<tr>
+							<td>IEEE-1991版(MIL/ANSI)</td>
+							<td><img src="images/not_gate2.png" /></td>
+							<td><img src="images/and_gate2.png" /></td>
+							<td><img src="images/or_gate2.png" /></td>
+							<td><img src="images/xor_gate2.png" /></td>
+						</tr>
+						<tr>
+							<td>PLD中的表示</td>
+							<td><img src="images/not_gate3.png" /></td>
+							<td><img src="images/and_gate3.png" /></td>
+							<td><img src="images/or_gate3.png" /></td>
+							<td></td>
+						</tr>
+					</table>
+				</section>
+				
+				<section>
+					<h3>2.2.2 PROM结构原理</h3>
+					<p>可编程只读存储器，Programmable read-only memory, PROM。不单用于做存储器，也可以用来作为PLD。</p>
+					<p>一个PROM器件主要部件：<b class="fragment highlight-red">译码器</b>，<b class="fragment highlight-blue">PROM单元阵列</b>，<b class="fragment highlight-green">输出缓冲</b></p>
+				</section>
+			</section>
+		</div>
+	</div>
+
+	<script src="js/reveal.js-3.7.0/lib/js/head.min.js"></script>
+	<script src="js/reveal.js-3.7.0/js/reveal.js"></script>
+	
+	<script>
+		// More info https://github.com/hakimel/reveal.js#configuration
+		Reveal.initialize({
+			controls: true,
+			progress: true,
+			history: true,
+			center: true,
+
+			transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+			// More info https://github.com/hakimel/reveal.js#dependencies
+			dependencies: [{
+					src: 'js/reveal.js-3.7.0/lib/js/classList.js',
+					condition: function () {
+						return !document.body.classList;
+					}
+				},
+				{
+					src: 'js/reveal.js-3.7.0/plugin/markdown/marked.js',
+					condition: function () {
+						return !!document.querySelector('[data-markdown]');
+					}
+				},
+				{
+					src: 'js/reveal.js-3.7.0/plugin/markdown/markdown.js',
+					condition: function () {
+						return !!document.querySelector('[data-markdown]');
+					}
+				},
+				{
+					src: 'js/reveal.js-3.7.0/plugin/search/search.js',
+					async: true
+				},
+				{
+					src: 'js/reveal.js-3.7.0/plugin/zoom-js/zoom.js',
+					async: true
+				},
+				{
+					src: 'js/reveal.js-3.7.0/plugin/notes/notes.js',
+					async: true
+				}
+			]
+		});
+	</script>
+
+</body>
+
+</html>

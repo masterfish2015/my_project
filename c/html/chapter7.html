@@ -1,0 +1,455 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+
+	<title>c 第七章</title>
+
+	<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+	<meta name="author" content="ldc">
+
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<link rel="stylesheet" href="js/reveal.js-3.7.0/css/reveal.css">
+	<link rel="stylesheet" href="js/reveal.js-3.7.0/css/theme/sky.css" id="theme">
+
+	<script type="text/javascript" src="js/SyntaxHighlighter/scripts/shCore.js"></script>
+	<script type="text/javascript" src="js/SyntaxHighlighter/scripts/shBrushCpp.js"></script>
+	<link type="text/css" rel="stylesheet" href="js/SyntaxHighlighter/styles/shCoreDefault.css"/>
+	<link type="text/css" rel="stylesheet" href="js/SyntaxHighlighter/styles/shThemeDefault.css"/>
+	<script type="text/javascript">SyntaxHighlighter.all();</script>
+
+	<link rel="stylesheet" href="css/style7.css">
+	<!-- Printing and PDF exports -->
+	<script>
+		var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'js/reveal.js-3.7.0/css/print/pdf.css' : 'js/reveal.js-3.7.0/css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+	<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	<script type="text/x-mathjax-config">
+	  MathJax.Hub.Config({
+		extensions: ["tex2jax.js"],
+		jax: ["input/TeX","output/HTML-CSS"],
+		tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+	  });
+	</script>
+	<script src="js/mathjax/MathJax.js"></script>
+</head>
+
+<body>
+
+	<div class="reveal">
+
+		<!-- Any section element inside of this container is displayed as a slide -->
+		<div class="slides">
+			<section>
+				<section>
+					<h1>第七章 </h1>
+					<h2>数组</h2>
+				</section>
+				
+				<section>
+					<h2>本章主要内容 </h2>
+					<ol>
+						<li>函数的定义和调用</li>
+						<li>变量的存储方式和生存周期</li>
+						<li>函数递归</li>
+					</ol>
+				</section>
+				
+			</section>
+
+			<section>
+				<section>
+					<h2>7.1 为什么要用函数？</h2>
+					<pre class="brush:c;">
+#include"stdio.h"
+int main()
+{
+	int sel=0, flag=0;
+	do{	show_menu();
+		sel=getchar();
+		switch(sel){
+			case '0': flag = 1; break;
+			case '1': do_something1(); break;
+			case '2': do_something1(); break;
+			case '3': do_something1(); break;
+		}
+	}while(0 == flag);
+	return 0;
+}
+					</pre>
+					<p class="fragment fade-right">实现封装和模块化</p>
+				</section>
+				
+				<section>
+					<h3>关于函数（function）：</h3>
+					<ul>
+						<li class="fragment fade-right">一个c语言程序由一个或多个程序模块组成，每一个程序模块的物理表现是一个单独的源程序文件，大的程序分成多个模块，有利于分别编写和测试，有利于代码的<b class="red">复用</b>；</li>
+						<li class="fragment fade-right">一个源程序文件可以由多个函数组成（以及其他成分，比如预编译处理指令，全局变量和常量定义等），从语言的角度，函数是c语言<b class="blue">语义上的基本模块</b>；</li>
+						<li class="fragment fade-right">任何独立的c语言程序（不包括函数库），都有且只能有一个<code>main</code>函数，这个函数是这个程序的开始执行和结束的地方；</li>
+						<li class="fragment fade-right">函数都是平行的，也就是不能嵌套定义；</li>
+						<li class="fragment fade-right">绝大部分函数可以互相调用（call），只有<code>main</code>函数不行，它只能由操作系统来调用；</li>
+					</ul>
+				</section>
+				
+				<section>
+					<h3>关于函数（function）：</h3>
+					<ul>
+						<li class="fragment fade-right">对于用户来说，函数包括<b class="red">编译系统提供的标准库函数</b>（比如<code>printf, scanf, sqrt, strlen</code>等）、<b class="blue">第三方提供的函数</b>以及<b class="green">用户自定义的函数</b>；</li>
+						<li class="fragment fade-right">从形式来看，可以分为；<b class="cyan">有返回值的函数</b>、<b class="gold">没有返回值的函数</b>、<b class="Crimson">有参数的函数</b>、<b class="Indigo">没有参数的函数</b></li>
+					</ul>
+				</section>
+			</section>
+			
+			<section>
+				<section>
+					<h2>7.2 函数的定义</h2>
+				</section>
+				
+				<section>
+					<h3>7.2.1 为何要函数定义？</h3>
+					<h3 class="fragment highlight-red">用户自己的函数，先定义，再使用。</p>
+					<h3 class="fragment highlight-blue">对于系统库函数，先声明，再使用。</p>
+				</section>
+				
+				<section>
+					<h3>7.2.2 函数定义: definition</h3>
+					<pre class="brush:c;">
+						类型 函数名(参数列表) //函数头
+						{
+							函数体；
+						}</pre>
+					<ul>
+						<li class="fragment fade-right"><code>类型</code>是函数返回值的类型，可以是<code>int，short, float, double, char</code>等，如果函数没有返回值，可以用<code>void</code>;</li>
+						<li class="fragment fade-right"><code>函数名</code>的命名规则和标识符（变量、符号常量等）一致，不能是关键字，只能是字母<code>a-zA-Z</code>、数字<code>0-9</code>、下划线<code>_</code>，第一个字符不能是数字；</li>
+						<li class="fragment fade-right"><code>参数表</code>是需要传递进入函数的参数，在定义函数的时候，因为不知道具体传递进来的是什么数值，因此必须用变量来表示这些参数(称为<b class="red">形式参数，形参</b>)，如果没有参数，可以空着，或<code>void</code>;</li>
+						<li class="fragment fade-right"><code>函数体</code>以<code>{}</code>来包括，当函数被调用，是从<code>{</code>开始，一直到<code>}</code>结束， 如果需要从函数中返回到调用者，则用<code>return</code>语句，如果函数需要返回一个值，则用<code>return 值;</code></li>
+					</ul>
+				</section>
+				
+				<section>
+					<h4>例：定义一个求阶乘的函数。</h4>
+					<pre class="brush:c; highlight:[3, 14]">
+#include "stdio.h"
+
+unsigned long frac(int n)
+{
+	unsigned long result=1;
+	int i;
+	for(i=1; i&lt;=n; i++)
+		result *= i;
+	return result;
+}
+
+int main()
+{
+	int n;
+	unsigned long f;
+	printf("input n:"); scanf("%d", &n);
+	f=frac(n);
+	printf("%d!=%lu\n", 3, f);
+	return 0;
+}					</pre>
+<pre class="brush:c;">
+input n:6
+3!=720
+input n:65
+3!=9223372036854775808
+</pre>
+				</section>
+			</section>
+			
+			<section>
+				<section>
+					<h2>7.3 调用函数</h2>
+				</section>
+				
+				<section>
+					<h3>7.3.1 函数调用的形式</h3>
+					<pre class="brush:c;">
+					//函数的定义
+					double max2(double a, double b)
+					{  return (a>b)?a:b; }
+					</pre>
+					<p>函数调用的形式：</p>
+					<ol>
+						<li class="fragment highlight-red">函数调用语句：<code>max2(3,5);</code></li>
+						<li class="fragment highlight-blue">函数表达式：<code>x = a + max2(b,c);</code></li>
+						<li class="fragment highlight-green">函数参数：<code>x = max2(a, max2(b, c));</code></li>
+					</ol>
+				</section>
+				
+				<section>
+					<h3>7.3.2 函数的形参、实参</h3>
+					<div class="flex">
+					<pre class="brush:c; highlight:[2, 15]">
+#include "stdio.h"
+unsigned long frac(int n) //函数的定义
+{
+	unsigned long result=1;
+	int i;
+	for(i=1; i&lt;=n; i++)
+		result *= i;
+	return result;
+}
+int main()
+{
+	int n;
+	unsigned long f;
+	printf("input n:"); scanf("%d", &n);
+	f=frac(n);  //函数的调用
+	printf("%d!=%lu\n", 3, f);
+	return 0;
+}					</pre>
+					<div>
+					<p class="fragment fade-right"><b class="blue">形式参数</b>：在函数定义的时候，这些参数都没有具体的数值，所以是<b class="wavy">虚</b>的，称为<b class="blue">形式参数</b>，或虚拟参数，简称形参，或虚参；</p>
+					<p class="fragment fade-right"><b class="red">实际参数</b>：在函数被调用的时候，必须代入具体的值到参数中，这些可以是具体的数值字面量，比如<code>7, 3.14, 'a', "hello"</code>等，所以是<b class="wavy">实</b>的，称为<b class="red">实际参数</b>，简称实参；</p>
+					</div>
+					</div>
+				</section>
+				
+				<section>
+					<h3>7.3.3 函数调用时的参数传递：虚实结合</h3>
+					<div class="flex">
+					<div>
+					<pre class="brush:c; highlight:[2,4,5,10,11]">
+#include "stdio.h"
+int sqr(int n) //函数的定义
+{
+	n = n*n;
+	return n;
+}
+int main()
+{
+	int n=3, x=5;
+	printf("%d, %d\n", x, sqr(x));
+	printf("%d, %d\n", n, sqr(n));
+	return 0;
+}					</pre>
+					<pre class="brush:c;">
+25, 5
+9, 3				</pre>
+					</div>
+					<div>
+					<p class="fragment fade-right">函数只有在被调用的时候，才会从<b class="red">虚-->实</b>，也就是保存现场，实际分配内存，并把控制权转移到函数中，当函数运行结束，会释放分配的内存，并把控制权返还到保存的现场中；</p><hr>
+					<p class="fragment fade-right">当函数被调用，把调用者的参数值传递给函数对应的参数，注意这是<b class="blue">值传递</b>，也就是复制一份值，因此不会对原来的变量产生变化；</p>
+					</div>
+					</div>
+				</section>
+				
+				<section>
+					<h3>7.3.4 函数返回值</h3>
+					<div class="flex">
+					<div>
+					<pre class="brush:c; highlight:[2,4,6]">
+#include "stdio.h"
+int sqr(int n) //函数的定义
+{	n = n*n;
+	return (float)n;
+}
+void print2(int n) //函数的定义
+{	printf("%d, %d\n", n, sqr(n));
+}
+int main()
+{
+	int n=3, x=5;
+	print2(x);
+	print2(n);
+	return 0;
+}					</pre>
+					<pre class="brush:c;">
+25, 5
+9, 3				</pre>
+					</div>
+					<div>
+					<p class="fragment fade-right" style="font-size:26px;">1. 函数的返回值是通过<code>return</code>语句来获取的，一个函数可以有多个<code>return</code>语句，函数一运行到<code>return</code>,就会立即停止函数，并返回到调用者的保存的现场，如果<code>return</code>后面有值，在返回的时候就会将该值返回，但是函数只能返回一个值；</p>
+					<hr>
+					<p class="fragment fade-right" style="font-size:26px;">2、函数返回值的类型，在定义的时候就已经确定了，如果<code>return</code>后的值的类型和定义时不同，会尝试转换其为定义的类型，若转换不了，则会产生编译错误；</p>
+					<hr>
+					<p class="fragment fade-right" style="font-size:26px;">3、若函数不需要返回值，在定义的时候指定函数返回值类型为<code>void</code>。
+					</p>
+					</div>
+					</div>
+				</section>
+			</section>
+			
+			<section>
+				<section>
+					<h2>7.4 函数的声明和函数原型</h2>
+					<pre class="brush:c; highlight:[2, 3, 7, 8 , 11,15]">
+#include "stdio.h"
+int sqr(int n); //函数声明
+void print2(int n); //函数声明
+int main()
+{
+	int n=3, x=5;
+	print2(x); //函数调用
+	print2(n); //函数调用
+	return 0;
+}
+int sqr(int n) //函数的定义, 函数原型
+{	n = n*n;
+	return (float)n;
+}
+void print2(int n) //函数的定义，函数原型
+{	printf("%d, %d\n", n, sqr(n));
+}					</pre>
+					<p>函数原型：函数的<b class="red">首行</b>；</p>
+					<p>函数声明：<b class="Indigo">函数原型+<code>;</code></b>，<b class="blue">函数的定义只能一次</b>，但是<b class="Crimson">可以有无数个声明</b>。必须先定义，或者声明函数，才能调用函数。</p>
+				</section>
+			</section>
+			
+			<section>
+				<section>
+					<h2>7.5 函数的嵌套调用</h2>
+				</section>
+				
+				<section>
+					<h3>7.5.1 函数的调用机制</h3>
+					<img src="images/函数调用机制.png" style="height: 280px;"/>
+					<img src="images/函数调用栈.png" style="height: 300px;"/>
+				</section>
+				
+				<section>
+					<h3>7.5.2 函数的递归调用</h3>
+					<h4 class="fragment fade-right">函数内调用自己，称为<b class="red">递归调用</b>。</h4>
+					<h4 class="fragment fade-right">为了不会导致无穷尽的调用，必须有<b class="blue">退出机制</b>。</h4>
+					<div class="fragment fade-right flex">
+					<pre class="brush:c;">
+					//求阶乘
+					#include "stdio.h"
+					unsigned long frac(int n)
+					{	if(1==n)return 1;
+						else
+							return frac(n-1)*n;
+					}
+					int main()
+					{
+						unsigned long a;
+						int n;
+						printf("input n:"); 
+						scanf("%d", &n);
+						printf("%d!=%lu%\n", 
+							n, frac(n));
+						return 0;
+					}
+					</pre>
+					<img src="images/递归阶乘.png" style="width:600px;"/>
+					</div>					
+				</section>
+				
+				<section>
+					<h4>例：汉诺塔。</h4>
+					<p>如下，塔内有三个基座A、B、C, 开始时A基座上有n个盘子，以从大到小放置（大的在下），现将盘子移动到C基座，可以利用B基座来中转，但要求所有时刻都必须保证大的在下面，小盘子在上面，而且一次只能移动一个盘子。</p>
+					<img class="fragment fade-right" src="images/汉诺塔1.png" />
+					<img class="fragment current-visible" src="images/Tower_of_Hanoi.gif" />
+					<img class="fragment current-visible" src="images/Tower_of_Hanoi_4.gif" />
+				</section>
+				
+				<section>
+					<h4>基本思路：</h4>
+					<p class="fragment fade-right">1. 对于n个盘子，委托另一个人（设为甲）把n-1个盘子借助C支座从A支座移动到B，自己把最后一个盘子（最大的）从A支座移动到C，然后再找甲把前面在B支座的n-1个盘子借助A支座移动到C支座；</p>
+					<p class="fragment fade-right">2. 对于甲来说，要移动n-1个盘子，那么可以委托另一个人（设为乙）把n-2个盘子移动到空闲的支座，然后甲自己把第n-1个盘子移动到目的支座，再找乙把n-2个盘子移动到目的支座；</p>
+					<p class="fragment fade-right">3. 对于乙，可以继续委托，重复第2步，这里关键时搞清楚是原始支座、目的支座、空闲支座；</p>
+					<p class="fragment fade-right">4. 直到委托到最后一个人，由于他只需要移动一个盘子，所以可以直接移动，不需要进行委托了。</p>
+				</section>
+				
+				<section>
+					<pre class="brush:c;">
+#include "stdio.h"
+void hanoi(int n, char source, char help, char dest);
+int main()
+{	int n ; //盘子的数目
+	printf("input n:"); scanf("%d", &n);
+	hanoi(n, 'A', 'B', 'C');
+	return 0;
+}	
+void hanoi(int n, char source, char help, char dest)
+{	if( n ==1 )
+		printf("move %c --&gt; %c\n", source, dest);
+	else{
+		hanoi(n-1, source, dest, help);
+		printf("move %c --&gt; %c\n", source, dest);
+		hanoi(n-1, help, source, dest);
+	}
+}					</pre>
+					<div class="flex fragment fade-right">
+						<pre>
+input n:3
+move A --> C
+move A --> B
+move C --> B
+move A --> C
+move B --> A
+move B --> C
+move A --> C
+						</pre>
+						<img src="images/Tower_of_Hanoi.gif" />
+					</div>
+				</section>
+			</section>
+		</div>
+	</div>
+
+	<script src="js/reveal.js-3.7.0/lib/js/head.min.js"></script>
+	<script src="js/reveal.js-3.7.0/js/reveal.js"></script>
+	
+	<script>
+		// More info https://github.com/hakimel/reveal.js#configuration
+		Reveal.initialize({
+			controls: true,
+			progress: true,
+			history: true,
+			center: true,
+
+			transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+			// More info https://github.com/hakimel/reveal.js#dependencies
+			dependencies: [{
+					src: 'js/reveal.js-3.7.0/lib/js/classList.js',
+					condition: function () {
+						return !document.body.classList;
+					}
+				},
+				{
+					src: 'js/reveal.js-3.7.0/plugin/markdown/marked.js',
+					condition: function () {
+						return !!document.querySelector('[data-markdown]');
+					}
+				},
+				{
+					src: 'js/reveal.js-3.7.0/plugin/markdown/markdown.js',
+					condition: function () {
+						return !!document.querySelector('[data-markdown]');
+					}
+				},
+				{
+					src: 'js/reveal.js-3.7.0/plugin/search/search.js',
+					async: true
+				},
+				{
+					src: 'js/reveal.js-3.7.0/plugin/zoom-js/zoom.js',
+					async: true
+				},
+				{
+					src: 'js/reveal.js-3.7.0/plugin/notes/notes.js',
+					async: true
+				}
+			]
+		});
+	</script>
+
+</body>
+
+</html>
