@@ -168,6 +168,33 @@ input n:65
 3!=9223372036854775808
 </pre>
 				</section>
+				
+				<section>
+					<h4>例：求数组的最大值（数组作为参数）。</h4>
+					<pre class="brush:c; highlight:[3, 14, 15, 16]">
+#include "stdio.h"
+
+double max(double data[], int n)
+{
+	double max_value = data[0];
+	for(int i=0; i&lt;n; i++)
+		if( max_value &lt; data[i])
+			max_value = data[i];
+	return max_value;
+}
+
+int main()
+{
+	double d[]={3.14, 5.89, 6.23, 7.8, 30.2, 15.78};
+	int n = sizeof(d)/sizeof(double);
+	printf("max value = %.2lf\n", max(d, n));
+	return 0;
+}					</pre>
+<pre class="brush:c;">
+max value = 30.20
+</pre>
+				</section>
+				
 			</section>
 			
 			<section>

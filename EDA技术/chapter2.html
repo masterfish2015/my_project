@@ -174,7 +174,22 @@
 				<section>
 					<h3>2.2.2 PROM结构原理</h3>
 					<p>可编程只读存储器，Programmable read-only memory, PROM。不单用于做存储器，也可以用来作为PLD。</p>
-					<p>一个PROM器件主要部件：<b class="fragment highlight-red">译码器</b>，<b class="fragment highlight-blue">PROM单元阵列</b>，<b class="fragment highlight-green">输出缓冲</b></p>
+					<p>一个PROM器件主要部件：<b class="fragment red">译码器</b>，<b class="fragment blue">PROM单元阵列</b>，<b class="fragment green">输出缓冲</b></p>
+					<img src="images/prom基本结构.png" />
+				</section>
+				
+				<section>
+					<h3>2.2.2 PROM结构原理-逻辑阵列</h3>
+					<p>地址译码器用于存储阵列的<b class="fragment red">行（称为字线，word lines）选择</b>，行选择的要求是<b class="fragment blue">在任何时刻只有一行是被选中的（以高电平，或1表示），其他都是未选中（以低电平，或0表示）</b>，有$n$条地址线，对应有相应的$p$条存储行（$p=2^n$)，下面以2条地址线为例，共有4条选择字线，假设地址线为$A_1A_0=01$，
+					$$
+					\begin{align*}
+					W_0 &= \overline{A_1}\cdot\overline{A_0}=0 \\
+					W_1 &= \overline{A_1}\cdot A_0 =1\\
+					W_2 &= A_1\cdot\overline{A_0} =0\\
+					W_3 &= A_1\cdot A_0 = 0 
+					\end{align*}
+					$$，可见，只有第2根字线被选中，其他未选中。</p>
+					<p>从上面的公式来看，地址译码器实际上是一个<b class="fragment red">"与阵列"</b>,而同样可以得到存储单元在取出数据的时候其实是一个<b class="fragment red">"或阵列"</b>。</p>
 				</section>
 			</section>
 		</div>
