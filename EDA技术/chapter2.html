@@ -191,6 +191,62 @@
 					$$，可见，只有第2根字线被选中，其他未选中。</p>
 					<p>从上面的公式来看，地址译码器实际上是一个<b class="fragment red">"与阵列"</b>,而同样可以得到存储单元在取出数据的时候其实是一个<b class="fragment red">"或阵列"</b>。</p>
 				</section>
+				<section>
+					<img src="images/prom基本结构2.png" />
+					<p>举例：半加器</p>
+					<table>
+						<tr>
+							<td>A</td>
+							<td>B</td>
+							<td>S</td>
+							<td>C</td>
+						</tr>
+						<tr>
+							<td>0</td>
+							<td>0</td>
+							<td>0</td>
+							<td>0</td>
+						</tr>
+						<tr>
+							<td>0</td>
+							<td>1</td>
+							<td>1</td>
+							<td>0</td>
+						</tr>
+						<tr>
+							<td>1</td>
+							<td>0</td>
+							<td>1</td>
+							<td>0</td>
+						</tr>
+						<tr>
+							<td>1</td>
+							<td>1</td>
+							<td>0</td>
+							<td>1</td>
+						</tr>
+					</table>
+					<p>由此，$S=\overline{A}\cdot B+A\cdot\overline{B}$,   $C=A\cdot B$</p>
+				</section>
+				<section>
+					<p>用PROM来表示：$S=\overline{A}\cdot B+A\cdot\overline{B}$,   $C=A\cdot B$</p>
+					<img src="images/prom半加器.png" style="height:400px;"/>
+					<p>当进行编程时，与阵列是固定的，但是可以生成或阵列的PLD编程文件，即熔丝图文件（Fuse Map）.PROM仅适合逻辑组合电路。</p>
+				</section>
+				
+				<section>
+					<h3>2.2.3 PLA结构原理</h3>
+					<p>PLA的与阵列和或阵列都可以编程，使得利用率有很大提高(6*3的PLA和8*3的PROM大部分应用中相等效。)，虽然现在已经在独立的PLD芯片中被淘汰，但是ASIC中还是有使用。</p>
+				</section>
+				
+				<section>
+					<h3>2.2.4 PAL结构原理</h3>
+					
+						<p>PAL的或阵列不可编程，与阵列可以编程，简化编译，输出可以反馈互联。PAL加上锁存器和寄存器后，就可以实现时序功能。缺点是结构比较固化。</p>
+						
+						<img src="images/pal16v8.png">
+					
+				</section>
 			</section>
 		</div>
 	</div>
