@@ -1,0 +1,1795 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+
+	<title>EDA技术 第三章</title>
+
+	<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+	<meta name="author" content="ldc">
+
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<link rel="stylesheet" href="js/reveal.js-3.7.0/css/reveal.css">
+	<link rel="stylesheet" href="js/reveal.js-3.7.0/css/theme/sky.css" id="theme">
+
+	<script type="text/javascript" src="js/SyntaxHighlighter/scripts/shCore.js"></script>
+	<script type="text/javascript" src="js/SyntaxHighlighter/scripts/shBrushVHDL.js"></script>
+	<link type="text/css" rel="stylesheet" href="js/SyntaxHighlighter/styles/shCoreDefault.css"/>
+	<link type="text/css" rel="stylesheet" href="js/SyntaxHighlighter/styles/shThemeDefault.css"/>
+	<script type="text/javascript">SyntaxHighlighter.all();</script>
+
+	<link rel="stylesheet" href="css/style3.css">
+	<!-- Printing and PDF exports -->
+	<script>
+		var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'js/reveal.js-3.7.0/css/print/pdf.css' : 'js/reveal.js-3.7.0/css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+			
+		var ldc;
+	</script>
+
+	<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	<script type="text/x-mathjax-config">
+	  MathJax.Hub.Config({
+		extensions: ["tex2jax.js"],
+		jax: ["input/TeX","output/HTML-CSS"],
+		tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+	  });
+	</script>
+	<script src="js/mathjax/MathJax.js"></script>
+	<script src="js/three/three.js"></script>
+	<script src="js/three/examples/js/controls/OrbitControls.js"></script>
+</head>
+
+<body>
+
+	<div class="reveal">
+
+		<!-- Any section element inside of this container is displayed as a slide -->
+		<div class="slides">
+			<section>
+				<section>
+					<h1>第三章</h1>
+					<h2>组合电路的VHDL设计</h2>
+				</section>
+				
+				<section>
+					<h2>主要内容</h2>
+					<ol>
+						<li class="fragment fade-left">多路选择器及其VHDL描述</li>
+						<li class="fragment fade-left">半加器及其VHDL描述</li>
+						<li class="fragment fade-left">四选一多路选择器及其VHDL描述</li>
+						<li class="fragment fade-left">全加器及其VHDL描述</li>
+						<li class="fragment fade-left">乘法器及其VHDL表述</li>
+					</ol>
+				</section>
+			</section>
+			
+			<section>
+				<section>
+					<h2 style="font-size: 48px;">3.1 多路选择器及其VHDL描述</h2>
+					<div class="flex">
+						<img src="images/mux21a实体.png" />
+						<table>
+							<tr>
+								<td>S</td>
+								<td>A</td>
+								<td>B</td>
+								<td>Y</td>
+							</tr>
+							<tr>
+								<td>0</td>
+								<td>0</td>
+								<td>0</td>
+								<td>0</td>
+							</tr>
+							<tr class="red">
+								<td>0</td>
+								<td>0</td>
+								<td>1</td>
+								<td>1</td>
+							</tr>
+							<tr>
+								<td>0</td>
+								<td>1</td>
+								<td>0</td>
+								<td>0</td>
+							</tr>
+							<tr class="red">
+								<td>0</td>
+								<td>1</td>
+								<td>1</td>
+								<td>1</td>
+							</tr>
+							<tr>
+								<td>1</td>
+								<td>0</td>
+								<td>0</td>
+								<td>0</td>
+							</tr>
+							<tr>
+								<td>1</td>
+								<td>0</td>
+								<td>1</td>
+								<td>0</td>
+							</tr>
+							<tr class="red">
+								<td>1</td>
+								<td>1</td>
+								<td>0</td>
+								<td>1</td>
+							</tr>
+							<tr class="red">
+								<td>1</td>
+								<td>1</td>
+								<td>1</td>
+								<td>1</td>
+							</tr>
+						</table>
+					</div>
+					<div class="flex">
+						<p style="font-size:24px;">由真值表可得：
+						$$
+						\begin{align*}
+						Y &=\overline{S}\cdot\overline{A}\cdot B+\overline{S}\cdot A \cdot B+S\cdot A \cdot \overline{B} + S\cdot A \cdot B \\
+						&= \overline{S}\cdot B+S\cdot A
+						\end{align*}
+						$$，或由卡诺图化简可得：$$Y=\overline{S}\cdot B+S\cdot A+A\cdot B$$</p>
+						<table>
+							<tr>
+								<td>S\AB</td>
+								<td>00</td>
+								<td>01</td>
+								<td>11</td>
+								<td>10</td>
+							</tr>
+							<tr>
+								<td>0</td>
+								<td></td>
+								<td>1</td>
+								<td>1</td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>1</td>
+								<td></td>
+								<td></td>
+								<td>1</td>
+								<td>1</td>
+							</tr>
+						</table>
+					</div>
+				</section>
+				
+				<section>
+					<div class="flex">
+						<img src="images/mux21a结构体.png" style="height:400px;width:500px;"/>
+						<img src="images/mux21a结构体_2.png" style="height:400px;"/>
+					</div>
+					<p>对于既定的电路功能描述，并没有唯一固定的电路结构，取决于VHDL的综合器基本元件库的来源、优化方向、不同的约束、目标器件等，而在设计中更重要的是关注<b class="red">最终完成的电路的功能和性能（包括系统速度，资源利用率等）</b>，而<b class="blue">非电路构建的形式。</b>
+					</p>
+				</section>
+				
+				<section>
+					<h3>程序分析：</h3>
+					<div class="flex">
+						<div>
+						<pre class="brush:vhdl;">
+					ENTITY mux21a IS
+						PORT ( A, B, S : IN  BIT;	 
+							   Y : OUT BIT );
+					END ENTITY mux21a;
+					ARCHITECTURE bhv OF mux21a IS
+					BEGIN
+						PROCESS ( A, B, S) 
+						BEGIN
+							IF ( S='1') THEN 
+								Y &lt;= A;
+							ELSE 
+								Y &lt;= B;	
+							END IF;
+						END PROCESS;
+					END ARCHITECTURE bhv;
+						</pre>
+						<img src="images/mux21a实体.png" />
+						</div>
+						<div >
+							<p>由程序可见，VHDL可以由两部分组成：</p>
+							<ol>
+								<li class="fragment fade-left">以关键字<code>ENTITY</code>为引导，<code>END ENTITY mux21a;</code>为结尾的部分，称为<b class="red">实体</b>，实体名是<code class="blue">mux21a</code>，实体描述了电路器件的外部I/O的情况，以及各信号端口的基本性质，如：<b class="green">信号流动的方向</b>、<b class="Crimson">信号的数据类型</b>等</li>
+								<li class="fragment fade-left">以关键字<code>ARCHITECTURE</code>为引导，<code>END ARCHITECTURE bhv;</code>为结尾的部分，称为<b class="red">结构体</b>，结构体名是<code class="blue">bhv</code>，结构体描述了电路器件的内部逻辑功能和电路结构。</li>
+							</ol>
+						</div>
+					</div>
+				</section>
+				
+				<section>
+					<h3>数据类型：</h3>
+					<p>
+						VHDL规定，任何一种数据对象（包括常数和变量）都必须严格限定其数据类型，包括：</p>
+					<table>
+						<tr>
+							<th>类型名</th>
+							<th>关键字</th>
+							<th>取值范围</th>
+							<th>示例</th>
+						</tr>
+						<tr>
+							<td>位类型</td>
+							<td><code>BIT</code></td>
+							<td><code>'0','1'</code></td>
+							<td><code>A : IN BIT;</code></td>
+						</tr>
+						<tr>
+							<td>位矢量类型</td>
+							<td><code>BIT_VECTOR</code></td>
+							<td>使用<code>TO, DOWNTO</code>指定下标范围</td>
+							<td><pre class="brush:vhdl;">
+							A : OUT BIT_VECTOR(0 TO 4);
+							B : IN BIT_VECTOR(7 DOWNTO 0);</pre>
+							</td>
+						</tr>
+						<tr>
+							<td>布尔类型</td>
+							<td><code>BOOLEAN</code></td>
+							<td><code>true('1'), false('0')</code>,只占1位</td>
+							<td><code>A : IN BOOLEAN;</code></td>
+						</tr>
+						<tr>
+							<td>字符类型</td>
+							<td><code>CHARACTER</code></td>
+							<td>0~255</td>
+							<td><code>A : IN CHARACTER;</code></td>
+						</tr>
+						<tr>
+							<td>整数类型</td>
+							<td><code>INTEGER</code></td>
+							<td>根据不同的硬件来决定位数</td>
+							<td><code>A : IN INTEGER;</code></td>
+						</tr>
+						<tr>
+							<td>自然数类型</td>
+							<td><code>NATURAL</code></td>
+							<td>根据不同的硬件来决定位数，&gt;=0</td>
+							<td><code>A : IN NATURAL;</code></td>
+						</tr>
+						<tr>
+							<td>正整数类型</td>
+							<td><code>POSITIVE</code></td>
+							<td>根据不同的硬件来决定位数，&gt;0</td>
+							<td><code>A : IN POSITIVE;</code></td>
+						</tr>
+						<tr>
+							<td>实数类型</td>
+							<td><code>REAL</code></td>
+							<td>和双精度浮点类型一致（8字节）</td>
+							<td><code>A : IN REAL;</code></td>
+						</tr>
+					</table>
+				</section>
+				
+				<section>
+					<h3>数据类型：</h3>
+					<p>
+						VHDL规定，任何一种数据对象（包括常数和变量）都必须严格限定其数据类型，包括：</p>
+					<table>
+						<tr>
+							<th style="font-size:4px;">类型名</th>
+							<th>关键字</th>
+							<th width="300px;">取值范围</th>
+							<th>示例</th>
+						</tr>
+						<tr>
+							<td>标准逻辑位类型</td>
+							<td><code>STD_LOGIC</code></td>
+							<td><code>'U'(未初始化的), 'X'(强未知的), 'Z'(高阻态, 比如端口串接1MΩ电阻), 'W'(弱未知的), 'L'(弱逻辑'0'), 'H'(弱逻辑'1'，比如端口串接100kΩ电阻), '-'(忽略), '0', '1'(高电平，强逻辑)</code>，在综合的时候只能用<code>'X', '-',  '0', '1', 'Z'</code></td>
+							<td>
+							<pre class="brush:vhdl;">
+							LIBRARY IEEE;
+							USE IEEE.STD_LOGIC_1164.ALL;
+							...
+							A : IN STD_LOGIC;</pre>
+							</td>
+						</tr>
+						<tr>
+							<td>标准逻辑位矢量类型</td>
+							<td><code>STD_LOGIC_VECTOR</code></td>
+							<td>用<code>TO, DOWNTO</code>来确定位数</td>
+							<td>
+							<pre class="brush:vhdl;">
+							LIBRARY IEEE;
+							USE IEEE.STD_LOGIC_1164.ALL;
+							...
+							A : IN STD_LOGIC_VECTOR(7 DOWNTO 0);
+							SIGNAL B : STD_LOGIC_VECTOR(1 TO 4);</pre>
+							</td>
+						</tr>
+					</table>
+				</section>
+				
+				<section>
+					<h3>数据类型：</h3>
+					<p>
+						VHDL规定，任何一种数据对象（包括常数和变量）都必须严格限定其数据类型，包括：</p>
+					<table>
+						<tr>
+							<th style="font-size:4px;">类型名</th>
+							<th>关键字</th>
+							<th width="400px;">取值范围</th>
+							<th>示例</th>
+						</tr>
+						<tr>
+							<td>时间类型</td>
+							<td><code>TIME</code></td>
+							<td>时间可以用下面的单位：<br>
+							<code>'fs'</code>(飞秒), $1fs = 1\times 10^{-15}sec$,<br> <code>'ps'</code>(皮秒), $1ps = 1\times 10^{-12}sec$，<br><code>'ns'</code>(纳秒), $1ns = 1\times 10^{-9}sec$，<br><code>'us'</code>(微秒), $1us = 1\times 10^{-6}sec$，<br><code>'ms'</code>(毫秒), $1ms = 1\times 10^{-3}sec$，<br><code>'sec'</code>(秒), <code>'min'</code>(分钟), $1min = 60 sec$，<br><code>'hr'</code>(小时), $1hr = 60 min$</td>
+							<td>
+							<pre class="brush:vhdl;">
+							constant time1: TIME := 1ps;</pre>
+							</td>
+						</tr>
+					</table>
+				</section>
+				
+				<section>
+					<h3>操作符：</h3>
+					<p>
+						高优先级的运算符先算，相同优先级的运算符左到右，可以用小括号来控制运算次序，包括：</p>
+					<table>
+						<tr>
+							<th>优先级</th>
+							<th>运算符</th>
+							<th>用途</th>
+							<th>示例</th>
+						</tr>
+						<tr>
+							<td>1</td>
+							<td><code>**</code></td>
+							<td>乘方</td>
+							<td>
+							<pre class="brush:vhdl;">
+							VARIABLE A: INTEGER ;
+							...
+							A := 2**4; </pre>
+							</td>
+						</tr>
+						<tr>
+							<td>1</td>
+							<td><code>abs</code></td>
+							<td>求绝对值</td>
+							<td>
+							<pre class="brush:vhdl;">
+							VARIABLE A: INTEGER ;
+							...
+							A := abs -1; </pre>
+							</td>
+						</tr>
+						<tr>
+							<td>1</td>
+							<td><code>not</code></td>
+							<td>取反</td>
+							<td>
+							<pre class="brush:vhdl;">
+							VARIABLE A: BOOLEAN ;
+							...
+							A := not (3 &lt; B); </pre>
+							</td>
+						</tr>
+					</table>
+				</section>
+				
+				<section>
+					<h3>操作符：</h3>
+					<table>
+						<tr>
+							<th>优先级</th>
+							<th>运算符</th>
+							<th>用途</th>
+							<th>示例</th>
+						</tr>
+						<tr>
+							<td>2</td>
+							<td><code>*</code></td>
+							<td>乘</td>
+							<td>
+							<pre class="brush:vhdl;">
+							VARIABLE A: INTEGER ;
+							...
+							A := 2*4; </pre>
+							</td>
+						</tr>
+						<tr>
+							<td>2</td>
+							<td><code>/</code></td>
+							<td>除</td>
+							<td>
+							<pre class="brush:vhdl;">
+							VARIABLE A: REAL;
+							...
+							A := 3.0/5; </pre>
+							</td>
+						</tr>
+						<tr>
+							<td>2</td>
+							<td><code>mod</code></td>
+							<td>取余数</td>
+							<td>
+							<pre class="brush:vhdl;">
+							VARIABLE A: INTEGER ;
+							...
+							A := 100 mod 3; </pre>
+							</td>
+						</tr>
+						<tr>
+							<td>2</td>
+							<td><code>rem</code></td>
+							<td>整除</td>
+							<td>
+							<pre class="brush:vhdl;">
+							VARIABLE A: INTEGER ;
+							...
+							A := 100 rem 3; </pre>
+							</td>
+						</tr>
+					</table>
+				</section>
+				
+				<section>
+					<h3>操作符：</h3>
+					<table>
+						<tr>
+							<th>优先级</th>
+							<th>运算符</th>
+							<th>用途</th>
+							<th>示例</th>
+						</tr>
+						<tr>
+							<td>3</td>
+							<td><code>+</code></td>
+							<td>对于一元运算，表示相同符号；对于二元运算，表示加</td>
+							<td>
+							<pre class="brush:vhdl;">
+							VARIABLE A: INTEGER ;
+							...
+							A := +2+4; </pre>
+							</td>
+						</tr>
+						<tr>
+							<td>3</td>
+							<td><code>-</code></td>
+							<td>对于一元运算，表示相反符号；对于二元运算，表示减</td>
+							<td>
+							<pre class="brush:vhdl;">
+							VARIABLE A: REAL;
+							...
+							A := -3.0-5; </pre>
+							</td>
+						</tr>
+						<tr>
+							<td>3</td>
+							<td><code>&amp;</code></td>
+							<td>并置，构成新的数组或字符串</td>
+							<td>
+							<pre class="brush:vhdl;">
+signal Z_BUS:bit_vector(3 downto 0);
+signal A,B,C,D:bit;
+signal BYTE:bit_vector(7 downto 0);
+signal A_BUS:bit_vector(3 downto 0);
+signal B_BUS:bit_vector(3 downto 0);
+Z_BUS &lt;= A &amp; B &amp; C &amp; D;
+BYTE &lt;= A_BUS &amp; B_BUS. </pre>
+							</td>
+						</tr>
+					</table>
+				</section>
+				
+				<section>
+					<h3>操作符：</h3>
+					<table>
+						<tr>
+							<th>优先级</th>
+							<th>运算符</th>
+							<th>用途</th>
+							<th>示例</th>
+						</tr>
+						<tr>
+							<td>4</td>
+							<td><code>sll</code>(shift left logical)</td>
+							<td>逻辑左移，最右以<code>0</code>填充</td>
+							<td>
+							<pre class="brush:vhdl;">
+							SIGNAL A: STD_LOGIC_VECTOR(7 downto 0);
+							A &lt;= "01100010";
+							A &lt;= A sll 1; -- A = "11000100", 最右以0填充</pre>
+							</td>
+						</tr>
+						<tr>
+							<td>4</td>
+							<td><code>sla</code>(shift left arithmetic)</td>
+							<td>算术左移，最右以原最右值填充</td>
+							<td>
+							<pre class="brush:vhdl;">
+							SIGNAL A: STD_LOGIC_VECTOR(7 downto 0);
+							A &lt;= "01100011";
+							A &lt;= A sla 1; -- A = "11000111", 最右以1填充</pre>
+							</td>
+						</tr>
+						<tr>
+							<td>4</td>
+							<td><code>srl</code>(shift right logical)</td>
+							<td>逻辑右移，最左以<code>0</code>填充</td>
+							<td>
+							<pre class="brush:vhdl;">
+							SIGNAL A: STD_LOGIC_VECTOR(7 downto 0);
+							A &lt;= "10X1Z-00";
+							A &lt;= A srl 1; -- A = "010X1Z-0", 最左以0填充</pre>
+							</td>
+						</tr>
+						<tr>
+							<td>4</td>
+							<td><code>sra</code>(shift right arithmetic)</td>
+							<td>算术右移，最左以原最左值填充</td>
+							<td>
+							<pre class="brush:vhdl;">
+							SIGNAL A: STD_LOGIC_VECTOR(7 downto 0);
+							A &lt;= "10X1Z-00";
+							A &lt;= A sra 1; -- A = "110X1Z-0", 最左以1填充</pre>
+							</td>
+						</tr>
+					</table>
+				</section>
+				
+				<section>
+					<h3>操作符：</h3>
+					<table>
+						<tr>
+							<th>优先级</th>
+							<th>运算符</th>
+							<th>用途</th>
+							<th>示例</th>
+						</tr>
+						<tr>
+							<td>4</td>
+							<td><code>rol</code>(rotate left)</td>
+							<td>左回转，右移, 最左以右移出的数填充</td>
+							<td>
+							<pre class="brush:vhdl;">
+							SIGNAL A: STD_LOGIC_VECTOR(4 downto 0);
+							A &lt;= "10X1Z";
+							A &lt;= A rol 2; -- A = "1Z10X", 最左以右移的值填充</pre>
+							</td>
+						</tr>
+						<tr>
+							<td>4</td>
+							<td><code>ror</code>(rotate right)</td>
+							<td>右回转，左移, 最右以左移出的数填充</td>
+							<td>
+							<pre class="brush:vhdl;">
+							SIGNAL A: STD_LOGIC_VECTOR(4 downto 0);
+							A &lt;= "10X1Z";
+							A &lt;= A ror 2; -- A = "X1Z10", 最右以左移的值填充</pre>
+							</td>
+						</tr>
+					</table>
+				</section>
+				
+				<section>
+					<h3>操作符：</h3>
+					<table>
+						<tr>
+							<th>优先级</th>
+							<th>运算符</th>
+							<th>用途</th>
+							<th>示例</th>
+						</tr>
+						<tr>
+							<td>5</td>
+							<td><code>=</code></td>
+							<td>相等判断，结果是boolean值（true 或 false）</td>
+							<td>
+							<pre class="brush:vhdl;">
+							if a = b then ...</pre>
+							</td>
+						</tr>
+						<tr>
+							<td>5</td>
+							<td><code>/=</code></td>
+							<td>不相等判断，结果是boolean值（true 或 false）</td>
+							<td>
+							<pre class="brush:vhdl;">
+							if a /= b then ...</pre>
+							</td>
+						</tr>
+						<tr>
+							<td>5</td>
+							<td><code>&lt;</code></td>
+							<td>小于判断，结果是boolean值（true 或 false）</td>
+							<td>
+							<pre class="brush:vhdl;">
+							if a &lt; b then ...</pre>
+							</td>
+						</tr>
+						<tr>
+							<td>5</td>
+							<td><code>&lt;=</code></td>
+							<td>小于等于判断，结果是boolean值（true 或 false）</td>
+							<td>
+							<pre class="brush:vhdl;">
+							if a &lt;= b then ...</pre>
+							</td>
+						</tr>
+						<tr>
+							<td>5</td>
+							<td><code>&gt;</code></td>
+							<td>大于判断，结果是boolean值（true 或 false）</td>
+							<td>
+							<pre class="brush:vhdl;">
+							if a &gt; b then ...</pre>
+							</td>
+						</tr>
+						<tr>
+							<td>5</td>
+							<td><code>&gt;=</code></td>
+							<td>大于等于判断，结果是boolean值（true 或 false）</td>
+							<td>
+							<pre class="brush:vhdl;">
+							if a &gt;= b then ...</pre>
+							</td>
+						</tr>
+					</table>
+				</section>
+				
+				<section>
+					<h3>操作符：</h3>
+					<table>
+						<tr>
+							<th>优先级</th>
+							<th>运算符</th>
+							<th>用途</th>
+							<th>示例</th>
+						</tr>
+						<tr>
+							<td>6</td>
+							<td><code>and</code></td>
+							<td>逻辑与判断，结果是boolean值（true 或 false）</td>
+							<td>
+							<pre class="brush:vhdl;">
+							if a and b then ...</pre>
+							</td>
+						</tr>
+						<tr>
+							<td>6</td>
+							<td><code>or</code></td>
+							<td>逻辑或判断，结果是boolean值（true 或 false）</td>
+							<td>
+							<pre class="brush:vhdl;">
+							if a or b then ...</pre>
+							</td>
+						</tr>
+						<tr>
+							<td>6</td>
+							<td><code>nand</code></td>
+							<td>逻辑与非判断，结果是boolean值（true 或 false）</td>
+							<td>
+							<pre class="brush:vhdl;">
+							if a nand b then ...</pre>
+							</td>
+						</tr>
+						<tr>
+							<td>6</td>
+							<td><code>nor</code></td>
+							<td>逻辑或非判断，结果是boolean值（true 或 false）</td>
+							<td>
+							<pre class="brush:vhdl;">
+							if a nor b then ...</pre>
+							</td>
+						</tr>
+						<tr>
+							<td>6</td>
+							<td><code>xor</code></td>
+							<td>逻辑异或判断，结果是boolean值（true 或 false）</td>
+							<td>
+							<pre class="brush:vhdl;">
+							if a xor b then ...</pre>
+							</td>
+						</tr>
+						<tr>
+							<td>6</td>
+							<td><code>xnor</code></td>
+							<td>逻辑同或判断，结果是boolean值（true 或 false）</td>
+							<td>
+							<pre class="brush:vhdl;">
+							if a xnor b then ...</pre>
+							</td>
+						</tr>
+					</table>
+				</section>
+				
+				<section>
+					<h3>顺序控制语句：</h3>
+					<table>
+						<tr>
+							<th>控制语句</th>
+							<th>作用</th>
+							<th>示例</th>
+						</tr>
+						<tr>
+							<th>
+							<code>if...then...else...elsif...end if;</code>结构
+							</th>
+							<th>条件分支</th>
+							<th>
+							<pre class="brush:vhdl;">
+Signal Code_of_Operation : 
+	Bit_Vector(1 downto 0);
+I3: if Code_of_Operation(1) = '1'
+      then F := Operand_1 + Operand_2;
+    elsif Code_of_Operation(0) = '1'
+      then F := Operand_1 - Operand_2;
+      else F := "00000000";
+    end if I3;				</pre>
+							</th>
+						</tr>
+						<tr>
+							<th>
+							<code>case ... when...end case;</code>结构
+							</th>
+							<th>多条件分支</th>
+							<th>
+							<pre class="brush:vhdl;">
+type Some_Characters is 
+	('a','b','c','d','e', 'f');
+variable Some_Characters_Variable: 
+	Some_Characters;
+begin
+   C4: case Some_Characters_Variable is
+      when 'a'  =&gt; Operation := 0;
+      when 'b' to 'c' =&gt; Operation := 0;
+      when 'd'| 'e'  =&gt; Operation := 1;
+	  when others =&gt;  Operation := 2;
+   end case C4;
+end process;				</pre>
+							</th>
+						</tr>
+					</table>
+				</section>
+				
+				<section>
+					<h3>顺序控制语句：</h3>
+					<table>
+						<tr>
+							<th>控制语句</th>
+							<th>作用</th>
+							<th>示例</th>
+						</tr>
+						<tr>
+							<th>
+							<code>while...loop...end loop;</code>结构
+							</th>
+							<th>当型循环</th>
+							<th>
+								<pre class="brush:vhdl;">
+Shift_3: process (Input_X)
+variable i : POSITIVE := 1;
+begin
+  L3: while i &lt;= 8 loop
+        Output_X(i) &lt;= Input_X(i+8) after 5 ns;
+        i := i + 1;
+      end loop L3;
+end process Shift_3;			</pre>
+							</th>
+						</tr>
+						<tr>
+							<th>
+							<code>for...in...loop...end loop;</code>结构
+							</th>
+							<th>范围型循环</th>
+							<th>
+								<pre class="brush:vhdl;">
+Shift_4: process (Input_X)
+begin
+  L4: for count_value in 1 to 8 loop
+       Output_X(count_value) &lt;= 
+			Input_X(count_value + 8) after 5 ns;
+      end loop L4;
+end process Shift_4;			</pre>
+							</th>
+						</tr>
+					</table>
+				</section>
+				
+				<section>
+					<h3>程序分析：</h3>
+					<div class="flex">
+						<div>
+						<pre class="brush:vhdl;highlight:[9,10,11,12,13]">
+					ENTITY mux21a IS
+						PORT ( A, B, S : IN  BIT;	 
+							   Y : OUT BIT );
+					END ENTITY mux21a;
+					ARCHITECTURE bhv OF mux21a IS
+					BEGIN
+						PROCESS ( A, B, S) 
+						BEGIN
+							IF ( S='1') THEN 
+								Y &lt;= A;
+							ELSE 
+								Y &lt;= B;	
+							END IF;
+						END PROCESS;
+					END ARCHITECTURE bhv;
+						</pre>
+						<img src="images/mux21a实体.png" />
+						</div>
+						<div style="width: 100%; font-size: 28px;">
+							<dl >
+							<dt class="fragment fade-left">VHDL语句类型</dt>
+							<dd class="fragment fade-left">VHDL的语句分为：<b class="red">顺序语句</b>（语句按照顺序逐条执行）和<b class="blue">并行语句</b>（语句同时执行）</dd>
+							<dt class="fragment fade-left">条件语句</dt>
+							<dd class="fragment fade-left">条件语句是顺序语句，语法：
+							<pre class="brush:vhdl;">
+							IF 条件 THEN 
+								语句1; 
+							ELSIF 条件2 THEN 
+								语句2; 
+							ELSE
+								语句3；
+							END IF;</pre>
+							其中<code>条件</code>可以是一个boolean值（true或false），也可以是逻辑表达式或条件表达式。
+							</dd>
+							</dl>
+						</div>
+					</div>
+				</section>
+				
+				<section>
+					<h3>程序分析：</h3>
+					<div class="flex">
+						<div>
+						<pre class="brush:vhdl; highlight:[2,3];">
+					ENTITY mux21a IS
+						PORT ( A, B, S : IN  BIT;	 
+							   Y : OUT BIT );
+					END ENTITY mux21a;
+					ARCHITECTURE bhv OF mux21a IS
+					BEGIN
+						PROCESS ( A, B, S) 
+						BEGIN
+							IF ( S='1') THEN 
+								Y &lt;= A;
+							ELSE 
+								Y &lt;= B;	
+							END IF;
+						END PROCESS;
+					END ARCHITECTURE bhv;
+						</pre>
+						<img src="images/mux21a实体.png" />
+						</div>
+						<div style="width: 100%; font-size: 28px;">
+							<dl >
+							<dt class="fragment fade-left">数据类型</dt>
+							<dd class="fragment fade-left">在<code>PORT</code>中，端口信号<code>a,b,s,y</code>的数据类型都是<code>BIT</code>, 还可以是：<code>INTEGER, BOOLEAN, STD_LOGIC</code>等；</dd>
+							<dd class="fragment fade-left"><code>BIT</code>的取值范围是<code>'0', '1'</code>， 可以参加逻辑运算（<code>and, or, nand, nor, xor, xnor</code>），其结果依然是<code>BIT</code>类型。
+							</dd>
+							</dl>
+						</div>
+					</div>
+				</section>
+				
+				<section>
+					<h3>程序分析：</h3>
+					<div class="flex">
+						<div>
+						<pre class="brush:vhdl; highlight:[7,14];">
+					ENTITY mux21a IS
+						PORT ( A, B, S : IN  BIT;	 
+							   Y : OUT BIT );
+					END ENTITY mux21a;
+					ARCHITECTURE bhv OF mux21a IS
+					BEGIN
+						PROCESS ( A, B, S) 
+						BEGIN
+							IF ( S='1') THEN 
+								Y &lt;= A;
+							ELSE 
+								Y &lt;= B;	
+							END IF;
+						END PROCESS;
+					END ARCHITECTURE bhv;	</pre>
+						<img src="images/mux21a实体.png" />
+						</div>
+						<div style="width: 100%; font-size: 28px;">
+							<dl >
+							<dt class="fragment fade-left">进程语句和顺序语句</dt>
+							<dd class="fragment fade-left">在本例中，顺序语句<code>if</code>是放在<code>process</code>语句块中，这称为进程语句，所有<b class="red">顺序语句都要放在进程语句块中</b>；</dd>
+							<dd class="fragment fade-left"><code>PROCESS(a,b,s)</code>中的<code>a,b,s</code>称为进程的<b class="blue">敏感信号表</b>，通常要求<b class="blue">将进程中的所有输入信号都放在敏感信号表</b>中，VHDL的进程运行会监控敏感信号是否发生变化（从<code>0</code>变为<code>1</code>，或<code>1</code>变为<code>0</code>），就会激发进程的运行，这称为<b class="green">事件</b>。
+							</dd>
+							<dd class="fragment fade-left">在一个结构体<code>ARCHITECTURE</code>中，可以包含任意个进程<code>process</code>，<b class="Indigo">每一个进程都是并行运行</b>。</dd>
+							</dl>
+						</div>
+					</div>
+				</section>
+				
+				<section>
+					<h3>程序分析：</h3>
+					<div class="flex">
+						<div>
+						<pre class="brush:vhdl; highlight:[2,3];">
+					ENTITY mux21a IS
+						PORT ( A, B, S : IN  BIT;	 
+							   Y : OUT BIT );
+					END ENTITY mux21a;
+					ARCHITECTURE bhv OF mux21a IS
+					BEGIN
+						PROCESS ( A, B, S) 
+						BEGIN
+							IF ( S='1') THEN 
+								Y &lt;= A;
+							ELSE 
+								Y &lt;= B;	
+							END IF;
+						END PROCESS;
+					END ARCHITECTURE bhv;	</pre>
+						<img src="images/mux21a实体.png" />
+						</div>
+						<div style="width: 100%; font-size: 28px;">
+							<dl >
+							<dt class="fragment fade-left">端口语句和端口信号名</dt>
+							<dd class="fragment fade-left">端口语句<code>PORT()</code>，端口可以对信号名和端口数据类型等的定义。</dd>
+							<dt class="fragment fade-left">端口模式</dt>
+							<dd class="fragment fade-left">可综合的端口模式包括：
+							<p class="fragment fade-left" style="font-size:24px;"><code>IN</code>:输入端口，定义的通道为单向只读模式</p>
+							<p class="fragment fade-left" style="font-size:24px;"><code>OUT</code>:输出端口，定义的通道为单向输出模式</p>
+							<p class="fragment fade-left" style="font-size:24px;"><code>INOUT</code>:双向端口，定义的通道为双向模式，即从端口的内部看，可以对端口赋值，或从此端口读入外部的值；从端口的外部看，信号可以从此端口流出，也可以向端口输入信号，如RAM的数据口，单片机的I/O口;</p>
+							<p class="fragment fade-left" style="font-size:24px;"><code>BUFFER</code>:缓冲端口，和<code>INOUT</code>类似，但是当内部读入数据时，不能是外部传递的数据，而只能是内部输出反馈的数据。</p>
+							</dd>
+							</dl>
+						</div>
+					</div>
+				</section>
+				
+				<section>
+					<h3>程序分析：</h3>
+					<div class="flex">
+						<div>
+						<pre class="brush:vhdl;">
+					ENTITY mux21a IS
+						PORT ( A, B, S : IN  BIT;	 
+							   Y : OUT BIT );
+					END ENTITY mux21a;
+					ARCHITECTURE bhv OF mux21a IS
+					BEGIN
+						PROCESS ( A, B, S) 
+						BEGIN
+							IF ( S='1') THEN 
+								Y &lt;= A;
+							ELSE 
+								Y &lt;= B;	
+							END IF; 
+						END PROCESS; --结束进程
+					END ARCHITECTURE bhv;	</pre>
+						<img src="images/mux21a实体.png" />
+						</div>
+						<div style="width: 100%; font-size: 28px;">
+							<dl >
+							<dt class="fragment fade-left">关键字</dt>
+							<dd class="fragment fade-left">key word，关键字，是VHDL中保留作为自己的特殊用途的词汇，编程者不能使用这些词汇来命名自己的变量等标识符。左边蓝色的都是关键字。VHDL中关键字不分大小写。
+							</dd>
+							<dt class="fragment fade-left">标识符</dt>
+							<dd class="fragment fade-left">用户自定义的实体（<code>entity</code>）名、结构体（<code>ARCHITECTURE</code>）名、端口（<code>port</code>）名、信号（<code>signal</code>）名等，标识符只能用字母(<code>a-z</code>)、数值(<code>0-9</code>)、下划线(<code>_</code>)来组成，第一个字符不能是数值，大小写不区分
+							</dd>
+							<dt class="fragment fade-left">注释</dt>
+							<dd class="fragment fade-left"><code>--</code>开始的地方为注释，从此开始到行末都是注释。
+							</dd>
+							</dl>
+						</div>
+					</div>
+				</section>
+				
+				<section>
+					<h4>实际编程及仿真：Quartus II + ModelSim</h4>
+					<img src="images/quartus1.png" />
+				</section>
+				
+				<section>
+					<h4>创建新项目</h4>
+					<div class="flex">
+					<img src="images/quartus2.png" />
+					<img src="images/quartus3.png" />
+					</div>
+					<img src="images/quartus4.png" />
+				</section>
+				
+				<section>
+					<h4>是否添加已经存在的文件</h4>
+					<img src="images/quartus5.png" />
+				</section>
+				
+				<section>
+					<h4>选择fpga的型号</h4>
+					<img src="images/quartus6.png" />
+				</section>
+				
+				<section>
+					<h4>设置综合器、仿真器</h4>
+					<img src="images/quartus7.png" />
+				</section>
+				
+				<section>
+					<h4>总结</h4>
+					<img src="images/quartus8.png" />
+				</section>
+				
+				<section>
+					<h4>创建vhdl文件：File --&gt; new --&gt; vhdl </h4>
+					<img src="images/quartus9.png" />
+				</section>
+				
+				<section>
+					<h4>编写VHDL程序，并保存 </h4>
+					<img src="images/quartus10.png" />
+				</section>
+				
+				<section>
+					<h4>编译</h4>
+					<img src="images/quartus11.png" />
+				</section>
+				
+				<section>
+					<h4>查看RTL（寄存器传输级）结果</h4>
+					<img src="images/quartus12.png" />
+					<img src="images/quartus13.png" />
+				</section>
+				
+				<section>
+					<h4>查看逻辑门结果</h4>
+					<img src="images/quartus14.png" />
+				</section>
+				
+				<section>
+					<h4>进行仿真：ModelSim</h4>
+					<img src="images/modelsim1.png" />
+				</section>
+				
+				<section>
+					<h4>创建项目</h4>
+					<p>项目目录可以和Quartus的项目目录放在一起。</p>
+					<img src="images/modelsim2.png" />
+				</section>
+				
+				<section>
+					<h4>将前面创建的vhdl文件添加进入仿真项目</h4>
+					<img src="images/modelsim3.png" />
+				</section>
+				
+				<section>
+					<h4>编译并进行仿真</h4>
+					<img src="images/modelsim4.png" />
+				</section>
+				
+				<section>
+					<h4>进入信号选择界面</h4>
+					<p>如下图，在object窗口选择需要的信号，右键单击，并选择加入波形显示。</p>
+					<img src="images/modelsim5.png" />
+				</section>
+				
+				<section>
+					<h4>进入波形界面</h4>
+					<img src="images/modelsim6.png" />
+				</section>
+				
+				<section>
+					<h4>设置输入信号，并开始仿真，查看波形</h4>
+					<img src="images/modelsim7.png" />
+				</section>
+				
+			</section>
+				
+			<section>
+				<section>
+					<h2>3.2 半加器及其VHDL描述</h2>
+					<div class="flex">
+						<table>
+							<tr>
+							<th>A</th><th>B</th><th>SO</th><th>CO</th>
+							</tr>
+							<tr>
+							<th>0</th><th>0</th><th>0</th><th>0</th>
+							</tr>
+							<tr>
+							<th>0</th><th>1</th><th>1</th><th>0</th>
+							</tr>
+							<tr>
+							<th>1</th><th>0</th><th>1</th><th>0</th>
+							</tr>
+							<tr>
+							<th>1</th><th>1</th><th>0</th><th>1</th>
+							</tr>
+							<tr>
+							<td colspan="4">
+							$SO=\overline{A}\cdot B+ A\cdot\overline{B}=A\bigoplus B$, $CO=A\cdot B$
+							</td>
+							</tr>
+						</table>
+						<img src="images/half_adder.png" />
+					</div>
+					<div class="flex">
+						<pre class="brush:vhdl;">
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
+ENTITY half_adder IS
+PORT (A: IN  STD_LOGIC;
+	  B: IN  STD_LOGIC;
+	  SO: OUT STD_LOGIC;
+	  CO: OUT STD_LOGIC	);
+END ENTITY half_adder;
+ARCHITECTURE fh1 of half_adder IS
+BEGIN
+	SO &lt;= A xor B;
+	CO &lt;= A AND B;
+END ARCHITECTURE fh1;		</pre>
+						<ul style="font-size:28px;">
+							<li class="fragment fade-right red"  style="font-size:28px;">整个程序是VHDL完整电路模块的程序代码；</li>
+							<li class="fragment fade-right blue"  style="font-size:28px;">第1、2行是设计库和程序包的调用；</li>
+							<li class="fragment fade-right green"  style="font-size:28px;">第3~8行是VHDL的实体(ENTITY)描述部分；</li>
+							<li class="fragment fade-right Navy"  style="font-size:28px;">第4~7行是端口说明和定义；</li>
+							<li class="fragment fade-right Crimson"  style="font-size:28px;">第9~13行是VHDL的结构体（ARCHITECTURE）描述部分；</li>
+							<li class="fragment fade-right Indigo"  style="font-size:28px;">第11，12行是电路模块的功能描述。并行。</li>
+						</ul>
+					</div>
+				</section>
+				
+				<section>
+					<h3>实体表达和实体名</h3>
+					<div class="flex">
+						<pre class="brush:vhdl; highlight:[3,4,5,6,7,8]">
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
+ENTITY half_adder IS
+PORT (A: IN  STD_LOGIC;
+	  B: IN  STD_LOGIC;
+	  SO: OUT STD_LOGIC;
+	  CO: OUT STD_LOGIC	);
+END ENTITY half_adder;
+ARCHITECTURE fh1 of half_adder IS
+BEGIN
+	SO &lt;= A xor B;
+	CO &lt;= A AND B;
+END ARCHITECTURE fh1;		</pre>
+						<ol>
+							<li class="fragment fade-right Indigo" style="font-size:28px;">实体描述的是端口的构成，包括端口数量，种类（信号的流动方向和方式），端口上流动信号的属性等；</li>
+							<li class="fragment fade-right Navy" style="font-size:28px;">实体名称属于标识符，建议以器件名来命名，比如4位二进制计数器：counter4b, 8位二进制加法器：adder8b等，但是不能和VHDL工具库已定义的元件名重名，也不能用数字开头的实体名，如：74LS138等；</li>
+						</>
+					</div>
+				</section>
+				
+				<section>
+					<h3>结构体表述</h3>
+					<div class="flex">
+						<pre class="brush:vhdl; highlight:[9,10,11,12,13]">
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
+ENTITY half_adder IS
+PORT (A: IN  STD_LOGIC;
+	  B: IN  STD_LOGIC;
+	  SO: OUT STD_LOGIC;
+	  CO: OUT STD_LOGIC	);
+END ENTITY half_adder;
+ARCHITECTURE fh1 of half_adder IS
+BEGIN
+	SO &lt;= A xor B;
+	CO &lt;= A AND B;
+END ARCHITECTURE fh1;		</pre>
+						<ol>
+							<li class="fragment fade-right blue" style="font-size:28px;">在<code>ARCHITECTURE</code>和<code>BEGIN</code>之间可以加入<i class="wavy">说明语句</i>，里面包括：定义类型、常量、变量、元件声明等，这个不是必须的，本例就没有；</li>
+							<li class="fragment fade-right green" style="font-size:28px;">在<code>BEGIN</code>和<code>END ARCHITECTURE</code>之间是<i class="wavy">功能描述语句</i>，这是必须的。里面包括：并行语句，顺序语句，以及混合。</li>
+						</>
+					</div>
+				</section>
+				
+				<section>
+					<h3>标准逻辑位类型：<code>STD_LOGIC</code></h3>
+					<div class="flex">
+						<pre class="brush:vhdl; highlight:[4,5,6,7]">
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
+ENTITY half_adder IS
+PORT (A: IN  STD_LOGIC;
+	  B: IN  STD_LOGIC;
+	  SO: OUT STD_LOGIC;
+	  CO: OUT STD_LOGIC	);
+END ENTITY half_adder;
+ARCHITECTURE fh1 of half_adder IS
+BEGIN
+	SO &lt;= A xor B;
+	CO &lt;= A AND B;
+END ARCHITECTURE fh1;		</pre>
+						<ol>
+							<li class="fragment fade-right red" style="font-size:28px;">常规的<code>BIT</code>类型只有两种取值：<code>'0', '1'</code>，对于实际电路未免有点不足；</li>
+							<li class="fragment fade-right Crimson" style="font-size:28px;">VHDL引入一种标准的<code>STD_LOGIC</code>类型，其取值包括：<code>'U'(未初始化的), 'X'(强未知的，即可取'0'或'1'), 'Z'(高阻态, 比如端口串接1MΩ电阻), 'W'(弱未知的), 'L'(弱逻辑'0'), 'H'(弱逻辑'1'，比如端口串接100kΩ电阻), '-'(忽略), '0', '1'(高电平，强逻辑)</code>，在综合的时候只能用<code>'X', '-',  '0', '1', 'Z'</code>，<code>'X','-'</code>可以和卡诺图化简里的相对应。</li>
+					</div>
+				</section>
+				
+				<section>
+					<h3>赋值和逻辑操作：</h3>
+					<div class="flex">
+						<pre class="brush:vhdl; highlight:[11,12]">
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
+ENTITY half_adder IS
+PORT (A: IN  STD_LOGIC;
+	  B: IN  STD_LOGIC;
+	  SO: OUT STD_LOGIC;
+	  CO: OUT STD_LOGIC	);
+END ENTITY half_adder;
+ARCHITECTURE fh1 of half_adder IS
+BEGIN
+	SO &lt;= A xor B;
+	CO &lt;= A and B;
+END ARCHITECTURE fh1;		</pre>
+						<ol>
+							<li class="fragment fade-right Indigo" style="font-size:28px;">对于<i class="wavy">信号(signal)</i>类型的变量（包括端口），要对其赋值，必须用<code>&lt;=</code>运算符，并且要求<i class="wavy">赋值号两边的类型必须一致</i>；</li>
+							<li class="fragment fade-right Navy" style="font-size:28px;">基本语法：<code>目标变量&lt;=驱动表达式;</code>这表示当<code>驱动表达式</code><i class="wavy">任一组成信号发生变化，此表达式就会重新被计算一遍</i>，并把结果赋给目标变量。</li>
+							<li class="fragment fade-right Crimson " style="font-size:28px;">VHDL中支持7种类型的逻辑运算，包括：<code>and,or,nand,nor,xor,xnor,not</code>，注意只有<code>BIT, BOOLEAN, STD_LOGIC</code>三种类型的量支持逻辑运算。</li>
+						</ol>
+					</div>
+				</section>
+				
+				<section>
+					<h3>设计库和标准程序包：</h3>
+					<div class="flex">
+						<pre class="brush:vhdl; highlight:[1,2]">
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
+ENTITY half_adder IS
+PORT (A: IN  STD_LOGIC;
+	  B: IN  STD_LOGIC;
+	  SO: OUT STD_LOGIC;
+	  CO: OUT STD_LOGIC	);
+END ENTITY half_adder;
+ARCHITECTURE fh1 of half_adder IS
+BEGIN
+	SO &lt;= A xor B;
+	CO &lt;= A and B;
+END ARCHITECTURE fh1;		</pre>
+						<ol>
+							<li class="fragment fade-right red" style="font-size:28px;">有许多的类型说明，函数是预先放在VHDL综合器（或仿真器）附带的设计库和程序包中，比如<code>BIT</code>类型是在标准库<code>STD</code>里面的<code>STANDARD</code>程序包中，为了使用它，可以如下：
+							<pre class="brush:vhdl;">
+							LIBRARY WORK; --打开工作库
+							LIBRARY STD;  --打开标准库
+							--使用里面定义的所有元素
+							USE STD.STANDARD.ALL; </pre>
+							</li>
+							<li class="fragment fade-right gold" style="font-size:28px;"><code>work</code>工作库，指的是当前项目的保存的目录，这样可以继续打开保存在这个目录下的其他的库和程序包。</li>
+							<li class="fragment fade-right Indigo" style="font-size:28px;">但是<code>work</code>、<code>std</code>库都是缺省打开的，可以不用写；<code>STD_LOGIC</code>所在的<code>IEEE</code>库<code>STD_LOGIC_1164</code>程序包，这个使用就必须声明。</li>
+						</ol>
+					</div>
+				</section>
+			</section>
+			
+			<section>
+				<section>
+					<h2 style="font-size: 38px;">3.3 四选一多路选择器及其VHDL描述</h2>
+					<div class="flex">
+						<div class="flex2">
+							<img src="images/mux41a.png"/>
+							<img src="images/mux41a_wave.png" style="height:200px;"/>
+						</div>
+						<pre class="brush:vhdl;">
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
+
+ENTITY mux41a IS
+	PORT(
+	a, b, c, d, s0, s1: IN  STD_LOGIC;
+	   				  y: OUT STD_LOGIC);
+END ENTITY mux41a;
+
+ARCHITECTURE bhv of mux41a IS
+SIGNAL s : STD_LOGIC_VECTOR( 1 DOWNTO 0);
+BEGIN
+	s &lt;= s1 &amp; s0;
+	PROCESS (s1, s0) 
+	BEGIN
+		CASE (s) IS
+			WHEN "00" =&gt; y &lt;= a;
+			WHEN "01" =&gt; y &lt;= b;
+			WHEN "10" =&gt; y &lt;= c;
+			WHEN "11" =&gt; y &lt;= d;
+			WHEN OTHERS =&gt; NULL;
+		END CASE;
+	END PROCESS;
+END ARCHITECTURE bhv;
+						</pre>
+					</div>
+				</section>
+				
+				<section>
+					<h3 style="font-size: 38px;"><code>CASE</code>语句</h3>
+					<div class="flex">
+						<pre class="brush:vhdl;highlight:[16,17,18,19,20,21,22]">
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
+
+ENTITY mux41a IS
+	PORT(
+	a, b, c, d, s0, s1: IN  STD_LOGIC;
+	   				  y: OUT STD_LOGIC);
+END ENTITY mux41a;
+
+ARCHITECTURE bhv of mux41a IS
+SIGNAL s : STD_LOGIC_VECTOR( 1 DOWNTO 0);
+BEGIN
+	s &lt;= s1 &amp; s0;
+	PROCESS (s1, s0) 
+	BEGIN
+		CASE (s) IS
+			WHEN "00" =&gt; y &lt;= a;
+			WHEN "01" =&gt; y &lt;= b;
+			WHEN "10" =&gt; y &lt;= c;
+			WHEN "11" =&gt; y &lt;= d;
+			WHEN OTHERS =&gt; NULL;
+		END CASE;
+	END PROCESS;
+END ARCHITECTURE bhv;	</pre>
+						<div style="width:400px;">
+							<p class="fragment fade-right red" style="font-size:24px;"><code>CASE</code>也是顺序结构，因此也应该放在<code>PROCESS</code>进程块中，其中<code>=&gt;</code>不是操作符，相当于<code>THEN</code>；
+							</p>
+							<p class="fragment fade-right green" style="font-size:24px;"><code>WHEN</code>中的选择值必须在<code>CASE</code>语句中表达式的取值范围内，数据类型也需要匹配；
+							</p>
+							<p class="fragment fade-right cyan" style="font-size:24px;">最后的<code>WHEN OTHERS</code>表示其他可能的取值，<code>OTHERS</code>只能出现一次，而且必须作为最后一个条件。<code>NULL</code>表示不做任何操作，注意如果前面的条件不全，必须要加<code>OTHERS</code>；
+							</p>
+						</div>
+					</div>
+				</section>
+				
+				<section>
+					<h3 style="font-size: 38px;"><code>CASE</code>语句</h3>
+					<div class="flex">
+						<pre class="brush:vhdl;highlight:[16,17,18,19,20,21,22]">
+sel:IN INTEGER RANGE 0 to 15;
+...
+case sel IS
+	-- 当sel=0时选中
+	WHEN 0   =&gt; z1 &lt;= "010";
+	-- 当sel=1或3时选中
+	WHEN 1|3 =&gt; z1 &lt;= "110"; 
+	-- 当sel=2、4、5、6、7时选中
+	WHEN 4 to 7|2 =&gt; z1 &lt;= "011";
+	-- 当sel=8~15时选中	
+	WHEN OTHERS =&gt; z1 &lt;= "111"; 
+end case;	</pre>
+						<div >
+							<p class="fragment fade-right red" style="font-size:28px;"><code>CASE</code>多条件选择值的组合可以如下：；
+							</p>
+							<ol>
+							<li class="fragment fade-right blue" style="font-size:28px;">单个普通值；</li>
+							<li class="fragment fade-right green" style="font-size:28px;">选址选择范围，比如：<br>
+							<code>2 to 4</code>，表示取值：2,3,4;<br> 
+							<code>3 downto 0</code>，表示取值：3,2,1,0</li>
+							<li class="fragment fade-right gold" style="font-size:28px;">并列数值，比如： 
+							<code>3 | 5</code>，表示取值：3或者5</li>
+							<li class="fragment fade-right blue" style="font-size:28px;">以上几种的混合；</li>
+							</ol>
+						</div>
+					</div>
+				</section>
+				
+				<section>
+					<h3 style="font-size: 38px;"><code>CASE</code>语句常见容易出错的地方</h3>
+					<div class="flex">
+						<pre class="brush:vhdl;">
+signal value: integer range 0 to 15;
+signal out1 : std_logic;
+...
+case value IS
+	-- value 为2~15的值未包括进去，
+	-- 在综合的时候会报错，
+	-- 除非加入 when others 语句
+	when 0 =&gt; out1 &lt;= '1'
+	when 1 =&gt; out1 &lt;= '0'
+end case;	
+...
+case value is
+	-- 选择值 5~10 有重叠
+	when 0 to 10 =&gt; out1 &lt;= '1'
+	when 5 to 15 =&gt; out1 &lt;= '0'
+end case; 				</pre>
+						<ol>
+							<li class="fragment fade-right blue" style="font-size:28px;">对于没有覆盖全部选择值的情况，如果没有<code>when others</code>，综合器通常会判错；</li>
+							<li class="fragment fade-right Indigo" style="font-size:28px;">如上例加上<code>WHEN OTHERS =&gt; NULL;</code>，综合器会在输出口加上时序模块（锁存器），这应该避免，可以加上其他的顺序赋值语句，比如<code>WHEN OTHERS =&gt; y &lt;= 'Z';</code>；这样才能得到不含时序电路的纯组合逻辑电路；</li>
+							<li class="fragment fade-right Navy" style="font-size:28px;"><code>CASE</code>只能实现<i class="wavy">逻辑或</i>，无法实现<i class="wavy">逻辑与</i>，在需要与逻辑操作的情况下，应该使用<code>IF</code></li>
+						</ol>
+					</div>
+				</section>
+				
+				<section>
+					<h3 style="font-size: 38px;">IEEE库预定义标准逻辑位矢量：<code>STD_LOGIC_VECTOR</code></h3>
+					<div class="flex">
+						<div class="flex2">
+						<pre class="brush:vhdl;highlight:[1,2,4,5,10]">
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
+...
+       B : OUT STD_LOGIC_VECTOR( 7 DOWNTO 0);
+SIGNAL A : STD_LOGIC_VECTOR( 1 DOWNTO 4);
+...
+	B &lt;= "01100010";
+	B (4 downto 1) &lt;= "1101";
+	B (7 downto 4) &lt;= A; --B的高4位由A赋值
+	B &lt;= "1101" & "0010";  </pre>
+							<div>
+							<p class="fragment fade-right Navy" style="font-size:28px;"><code>STD_LOGIC_VECTOR</code>被定义为一维位数组，每一个元素都是<code>STD_LOGIC</code>，通常用<code>STD_LOGIC_VECTOR</code>来表示<i class="wavy">多通道端口、多通道节点，或者总线</i>；</p>
+							<p class="fragment fade-right green" style="font-size:28px;">在使用<code>STD_LOGIC_VECTOR</code>时，必须注明其数组宽度，即<i class="wavy">位宽</i>，注意定义的时候，左边为高位，右边为低位;</p>
+							</div>
+						</div>
+		
+						<div style="width:400px;">
+							<p class="fragment fade-right Crimson" style="font-size:28px;">第4行定义了矢量数组<code>B</code>，其元素从左到右分别为<code>B(7),B(6),...,B(0)</code></p>
+							<p class="fragment fade-right red" style="font-size:28px;">第5行定义了矢量数组<code>A</code>，其元素从左到右分别为<code>A(1),A(2),A(3),A(4)</code></p>
+							<p class="fragment fade-right blue" style="font-size:28px;">第10行使用了并置操作符<code>&amp;</code>，将信号或者数组合并起来组成新的数组矢量，例如<code>"VH"&amp;"DL" --&gt; "VHDL"</code></p>
+						</div>
+					</div>
+				</section>
+				
+				<section>
+					<h3 style="font-size: 38px;">其他预定义标准数据类型</h3>
+					<div class="flex">
+						<div class="flex2">
+						<pre class="brush:vhdl;">
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_ARITH.ALL;
+...
+VARIABLE v1 : unsigned (0 to 10);
+SIGNAL   v3 : signed   (9 downto 0);</pre>
+							<div style="width: 500px;">
+							<p class="fragment fade-right Navy" style="font-size:28px;">如果导入Synopsys公司在<code>IEEE</code>库加入的<code>STD_LOGIC_ARITH</code>程序包，则可以使用额外的<code>unsigned, signed, small_int</code>等类型；</p>
+							
+							<p class="fragment fade-right Crimson" style="font-size:28px;"><code>unsigned</code>类型表示无符号整数（以二进制位矢量的形式），实际使用的时候，除了如第4行一样定义变量外，还可以用<code>unsigned'("1000")</code>（即十进制的<code>8</code>）这样来定义无符号常数，注意左边为高位，右边为低位；</p>
+							</div>
+						</div>
+		
+						<div style="width:450px;">
+							<p class="fragment fade-right red" style="font-size:28px;"><code>signed</code>类型表示有符号整数（以二进制位矢量的形式），实际使用的时候，除了如第5行一样定义变量外，还可以用<code>signed'("0101)</code>（即十进制的<code>+5</code>），<code>signed'("1011)</code>（即十进制的<code>-5</code>，注意这是采用补码，转换时去除最高位(<code>011</code>)，转换为反码(<code>100</code>)，再<code>+1</code>(<code>101</code>)，即可得到实际的整数(十进制<code>5</code>)，再加上符号）这样来定义有符号常数，注意左边为高位，右边为低位，最左边为符号位，<code>1</code>为负数；</p>
+							<p class="fragment fade-right Navy" style="font-size:28px;"><code>unsigned</code>和<code>signed</code>类型本质上是<code>STD_LOGIC</code>类型的数组；</p>
+						</div>
+					</div>
+				</section>
+				
+				<section>
+					<h3 style="font-size: 38px;">信号定义和数据对象</h3>
+					<div class="flex">
+						<pre class="brush:vhdl;highlight:[11]">
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
+
+ENTITY mux41a IS
+	PORT(
+	a, b, c, d, s0, s1: IN  STD_LOGIC;
+	   				  y: OUT STD_LOGIC);
+END ENTITY mux41a;
+
+ARCHITECTURE bhv of mux41a IS
+SIGNAL s : STD_LOGIC_VECTOR( 1 DOWNTO 0);
+BEGIN
+	s &lt;= s1 &amp; s0;
+	PROCESS (s1, s0) 
+	BEGIN
+		CASE (s) IS
+			WHEN "00" =&gt; y &lt;= a;
+			WHEN "01" =&gt; y &lt;= b;
+			WHEN "10" =&gt; y &lt;= c;
+			WHEN "11" =&gt; y &lt;= d;
+			WHEN OTHERS =&gt; NULL;
+		END CASE;
+	END PROCESS;
+END ARCHITECTURE bhv;	</pre>
+						<div style="width:400px;">
+							<p class="fragment fade-right blue" style="font-size:28px;">第11行将器件内部通讯的对象<code>s</code>定义为信号<code>signal</code>，信号属于<i class="wavy">数据对象（Data Objects）</i>，信号的赋值用<code>&lt;=</code>，信号可以如同一根导线一样在结构体中传递信息，但其类型只能是<code>BIT, STD_LOGIC</code>及其衍生类型，比如矢量等；</p>
+							<p class="fragment fade-right red" style="font-size:28px;">其他的数据对象（Data Objects）包括：变量<code>VARIABLE</code>、常量<code>CONSTANT</code></p>
+						</div>
+					</div>
+				</section>
+				
+				<section>
+					<h3 style="font-size: 38px;">其他的四选一多路选择器的描述方式</h3>
+					<div class="flex">
+						<pre class="brush:vhdl;highlight:[14,15,16,17,18,19,20,21,22,23]">
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
+
+ENTITY mux41a IS
+	PORT(
+	a, b, c, d, s0, s1: IN  STD_LOGIC;
+	   				  y: OUT STD_LOGIC);
+END ENTITY mux41a;
+
+ARCHITECTURE bhv of mux41a IS
+SIGNAL s : STD_LOGIC_VECTOR( 1 DOWNTO 0);
+BEGIN
+	s &lt;= s1 &amp; s0;
+	PROCESS (s1, s0) 
+	BEGIN
+		CASE (s) IS
+			WHEN "00" =&gt; y &lt;= a;
+			WHEN "01" =&gt; y &lt;= b;
+			WHEN "10" =&gt; y &lt;= c;
+			WHEN "11" =&gt; y &lt;= d;
+			WHEN OTHERS =&gt; NULL;
+		END CASE;
+	END PROCESS;
+END ARCHITECTURE bhv;	</pre>
+						<div class="flex2">
+							<pre class="brush:vhdl;">
+-- 采用if结构
+PROCESS (s1, s0) 
+BEGIN
+	IF (s="00") THEN y &lt;= a;
+ ELSIF (s="01") THEN y &lt;= b;
+ ELSIF (s="10") THEN y &lt;= c;
+ ELSE  y &lt;= d; END IF;
+END PROCESS;  				</pre>
+							<pre class="brush:vhdl;">
+-- 采用并行: 
+-- WHEN...ELSE 条件信号赋值语句
+y &lt;=a  WHEN s="00" ELSE
+    b  WHEN s="01" ELSE
+    c  WHEN s="10" ELSE
+    d ;</pre>
+							<pre class="brush:vhdl;">
+-- 采用并行：选择信号赋值
+WITH s SELECT --敏感信号s
+y &lt;=a  WHEN "00",
+	b  WHEN "01",
+	c  WHEN "10",
+	d  WHEN "11";
+-- 如果有没有覆盖的条件，需要加：
+-- unaffected WHEN OTHERS;</pre>
+						</div>
+					</div>
+				</section>
+			</section>
+			
+			<section>
+				<section>
+					<h2 style="font-size:38px;">3.4 全加器及其VHDL描述</h2>
+					<div class="flex">
+						<div class="flex2">
+							<img src="images/full_adder2.png" />
+							<img src="images/full_adder_wave.png" />
+						</div>
+<table  style="width:200px;">
+	<tr><th>ain</th><th>bin</th><th>cin</th><th>cout</th><th>sum</th></tr>
+	<tr><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+	<tr><td>0</td><td>0</td><td>1</td><td>0</td><td>1</td></tr>
+	<tr><td>0</td><td>1</td><td>0</td><td>0</td><td>1</td></tr>
+	<tr><td>0</td><td>1</td><td>1</td><td>1</td><td>0</td></tr>
+	<tr><td>1</td><td>0</td><td>0</td><td>0</td><td>1</td></tr>
+	<tr><td>1</td><td>0</td><td>1</td><td>1</td><td>0</td></tr>
+	<tr><td>1</td><td>1</td><td>0</td><td>1</td><td>0</td></tr>
+	<tr><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td></tr>
+</table>
+					</div>
+					<p class="fragment fade-right blue">在这个例子中，我们学习引入元器件模型，实现所谓<i class="wavy">例化（Component Instantiation）</i>，并了解<i class="wavy">由顶向下</i>的设计方法；</p>
+					<p class="fragment fade-right green">本例子中，全加器里由<i class="wavy">两个半加器</i>和一个<i class="wavy">或逻辑门</i>组成，这两个元件由单独<code>.vhd</code>文件组成。</p>
+				</section>
+				
+				<section>
+					<h4>下面的程序文件最好都放在同一项目目录下。</h4>
+					<div class="flex">
+<pre class="brush:vhdl;highlight:[9,13,19,21,23]">
+--full_adder.vhd
+LIBRARY IEEE; 
+USE IEEE.STD_LOGIC_1164.ALL;
+ENTITY full_adder IS
+PORT( ain, bin, cin : IN STD_LOGIC;
+			cout, sum: OUT STD_LOGIC );
+END ENTITY full_adder;
+ARCHITECTURE fd1 OF full_adder IS
+	COMPONENT half_adder
+		PORT (A, B : IN STD_LOGIC; 
+				CO,SO: OUT STD_LOGIC );
+	END COMPONENT;	
+	COMPONENT or2a
+		PORT (a, b: IN STD_LOGIC; 
+				c : OUT STD_LOGIC );
+	END COMPONENT;	
+	SIGNAL net1, net2, net3 : STD_LOGIC; 
+BEGIN
+	u1 : half_adder PORT MAP 
+		(A=&gt;ain, B=&gt;bin, CO=&gt;net2, SO=&gt;net1);
+	u2 : half_adder PORT MAP 
+		(net1, cin, net3, sum);
+	u3 : or2a PORT MAP 
+		(a=&gt;net2, b=&gt;net3, c=&gt;cout);
+END ARCHITECTURE fd1;	</pre>
+						<div class="flex2">
+<pre class="brush:vhdl;">
+LIBRARY IEEE;--half_adder.vhd
+USE IEEE.STD_LOGIC_1164.ALL;
+ENTITY half_adder IS
+PORT(A: IN  STD_LOGIC;
+	B: IN  STD_LOGIC;
+	SO: OUT STD_LOGIC;
+	CO: OUT STD_LOGIC);
+END ENTITY half_adder;
+ARCHITECTURE fh1 of 
+	half_adder IS
+BEGIN
+	SO &lt;= A xor B;
+	CO &lt;= A AND B;
+END ARCHITECTURE fh1;</pre>
+<pre class="brush:vhdl;">
+LIBRARY IEEE;--or2a.vhd
+USE IEEE.STD_LOGIC_1164.ALL;
+ENTITY or2a IS
+PORT( a, b : IN STD_LOGIC;
+	c : OUT STD_LOGIC);
+END ENTITY or2a;
+ARCHITECTURE one OF or2a IS
+BEGIN
+	c &lt;= a or b;
+END ARCHITECTURE one;</pre>
+						</div>
+					</div>
+				</section>
+				
+				<section>
+					<h4>VHDL例化语句</h4>
+					<div class="flex">
+<pre class="brush:vhdl;highlight:[9,12,13,16,19,21,23]">
+--full_adder.vhd
+LIBRARY IEEE; 
+USE IEEE.STD_LOGIC_1164.ALL;
+ENTITY full_adder IS
+PORT( ain, bin, cin : IN STD_LOGIC;
+			cout, sum: OUT STD_LOGIC );
+END ENTITY full_adder;
+ARCHITECTURE fd1 OF full_adder IS
+	COMPONENT half_adder
+		PORT (A, B : IN STD_LOGIC; 
+				CO,SO: OUT STD_LOGIC );
+	END COMPONENT;	
+	COMPONENT or2a
+		PORT (a, b: IN STD_LOGIC; 
+				c : OUT STD_LOGIC );
+	END COMPONENT;	
+	SIGNAL net1, net2, net3 : STD_LOGIC; 
+BEGIN
+	u1 : half_adder PORT MAP 
+		(A=&gt;ain, B=&gt;bin, CO=&gt;net2, SO=&gt;net1);
+	u2 : half_adder PORT MAP 
+		(net1, cin, net3, sum);
+	u3 : or2a PORT MAP 
+		(a=&gt;net2, b=&gt;net3, c=&gt;cout);
+END ARCHITECTURE fd1;	</pre>
+					
+						<div>
+							<p>VHDL的例化语句由两部分组成</p>
+							<ol>
+								<li class="fragment fade-right blue" style="font-size:24px;">第一部分是<i class="wavy">元件（component）的声明</i>，如第9-12行，以及第13-16行，这里必须描述端口的引脚类型和数目、名字；</li>
+								<li class="fragment fade-right Indigo" style="font-size:24px;">第二部分是<i class="wavy">元件的例化和端口映射说明</i>，如第19-24行，这里要求几点：首先，端口映射有两种，一种是<i class="wavy">按名称映射</i>，比如第20行，第24行，另一种是<i class="wavy">按照顺序映射</i>，比如第22行；</li>
+								<li class="fragment fade-right Crimson" style="font-size:24px;">其次，在映射格式：<code>元件端口名=&gt;电路中实际的信号名</code>，这里，右边的信号名可以是端口输入输出信号，也可以是电路中的内部信号；</li>
+							</ol>
+						</div>
+					</div>
+				</section>
+				
+<section>
+<h3 style="font-size: 38px;">3.4.3 -- 8位加法器设计及算术运算符的重载</h3>
+<div class="flex">
+<div class="flex3"  style="width:580px;">
+<img src="images/adder8b.png" style="height:160px;"/>
+<pre class="brush:vhdl;highlight:[2,13,15,16,17]">
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_UNSIGNED.ALL;
+USE IEEE.STD_LOGIC_1164.ALL;
+
+ENTITY adder8b IS
+PORT( a, b : IN STD_LOGIC_VECTOR(7 downto 0);
+	cin: IN STD_LOGIC; 
+	cout: OUT STD_LOGIC;
+	dout: OUT STD_LOGIC_VECTOR(7 downto 0));
+END ENTITY adder8b;
+
+ARCHITECTURE bhv OF adder8b IS
+SIGNAL data : STD_LOGIC_VECTOR(8 downto 0);
+BEGIN
+	data&lt;=('0'&amp;a)+('0'&amp;b)+("00000000"&amp;cin);
+	cout&lt;=data(8);
+	dout&lt;=data(7 downto 0);
+END ARCHITECTURE bhv; </pre>
+</div>
+					<div style="width:400px;">
+					<p style="font-size: 28px;" class="fragment fade-up blue">8位的加法器可以用8个1位二进制全加器来组合，也可以利用一些技巧，本质上，<code>STD_LOGIC_VECTOR</code>只是矢量一维位数组，不能直接运算，但是<code>IEEE.STD_LOGIC_UNSIGNED</code>程序包对矢量数组提供了<code>+</code>的支持。</p>
+					
+					<p style="font-size: 28px;" class="fragment fade-up Navy">除了<code>+</code>，<code>IEEE.STD_LOGIC_UNSIGNED</code>程序包对矢量数组还提供了<code>-, *, /, =, &gt;=, &gt;, &lt;=, &lt;, /=</code>等操作符的支持。</p>
+					</div>
+					</div>
+				</section>
+				
+				<section>
+					<h4>如何在model sim 仿真时输入数值</h4>
+					<div class="flex">
+					<p style="font-size: 24px;">在上面的8位全加器中，为了验证相加是否正确，在modelsim仿真波形窗口中，如图将a,b,dout的输出格式都设置为unsigned，并如图设置信号a的值为"01001101", 信号b的值为"00100010", 信号cin为时钟period=100,first edge=falling。</p>
+					<img src="images/modelsim8.png" />
+					</div>
+				</section>
+				
+				<section>
+					<h4>如何在model sim 仿真时输入数值</h4>
+					<div class="flex2">
+					<p style="font-size: 24px;">参考上面的输入，多次修改a，b信号的值，并输出波形。</p>
+					<img src="images/modelsim9.png" />
+					</div>
+				</section>
+			</section>
+			
+			<section>
+				<section>
+					<h2>3.5  乘法器及其VHDL表述</h2>
+				</section>
+			</section>
+		</div>
+	</div>
+
+	<script src="js/reveal.js-3.7.0/lib/js/head.min.js"></script>
+	<script src="js/reveal.js-3.7.0/js/reveal.js"></script>
+	
+	<script>
+		// More info https://github.com/hakimel/reveal.js#configuration
+		Reveal.initialize({
+			controls: true,
+			progress: true,
+			history: true,
+			center: true,
+
+			transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+			// More info https://github.com/hakimel/reveal.js#dependencies
+			dependencies: [{
+					src: 'js/reveal.js-3.7.0/lib/js/classList.js',
+					condition: function () {
+						return !document.body.classList;
+					}
+				},
+				{
+					src: 'js/reveal.js-3.7.0/plugin/markdown/marked.js',
+					condition: function () {
+						return !!document.querySelector('[data-markdown]');
+					}
+				},
+				{
+					src: 'js/reveal.js-3.7.0/plugin/markdown/markdown.js',
+					condition: function () {
+						return !!document.querySelector('[data-markdown]');
+					}
+				},
+				{
+					src: 'js/reveal.js-3.7.0/plugin/search/search.js',
+					async: true
+				},
+				{
+					src: 'js/reveal.js-3.7.0/plugin/zoom-js/zoom.js',
+					async: true
+				},
+				{
+					src: 'js/reveal.js-3.7.0/plugin/notes/notes.js',
+					async: true
+				}
+			]
+		});
+	</script>
+
+</body>
+
+</html>
