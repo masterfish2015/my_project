@@ -426,6 +426,161 @@ move A --> C
 					</div>
 				</section>
 			</section>
+			
+			<section>
+				<section>
+					<h2>7.7 数组作为函数参数</h2>
+				</section>
+				
+				<section>
+					<h3>7.7.1 数组元素作为函数的实参</h3>
+					<pre class="brush:c; highlight:[3,5,9,11,12]">
+//例：数组的元素通过传值作为函数的参数
+#include "stdio.h"
+#include "stdlib.h"
+int main()
+{	int max(int x, int y);
+	int a[10], m, n, i;
+	
+	for(i=0;i&lt;10;i++)
+		a[i]=rand() % 100;
+	for(i=1, m=a[0],n=0;i&lt;10;i++)
+		if(m&lt;max(m, a[i])){
+			m = max(m, a[i]);	n=i;
+		}
+	for(i=0;i&lt;10;i++)
+		printf("%6d", data[i]);
+	putchar('\n');
+	printf("max = %d, number=%d\n", m, n+1);
+	return 0;
+}
+int max(int x, int y){
+	return (x&lt;y)?y:x;
+}			</pre>
+				</section>
+				
+				<section>
+					<h3>7.7.2 一维数组名作为函数的实参</h3>
+					<pre class="brush:c; highlight:[6,22]">
+//例：一维数组名作为函数的实参
+#include "stdio.h"
+#include "stdlib.h"
+int main()
+{	int max(int x, int y);
+	void printd(int data[], int n);	
+	int a[10], m, n, i;
+	
+	for(i=0;i&lt;10;i++)
+		a[i]=rand() % 100;
+	for(i=1, m=a[0],n=0;i&lt;10;i++)
+		if(m&lt;max(m, a[i])){
+			m = max(m, a[i]);	n=i;
+		}
+	printd(a, 10);
+	printf("max = %d, number=%d\n", m, n+1);
+	return 0;
+}
+int max(int x, int y){
+	return (x&lt;y)?y:x;
+}
+void printd(int data[], int n){
+	for(int i=0;i&lt;n;i++)
+		printf("%6d", data[i]);
+	putchar('\n');
+}					</pre>
+				</section>
+				
+				<section>
+					<h3>7.7.3 多维数组名作为函数的实参</h3>
+					<pre class="brush:c; highlight:[5,9,12]">
+//例：多维数组名作为函数的实参,求一个3*4矩阵的最大值
+#include "stdio.h"
+#include "stdlib.h"
+int main()
+{	int max_array(int data[][4]);
+	void printd(int data[], int n);	
+	int a[3][4]={{1,3,5,7},{2,4,6,8},{15,17,34,12}}, m, n, i;	
+	printd(a, 10);
+	printf("max = %d\n", max_array(a));
+	return 0;
+}
+int max_array(int data[][4]){
+	int i,j,max=data[0][0];
+	for(i=0;i&t;3;i++)
+		for(j=0;j&lt;4;j++)
+			if(max&lt;data[i][j])max = data[i][j];
+	return max;
+}
+void printd(int data[], int n){
+	for(int i=0;i&lt;n;i++)printf("%6d", data[i]);
+	putchar('\n');
+}					</pre>
+				</section>
+			</section>
+			
+			<section>
+				<section>
+					<h2>7.8 局部变量和全局变量</h2>
+				</section>
+				
+				<section>
+					<h3>7.8.1 局部变量和全局变量</h3>
+					<pre class="brush:c; highlight:[6,13,15, 21, 22]">
+//例：多维数组名作为函数的实参,求一个3*4矩阵的最大值
+#include "stdio.h"
+
+int max_array(int data[][4]); 
+void printd(int data[], int n);	
+int a[3][4]={{1,3,5,7},{2,4,6,8},{15,17,34,12}}; //全局变量
+int main()
+{	
+	printd(a, 10);
+	printf("max = %d\n", max_array(a));
+	return 0;
+}
+int max_array(int data[][4]) //参数也是局部变量
+{
+	int i,j,max=data[0][0]; //局部变量
+	for(i=0;i&lt;3;i++)
+		for(j=0;j&lt;4;j++)
+			if(max&lt;data[i][j])max = data[i][j];
+	return max;
+}
+void printd(int data[], int n){ //参数也是局部变量
+	for(int i=0;i&lt;n;i++) //for里面的局部变量
+		printf("%6d", data[i]);
+	putchar('\n');
+}					</pre>
+				</section>
+				
+				<section>
+					<h3>7.8.2 变量的存储方式和生存期</h3>
+					<p>动态存储与静态存储：
+					<ol>
+						<li>程序区</li>
+						<li>静态存储区：全局变量，函数中的静态(static)变量；</li>
+						<li>动态存储区：函数形式参数，函数中定义的变量（非static声明），函数调用的现场保护和返回地址等；</li>
+					</ol>
+					</p>
+					<p>变量的存储类别：<code>auto</code>, <code>static</code>, <code>register</code>, <code>extern</code></p>
+				</section>
+				
+				<section>
+					<h3>7.8.3 变量的声明和定义</h3>
+					<p>用在多文件中，建立存储空间的是定义，不需要建立的是声明。</p>
+				</section>
+				
+				<section>
+					<h3>7.8.4 内部函数和外部函数</h3>
+					<p>采用<code>static</code>注明的函数，只能在本文件中其他函数调用，其他文件内不行，称为内部函数,也称静态函数。</p>
+					
+					<p>采用<code>extern</code>注明的函数，可以在本文件外的其他文件中的函数调用，称为外部函数,也称静态函数。</p>
+				</section>
+			</section>
+			
+			<section>
+				
+			</section>
 		</div>
 	</div>
 
