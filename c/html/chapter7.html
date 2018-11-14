@@ -579,6 +579,442 @@ void printd(int data[], int n){ //参数也是局部变量
 			</section>
 			
 			<section>
+				<section>
+					<h2>测试和作业</h2>
+				</section>
+				
+				<section>
+					<h3>一、判断对错，每题1分，共10分。</h3>
+				</section>
+				
+				<section>
+					<ol>
+						<li class="fragment fade-right">变量根据其作用域的范围可以分为局部变量和全局变量；（<b class="fragment fade-left green">√</b>）</li>
+						<li class="fragment fade-right">C语言的函数都是外部函数；（<b class="fragment fade-left red">X</b>）</li>
+						<li class="fragment fade-right">C语言的函数既可以嵌套定义，也可以嵌套调用；（<b class="fragment fade-left red">X</b>）</li>
+						<li class="fragment fade-right">函数调用语句：
+						<pre class="brush:c;">
+						fun1(a1,a2+a3,(a4,a5));</pre>中，实参的个数是5个；（<b class="fragment fade-left red">X</b>）</li>
+						<li class="fragment fade-right">C语言有调用关系的函数必须都放在同一个文件中；（<b class="fragment fade-left red">X</b>）</li>
+						<li class="fragment fade-right">如果函数的返回类型和<code>return</code>语句的返回类型不同，以实际<code>return</code>返回的类型为主；（<b class="fragment fade-left red">X</b>）</li>
+						<li class="fragment fade-right">关系运算符<code>&lt;=</code>和<code>==</code>的优先级相同；（<b class="fragment fade-left red">X</b>）</li>
+						<li class="fragment fade-right">如果函数的定义出现在调用之前，可以不加声明；（<b class="fragment fade-left green">√</b>）</li>
+						<li class="fragment fade-right"><code>return</code>语句可以返回一个或以上的返回值；（<b class="fragment fade-left red">X</b>）</li>
+						<li class="fragment fade-right">执行下面的语句：
+						<pre class="brush:c;">
+						int i=3; printf("%d",-i++);</pre>输出<code>-4</code>（<b class="fragment fade-left red">X</b>）</li>
+					</ol>
+				</section>
+				
+				<section>
+					<h3>二、判断改错</h3>
+					<h4>下面每道大题有5处错误，请指出其错误并进行改正。每题指出错误行1分，进行改错2分。每大题15分，共30分。</h4>
+				</section>
+				
+				<section>
+					<h4>1. 编写函数，求两个整数的最大公约数。</h4>
+					<div class="flex">
+						<pre class="brush:c;">
+#include"stdio.h"
+
+int main()
+{	int a=28, b=32;
+	printf("gcd of %d,%d = %d\n", 
+		a, b, gcd(int a,b));
+	return 0;
+}
+int gcd(int a, b)//求最大公约数
+{	int t;
+	if(a&gt;b)
+		t=a;a=b;b=t;
+	do{
+		t=a%b;
+		if(t==0)continue;
+		a=b; b=t;
+	}while(1);
+	return b;
+}						</pre>
+						<table>
+							<tr>
+								<th>错误行</th><th>修正</th>
+							</tr>
+							<tr class="fragment fade-right blue">
+								<td>2</td>
+								<td>添加函数声明：
+								<pre class="brush:c;">
+								int gcd(int a, b);</pre>
+								</td>
+							</tr>
+							<tr class="fragment fade-right blue">
+								<td>6</td>
+								<td>
+								<pre class="brush:c;">
+								a, b, gcd(a,b));</pre>
+								</td>
+							</tr>
+							<tr class="fragment fade-right blue">
+								<td>9</td>
+								<td>
+								<pre class="brush:c;">
+								int gcd(int a, int b)</pre>
+								</td>
+							</tr>
+							<tr class="fragment fade-right blue">
+								<td>12</td>
+								<td>
+								<pre class="brush:c;">
+								{t=a;a=b;b=t;}</pre>
+								</td>
+							</tr>
+							<tr class="fragment fade-right blue">
+								<td>15</td>
+								<td>
+								<pre class="brush:c;">
+								if(t==0)break;</pre>
+								</td>
+							</tr>
+						</table>
+					</div>
+				</section>
+				
+				<section>
+					<h4>2. 编写函数，将两个字符串连接起来。</h4>
+					<div class="flex">
+						<pre class="brush:c;">
+#include"stdio.h"
+
+//字符串连接
+void strcat1(char dest[], 
+			char source[])
+{	int j=0;
+	n=strlen(source);
+	while(source[j]!=0)
+		dest[++n]=source[++j];
+}
+int main()
+{
+	char s1[7]="hello ", 
+		 s2[10]="world!";
+	strcat1(s1[7],s2[10]);
+	printf("%s\n", s1);
+	return 0;
+}						</pre>
+						<table>
+							<tr>
+								<th>错误行</th><th>修正</th>
+							</tr>
+							<tr class="fragment fade-right blue">
+								<td>2</td>
+								<td>添加预编译指令：
+								<pre class="brush:c;">
+								#include"string.h"</pre>
+								</td>
+							</tr>
+							<tr class="fragment fade-right blue">
+								<td>5</td>
+								<td>
+								<pre class="brush:c;">
+								int n, j=0;</pre>
+								</td>
+							</tr>
+							<tr class="fragment fade-right blue">
+								<td>8</td>
+								<td>
+								<pre class="brush:c;">
+								dest[++n]=source[j++];</pre>
+								</td>
+							</tr>
+							<tr class="fragment fade-right blue">
+								<td>12</td>
+								<td><code>s1</code>的长度不够
+								<pre class="brush:c;">
+								char s1[100]="hello ", s2[10]="world!";</pre>
+								</td>
+							</tr>
+							<tr class="fragment fade-right blue">
+								<td>13</td>
+								<td>
+								<pre class="brush:c;">
+								strcat1(s1,s2);</pre>
+								</td>
+							</tr>
+						</table>
+					</div>
+				</section>
+				
+				<section>
+					<h2>三、选择题</h2>
+					<h3>每题2分，共10分</h3>
+				</section>
+				
+				<section>
+					<h4>1. 以下程序的正确运行结果是：（<b class="fragment fade-left blue">C</b>）</h4>
+					<div class="flex">
+					<pre class="brush:c;">
+#include "stdio.h"
+void num()
+{ extern int x,y;
+  int a=15,b=10;
+  x=a-b;
+  y=a+b;
+}
+int x,y;
+int main()
+{
+  int a=7,b=5;
+  x=a+b;
+  y=a-b;
+  num();
+  printf("%d,%d\n",x,y);
+  return 0;
+}					</pre>
+					<div>
+					<ol>
+					<li class="sel"><code>12,2</code></li>
+					<li class="sel"><code>2,12</code></li>
+					<li class="sel"><code>5,25</code></li>
+					<li class="sel"><code>1,12</code></li>
+					</ol>
+					</div>
+					</div>
+				</section>
+				
+				<section>
+					<h4>2. 以下程序的正确运行结果是：（<b class="fragment fade-left blue">C</b>）</h4>
+					<div class="flex">
+					<pre class="brush:c;">
+#include "stdio.h"
+void fun(int s[])
+{ static int j=0;
+  do
+  { s[j]+=s[j+1];
+  }while(++j&lt;2);
+}
+
+int main()
+{ int k,a[10]={1,2,3,4,5};
+  for(k=1;k&lt;3;k++)
+	fun(a);
+  for(k=0;k&lt;5;k++)
+	printf("%d",a[k]);
+  return 0;
+}					</pre>
+					<div>
+					<ol>
+					<li class="sel"><code>35745</code></li>
+					<li class="sel"><code>23445</code></li>
+					<li class="sel"><code>35754</code></li>
+					<li class="sel"><code>12345</code></li>
+					</ol>
+					</div>
+					</div>
+				</section>
+				
+				<section>
+					<h4>3. 以下程序的正确运行结果是：（<b class="fragment fade-left blue">B</b>）</h4>
+					<div class="flex">
+					<pre class="brush:c;">
+#include "stdio.h"
+int runc(int a,int b)
+{  return(a+b);
+}
+
+int main()
+{
+	int x=2,y=5,z=8,r;
+	r=runc(runc(x,y),z);
+	printf("%d\n",r);
+	return 0;
+}					</pre>
+					<div>
+					<ol>
+					<li class="sel"><code>7</code></li>
+					<li class="sel"><code>15</code></li>
+					<li class="sel"><code>13</code></li>
+					<li class="sel">无法运行</li>
+					</ol>
+					</div>
+					</div>
+				</section>
+				
+				<section>
+					<h4>4. 以下程序的正确运行结果是：（<b class="fragment fade-left blue">B</b>）</h4>
+					<div class="flex">
+					<pre class="brush:c;">
+#include"stdio.h"
+#define N 5
+void fun(int a[],int n)
+{   int k, tmp;
+    for (k=0; k&lt;n/2; k++)
+    {   tmp=a[k];  
+		a[k]=a[n-k-1];  
+		a[n-k-1]=tmp;
+	}
+}
+int main()
+{  int x[N]={1,3,4,2,5},i;
+   fun(x,N);
+   for(i=0;i&lt;N;i++)
+     printf("%4d",x[i]);
+   return 0; 
+}					</pre>
+					<div>
+					<ol>
+					<li class="sel"><code>1   3   4   2   5</code></li>
+					<li class="sel"><code>5   2   4   3   1</code></li>
+					<li class="sel"><code>1   2   3   4   5</code></li>
+					<li class="sel"><code>5   4   3   2   1</code></li>
+					</ol>
+					</div>
+					</div>
+				</section>
+				
+				<section>
+					<h4>5. 以下程序的正确运行结果是：（<b class="fragment fade-left blue">D</b>）</h4>
+					<div class="flex">
+					<pre class="brush:c;">
+#include"stdio.h"
+int func(int n)
+{   if(n&lt;1)
+		return 1;
+    else
+		return n+=func(n-2);
+}
+int main()
+{   int x=5;
+    printf("%d",func(x));
+	return 0;
+}					</pre>
+					<div>
+					<ol>
+					<li class="sel">程序有问题</li>
+					<li class="sel"><code>9</code></li>
+					<li class="sel"><code>15</code></li>
+					<li class="sel"><code>10</code></li>
+					</ol>
+					</div>
+					</div>
+				</section>
+				
+				<section>
+					<h3>四、程序填空</h3>
+					<h4>每空2分，两大题，共20分</h4>
+				</section>
+				
+				<section>
+					<h4>1. 用递归法来求多个数的全排列，比如<code>int a[]={3,4,5}; </code>，则输出<code>{3,4,5}{3,5,4}{4,5,3}{4,3,5}{5,4,3}{5,3,4}</code></h4>
+					<div class="flex">
+					<pre class="brush:c;">
+#include"stdio.h"
+void perm(___(1)___, int min_index, int count)
+{	if(min_index==count-1){
+		putchar('{'); 
+        for(int i=0; i&lt;count;i++)
+			printf("%d ", list[i]);
+        ___(2)___;
+    }else{
+       for(int i=min_index; i&lt;count; i++){
+          int t;
+		  if(i!=min_index){
+			t=list[min_index];
+			___(3)___;
+			list[i]=t;	  }
+          perm(list, min_index+1, count);
+          if(___(4)___){
+			t=list[min_index];
+			list[min_index]=list[i];
+			list[i]=t;	  }
+}}}
+void main()
+{   int d[]={3,4,5,6,7};
+    perm(d, 0, ___(5)___);
+}					</pre>
+					<table>
+					<tr>
+					<th>No.</th><th>填空</th>
+					</tr>
+					<tr class="fragment fade-right green">
+					<td>1</td><td><code>int list[]</code></td>
+					</tr>
+					<tr class="fragment fade-right green">
+					<td>2</td><td><code>putchar('}')</code></td>
+					</tr>
+					<tr class="fragment fade-right green">
+					<td>3</td><td><code>list[min_index]=list[i];</code></td>
+					</tr>
+					<tr class="fragment fade-right green">
+					<td>4</td><td><code>i!=min_index</code></td>
+					</tr>
+					<tr class="fragment fade-right green">
+					<td>5</td><td><code>5</code></td>
+					</tr>
+					</table>
+					</div>
+				</section>
+				
+				<section>
+					<h4>2. 下面对N个单词按ASCII码进行排序（选择法，从小到大）</h4>
+					<div class="flex">
+					<pre class="brush:c;">
+#include"stdio.h"
+___(1)___
+#define N 5
+void sort( ___(2)___, int n)
+{  int i,j,t;
+   char tmp[100];
+   for(i=n-1;i&gt;0;i--)
+   { ___(3)___;
+     for(j=0; j&lt;=i; j++)
+        if(strcmp(str[t], str[j])&lt;0)
+          t=j;
+     if(t!=i)
+     {  strcpy(tmp,str[t]);
+		strcpy(str[t], str[i]);
+		___(4)___; 	 }}
+}
+void main()
+{ int i;
+  char words[N][100]={"orange","apple",
+	"banana","watermelon","grape"};
+  printf("排序后的结果为:\n");
+  sort(___(5)___);
+  for(i=0;i&lt;N;i++)
+	printf("%s\n", words[i]);
+}					</pre>
+					<table>
+					<tr>
+					<th>No.</th><th>填空</th>
+					</tr>
+					<tr class="fragment fade-right green">
+					<td>1</td><td><code>#include"string.h"</code></td>
+					</tr>
+					<tr class="fragment fade-right green">
+					<td>2</td><td><code>char str[][100]</code></td>
+					</tr>
+					<tr class="fragment fade-right green">
+					<td>3</td><td><code>t=0</code></td>
+					</tr>
+					<tr class="fragment fade-right green">
+					<td>4</td><td><code>strcpy(str[i],tmp)</code></td>
+					</tr>
+					<tr class="fragment fade-right green">
+					<td>5</td><td><code>words, N</code></td>
+					</tr>
+					</table>
+					</div>
+				</section>
+				
+				<section>
+					<h3>作业</h3>
+					<h4>1. 编写函数，用牛顿迭代法求：$f(x)=3x^3-2x-4$的根。（牛顿迭代，原函数$f$，一阶导数$df$都写成函数。）</h4>
+					<p style="font-size:28px;">简单介绍牛顿迭代法：对于方程：$f(x)=0$，若其二阶导数$f''(x)\neq 0$，则可以利用下面的递推公式来求其一个近似根:</p>
+					<p style="font-size:28px;">(1). 先取一个$x$的初始值$x_0$，比如设$x_0=1$</p>
+					<p style="font-size:28px;">(2). 令$old_x=x$，$x=x_0$，求出 $f(x)$, $f'(x)$, 则一个新的$x=x-\frac{f(x)}{f'(x)}$</p>
+					<p style="font-size:28px;">(3). 判断 $|x-old_x|\le \Delta$，$\Delta$是指定的最小精度(比如$1\times10^{-6}$)，则可以看作已经求出一个足够精度的根$x$，否则重复第(2)步。</p>
+					<p style="font-size:28px;">备注：上面的方程$f(x)$的一阶导数：$f'(x)=9x^2-2$，二阶导数：$f''(x)=18x$</p>
+					<h4>2. P216, 第14题。</h4>
+				</section>
+				
 				
 			</section>
 		</div>
