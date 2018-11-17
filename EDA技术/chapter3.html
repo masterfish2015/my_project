@@ -1738,6 +1738,109 @@ END ARCHITECTURE bhv; </pre>
 				<section>
 					<h2>3.5  乘法器及其VHDL表述</h2>
 				</section>
+				
+				<section>
+					<h3>3.5.1 统计位矢量中含有<code>'1'</code>的个数</h3>
+					<div class="flex">
+						<pre class="brush:vhdl;">
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
+USE IEEE.STD_LOGIC_UNSIGNED.ALL;
+
+ENTITY cntc IS
+PORT(din : IN  STD_LOGIC_VECTOR(7 DOWNTO 0);
+	 cnth : OUT STD_LOGIC_VECTOR(3 DOWNTO 0));
+END ENTITY cntc;
+
+ARCHITECTURE bhv OF cntc IS
+BEGIN
+	PROCESS (din)
+	VARIABLE q: STD_LOGIC_VECTOR(3 DOWNTO 0);
+	BEGIN
+		q := "0000";
+		FOR n in 0 to 7 LOOP
+			IF (din(n)='1') THEN 
+				q:=q+1; 
+			END IF;
+		END LOOP;
+		cnth &lt;= q;
+	END PROCESS;
+END ARCHITECTURE bhv;	</pre>
+					<div>
+						<p>这里几个注意：</p>
+						<p>1. 变量定义：<code>Variable</code>，变量只能在<code>process</code>中定义，只是数据的暂存，无法传递出去。变量的赋值用<code>:=</code>；</p>
+						<p><code>IF</code>在这里没有对<code>din(n)=0</code>的情况进行处理，第五章会进一步介绍；</p>
+						<p><code>LOOP</code>循环语句，下面介绍其用法。</p>
+					</div>
+					</div>
+				</section>
+				
+				<section>
+					<h4>循环语句</h4>
+					<p>1. 单个<code>LOOP</code></p>
+					<pre class="brush:vhdl;">
+					[LOOP标号:] LOOP
+						顺序语句;
+					END LOOP [LOOP标号:];
+					</pre>
+					这种方式需要引入<code>IF</code>和<code>EXIT...WHEN</code>进行控制，例如：
+					<pre class="brush:vhdl;">
+					L2: LOOP 
+						a:=a+1;
+						exit L2 when a&gt;10;</pre>
+					</pre>
+				</section>
+				
+				<section>
+					<h4>循环语句</h4>
+					<p>2. <code>FOR LOOP</code></p>
+					<pre class="brush:vhdl;">
+					[LOOP标号:] FOR 循环变量 in 循环次数范围 LOOP
+						顺序语句;
+					END LOOP [LOOP标号:];
+					</pre>
+					<p>这里 循环变量 无需事先定义，只是临时变量，可以用作右值给其他变量赋值，自己不能被赋值，要避免在循环中使用同名的变量，例如：</p>
+					<pre class="brush:vhdl;">
+					FOR n in 0 to 7 LOOP
+						IF (din(n)='1') THEN 
+							q:=q+1; 
+						END IF;
+					END LOOP;</pre>
+					</pre>
+					<p>循环范围从初值开始，到最后一值，可以用<code>to, downto</code>来实现增加、减少。</p>
+					<p>注意，循环会每一次都增加一个硬件模块，所以谨慎使用循环。</p>
+				</section>
+				
+				<section>
+					<h3>移位相加型乘法器</h3>
+					<div class="flex">
+						<pre class="brush:vhdl;">
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
+USE IEEE.STD_LOGIC_UNSIGNED.ALL;--全是无符号
+ENTITY mult4b IS
+generic ( s : integer :=4) --参数定义语句,整数类型
+port(r: out STD_LOGIC_VECTOR(2*s downto 1);
+	a, b: IN STD_LOGIC_VECTOR(s downto 1);
+end ENTITY mult4b;
+ARCHITECTURE one of mult4b IS
+SIGNAL a0: STD_LOGIC_VECTOR(2*s downto 1);
+begin 
+	a0 &lt;= conv_std_logic_vector(0,s) & a;
+	process (a,b)
+	variable r1: std_logic_vector(2*s downto 1);
+	begin
+		r1:=(others =&gt; '0'); --省略赋值操作符
+		for i in 1 to s loop
+			if (b(i)='1') then --移位操作符
+				r1:=r1+to_stdlogicvector(to_bitvector(a0) sll (i-1));
+			end if;
+		end loop;
+		r&lt;=r1;
+	end process;
+end architecture one;		</pre>
+					</div>
+				</section>
 			</section>
 		</div>
 	</div>
