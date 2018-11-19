@@ -1,0 +1,375 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+
+	<title>半导体物理 第二章</title>
+
+	<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+	<meta name="author" content="ldc">
+
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<link rel="stylesheet" href="js/reveal.js-3.7.0/css/reveal.css">
+	<link rel="stylesheet" href="js/reveal.js-3.7.0/css/theme/sky.css" id="theme">
+
+	<script type="text/javascript" src="js/SyntaxHighlighter/scripts/shCore.js"></script>
+	<script type="text/javascript" src="js/SyntaxHighlighter/scripts/shBrushCpp.js"></script>
+	<link type="text/css" rel="stylesheet" href="js/SyntaxHighlighter/styles/shCoreDefault.css"/>
+	<link type="text/css" rel="stylesheet" href="js/SyntaxHighlighter/styles/shThemeDefault.css"/>
+	<script type="text/javascript">SyntaxHighlighter.all();</script>
+
+	<link rel="stylesheet" href="css/style2.css">
+	<!-- Printing and PDF exports -->
+	<script>
+		var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'js/reveal.js-3.7.0/css/print/pdf.css' : 'js/reveal.js-3.7.0/css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+			
+		var ldc;
+	</script>
+
+	<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	<script type="text/x-mathjax-config">
+	  MathJax.Hub.Config({
+		extensions: ["tex2jax.js"],
+		jax: ["input/TeX","output/HTML-CSS"],
+		tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+	  });
+	</script>
+	<script src="js/mathjax/MathJax.js"></script>
+	<script src="js/three/three.js"></script>
+	<script src="js/three/examples/js/controls/OrbitControls.js"></script>
+</head>
+
+<body>
+
+	<div class="reveal">
+
+		<!-- Any section element inside of this container is displayed as a slide -->
+		<div class="slides">
+			<section>
+				<section>
+					<h1>第二章</h1>
+					<h2>半导体中杂质能级和缺陷</h2>
+				</section>
+				
+				<section>
+					<h2>主要内容</h2>
+					<ol>
+						<li class="fragment fade-right">杂质能级</li>
+						<li class="fragment fade-right">杂质种类</li>
+						<li class="fragment fade-right">施主杂质</li>
+						<li class="fragment fade-right">受主杂质</li>
+						<li class="fragment fade-right">杂质电离能的简单计算</li>
+						<li class="fragment fade-right">杂质补偿</li>
+						<li class="fragment fade-right">深能级杂质</li>
+						<li class="fragment fade-right">III-V族化合物的杂质能级</li>
+						<li class="fragment fade-right">缺陷、位错</li>
+					</ol>
+				</section>
+			</section>
+			
+			<section>
+				<section>
+					<h2>2.1 硅、锗晶体中的杂质能级</h2>
+				</section>
+				
+				<section>
+					<h3>2.1.1 杂质的种类</h3>
+					<p class="fragment fade-right">半导体杂质的来源：<b class="red">原材料</b>、<b class="blue">制备工艺</b>、<b class="green">人为特意添加</b>；</p>
+					
+					<p class="fragment fade-right">杂质的位置：<b class="red">间隙</b>（比较小的杂质原子，如锂Li）、<b class="blue">替位(或称置换)</b>(大小差不多的原子，如III、V族原子杂质在硅、锗这些IV族晶体中)；</p>
+					<img src="images/硅中杂质.png" class="fragment fade-right" style="height: 370px;" />
+				</section>
+				
+				<section>
+					<h3>2.1.2 施主杂质 - n型半导体</h3>
+					<p class="fragment fade-right">V族的原子，如磷（P）、砷（As）等，掺杂入硅、锗晶体中，杂质原子容易失去电子，形成<b class="red">正电中心</b>，这个过程称为<b class="blue">杂质电离</b>，所需要的能量称为<b class="green">电离能</b>，电离能远比硅锗从价带跃迁到导带要克服共价键需要的能量（称为<b class="Navy">禁带宽度</b>）要高得多。</p>
+					<div class="flex">
+						<img src="images/硅中施主杂质.png" class="fragment fade-right" style="height: 370px;" />
+						<div class="flex2">
+						<table class="fragment fade-left">
+							<tr>
+								<th rowspan="2">晶体</th>
+								<th rowspan="2">禁带宽度Eg(eV) 室温300K下</th>
+								<th colspan="3">杂质电离能(eV)</th>
+							</tr>
+							<tr>
+								<th>磷P</th>
+								<th>砷As</th>
+								<th>锑Sb</th>
+							</tr>
+							<tr>
+								<td>硅Si</td>
+								<td>1.12</td>
+								<td>0.044</td>
+								<td>0.049</td>
+								<td>0.039</td>
+							</tr>
+							<tr>
+								<td>锗Ge</td>
+								<td>0.66</td>
+								<td>0.0126</td>
+								<td>0.0127</td>
+								<td>0.0096</td>
+							</tr>
+						</table>
+						<img src="images/施主能级.png" class="fragment fade-right" />
+						</div>
+					</div>
+				</section>
+				
+				<section>
+					<h3>2.1.3 受主杂质 - p型半导体</h3>
+					<p class="fragment fade-right">III族的原子，如硼（B）、铝（Al）等，掺杂入硅、锗晶体中，杂质原子容易得到电子，形成<b class="red">负电中心</b>，这个过程称为<b class="blue">杂质电离</b>，所需要的能量称为<b class="green">电离能</b>，电离能远比硅锗从价带跃迁到导带要克服共价键需要的能量（称为<b class="Navy">禁带宽度</b>）要高得多。</p>
+					<div class="flex">
+						<img src="images/硅中受主杂质.png" class="fragment fade-right" style="height: 370px;" />
+						<div class="flex2">
+						<table class="fragment fade-left">
+							<tr>
+								<th rowspan="2">晶体</th>
+								<th rowspan="2">禁带宽度Eg(eV) 室温300K下</th>
+								<th colspan="4">杂质电离能(eV)</th>
+							</tr>
+							<tr>
+								<th>硼B</th>
+								<th>铝Al</th>
+								<th>镓Ga</th>
+								<th>铟In</th>
+							</tr>
+							<tr>
+								<td>硅Si</td>
+								<td>1.12</td>
+								<td>0.045</td>
+								<td>0.057</td>
+								<td>0.065</td>
+								<td>0.16</td>
+							</tr>
+							<tr>
+								<td>锗Ge</td>
+								<td>0.66</td>
+								<td>0.01</td>
+								<td>0.01</td>
+								<td>0.0011</td>
+								<td>0.0011</td>
+							</tr>
+						</table>
+						<img src="images/受主能级.png" class="fragment fade-right" />
+						</div>
+					</div>
+				</section>
+				
+				<section>
+					<h3>2.1.4 浅能级杂质电离能的简单计算</h3>
+					<p class="fragment fade-right">对硅、锗的晶体，其掺入的III、V族的杂质，其电离能都很小，受主能级很接近价带顶，施主能级接近于导带底，这些能级称为<b class="Navy">浅能级</b>，将产生浅能级的杂质称为<b class="Indigo">浅能级杂质</b></p>
+					
+					<p class="fragment fade-right">室温下，硅、锗中的III、V族杂质几乎全部电离。</p>
+					
+					<img  class="fragment fade-right" src="images/硅的掺杂能级.png" style="height: 300px;"/>
+				</section>
+				
+				<section>
+					<h3>2.1.4 浅能级杂质电离能的简单计算</h3>
+					<p class="fragment fade-right">对于浅能级杂质电离能的估算，可以采用下面的公式：</p>
+					
+					<p class="fragment fade-right">施主杂质电离能：
+					$$ \Delta E_D = \frac{m_n^*q^4}{2(4\pi \varepsilon_0\varepsilon_r)^2\hbar^2}=\frac{m_n^*}{m_0}\frac{E_0}{\varepsilon_r^2} \tag{2-2} $$
+					</p>
+					
+					<p class="fragment fade-right">受主杂质电离能：
+					$$ \Delta E_A = \frac{m_p^*q^4}{2(4\pi \varepsilon_0\varepsilon_r)^2\hbar^2}=\frac{m_p^*}{m_0}\frac{E_0}{\varepsilon_r^2} \tag{2-3} $$
+					</p>
+					
+					<p class="fragment fade-right">其中$\varepsilon_0=8.854\times 10^{-12}F/m$是真空中的介电常数，硅的相对介电常数$\varepsilon_r=11.9$，$m_n^*$为施主能级的相对电子质量，$m_p^*$为受主能级的相对空穴质量，$E_0=13.6eV$为基态电离能。</p>
+					
+				</section>
+				
+				<section>
+					<h4>例1：设磷(P)掺入硅晶体形成施主浅能级，该能级上电子有效质量$m_n^*=0.49m_0$，估算其电离能。</h3>
+					<p class="fragment fade-left">解：∵ $\varepsilon_r=12, E_0=13.6eV, m_n^*=0.49m_0$，∴：
+					$$ \Delta E_D = \frac{m_n^*}{m_0}\frac{E_0}{\varepsilon_r^2} = \frac{0.49m_0}{m_0}\frac{13.6}{12^2}=0.046 eV$$
+					</p>
+					
+				</section>
+				
+				<section>
+					<h3>2.1.5 杂质的补偿作用</h3>
+					<p class="fragment fade-left">当半导体中同时掺入施主和受主两种杂质时，施主能级上的电子要跃迁到受主能级上。对于提供载流子来说，两者有互相抵消的作用，有效掺杂浓度等于两者之差，这种现象被称为杂质补偿。</p>
+					<img  class="fragment fade-right" src="images/杂质补偿.png" style="height: 300px;"/>
+					<p class="fragment fade-left">当施主杂质浓度和受主杂质浓度差不多时，由于杂质能级互相补偿，并没有很多的载流子，导致电性能不好。同时，其物理性能很差。</p>
+				</section>
+				
+				<section>
+					<h3>2.1.6 深能级杂质</h3>
+					<img src="images/硅的掺杂能级.png">
+					<p class="fragment fade-left">非III、V族杂质在禁带中产生的杂质能级离价带顶和导带底都比较远，称为<b class="red">深能级</b>，杂质为<b class="blue">深能级杂质</b>，如 金(Au)； </p>
+					<p class="fragment fade-left">这些杂质可以在硅、锗中产生多次电离，引入多个能级，有些既有施主杂质能级，又有受主杂质能级。</p>
+					<p class="fragment fade-left">深能级杂质对半导体的导电能力影响不如浅能级杂质，但对<b class="Navy">复合作用</b>影响比较大，可以有效快速减少漏电流。金是很好的复合中心。</p>
+				</section>
+			</section>
+			
+			<section>
+				<section>
+					<h2>2.2 III-V族化合物的杂质能级</h2>
+				</section>
+				<section>
+					<h3>2.2.1 III-V族化合物</h3>
+					<p class="fragment fade-left">III族的硼（B）、铝（Al）、镓（Ga）、铟（In）、铊（Tl）和V族的氮（N）、磷（P）、砷（As）、锑（Sb）、铋（Bi）组成的二元化合物，成分比都是1：1；</p>
+					<p class="fragment fade-left">由Al、Ga、In和P、As、Sb组成的化合物结晶为<b class="red">闪锌矿型结构</b>，与金刚石结构类似；</p>
+					<p class="fragment fade-left">GaAs中杂质也和硅、锗中一样，有替位式和间歇式两种；</p>
+					<img class="fragment fade-left" src="images/闪锌矿.png">
+				</section>
+				
+				<section>
+					<h3>2.2.2 III-V族化合物的杂质能级</h3>
+					<p class="fragment fade-left">GaAs的杂质能级：</p>
+					<img class="fragment fade-left" src="images/gaas_dop.gif">
+					<p class="fragment fade-left">III-V族化合物的浅能级杂质的电离能估算和前面的硅、锗的一样。</p>
+				</section>
+				
+				<section>
+					<h3>2.2.3 III-V族化合物的I族杂质</h3>
+					<p class="fragment fade-left">GaAs的杂质能级：</p>
+					<img class="fragment fade-left" src="images/gaas_dop_I.gif">
+					<p class="fragment fade-left">I族包括：金（Au）、银（Ag）、锂（Li）、铜（Cu），引入受主能级；</p>
+				</section>
+				
+				<section>
+					<h3>2.2.4 III-V族化合物的II族杂质</h3>
+					<p class="fragment fade-left">GaAs的杂质能级：</p>
+					<img class="fragment fade-left" src="images/gaas_dop_II.gif">
+					<p class="fragment fade-left">II族包括：铍（Be）、镁（Mg）、锌（Zn）、镉（Cd）、汞（Hg），引入受主能级；</p>
+				</section>
+				
+				<section>
+					<h3>2.2.5 III-V族化合物的III-V族杂质</h3>
+					<p class="fragment fade-left">原则上不引入能级；</p>
+					<p class="fragment fade-left">但在特殊化合物中，比如磷化镓（GaP）掺入V族氮（N）或铋（Bi），N或Bi会取代P在禁带中产生能级，称为<b class="red">等电子陷阱</b>，这种效应称为<b class="blue">等电子杂质效应</b>；</p>
+					<p class="fragment fade-left">等电子陷阱俘获载流子成为<b class="blue">带电中心</b>，又可以俘获另一电性的载流子，形成<b class="blue">束缚激子</b>；</p>
+				</section>
+				
+				<section>
+					<h3>2.2.6 III-V族化合物的IV族杂质</h3>
+					<p class="fragment fade-left">GaAs的杂质能级：</p>
+					<img class="fragment fade-left" src="images/gaas_dop_IV.gif">
+					<p class="fragment fade-left">IV族包括 ：碳（C）、硅（Si）、锗（Ge）、锡（Sn）、铅（Pb），有的引入受主能级（如C，Pb），有的引入施主能级（如Ge），有的则同时两种能级都引进（如Si、Sn），像这样的称为<b class="blue">双性行为</b>；</p>
+				</section>
+				
+				<section>
+					<h3>2.2.7 III-V族化合物的VI族杂质</h3>
+					<p class="fragment fade-left">GaAs的杂质能级：</p>
+					<img class="fragment fade-left" src="images/gaas_dop_VI.gif">
+					<p class="fragment fade-left">VI族包括 ：氧（O）、硫（S）、硒（Se）、碲（Te），引入施主能级；</p>
+				</section>
+				
+				<section>
+					<h3>2.2.8 III-V族化合物的过渡族杂质</h3>
+					<p class="fragment fade-left">GaAs的杂质能级：</p>
+					<img class="fragment fade-left" src="images/gaas_dop_过渡.gif">
+					<p class="fragment fade-left">过渡族包括 ：铬（Cr）、锰（Mn）、钴（Co）、镍（Ni）、铁（Fe），引入受主能级；</p>
+				</section>
+				
+			</section>
+			
+			<section>
+				<section>
+					<h2>2.4 缺陷、位错能级</h2>
+				</section>
+				
+				<section>
+					<h3>2.4.1 点缺陷 point defects</h3>
+					<p class="fragment fade-left">1、弗仓克尔（Frenkel）缺陷：间隙原子和空位成对出现；</p>
+					<img  class="fragment fade-left" src="images/frenkel_defect.png" />
+				</section>
+				
+				<section>
+					<h3>2.4.1 点缺陷</h3>
+					<p class="fragment fade-left">2、肖特基（Schottky）缺陷：只有空位无间隙原子；</p>
+					<img  class="fragment fade-left" src="images/schottky_defect.png" />
+				</section>
+				
+				<section>
+					<h3>2.4.1 点缺陷</h3>
+					<p class="fragment fade-left">3、对于硅、锗的晶体，空位缺陷相当于受主，间隙原子相当于施主；</p>
+					<img  class="fragment fade-left" src="images/silicon_defects.png" />
+				</section>
+				
+				<section>
+					<h3>2.4.2 位错 dislocation</h3>
+					<img  class="fragment fade-left" src="images/defects.png" />
+				</section>
+				
+				<section>
+					<h3>2.4.2 位错 dislocation</h3>
+					<img  class="fragment fade-left" src="images/dislocation.png" />
+					<p class="fragment fade-right">位错可能引入施主或受主能级；</p>
+				</section>
+			</section>
+			
+			<section>
+				<h2>作业</h2>
+				<p>Page 54: 2, 4, 5, 7</p>
+			</section>
+		</div>
+	</div>
+
+	<script src="js/reveal.js-3.7.0/lib/js/head.min.js"></script>
+	<script src="js/reveal.js-3.7.0/js/reveal.js"></script>
+	
+	<script>
+		// More info https://github.com/hakimel/reveal.js#configuration
+		Reveal.initialize({
+			controls: true,
+			progress: true,
+			history: true,
+			center: true,
+
+			transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+			// More info https://github.com/hakimel/reveal.js#dependencies
+			dependencies: [{
+					src: 'js/reveal.js-3.7.0/lib/js/classList.js',
+					condition: function () {
+						return !document.body.classList;
+					}
+				},
+				{
+					src: 'js/reveal.js-3.7.0/plugin/markdown/marked.js',
+					condition: function () {
+						return !!document.querySelector('[data-markdown]');
+					}
+				},
+				{
+					src: 'js/reveal.js-3.7.0/plugin/markdown/markdown.js',
+					condition: function () {
+						return !!document.querySelector('[data-markdown]');
+					}
+				},
+				{
+					src: 'js/reveal.js-3.7.0/plugin/search/search.js',
+					async: true
+				},
+				{
+					src: 'js/reveal.js-3.7.0/plugin/zoom-js/zoom.js',
+					async: true
+				},
+				{
+					src: 'js/reveal.js-3.7.0/plugin/notes/notes.js',
+					async: true
+				}
+			]
+		});
+	</script>
+
+</body>
+
+</html>

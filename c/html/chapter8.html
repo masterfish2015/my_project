@@ -1,0 +1,1621 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+
+	<title>c 第八章</title>
+
+	<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+	<meta name="author" content="ldc">
+
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<link rel="stylesheet" href="js/reveal.js-3.7.0/css/reveal.css">
+	<link rel="stylesheet" href="js/reveal.js-3.7.0/css/theme/sky.css" id="theme">
+
+	<script type="text/javascript" src="js/SyntaxHighlighter/scripts/shCore.js"></script>
+	<script type="text/javascript" src="js/SyntaxHighlighter/scripts/shBrushCpp.js"></script>
+	<link type="text/css" rel="stylesheet" href="js/SyntaxHighlighter/styles/shCoreDefault.css"/>
+	<link type="text/css" rel="stylesheet" href="js/SyntaxHighlighter/styles/shThemeDefault.css"/>
+	<script type="text/javascript">SyntaxHighlighter.all();</script>
+
+	<link rel="stylesheet" href="css/style8.css">
+	<!-- Printing and PDF exports -->
+	<script>
+		var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'js/reveal.js-3.7.0/css/print/pdf.css' : 'js/reveal.js-3.7.0/css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+	<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	<script type="text/x-mathjax-config">
+	  MathJax.Hub.Config({
+		extensions: ["tex2jax.js"],
+		jax: ["input/TeX","output/HTML-CSS"],
+		tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+	  });
+	</script>
+	<script src="js/mathjax/MathJax.js"></script>
+</head>
+
+<body>
+
+	<div class="reveal">
+
+		<!-- Any section element inside of this container is displayed as a slide -->
+		<div class="slides">
+			<section>
+				<section>
+					<h1>第 八 章 </h1>
+					<h2>指针</h2>
+				</section>
+				
+				<section>
+					<h2>本章主要内容 </h2>
+					<ol>
+						<li class="fragment fade-right red">指针</li>
+						<li class="fragment fade-right blue">指针的指针</li>
+						<li class="fragment fade-right green">指针和数组</li>
+						<li class="fragment fade-right Crimson">指针和函数</li>
+						<li class="fragment fade-right Navy">动态内存操作</li>
+					</ol>
+				</section>
+			</section>
+
+			<section>
+				<section>
+					<h2>8.1 什么是指针</h2>
+					<div class="flex">
+						<pre class="brush:c;">
+						#include"stdio.h"
+						float g;
+						void f(char d[]);
+						int main()
+						{
+							//假设是16bit系统，int 是2字节
+							int a=3; 
+							char c[6]="abcde";
+							f(c);
+							return 0;
+						}
+						void f(char d[])
+						{
+							for(int i=0;d[i]!=0;n;i++)
+								putchar(d[i]);
+						}
+						</pre>
+						<div class="flex2">
+						<p><b class="red">地址</b>，是具体变量在内存中的位置；<br>
+						<b class="blue">指针</b>，是地址的形象化描述，表示通过指针能找到内存的实际内容。</p>
+						<table>
+							<tr>
+								<th>变量名</th>
+								<th>类型</th>
+								<th>字节数</th>
+								<th>开始地址</th>
+							</tr>
+							<tr class="fragment fade-right">
+								<td><code>g</code></td>
+								<td><code>float</code></td>
+								<td><code>4</code></td>
+								<td><code>101</code></td>
+							</tr>
+							<tr class="fragment fade-right">
+								<td><code>[main].a</code></td>
+								<td><code>int</code></td>
+								<td><code>2</code></td>
+								<td><code>105</code></td>
+							</tr>
+							<tr class="fragment fade-right">
+								<td><code>[main].c</code></td>
+								<td><code>char []</code></td>
+								<td><code>6</code></td>
+								<td><code>107</code></td>
+							</tr>
+							<tr class="fragment fade-right">
+								<td><code>[f].d</code></td>
+								<td><code>char []</code></td>
+								<td><code>2</code></td>
+								<td><code>10d</code></td>
+							</tr>
+							<tr class="fragment fade-right">
+								<td><code>[f].[for].i</code></td>
+								<td><code>int</code></td>
+								<td><code>2</code></td>
+								<td><code>10f</code></td>
+							</tr>
+						</table>
+						</div>
+					</div>
+					<table>
+						<tr class="fragment fade-right">
+							<th>地址</th>
+							<td><code>101</code></td>
+							<td><code>102</code></td>
+							<td><code>103</code></td>
+							<td><code>104</code></td>
+							<td><code>105</code></td>
+							<td><code>106</code></td>
+							<td><code>107</code></td>
+							<td><code>108</code></td>
+							<td><code>109</code></td>
+							<td><code>10a</code></td>
+							<td><code>10b</code></td>
+							<td><code>10c</code></td>
+							<td><code>10d</code></td>
+							<td><code>10e</code></td>
+							<td><code>10f</code></td>
+							<td><code>110</code></td>
+						</tr>
+						<tr>
+							<th>变量</th>
+							<td colspan="4" class="fragment fade-right"><code>g</code></td>
+							<td colspan="2" class="fragment fade-right"><code>[main].a</code></td>
+							<td colspan="6" class="fragment fade-right"><code>[main].c</code></td>
+							<td colspan="2" class="fragment fade-right"><code>[f].d</code></td>
+							<td colspan="2" class="fragment fade-right"><code>[f].[for].i</code></td>
+						</tr>
+						<tr>
+							<th>内容</th>
+							<td colspan="4" class="fragment fade-right"><code>0.0</code></td>
+							<td colspan="2" class="fragment fade-right"><code>3</code></td>
+							<td class="fragment fade-right"><code>'a'</code></td>
+							<td class="fragment fade-right"><code>'b'</code></td>
+							<td class="fragment fade-right"><code>'c'</code></td>
+							<td class="fragment fade-right"><code>'d'</code></td>
+							<td class="fragment fade-right"><code>'e'</code></td>
+							<td class="fragment fade-right"><code>0</code></td>
+							<td  class="fragment fade-right"colspan="2"><code>107</code></td>
+							<td  class="fragment fade-right"colspan="2"><code>0</code></td>
+						</tr>
+					</table>
+				</section>
+				
+				<section>
+					<h3>8.1.1 直接访问和间接访问</h3>
+					<p class="fragment fade-right blue">通过变量名进行访问，这是直接访问；</p>
+					<p class="fragment fade-right green">通过变量的地址进行访问，这是间接访问；</p>
+				</section>
+			</section>
+			
+			<section>
+				<section>
+					<h2>8.2 指针变量</h2>
+				</section>
+				
+				<section>
+					<h3>8.2.1 使用指针变量的例子</h3>
+					<div class="flex">
+					<pre id="exam8_1" class="brush:c;highlight:[3,4]">
+					#include"stdio.h"
+					int main()
+					{  	int a=100, *p1;
+						float b=10.3, *p2;
+						p1=&amp;a;
+						p2=&amp;b;
+						printf("a=%d, b=%.2f\n", 
+								   a,     b);
+						printf("a=%d, b=%.2f\n", 
+						          *p1,   *p2);
+						return 0;
+					}</pre>
+					<p>
+						第3，4行定义了两个指针变量，一个是整数指针变量<code>p1</code>，一个是单精度浮点指针变量<code>p2</code>，注意当定义的时候，由于未初始化，并没有使这些指针变量指向任何内存地址；
+					</p>
+					</div>
+				</section>
+				
+				<section>
+					<h3>8.2.1 使用指针变量的例子</h3>
+					<div class="flex">
+					<pre id="exam8_1" class="brush:c;highlight:[5,6]">
+					#include"stdio.h"
+					int main()
+					{  	int a=100, *p1;
+						float b=10.3, *p2;
+						p1=&amp;a;
+						p2=&amp;b;
+						printf("a=%d, b=%.2f\n", 
+								   a,     b);
+						printf("a=%d, b=%.2f\n", 
+						          *p1,   *p2);
+						return 0;
+					}</pre>
+					<p>
+						第5，6行用取地址运算符<code>&amp;</code>将变量<code>a,b</code>的地址获取并赋值给指针变量<code>p1,p2</code>；
+					</p>
+					</div>
+				</section>
+				
+				<section>
+					<h3>8.2.1 使用指针变量的例子</h3>
+					<div class="flex">
+					<pre id="exam8_1" class="brush:c;highlight:[10]">
+					#include"stdio.h"
+					int main()
+					{  	int a=100, *p1;
+						float b=10.3, *p2;
+						p1=&amp;a;
+						p2=&amp;b;
+						printf("a=%d, b=%.2f\n", 
+								   a,     b);
+						printf("a=%d, b=%.2f\n", 
+						          *p1,   *p2);
+						return 0;
+					}</pre>
+					<p>
+						第10行用<b class="red">间接取值</b>运算符<code>*</code>来获得指针指向的地址里面的内容，由于这和<code>a,b</code>是相同的地址，所以其内容是相同的；
+					</p>
+					</div>
+				</section>
+				
+				<section>
+					<h3>8.2.1 使用指针变量的例子</h3>
+					<div class="flex">
+					<pre id="exam8_1" class="brush:c;highlight:[3,4,10]">
+					#include"stdio.h"
+					int main()
+					{  	int a=100, *p1;
+						float b=10.3, *p2;
+						p1=&amp;a;
+						p2=&amp;b;
+						printf("a=%d, b=%.2f\n", 
+								   a,     b);
+						printf("a=%d, b=%.2f\n", 
+						          *p1,   *p2);
+						return 0;
+					}</pre>
+					<p>
+						第3、4行的<code>*p1, *p2</code>和第10行的<code>*p1, *p2</code>是不一样的，前者是定义指针变量，而后者是<b class="blue">间接取值</b>运算符。
+					</p>
+					</div>
+				</section>
+				
+				<section>
+					<h3>8.2.2 定义指针变量</h3>
+					<pre class="brush:c;">
+					//语法：
+					类型名 *指针变量名;
+					//例如：
+					int *a; float *b; double *c; char *d;</pre>
+					<p class="fragment fade-up">最左端的类型是<b class="red">基类型</b>，用来指定此指针变量可以指向的变量的类型。</p>
+					<p class="fragment fade-up">c语言的指针基类型是很严格的，例如，<code>double</code>类型的变量，可以被<code>int</code>类型的变量赋值，但是<code>double *</code>类型的指针变量，不能指向其他类型的变量。</p>
+					<p class="fragment fade-up">但是，也可以有其他的解决方法，比如，采用下面的<b class="Indigo">强制类型转换</b>的方法，或用<b class="green">万能指针类型</b>(或称空指针类型)(<code>void *</code>)：
+					</p>
+					<div class="fragment fade-right"><pre class="brush:c;">
+					double *p; int a=10;
+					void *p1;
+					p = &a; //错误，基类型不同
+					p = (double *)&a; //强制类型转换为相同的基类型，✔
+					p1 = &a; //万能指针类型，可以指向任何类型变量，✔</pre>
+					</div>
+					<p class="fragment fade-right">也可以在定义指针时指定为<code>const</code>，即指针</p>
+				</section>
+				
+				<section>
+					<h3>8.2.2 定义常量指针和指针常量</h3>
+					<pre class="brush:c;">
+int n;
+const int * pc = &n; // pc 是常量指针，它可以指向不同常量
+// *pc = 2; // Error: 由于指针指向常量，所以无法通过指针间接改变其值
+pc = NULL; // OK: pc 本身可以指向不同常量
+ 
+int * const cp = &n; // cp 是指针常量，它指向的地址不能再进行改变
+*cp = 2; // OK ，cp指向的内存的内容是可以修改的
+// cp = NULL; // Error: cp 自己不能指向其他的地方
+ 
+int * const * pcp = &cp; // non-const pointer to const pointer to non-const int</pre>
+					
+				</section>
+				
+				
+				<section>
+					<h3>8.2.3 引用指针变量</h3>
+					<pre class="brush:c;">
+					long a = 30L, *p;
+					//【1】给指针变量赋值（取地址 &amp; ）：
+					p = &amp;a; //把a的地址赋值给指针p
+					
+					//【2】引用指针变量指向的变量，也叫 间接引用，*：
+					printf("%ld\n", *p); // 由于 p = &amp;a; 所以*p相当于a
+					
+					//【3】引用指针变量的值（也就是地址），一般用8进制或16进制：
+					printf("%o,%x\n", p, p); //这里就是a的地址 </pre>
+					
+					<p class="fragment fade-up">【1】<code>&amp;</code>:取地址运算符，<code>&amp;a</code>表示取<code>a</code>的地址；</p>
+					
+					<p class="fragment fade-up">【2】<code>*</code>:间接取值（访问）运算符，当<code>p=&amp;a;</code>，则<code>*p</code>相当于<code>a</code>。</p>
+				</section>
+				
+				<section>
+					<h3>8.2.4 指针变量初始化</h3>
+					
+					<p>指针变量在定义的时候可以直接初始化。</p>
+					
+					<pre class="brush:c;highlight:[2];">
+					int a=20;
+					int *p=&amp;a; </pre>
+					
+					<p class="fragment fade-right">第2行定义了指针变量<code>p</code>的同时，也赋予其初始化值，也就是变量<code>a</code>的地址。</p>
+				</section>
+				
+				<section>
+					<h3>8.2.5 指针变量作为函数的参数</h3>
+					
+					<p>函数参数是指针变量，则可以将一个变量的地址传递到函数中，从而可以<b class="red">在函数里面对外部变量进行修改</b>。</p>
+					<div class="flex">
+					<pre class="brush:c;highlight:[2,4,14];">
+					#include "stdio.h"					
+					void swap1(int a, int b)
+					{
+						int t=a; a=b; b=t;
+					}					
+					void swap2(int *a, int *b)
+					{
+						int t=*a; *a=*b; *b=t;
+					}					
+					int main()
+					{
+						int x=10, y=20;
+						printf("x=%d, y=%d\n",x,y);
+						swap1(x,y);
+						printf("x=%d, y=%d\n",x,y);
+						swap2(&amp;x, &amp;y);
+						printf("x=%d, y=%d\n",x,y);
+					}</pre>
+					<div>
+					<p class="fragment fade-right">
+						第2到5行定义了函数<code>swap1</code>，其参数是<code>int</code>类型的，当在第14行调用这个函数，传递实参<code>x,y</code>时，其实是传递<code>x,y</code>的<b class="red wavy">值</b>复制给函数中的变量<code>a, b</code>，这二者是在<b class="blue wavy">不同的内存地址中</b>，因此，在函数内部对<code>a, b</code>的交换值，不会影响到<code>main</code>函数的<code>x, y</code>的值。
+					</p>
+					</div>
+					</div>
+				</section>
+				
+				<section>
+					<h3>8.2.5 指针变量作为函数的参数</h3>
+					
+					<p>特别的，函数的一个限制是只能返回一个返回值，但是利用<b class="blue wavy">指针变量参数</b>的特性，可以实现多个变量的返回（无法参与表达式）。</p>
+
+					<pre class="brush:c;highlight:[3,4,8,9,16,18];">
+					//例：把三个数按从小到大的顺序排列
+					#include "stdio.h"					
+					void swap(int *a, int *b)
+					{	int t=*a; 
+						*a=*b; 
+						*b=t; 
+					}
+					void exchange(int *a, int *b, int *c)
+					{	if(*a&lt;*b)swap(a,b);
+						if(*a&lt;*c)swap(a,c);
+						if(*b&lt;*c)swap(b,c);
+					}
+					int main()
+					{	int x, y, x;
+						printf("input 3 integer:");
+						scanf("%d,%d,%d", &amp;x, &amp;y, &amp;z);
+						printf("x=%d,y=%d,z=%d\n",x,y,z);
+						exchange(&x, &y, &z);
+						printf("x=%d,y=%d,z=%d\n",x,y,z);
+					}</pre>
+				</section>
+			</section>
+			
+			<section>
+				<section>
+					<h2>8.3 指针和数组</h2>
+				</section>
+				
+				<section>
+					<h3>8.3.1 数组元素的指针</h3>
+					<p class="fragment fade-right">一个数组包含若干元素，对于一维数组，每一个元素都是紧挨着的，<b class="red wavy">数组名称本身就是一个指针常量，指向数组第一个元素的地址</b>，和指针变量不同，<b class="blue wavy">数组名称不能指向别的地址</b>。</p>
+					
+					<p class="fragment fade-right">对于每一个数组元素，对其下标表达式<b class="green">取地址</b>，即可得到该<b class="Navy wavy">数组元素的地址</b>，如下：</p>
+					
+					<div class="fragment fade-right">
+					<pre class="brush:c;">
+					int a[10]={1,3,5,7,9,11,13,15,17,19};
+					int *p=a; //p初始化为数组的第一个元素的地址
+					printf("%d\n", *a); //输出: 1
+					printf("%d\n", *p); //输出: 1
+					p=&amp;a[3];
+					printf("%d\n", *p); //输出: 7</pre>
+					</div>
+				</section>
+				
+				<section>
+					<h3>8.3.2 在引用数组元素时指针的运算</h3>
+					<p >一个数组包含若干元素，对于一维数组，每一个元素都是紧挨着的，<b class="red wavy">当指针变量指向数组元素时，指针变量支持以下运算：</b></p>
+					
+					<ul>
+					
+					<li class="fragment fade-right"><code>指针变量p&pm;n</code>：其结果指向<b class="Navy wavy">下/上<code>n</code>个数组元素的地址</b>，<code>*p</code>表示<b class="Indigo wavy">指向的那个数组元素的值</b>，例如:
+					<pre class="brush:c;">
+					float a[3]={1.5, 3.8, 8.1};
+					float *p=&amp;a[1]; 
+					printf("%.1f\n", *p);    //输出：3.8
+					printf("%.1f\n", *(p-1));//输出：1.5
+					printf("%.1f\n", *(p+1));//输出：8.1</pre>
+					</li>
+					
+					<li class="fragment fade-right"><code>p++, p--, ++p, --p</code>：其结果指向<b class="Navy wavy">下/上<code>1</code>个数组元素的地址</b>，<code>*p</code>表示<b class="Indigo wavy">指向的那个数组元素的值</b>，例如:
+					<pre class="brush:c;">
+					float a[3]={1.5, 3.8, 8.1};
+					float *p=&amp;a[1]; 
+					printf("%.1f\n", *p);    //输出：3.8
+					printf("%.1f\n", *(++p));//输出：8.1
+					printf("%.1f\n", *(--p));//输出：3.8</pre>
+					</li>
+					</ul>
+				</section>
+				
+				<section>
+					<h3>8.3.2 在引用数组元素时指针的运算</h3>
+					<p >一个数组包含若干元素，对于一维数组，每一个元素都是紧挨着的，<b class="red wavy">当指针变量指向数组元素时，指针变量支持以下运算：</b></p>
+					
+					<ul>
+					
+					<li class="fragment fade-right">如果指针变量<code>p1, p2</code>都指向相同数组的不同元素(且<code>p2 &gt; p1</code>)，则<code>p2-p1</code>表示<b class="blue wavy">这两个数组元素相差的元素个数，注意是元素的个数，而不是字节数</b>，例如:
+					<pre class="brush:c;">
+					float a[3]={1.5, 3.8, 8.1};
+					float *p1=&amp;a[1], *p2=&amp;a[2]; 
+					printf("%d\n", p2-p1);    //输出：1</pre>
+					</li>
+					
+					<li class="fragment fade-right">两个指针变量不能相加，这个无意义。</li>
+					</ul>
+				</section>
+				
+				<section>
+					<h3>8.3.3 通过指针引用数组元素</h3>
+					<p>引用数组元素可以用下面的方法：</p>
+					
+					<ul>
+					
+					<li class="fragment fade-right">下标法，例如:
+					<pre class="brush:c;highlight:[3]">
+					float a[3]={1.5, 3.8, 8.1};
+					float *p1=a; 
+					printf("%.1f, %.1f\n", a[0], p1[0]); //输出：1.5, 1.5</pre>
+					</li>
+					
+					</ul>
+				</section>
+				
+				<section>
+					<h3>8.3.3 通过指针引用数组元素</h3>
+					<p>引用数组元素可以用下面的方法：</p>
+					
+					<ul>
+					
+					<li class="fragment fade-right">指针间接引用法，例如:
+					<pre class="brush:c;highlight:[3]">
+					float a[3]={1.5, 3.8, 8.1};
+					float *p1=a; 
+					printf("%.1f, %.1f\n", *(a+1), *(p1+1); //输出：3.8, 3.8</pre>
+					</li>
+					
+					</ul>
+				</section>
+				
+				<section>
+					<h3>8.3.4 把数组作为函数参数</h3>
+					<p>把数组作为函数参数的方法：</p>
+					
+					<ul>
+					<li class="fragment fade-right">直接以函数名作参数，例如:
+					<pre class="brush:c;highlight:[3,6,12,13,14]">
+					//例：打印数组内容
+					#include "stdio.h"
+					void print_array1(int a[], int n)
+					{
+						for(int i=0;i&lt;n;i++)
+							printf("%d,", a[i]);
+						}putchar('\n');
+					}
+					int main()
+					{
+						int d[]={4,8,10,7,6,3,20,5};
+						int n = sizeof(d)/sizeof(d[0]);
+						print_array1(d, n); //输出全部数组: 4,8,10,7,6,3,20,5,
+						print_array1(d, 3); //输出前3个元素: 4,8,10,
+						return 0;
+					}</pre>
+					</li>
+					</ul>
+				</section>
+				
+				<section>
+					<h3>8.3.4 把数组作为函数参数</h3>
+					<p>把数组作为函数参数的方法：</p>
+					
+					<ul>
+					<li class="fragment fade-right">以指针作为参数，例如:
+					<pre class="brush:c;highlight:[3,5,6,7,14,15,16]">
+					//例：通过指针变量参数来实现打印局部数组
+					#include "stdio.h"
+					void print_array2(int *p1, int *p2)
+					{
+						while(p1&lt;=p2){
+							printf("%d,", *p1);
+							p1++;
+						}putchar('\n');
+					}
+					int main()
+					{
+						int d[]={4,8,10,7,6,3,20,5};
+						int n = sizeof(d)/sizeof(d[0]);
+						print_array2(d, d+n-1); //输出全部数组: 4,8,10,7,6,3,20,5,
+						print_array2(d, d+2); //输出前3个元素: 4,8,10,
+						print_array2(d+1, d+3); //输出下标为[1],[2],[3]的局部数组: 8,10,7,
+						return 0;
+					}</pre>
+					</li>
+					</ul>
+				</section>
+				
+				<section>
+					<h3>8.3.4 把数组作为函数参数</h3>
+					<p>把数组作为函数参数的方法：</p>
+					
+					<ul>
+					<li class="fragment fade-right">实际上，实参的数组名代表一个固定的地址，或者说指针常量，但形参数组名并不是一个固定的地址，而是按照指针变量来处理，所以，无法在函数中使用<code>sizeof</code>运算符来计算数组实际内存数。</li>
+					
+					<pre class="brush:c;highlight:[3,10，14]">
+					//例：通过指针变量参数来实现打印局部数组
+					#include "stdio.h"
+					void print_array2(int *p1, int *p2)
+					{	while(p1&lt;=p2){
+							printf("%d,", *p1);
+							p1++;
+						}putchar('\n');
+					}
+					void print_array2(int p1[], int p2[])
+					{	while(p1&lt;=p2){
+							printf("%d,", *p1);
+							p1++; //形参数组名可以被修改
+						}putchar('\n');
+					}
+					</pre>
+					
+				</section>
+				
+				<section>
+					<h4>例：实现<code>strcpy(目标字符数组地址, 源字符串地址)</code>函数。</h4>
+					<div class="fragment fade-right">
+					<pre class="brush:c;">
+#include "stdio.h"
+char *strcpy1(char *dest, const char *source)
+{	char *p=dest;
+	while(*source)
+		*p++=*source++;
+	return dest;
+}
+int main()
+{
+	char s1[100], *s2="apple";
+	printf("%s\n", strcpy1(s1, s2));
+	printf("%s\n", strcpy1(s1, "banana"));
+	return 0;
+}</pre>
+					</div>
+				</section>
+				
+				<section>
+					<h3>8.3.5 通过指针引用多维数组</h3>
+					<p>C语言的多维数组有自己的特色，每一维的元素，都是下一维数组的指针。</p>
+				</section>
+				
+				<section>
+					<h4>1. 二维数组元素的地址</h4>
+					<pre class="brush:c;">
+					char a[2][3]={{1,3,5}, {2,4,6}};</pre>
+					<p class="fragment fade-right">
+					上面的二维数组的第一维是一个2个元素的数组，其类型是<code>char *a[2];</code>，表示这个数组里面的元素都是<b class="red">字符指针（<code>char *</code>）</b>，因为是指针，所以可以指向任何一个字符变量，或者，一个字符数组，事实上，确实每一个第一维数组的元素都指向一个长度为3的一维字符数组（<code>char xx[3];</code>），而所有2个这样的字符数组合起来组成第二维的6个元素，请参见下面的表格(设该系统下指针占2字节)。
+					</p>
+					<table class="fragment fade-up">
+						<tr>
+						<th>地址</th>
+						<td class="Indigo">206</td>
+						<td class="Indigo">207</td>
+						<td class="Navy">208</td>
+						<td class="Navy">209</td>
+						<td class="green">20a</td>
+						<td class="green">20b</td>
+						<td class="green">20c</td>
+						<td class="blue">20d</td>
+						<td class="blue">20e</td>
+						<td class="blue">20f</td>
+						</tr>
+						<tr>
+						<th>变量</th>
+						<td colspan="2" class="Indigo">a[0]</td>
+						<td colspan="2" class="Navy">a[1]</td>
+						<td class="green">a[0][0]</td>
+						<td class="green">a[0][1]</td>
+						<td class="green">a[0][2]</td>
+						<td class="blue">a[1][0]</td>
+						<td class="blue">a[1][1]</td>
+						<td class="blue">a[1][2]</td>
+						</tr>
+						<tr>
+						<th>内容</th>
+						<td colspan="2" class="Indigo">20a</td>
+						<td colspan="2" class="Navy">20d</td>
+						<td class="green">1</td>
+						<td class="green">3</td>
+						<td class="green">5</td>
+						<td class="blue">2</td>
+						<td class="blue">4</td>
+						<td class="blue">6</td>
+						</tr>
+					</table>
+				</section>
+				
+				<section>
+					<h4>二维数组元素的地址的多种表示（设指针占2字节）</h4>
+					<pre class="brush:c;">
+					char a[2][3]={{1,3,5}, {2,4,6}};</pre>
+					<table>
+						<tr>
+						<th>地址</th>
+						<td class="Indigo">206</td>
+						<td class="Indigo">207</td>
+						<td class="Navy">208</td>
+						<td class="Navy">209</td>
+						<td class="green">20a</td>
+						<td class="green">20b</td>
+						<td class="green">20c</td>
+						<td class="blue">20d</td>
+						<td class="blue">20e</td>
+						<td class="blue">20f</td>
+						</tr>
+						<tr>
+						<th>变量</th>
+						<td colspan="2" class="Indigo">a[0]</td>
+						<td colspan="2" class="Navy">a[1]</td>
+						<td class="green">a[0][0]</td>
+						<td class="green">a[0][1]</td>
+						<td class="green">a[0][2]</td>
+						<td class="blue">a[1][0]</td>
+						<td class="blue">a[1][1]</td>
+						<td class="blue">a[1][2]</td>
+						</tr>
+						<tr>
+						<th>内容</th>
+						<td colspan="2" class="Indigo">20a</td>
+						<td colspan="2" class="Navy">20d</td>
+						<td class="green">1</td>
+						<td class="green">3</td>
+						<td class="green">5</td>
+						<td class="blue">2</td>
+						<td class="blue">4</td>
+						<td class="blue">6</td>
+						</tr>
+					</table>
+					<p class="fragment fade-right">对于上面的二维数组的定义，可以得到关于其地址和指针的一个列表：</p>
+					<table class="fragment fade-up">
+						<tr>
+						<th>表示形式</th><th>含义</th><th>值</th>
+						</tr>
+						<tr>
+						<td><code>a</code></td>
+						<td>二维数组名，指向一维数组<code>{a[0],a[1]}</code>的首地址</td>
+						<td>206</td>
+						</tr>
+						<tr>
+						<td><code>a[0], *(a+0), *a</code></td>
+						<td>第一维数组第一个元素，指向<code>a[0][0]</code>的地址</td>
+						<td>20a</td>
+						</tr>
+						<tr>
+						<td><code>a+1, &amp;a[1]</code></td>
+						<td>第一维数组第二个元素的地址，指向<code>a[1]</code>的地址</td>
+						<td>208</td>
+						</tr>
+						<tr>
+						<td><code>a[1], *(a+1)</code></td>
+						<td>第一维数组第二个元素，指向<code>a[1][0]</code>的地址</td>
+						<td>20d</td>
+						</tr>
+						<tr>
+						<td><code>a[1]+2, *(a+1)+2，&amp;a[1][2]</code></td>
+						<td>第二维数组第三个元素的地址，指向<code>a[1][2]</code>的地址</td>
+						<td>20f</td>
+						</tr>
+						<tr>
+						<td><code>*(a[1]+2), *(*(a+1)+2),a[1][2]</code></td>
+						<td>第二维数组第三个元素</td>
+						<td>6</td>
+						</tr>
+					</table>
+				</section>
+				
+				<section>
+					<h4>指针数组和不规则的二维数组</h4>
+					<p>C语言对二维数组的这种特殊的处理方式（前一维是后一维数组的指针），使得其可以定义和处理非规则的二维数组，采用定义指针数组的方式，下面的示例定义了下三角矩阵。</p>
+					<div class="flex">
+					<pre class="brush:c;highlight:[2,14,15]">
+#include "stdio.h"
+void print_array(const int **d, int n)
+{
+	for(int i=0;i&lt;n;i++)
+	{	for(int j=0;j&lt;n;j++)
+		{
+			if(j&lt;=i)
+				printf("%4d",d[i][j]);
+		}putchar('\n');
+	}
+}
+int main()
+{
+	int a[]={1}, b[]={1,2}, c[]={1,2,3};
+	int *tri[3]={a,b,c};
+	print_array(tri, 3);
+	return 0;
+}					</pre>
+					<div class="flex2">
+					<table>
+						<tr><td>1</td></tr>
+						<tr><td>1</td><td>2</td></tr>
+						<tr><td>1</td><td>2</td><td>3</td></tr>
+					</table>
+					<p class="fragment fade-right">
+					注意第15行定义了<b class="blue wavy">整数指针的数组</b>，数组的名称实际上指向一个<b class="blue wavy">整数指针的数组</b>的地址，所以是<b class="Navy wavy">整数指针的指针</b>
+					</p>
+					<p class="fragment fade-right">为了在函数<code>print_array</code>中传递这个<b class="Navy wavy">整数指针的指针</b>,第2行的函数形参的类型是<code>int **</code>；</p>
+					</div>
+					</div>
+				</section>
+				
+				<section>
+					<h4>指针的指针变量，非常适合向函数传递二维数组变量，避免必须指定第二维的长度。</h4>
+					<script type="syntaxhighlighter" class="brush:c;highlight:[3,4,8,15,16,17]">
+//把一组字符串中的数字转换并加起来
+#include "stdio.h"
+#include "stdlib.h"
+int  add(const char **d, int n)
+{
+	int result=0, tmp;
+	for(int i=0;i<n;i++){
+		tmp=atoi(d[i]);
+		result+=tmp;
+	}
+	return result;
+}
+int main()
+{
+	char *values[]={"15","27","38"};
+	int n=sizeof(values)/sizeof(char *);
+	printf("result=%d\n", add(values, n));
+	return 0;
+}					</script>
+				</section>
+				
+				<section>
+					<h4><code>main</code>函数的最终形态</h4>
+					<script type="syntaxhighlighter" class="brush:c;highlight:[8,14,16]">
+//源程序文件 add.c
+#include "stdio.h"
+#include "stdlib.h"
+int  add(const char **d, int n)
+{
+	int result=0, tmp;
+	for(int i=0;i<n;i++){
+		tmp=atoi(d[i]); //把字符串转换为整数
+		printf("\"%s\" --> %d\n", d[i], tmp);
+		result+=tmp;
+	}
+	return result;
+}
+int main(int n, const char **argstrings)
+{
+	printf("result=%d\n", add(argstrings, n));
+	return 0;
+}					</script>
+				   <p  class="fragment fade-right">把程序编译为<code>add.exe</code>，在命令行中运行：<code>add 30 4 5</code>，得到结果：</p>
+				   <div  class="fragment fade-right">
+				   <pre class="brush:c">
+				   "add.exe" -->0
+				   "30" --> 30
+				   "4"  --> 4
+				   "5" --> 5
+				   result = 39   </pre>
+				   </div>
+				</section>
+			</section>
+			
+			<section>
+				<h2>8.4 指向函数的指针</h2>
+				<p>C语言能够定义函数指针变量，其本质是指针变量，可以指向特定函数所在内存的地址，见后面的例子。</p>
+				<pre class="brush:c;">
+				//语法：
+				函数返回值类型 (*指针变量名)(形式参数列表)
+				//例：
+				int (*fun_p)(int a, int b); //这里，fun_p是指针变量名, 
+				//可以指向有一个整型返回值，两个整型参数的函数。
+				</pre>
+			</section>
+			
+			<section>
+				<section>
+					<h2>8.5 动态内存分配</h2>
+					<p>简单介绍，具体请参考教材。</p>
+				</section>
+				
+				<section>
+					<h3>8.5.1 为什么要动态内存分配</h3>
+					<p>C语言程序的内存分配有两种，一种是自动分配，自动回收，比如普通全局变量和局部变量，这些在栈(stack)中分配，另一种则是动态申请的，属于堆（heap）内存变量，这些不会自动回收，必须手工释放，或者整个程序结束由系统统一释放。</p>
+					<p>为什么要动态内存分配，主要是能够自己控制内存的生存周期，以及自由决定需要的内存。</p>
+				</section>
+				
+				<section>
+					<h3>8.5.2 如何进行动态内存分配</h3>
+					<table>
+						<tr>
+							<th>函数</th>
+							<th>功能</th>
+							<th>示例和备注</th>
+						</tr>
+						<tr>
+							<th colspan="3">下面的几个函数在<code>stdlib.h</code>头文件中声明；</th>
+						</tr>
+						<tr>
+							<td><code>void *malloc(unsigned int size);</code></td>
+							<td>动态申请<code>size</code>字节的内存，如果成功，返回其地址，否则返回空指针<code>NULL</code></td>
+							<td>
+							<pre class="brush:c;">
+							double *p=malloc(100*sizeof(double));
+							if(p!=NULL){//申请成功}</pre>
+							</td>
+						</tr>
+						<tr>
+							<td><code>void *calloc(unsigned int n, unsigned int size);</code></td>
+							<td>动态申请<code>n*size</code>字节的内存，如果成功，返回其地址，否则返回空指针<code>NULL</code></td>
+							<td>
+							<pre class="brush:c;">
+							double *p=calloc(100, sizeof(double));
+							if(p!=NULL){//申请成功}	</pre>
+							</td>
+						</tr>
+						<tr>
+							<td><code>void *realloc(void *p, unsigned int size);</code></td>
+							<td>重新申请<code>size</code>字节的内存，如果成功，复制原来<code>p</code>地址开始的内容到新的地址中，多的被截取，返回其地址，并释放原来<code>p</code>指向的内容，若申请失败返回空指针<code>NULL</code></td>
+							<td>
+							<pre class="brush:c;">
+							double *p=malloc(100*sizeof(double));
+							...
+							p=realloc(p, 200*sizeof(double));
+							if(p!=NULL){//申请成功}</pre>
+							</td>
+						</tr>
+						<tr>
+							<td><code>void free(void *p);</code></td>
+							<td>释放申请的内存</td>
+							<td>
+							<pre class="brush:c;">
+							double *p=malloc(100*sizeof(double));
+							...
+							free(p);</pre>
+							</td>
+						</tr>
+					</table>
+				</section>
+				
+				<section>
+					<h3>8.5.2 如何进行动态内存分配</h3>
+					<table>
+						<tr>
+							<th>函数</th>
+							<th>功能</th>
+							<th>示例和备注</th>
+						</tr>
+						<tr>
+							<th colspan="3">下面的几个函数在<code>string.h</code>头文件中声明；</th>
+						</tr>
+						<tr>
+							<td><code>void *memset( void *dest, unsigned char ch, size_t count );</code></td>
+							<td>设置<code>dest</code>指向的地址的连续<code>count</code>个内存字节为<code>ch</code></td>
+							<td>
+							<pre class="brush:c;">
+							//申请一块100个元素的整数数组内存
+							//并设置其里面的值为0
+							int *p=malloc(100*sizeof(int));
+							memset(p, 0, 100*sizeof(int));</pre>
+							</td>
+						</tr>
+						<tr>
+							<td><code>void* memcpy( void *dest, const void *src, size_t count );</code></td>
+							<td>从<code>src</code>开始的内存复制<code>count</code>个字节的连续内容到<code>dest</code>指向的地址。注意两个地址的内容不能重叠。</td>
+							<td>
+							<pre class="brush:c;">
+							//一次性复制数组到另一块内存中
+							int a[5]={1,2,3,4,5};
+							int *p=malloc(100*sizeof(int));
+							memcpy(p, a, 5*sizeof(int));</pre>
+							</td>
+						</tr>
+					</table>
+				</section>
+				
+				<section>
+					<h3>8.5.2 如何进行动态内存分配</h3>
+					<table>
+						<tr>
+							<th>函数</th>
+							<th>功能</th>
+							<th>示例和备注</th>
+						</tr>
+						<tr>
+							<th colspan="3">下面的几个函数在<code>string.h</code>头文件中声明；</th>
+						</tr>
+						<tr>
+							<td><code>void* memmove( void* dest, const void* src, size_t count );</code></td>
+							<td>从<code>src</code>开始的内存复制<code>count</code>个字节的连续内容到<code>dest</code>指向的地址。这两块内存可以有重叠，函数内部会先将<code>src</code>的内容复制到一块临时的内存，再复制到<code>dest</code>的内存中；</td>
+							<td>
+							<pre class="brush:c;">
+							//把数组的第一个元素去掉，后面的内容前提一个元素
+							int a[5]={1,2,3,4,5};
+							memmove(a, a+1, 4*sizeof(int));
+							a[4]=0;</pre>
+							</td>
+						</tr>
+					</table>
+				</section>
+				
+				<section>
+					<h3>8.5.3 动态内存分配的注意事项</h3>
+					<p>注意：</p>
+					<p class="fragment fade-right">1. 动态分配的内存，记得<code>free</code>释放；</p>
+					<p class="fragment fade-right">2. 如果一个指针指向动态分配的内存，在没有<code>free</code>释放，就转向指向其他的内存，则原来分配的内存再也没有指针指向它，因此就无法再释放，这就造成<b class="red">内存泄漏</b>；</p>
+					<p class="fragment fade-right">3. 如果一个指针指向动态分配的内存，已经<code>free</code>释放了，那么这个指针就成为<b class="red">野指针</b>，对野指针的操作则会造成内存的崩溃，因为释放后那块内存可能已经被拿来他用；</p>
+				</section>
+				
+			</section>
+				<section>
+					<section>
+						<h2>综合实例</h2>
+					</section>
+					
+					<section>
+						<h4>实例：动态增加大小的数组</h4>
+						<script type="syntaxhighlighter" class="brush:c;">
+#include"stdio.h"
+#include"stdlib.h"
+#include"string.h"
+
+void *darray; 		//动态数组的开始地址
+int darray_count; 	//动态数组的最大长度
+int darray_size;  	//动态数组每个元素的字节数
+int darray_last;  	//动态数组的最后加入的元素的序号
+
+/*创建动态数组
+参数：
+	n	:动态数组的初始长度
+	size:每个元素的字节数
+返回值：
+	若成功则返回开始地址
+	若失败则返回NULL  */
+void *da_create(int n, int size)
+{	void *p=malloc(n*size);
+	if(p!=NULL){
+		darray_count = n; 
+		darray_size = size;
+		darray_last = -1; //-1 表示没有加入元素
+		darray = p; 
+	}
+	return p;
+}						</script>
+					</section>
+					
+				<section>
+					<script type="syntaxhighlighter" class="brush:c;">
+/*增加元素到最后
+参数：
+	p:要加入的数据的地址，注意数据的长度由darray_size定义
+返回值：
+	当加入值后序号超过原来的最大长度，
+	则重新申请内存并复制到新内存；
+	若成功则返回0，若失败则返回-1 */
+int da_add_tail(const void *p)
+{	if(darray_last+1 >= darray_count-1){
+		//超出原来的长度
+		//将动态数组的长度增加1倍
+		int count = darray_count*2;
+		void *p1 = malloc(count*darray_size);
+		if(p1==NULL)return -1; //内存不够
+		//把原来数组内的内容复制到新数组中
+		memcpy(p1, darray, darray_count*darray_size);
+		//释放原来的数组内存
+		free(darray);
+		//把darray重定向到新的内存地址三
+		darray=p1;
+	}
+	//下面空间足够，开始增加新的元素
+	darray_last++; //下标+1
+	//复制输入的元素内容到数组最后位置
+	memcpy(darray+darray_last*darray_size, p, darray_size);
+	return 0;
+}					</script>
+				</section>
+
+				<section>
+					<script type="syntaxhighlighter" class="brush:c;">
+/*打印数组中每一个元素
+参数：fun: 函数指针，用于生成每个元素的字符串
+返回值：无 */
+void da_print_all(char* (*fun)(char *str, void *p))
+{	char str[100]; 	int i;
+	if(darray_last<0){
+		puts("No element in array.\n");
+		return; //若没有添加元素
+	}
+	for(i=0;i<=darray_last;i++)
+		printf("%s\n", fun(str, darray+i*darray_size));
+}
+/*删除动态数组 
+参数：无 
+返回值：无 */
+void da_clear()
+{	free(darray);
+	darray_count=0; darray_last=-1; darray_size=0;
+}
+char *convert_int(char *str, int *p)
+{	sprintf(str, "%d", *p);
+	return str;
+}
+char *convert_float(char *str, float *p)
+{	sprintf(str, "%.2f", *p);
+	return str;
+}					</script>
+				</section>
+				
+				<section>
+					<div class="flex">
+					<script type="syntaxhighlighter" class="brush:c;">
+int main()
+{	int a; float b;
+	da_create(2, sizeof(int));
+	a=30;  da_add_tail(&a); 
+	a=50;  da_add_tail(&a); 
+	a=22;  da_add_tail(&a); 
+	da_print_all(convert_int);
+	da_clear();
+	
+	da_create(3, sizeof(float));
+	b=1.3;  da_add_tail(&b); 
+	b=2.6;  da_add_tail(&b); 
+	b=4.5;  da_add_tail(&b); 
+	b=3.1;  da_add_tail(&b); 	
+	da_print_all(convert_float);
+	da_clear();
+	
+}					</script>
+					<pre class="brush:c;">
+//输出
+30
+50
+22
+1.30
+2.60
+4.50
+3.10				</pre>
+					</div>
+				</section>
+				
+				<section>
+					<h4>可以对任何类型进行排序的冒泡排序函数。</h4>
+					<script type="syntaxhighlighter" class="brush:c;">
+#include "stdio.h"
+#include "stdlib.h"
+#include "string.h"
+
+void bubble(void *array, int n, int size, int (*cmp)(void *a1, void *a2))
+{	int row, col, flag=0;
+	void *tmp=malloc(size);
+	for(row = n-1; row >0 ; row--){
+		flag = 0;
+		for( col = 0; col < row; col++){
+			if(cmp(array+col*size, array+(col+1)*size)>0){
+				memcpy(tmp, array+col*size, size);
+				memcpy(array+col*size, array+(col+1)*size, size);
+				memcpy(array+(col+1)*size, tmp, size);
+				flag = 1;				
+			}
+		}
+		if( 0 == flag )break;
+	}
+}					</script>
+				</section>
+				
+				<section>
+					<h4>可以对任何类型进行排序的冒泡排序函数。</h4>
+					<script type="syntaxhighlighter" class="brush:c;">
+int cmp_int(int *p1, int *p2)
+{	if (*p1 > *p2) return 1;
+	else if (*p1 < *p2) return -1;
+	else return 0;
+}
+int cmp_float(float *p1, float *p2)
+{	if (*p1 > *p2) return 1;
+	else if (*p1 < *p2) return -1;
+	else return 0;
+}
+int cmp_string(char *p1, char *p2)
+{	return strcmp(p1, p2);
+}
+
+#define PRINT_ARRAY(format, array, n) \
+	for(int i=0;i<n;i++) \
+		printf(format, array[i]); \
+	putchar('\n');					</script>
+				</section>
+				
+				<section>
+					<div class="flex2">
+					<script type="syntaxhighlighter" class="brush:c;">
+int main()
+{	int d1[]={7,8,2,5,9,10,16,32,81,30}, n;
+	n = sizeof(d1)/sizeof(d1[0]);
+	PRINT_ARRAY("%4d", d1, n);
+	bubble(d1, n, sizeof(d1[0]), cmp_int);
+	PRINT_ARRAY("%4d", d1, n);
+	
+	float d2[]={1.3, 8.4, 5.6, 0.9, 3.2, 6.7, 4.5, 9.8};
+	n = sizeof(d2)/sizeof(d2[0]);
+	PRINT_ARRAY("%6.2f", d2, n);
+	bubble(d2, n, sizeof(d2[0]), cmp_float);
+	PRINT_ARRAY("%6.2f", d2, n);
+	
+	char d3[][100]={"orange", "apple", "grape", "banana", "watermelon", "peal"};
+	n = sizeof(d3)/sizeof(d3[0]);
+	PRINT_ARRAY("%s,", d3, n);
+	bubble(d3, n, sizeof(d3[0]), cmp_string);
+	PRINT_ARRAY("%s,", d3, n);	
+	return 0; 
+} 					</script>
+					<div>
+					<pre class="brush:c;">
+   7   8   2   5   9  10  16  32  81  30
+   2   5   7   8   9  10  16  30  32  81
+  1.30  8.40  5.60  0.90  3.20  6.70  4.50  9.80
+  0.90  1.30  3.20  4.50  5.60  6.70  8.40  9.80
+orange,apple,grape,banana,watermelon,peal,
+apple,banana,grape,orange,peal,watermelon,</pre>
+					</div>
+					</div>
+				</section>
+				
+				<section>
+					<h4>快速排序法：<code>qsort</code></h4>
+					<div class="flex2">
+					<script type="syntaxhighlighter" class="brush:c;">
+#include "time.h"
+int main()
+{	int *p1, *p2, n=50000;
+	p1 = malloc(sizeof(int)*n); p2 = malloc(sizeof(int)*n);	
+	
+	for(int i=0;i<n;i++)p1[i] = rand();
+	
+	memcpy(p2, p1, n*sizeof(int));
+	//冒泡排序法
+	clock_t t1, t2;
+	t1 = clock();
+	bubble(p2, n, sizeof(int), cmp_int);
+	t2 = clock();
+	printf("took times = %lf seconds.\n", (double)(t2-t1)/CLOCKS_PER_SEC); 
+	//took times = 27.429000 seconds.
+	
+	memcpy(p2, p1, n*sizeof(int));
+	//快速排序法
+	t1 = clock();
+	qsort(p2, n, sizeof(int), cmp_int);
+	t2 = clock();
+	printf("took times = %lf seconds.\n", (double)(t2-t1)/CLOCKS_PER_SEC); 
+	//took times = 0.008000 seconds.
+	free(p1); free(p2);
+	return 0; 
+} 					</script>
+					</div>
+				</section>
+			</section>
+			
+			<section>
+				<section>
+					<h2>测试和作业</h2>
+				</section>
+				
+				<section>
+					<h3>一、判断对错</h3>
+				</section>
+				
+				<section>
+					<ol>
+						<li class="fragment fade-right">函数的实参传递到形参有两种方式：值传递和地址传递（<b class="fragment fade-right red">✖</b>）</li>
+						<li class="fragment fade-right">直接访问就是直接利用变量的地址进行存取直接访问（<b class="fragment fade-right red">✖</b>）</li>
+						<li class="fragment fade-right"><code>scanf()</code>的参数表要使用变量的地址值（<b class="fragment fade-right green">✔</b>）</li>
+						<li class="fragment fade-right">可以用指针指向一个函数，通过这个指针来调用此函数（<b class="fragment fade-right green">✔</b>）</li>
+						<li class="fragment fade-right">函数形式参数的存储单元是动态分配的（<b class="fragment fade-right green">✔</b>）</li>
+						<li class="fragment fade-right"><code>int (*p)[4];</code>这里<code>p</code>是一个指针数组（<b class="fragment fade-right red">✖</b>）</li>
+						<li class="fragment fade-right">如果指针变量<code>p</code>指向数组的一个元素的地址，则<code>p+1</code>指向该地址的下一个字节（<b class="fragment fade-right red">✖</b>）</li>
+						<li class="fragment fade-right">变量的值和地址都可以改变（<b class="fragment fade-right red">✖</b>）</li>
+						<li class="fragment fade-right">指针变量可以存放地址、数值和字符（<b class="fragment fade-right red">✖</b>）</li>
+						<li class="fragment fade-right">指针数组每一个元素都是指针变量（<b class="fragment fade-right green">✔</b>）</li>
+						<li class="fragment fade-right"><code>char *s="hello";</code>其中<code>s</code>是一个指向字符变量的指针变量，这里把字符串的首地址赋予<code>s</code>。（<b class="fragment fade-right green">✔</b>）</li>
+					</ol>
+				</section>
+				
+				<section>
+					<h3>二、判断改错</h3>
+				</section>
+				
+				<section>
+					<h4>1. 写一个函数，求字符串的长度。</h4>
+					<div class="flex">
+						<script type="syntaxhighlighter" class="brush:c;">
+#include "stdio.h"
+
+int main()
+{	char *p = "Hello world!\n";
+	printf("len = %d\n", 
+			my_strlen(&p));
+	return 0;
+}
+
+int my_strlen(char const *str)
+{
+	int len = 0;
+	while(*str!='0'){
+		len++;
+	}
+	return len;
+}						</script>
+					<table>
+						<tr>
+						<th>行</th><th>修正</th>
+						</tr>
+						<tr class="fragment fade-left">
+							<td>2</td>
+							<td>缺少函数声明
+							<pre class="brush:c;">
+							int my_strlen(const char *str);</pre></td>
+						</tr>
+						<tr class="fragment fade-left">
+							<td>6</td>
+							<td>
+							<pre class="brush:c;">
+							my_strlen(p)</pre></td>
+						</tr>
+						<tr class="fragment fade-left">
+							<td>10</td>
+							<td>
+							<pre class="brush:c;">
+							int my_strlen(const char *str)</pre></td>
+						</tr>
+						<tr class="fragment fade-left">
+							<td>13</td>
+							<td>
+							<pre class="brush:c;">
+							while(*str!='\0'){</pre></td>
+						</tr>
+						<tr class="fragment fade-left">
+							<td>14</td>
+							<td>
+							<pre class="brush:c;">
+							len++; str++;</pre></td>
+						</tr>
+					</table>
+					</div>
+					
+				</section>
+				
+				<section>
+					<h4>2. 写一个函数，用梯形法求定积分$\displaystyle\int_0^1\sin(x)dx$。</h4>
+					<div class="flex">
+						<script type="syntaxhighlighter" class="brush:c;">
+#include "stdio.h"
+#include "stdlib.h"
+
+#define PI 3.14159;
+
+double integral(double *f(double), 
+	double a, double b, double step)
+{
+	double sum = 0, f1, f2;
+	while(a<=b){
+		f1 = f(a); 
+		f2 = f(b);
+		sum += 1/2*step * (f1+f2);
+		a+=step;
+	}
+	return sum;
+}
+
+int main(int argc, char *argv[]) {
+	printf("%.4lf\n", 
+		integral(sin, 0, 1, 1/100));
+	return 0;
+}				</script>
+					<table>
+						<tr>
+						<th>行</th><th>修正</th>
+						</tr>
+						<tr class="fragment fade-left">
+							<td>3</td>
+							<td>使用了数学库函数<code>sin</code>
+							<pre class="brush:c;">
+							#include "math.h"</pre></td>
+						</tr>
+						<tr class="fragment fade-left">
+							<td>4</td>
+							<td>
+							<pre class="brush:c;">
+							#define PI 3.14159</pre></td>
+						</tr>
+						<tr class="fragment fade-left">
+							<td>6</td>
+							<td>
+							<pre class="brush:c;">
+							double integral(
+								double (*f)(double), </pre></td>
+						</tr>
+						<tr class="fragment fade-left">
+							<td>13</td>
+							<td>
+							<pre class="brush:c;">
+							sum += 1.0/2*step * (f1+f2);</pre></td>
+						</tr>
+						<tr class="fragment fade-left">
+							<td>21</td>
+							<td>
+							<pre class="brush:c;">
+							integral(sin, 0, 1, 1.0/100));</pre></td>
+						</tr>
+					</table>
+					</div>
+					
+				</section>
+				
+				<section>
+					<h3>三、选择题</h3>
+				</section>
+				
+				<section>
+					<h4>1. 已知：<code>int a[]={1,2,3,4,5,6,7,8,9,10,11,12}, *p=a;</code>则输出: <code>2</code>的表达式是: (<b class="fragment fade-right red">A</b> )</h4>
+					<ol>
+						<li class="sel"><code>p+=2; printf("%d",*(p++));</code></li>
+						<li class="sel"><code>p+=2; printf("%d",*++p);</code></li>
+						<li class="sel"><code>p+=2; printf("%d",++(*p));</code></li>
+						<li class="sel"><code>p+=2; printf("%d",++*p);</code></li>
+					</ol>
+				</section>
+				
+				<section>
+					<h4>2. 下面的程序运行结果是: (<b class="fragment fade-right red">D</b> )</h4>
+					<div class="flex">
+						<script type="syntaxhighlighter" class="brush:c;">
+#include "stdio.h"
+void sub(int *x, int y, int z)
+{	*x=y-z;
+}
+int main()
+{
+	int a, b, c;
+	sub(&a, 10, 5);
+	sub(&b, a, 7);
+	sub(&c, a, b);
+	printf("%d,%d,%d\n",a,b,c);
+	return 0;
+}						</script>
+						<ol>
+						<li class="sel"><code>10,-2,5</code></li>
+						<li class="sel"><code>10,5,7</code></li>
+						<li class="sel"><code>10,-2,7</code></li>
+						<li class="sel"><code>5,-2,7</code></li>
+						</ol>
+					</div>
+				</section>
+				
+				<section>
+					<h4>3. 下面的程序运行结果是: (<b class="fragment fade-right red">C</b> )</h4>
+					<div class="flex">
+						<script type="syntaxhighlighter" class="brush:c;">
+#include "stdio.h"
+
+int main()
+{ 
+	char *alpha[7]={
+		"ABCD","EFGH","IJKL",
+		"MNOP","QRST","UVWX","YZ"};
+	char **p;
+	int i;
+	p=alpha;
+	for(i=0;i<4;i++)
+		printf("%c",*(p[i]));
+	printf("\n");
+}						</script>
+						<ol>
+						<li class="sel"><code>BFJN</code></li>
+						<li class="sel"><code>ABCD</code></li>
+						<li class="sel"><code>AEIM</code></li>
+						<li class="sel"><code>DHLP</code></li>
+						</ol>
+					</div>
+				</section>
+				
+				<section>
+					<h4>4. 下面的程序运行结果是: (<b class="fragment fade-right red">D</b> )</h4>
+					<div class="flex">
+						<script type="syntaxhighlighter" class="brush:c;">
+#include "stdio.h"
+void sum(int *a)
+{
+	a[0]=a[1];
+}
+int main()
+{
+	int aa[10]={1,2,3,4,5,6,7,8,9,10}, i;
+	for(i=1;i>0;i--)
+		sum(&aa[i]);
+	printf("%d\n", aa[0]);
+	return 0;
+}						</script>
+						<ol>
+						<li class="sel"><code>4</code></li>
+						<li class="sel"><code>3</code></li>
+						<li class="sel"><code>2</code></li>
+						<li class="sel"><code>1</code></li>
+						</ol>
+					</div>
+				</section>
+				
+				<section>
+					<h4>5. 已知：<code>char p[3][20]={"I", "Love", "China!"};</code>则表示字符<code>'o'</code>的表达式是: (<b class="fragment fade-right red">D</b> )</h4>
+					<ol>
+						<li class="sel"><code>p[2][2]</code></li>
+						<li class="sel"><code>(*p+1)[1]</code></li>
+						<li class="sel"><code>*(*(p+1)+2)</code></li>
+						<li class="sel"><code>*(*(p+1)+1)</code></li>
+					</ol>
+				</section>
+				
+				<section>
+					<h3>四、程序填空</h3>
+				</section>
+				
+				<section>
+					<h4>1. 查找字符串中是否存在指定的子字符串，若存在则返回其位置，若不存在则返回-1。</h4>
+					<script type="syntaxhighlighter" class="brush:c;highlight:[3,8,11,14,24]">
+#include "stdio.h"
+#include "stdlib.h"
+【1】
+int search_string(char *old, char *find)
+{	int i, j, flag;
+	for(i=0; *(old+i)!='\0'; i++){
+		if(*(old+i)==*find){
+			【2】
+			for(j=0; *(find+j)!='\0'; j++){
+				if(*(old+i+j)!=*(find+j)){
+					flag=1; 【3】
+				}
+			}
+			if(flag==0)【4】
+		}
+	}
+	return NOT_FIND;
+}
+void main(int n, char *p[])
+{	if(n!=3){
+		printf("usage: find old new\n");exit(-1);
+	}
+	printf("origin string=%s\n sub string=%s\n", p[1],p[2]);
+	printf("the position = %d\n", 【5】);
+}					</script>
+				</section>
+				
+				<section>
+					<h4>1. 查找字符串中是否存在指定的子字符串，若存在则返回其位置，若不存在则返回-1。</h4>
+					<div class="flex">
+					<script type="syntaxhighlighter" class="brush:c;highlight:[1,6,9,11,22]">
+【1】#define NOT_FIND -1
+int search_string(char *old, char *find)
+{	int i, j, flag;
+	for(i=0; *(old+i)!='\0'; i++){
+		if(*(old+i)==*find){
+			【2】flag=0;
+			for(j=0; *(find+j)!='\0'; j++){
+				if(*(old+i+j)!=*(find+j)){
+					flag=1; 【3】break;
+			}}
+			if(flag==0)【4】return i;
+	}}
+	return NOT_FIND;
+}
+void main(int n, char *p[])
+{	if(n!=3){
+		printf("usage: find old new\n");exit(-1);
+	}
+	printf("origin string=%s\nsub string=%s\n", 
+		p[1],p[2]);
+	printf("the position = %d\n", 
+	【5】search_string(p[1],p[2]));
+}					</script>
+					<div class="fragment fade-down" >
+					<p>编译为<code>search.exe</code>, 执行</p>
+					<code style="font-size:28px;">search Hello lo</code>
+					<p>其结果为:</p>
+					<pre class="brush:c;" style="font-size:24px;">
+origin string=Hello, 
+sub string=lo
+the position = -1	</pre>
+					</div>
+					</div>
+				</section>
+				
+				<section>
+					<h3>作业</h3>
+					<p>1. 课本，P291, 第3题；</p>
+					<p>2. 课本，P292, 第18题；</p>
+				</section>
+			</section>
+		</div>
+	</div>
+
+	<script src="js/reveal.js-3.7.0/lib/js/head.min.js"></script>
+	<script src="js/reveal.js-3.7.0/js/reveal.js"></script>
+	
+	<script>
+		// More info https://github.com/hakimel/reveal.js#configuration
+		Reveal.initialize({
+			controls: true,
+			progress: true,
+			history: true,
+			center: true,
+
+			transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+			// More info https://github.com/hakimel/reveal.js#dependencies
+			dependencies: [{
+					src: 'js/reveal.js-3.7.0/lib/js/classList.js',
+					condition: function () {
+						return !document.body.classList;
+					}
+				},
+				{
+					src: 'js/reveal.js-3.7.0/plugin/markdown/marked.js',
+					condition: function () {
+						return !!document.querySelector('[data-markdown]');
+					}
+				},
+				{
+					src: 'js/reveal.js-3.7.0/plugin/markdown/markdown.js',
+					condition: function () {
+						return !!document.querySelector('[data-markdown]');
+					}
+				},
+				{
+					src: 'js/reveal.js-3.7.0/plugin/search/search.js',
+					async: true
+				},
+				{
+					src: 'js/reveal.js-3.7.0/plugin/zoom-js/zoom.js',
+					async: true
+				},
+				{
+					src: 'js/reveal.js-3.7.0/plugin/notes/notes.js',
+					async: true
+				}
+			]
+		});
+	</script>
+
+</body>
+
+</html>
