@@ -293,8 +293,8 @@ end block wreg;</script>
 				
 				<section>
 					<h3>5.2.1 四位二进制加法计数器</h3>
-
-						<script type="syntaxhighlighter" class="brush:vhdl;"> 
+					<div class="flex">
+						<script type="syntaxhighlighter" class="brush:vhdl;highlight:[3,9,10];"> 
 ENTITY cnt4 IS
 PORT(clk: IN bit; 
 	   q: buffer integer range 15 downto 0 );
@@ -308,13 +308,15 @@ begin
 		end if;
 	end process;
 end architecture bhv;		</script>
-
+					<img src="images/cnt4.png" style="width:380px;height:200px;"/>
+					</div>
+					<img src="images/cnt4_wave.png"c/>
 				</section>
 				
 				<section>
-					<h3>5.2.2 更常用的四位二进制加法计数器描述</h3>
-
-						<script type="syntaxhighlighter" class="brush:vhdl;highlight:[];">
+					<h3 style="font-size:40px;">5.2.2 更常用的四位二进制加法计数器描述</h3>
+					<div class="flex">
+						<script type="syntaxhighlighter" class="brush:vhdl;highlight:[2,3,6,7,15];">
 LIBRARY IEEE;
 USE IEEE.STD_LOGIC_1164.ALL;
 USE IEEE.STD_LOGIC_UNSIGNED.ALL;
@@ -334,11 +336,16 @@ begin
 	end process;
 	q <= q1;
 end architecture bhv;		</script>
-
+						<img src="images/cnt4_2.png" style="width:380px;height:200px;"/>
+					</div>
+					<img src="images/cnt4_2wave.png" style="width:800px;"/>
 				</section>
 				
+				
+				
+				
 				<section>
-					<h3>5.2.2 带异步复位和同步加载的的十进制加法计数器</h3>
+					<h3>5.2.3 带异步复位和同步加载的的十进制加法计数器</h3>
 
 						<script type="syntaxhighlighter" class="brush:vhdl;highlight:[];">
 LIBRARY IEEE;
@@ -353,15 +360,12 @@ PORT(clk, rst, en, load: IN std_logic;
 END ENTITY cnt10;
 
 ARCHITECTURE bhv OF cnt10 IS
-signal q1: std_logic_vector(3 downto 0);
-begin
-	
-	</script>
+begin	</script>
 
 				</section>
 				
 				<section>
-					<h3>5.2.2 带异步复位和同步加载的的十进制加法计数器</h3>
+					<h3>5.2.3 带异步复位和同步加载的的十进制加法计数器</h3>
 
 						<script type="syntaxhighlighter" class="brush:vhdl;highlight:[];">
 	process (clk,rst,en,load)
@@ -388,6 +392,81 @@ end architecture bhv;		</script>
 
 				</section>
 				
+				<section>
+					<h4>5.2.3 带异步复位和同步加载的的十进制加法计数器-另一种描述</h4>
+					<p>把时钟电路和纯组合电路进程分开，为了在进程间传递信号，不再使用 variable ，而是 signal 。</p>
+						<script type="syntaxhighlighter" class="brush:vhdl;highlight:[13];">
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
+USE IEEE.STD_LOGIC_UNSIGNED.ALL;
+
+ENTITY cnt10_2 IS
+PORT(clk, rst, en, load: IN std_logic; 
+	   data: in std_logic_vector(3 downto 0); --预置数
+	   dout: out std_logic_vector(3 downto 0); --输出
+	   cout: out std_logic); --进位
+END ENTITY cnt10_2;
+
+ARCHITECTURE behave OF cnt10_2 IS
+signal q1: std_logic_vector(3 downto 0);
+begin	</script>
+
+				</section>
+				
+				<section>
+						<script type="syntaxhighlighter" class="brush:vhdl;highlight:[1,19,21];">
+	CLOCK: process (clk,rst,en,q1, load) begin
+		if rst='0' then 
+			q1 <=(others =>'0');
+		elsif rising_edge(clk) then
+			if en='1' then
+				if (load = '0') then 
+					q1<=data;
+				else 
+					if q1<9 then 
+						q1<=q1+1; 
+					else 
+						q1<=(others=>'0');
+					end if;
+				end if;
+			end if;
+		end if;
+	end process;
+	
+	dout <= q1;
+	
+	COM: process (q1) begin
+		if q1="1001" then 
+			cout <='1';
+		else 
+			cout<='0';
+		end if;
+	end process;
+end architecture behave;		</script>
+
+				</section>
+				
+				<section>
+					<h3>5.2.3 带异步复位和同步加载的的十进制加法计数器</h3>
+					<img src="images/cnt10.png" />
+				</section>
+				
+				<section>
+					<h3>5.2.3 带异步复位和同步加载的的十进制加法计数器</h3>
+					<img src="images/cnt10_wave.png" style="width:1000px;"/>
+				</section>
+				
+				<section>
+					<h4>总结：variable 和 signal 的区别</h4>
+					<ol>
+						<li class="fragment fade-left">variable 只能用在process中，也只能定义在process 和 begin 之间；</li>
+						<li class="fragment fade-left">signal 可以用在 architecture 内，以及 process中，但只能定义在 architecture 和 begin 之间；</li>
+						<li class="fragment fade-left">variable 只能用在一个 process 中，而 signal 由于是定义在 architecture 中，所以可以在 architecture 内的所有 process 中被读取，但是只能在一个 process 中被赋值；</li>
+						<li class="fragment fade-left">variable 的赋值是用 :=，而 signal 的赋值是用 &lt;= </li>
+						<li class="fragment fade-left">variable 的赋值是立即的，也就是右边表达式中的信号一旦变化，马上就会被计算出结果并赋值给 variable, 但 signal 则要看电路是否是时序电路，如果不是，则马上赋值，如果是，则会等到下个时钟周期再赋值；</li>
+						<li class="fragment fade-left">初学者尽量不要用 variable, 因为某些综合器对 variable 支持不好；</li>
+					</ol>
+				</section>
 			</section>
 		</div>
 	</div>
