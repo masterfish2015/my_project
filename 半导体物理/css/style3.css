@@ -1,0 +1,148 @@
+.reveal h1,.reveal h2,.reveal h3,.reveal h4, .reveal li, .reveal p{
+	font-family: "STXinwei","黑体",serif;
+}
+.reveal h4{
+	text-align: left;
+}
+
+.reveal td{
+	font-family: "黑体",serif;
+}
+	
+.reveal code {
+  font-family: "Ubuntu Mono", monospace;
+  text-transform: none;
+  
+}
+
+.reveal pre code{
+	max-height: 500px;
+}
+
+code{
+  background: lightcyan;
+  color: blue;
+  margin-bottom: 1em;
+}
+
+p{
+  text-align: left;
+}
+.reveal table{
+	width:100%;
+}
+
+.reveal table th, .reveal table td{
+  border: 2px solid;
+  font-size: 20px;
+}
+
+.reveal table td{
+  border: 1px solid;
+}
+
+.reveal p{
+  font-size: 32px;
+}
+
+.reveal li{
+  font-size: 32px;
+}
+
+.reveal dl{
+	width: 90%;
+}
+
+.reveal dt{
+	background: white;
+	color: blue;
+	transition: 1s;
+}
+.reveal dt:hover{
+	background: blue;
+	color: white;
+}
+
+.reveal dd{
+	font-size: 28px;
+	border-left: solid 2px;
+	border-bottom: solid 2px;
+	margin-bottom: 1em;
+}
+
+.red{
+	background: MintCream ;
+	color:red;
+}
+
+.blue{
+	background: lightyellow;
+	color :blue;
+}
+
+.green{
+	background: lightcyan;
+	color:green;
+}
+
+.cyan{
+	background: black;
+	color: cyan;
+}
+
+.gold{
+	background: darkblue;
+	color:gold;
+}
+
+.Crimson {
+	background: white;
+	color:Crimson ;
+}
+.Indigo{
+	background: PowderBlue ;
+	color:Indigo  ;
+}
+.Navy  {
+	background: SeaShell ;
+	color:Navy  ;
+}
+.LightSkyBlue{
+	background: black;
+	color:LightSkyBlue;
+}
+
+.wavy { 
+  text-decoration-line: underline;
+  text-decoration-style: wavy;
+  text-decoration-color: red;
+}
+
+tr:nth-child(even) {background-color: #f2f2f2;}
+
+.box {
+	border: solid 1px blue;
+	background-color: lightyellow;
+}
+
+.sel{
+	list-style-type: upper-alpha;
+}
+
+.flex{
+	display: flex;
+	justify-content: space-between;
+	margin: 20px;
+}
+
+.flex2{
+	display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.mydl dd{
+	font-size: 24px;
+	margin-right: 4em;
+}

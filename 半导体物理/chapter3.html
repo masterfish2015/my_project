@@ -1,0 +1,460 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+
+	<title>半导体物理 第三章</title>
+
+	<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+	<meta name="author" content="ldc">
+
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<link rel="stylesheet" href="js/reveal.js-3.7.0/css/reveal.css">
+	<link rel="stylesheet" href="js/reveal.js-3.7.0/css/theme/sky.css" id="theme">
+
+	<script type="text/javascript" src="js/SyntaxHighlighter/scripts/shCore.js"></script>
+	<script type="text/javascript" src="js/SyntaxHighlighter/scripts/shBrushCpp.js"></script>
+	<link type="text/css" rel="stylesheet" href="js/SyntaxHighlighter/styles/shCoreDefault.css"/>
+	<link type="text/css" rel="stylesheet" href="js/SyntaxHighlighter/styles/shThemeDefault.css"/>
+	<script type="text/javascript">SyntaxHighlighter.all();</script>
+
+	<link rel="stylesheet" href="css/style3.css">
+	<!-- Printing and PDF exports -->
+	<script>
+		var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'js/reveal.js-3.7.0/css/print/pdf.css' : 'js/reveal.js-3.7.0/css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+			
+		var ldc;
+	</script>
+
+	<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	<script type="text/x-mathjax-config">
+	  MathJax.Hub.Config({
+		extensions: ["tex2jax.js"],
+		jax: ["input/TeX","output/HTML-CSS"],
+		tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+	  });
+	</script>
+	<script src="js/mathjax/MathJax.js"></script>
+	<script src="js/three/three.js"></script>
+	<script src="js/three/examples/js/controls/OrbitControls.js"></script>
+	<script src="js/d3/d3.js"></script>
+</head>
+
+<body>
+
+	<div class="reveal">
+
+		<!-- Any section element inside of this container is displayed as a slide -->
+		<div class="slides">
+			<section>
+				<section>
+					<h1>第三章</h1>
+					<h2>半导体中载流子的统计分布</h2>
+				</section>
+				
+				<section>
+					<h2>主要内容</h2>
+					<ol class="fragment fade-right">
+						<li>状态密度</li>
+						<li>费米能级和载流子的统计分布</li>
+						<li>本征半导体的载流子浓度</li>
+						<li>杂质半导体的载流子浓度</li>
+						<li>一般情况下的载流子统计分布</li>
+						<li>简并半导体</li>
+						<li>电子占据杂质能级的概率</li>
+					</ol>
+				</section>
+				
+				
+				
+				<section>
+					<h4>半导体中的导电特性</h4>
+					<div class="flex">
+					<dl>
+					<dt>本征激发</dt>
+					<dd>在一定的温度下，如果没有其他的外界作用，半导体中的导电电子和空穴是依靠电子的热激发作用而产生的，电子从不断热振动的晶格中获得一定的能量，就可能从低能量的量子态跃迁到高能量的量子态，形成导带中的电子和价带中的空穴，这就是本征激发。
+					</dd>
+					<dt>电离激发</dt>
+					<dd>在一定的温度下，半导体中的杂质产生电离，电子从施主能级跃迁到导带形成电子，或 电子从价带中跃迁到受主能级 形成价带中的空穴，这就是杂质的电离激发。
+					</dd>
+					<dt>复合</dt>
+					<dd>电子从高能量的量子态跃迁到低能级的量子态，并向晶格释放出一定能量，从而使导带的电子和（或）价带中的空穴不断减少，这一过程称为载流子复合。
+					</dd>
+					</dl>
+					</div>
+				</section>
+				
+				<section>
+					<h4>半导体中的导电特性</h4>
+					<dl>
+					<dt>热平衡状态</dt>
+					<dd>
+					在温度恒定下，半导体中的激发和复合达到动态平衡，称为热平衡状态，其特征，是导带电子浓度和价带空穴的浓度达到稳定值；
+					</dd>
+					<dt>载流子</dt>
+					<dd>
+					导带中的电子和价带中的空穴，统称为载流子；
+					</dd>
+					<dt>温度的影响</dt>
+					<dd>半导体导电性强烈受到温度的影响，主要是激发出的载流子主要受温度的影响，温度越高，载流子越多，导电能力越强；
+					</dd>
+					</dl>
+				</section>
+				
+				<section>
+					<img src="images/载流子的产生和复合.png" style="height:680px;"/>
+				</section>
+				
+			</section>
+			
+			<section>
+				<section>
+					<h2>3.1 状态密度</h2>
+					<p class="fragment fade-right">为了计算载流子浓度，需要了解两方面：（1）晶体中的允许的量子态如何分布；（2）电子在量子态中的分布；</p>
+					<p class="fragment fade-right">假设晶体中能带（能带内可以视为连续的能级）中的能量间隔$E$~$(E+dE)$之间有$dZ$个量子态，则其状态密度$g(E)$为：
+					$$g(E)=\displaystyle\frac{dZ}{dE} \tag{3-1}$$
+					</p>
+					<p class="fragment fade-right">由于$E$是波矢$k$的函数，需要了解$k$空间中的量子态分布，从而求出其状态密度$g(E)$。</p>
+				</section>
+				
+				<section>
+					<h3>3.1.1 - $k$空间中量子态的分布</h3>
+					<div class="flex">
+						<img src="images/k_space1.png" style="width:350px;height:300px;"/>
+						<div style="width: 650px;">
+						<p class="fragment fade-right" style="font-size:24px;">对于晶体而言，$k$必须满足以下的条件：
+					$$
+					\left .
+					\begin{align*} 
+					k_x &= \displaystyle\frac{2\pi n_x}{L}, n_x=0,\pm1,\pm2,... \\
+					k_y &= \displaystyle\frac{2\pi n_y}{L}, n_y=0,\pm1,\pm2,... \\
+					k_z &= \displaystyle\frac{2\pi n_z}{L}, n_z=0,\pm1,\pm2,... \\
+					\end{align*}
+					\right \}
+					\tag{1-18}
+					$$，其中，$n_x,n_y,n_z$是整数，$L$是半导体晶体的<b class="red">线度</b>，$L^3=V$是晶体的体积。</p>
+						
+						</div>
+					</div>
+					<p class="fragment fade-right" style="font-size:22px;">$(n_x, n_y, n_z)$决定了不同的$k$点，<b class="blue">每一个点对应一个能量态</b>：$E(k)=E(0)+\displaystyle\frac{\hbar^2k^2}{2m^*}$。</p>
+					<p class="fragment fade-right" style="font-size:22px;">对于$V=L^3$的体积的晶体，由于每一个小格立方的体积是$V_0 = \left(\displaystyle\frac{2\pi}{L}\right)^3$，每一小格是$8$个格点（对应$8$个$k$，也就是$8$个能量态）,但和周围$8$个其他小格共享，所以平均每个小格的能量态是$1$, 所以<b class="green">$k$空间的能量态密度</b> $=\displaystyle\frac{1}{V_0}=\displaystyle\frac{V}{8\pi^3}$，而<b class="Crimson">量子态密度</b> = $\displaystyle\frac{2V}{8\pi^3}$。</p>
+				</section>
+				
+				<section>
+					<h3>3.1.2 - 状态密度</h3>
+					<div class="flex">
+						<img src="images/球面等能面.png" style="width:350px;height:300px;"/>
+						<div style="width: 650px;">
+						<p class="fragment fade-right" style="font-size:24px;">首先，计算导带底部的能带密度，考虑能带极值在$k=0$，等能面为球面，则
+						$$ E(k)=E_c+\displaystyle\frac{\hbar^2k^2}{2m_n^*} \tag{3-2} $$，
+						其中$m_n^*$是导带底部电子有效质量，$E_c=E(0)$是导带底部的基准能级。</p>
+						<p class="fragment fade-right" style="font-size:20px;">设在$k$ ~ $(k+\mathrm{d}k)$的半径范围内的球壳间的体积为：
+						$\displaystyle\frac{4\pi (k+\mathrm{d}k)^3}{3}-\displaystyle\frac{4\pi k^3}{3}=\displaystyle\frac{4\pi}{3}(\mathrm{d}k^3+3\mathrm{d}k^2k+3\mathrm{d}kk^2+k^3-k^3)$ $\approx$  $\displaystyle\frac{4\pi}{3}(3\mathrm{d}kk^2)=4\pi k^2\mathrm{d}k$。
+						</div>
+					</div>
+					<p class="fragment fade-right" style="font-size:24px;">而上面已知，量子态密度是：$\displaystyle\frac{2V}{8\pi^3}$，所以 量子态数： 
+					$$ \mathrm{d}Z = \displaystyle\frac{2V}{8\pi^3} \cdot 4\pi k^2\mathrm{d}k \tag{3-3}$$
+					</p>
+				</section>
+				
+				<section>
+					<p class="fragment fade-right" style="font-size:24px;">由 $E(k)=E_c+\displaystyle\frac{\hbar^2k^2}{2m_n^*}$ 可以得到：
+					$$
+					\left\{ 
+					\begin{align*}
+					k &= \displaystyle\frac{\sqrt{2m_n^*(E-E_c)}}{\hbar} \\
+					\mathrm{d}k &=\displaystyle\frac{\sqrt{2m_n^*(E-E_c)}}{2\hbar^2(E-E_c)}\mathrm{d}E \\
+					k\mathrm{d}k &=\displaystyle\frac{m_n^*}{\hbar^2}\mathrm{d}E
+					\end{align*}
+					\right.
+					$$
+					</p>
+					<p class="fragment fade-right" style="font-size:24px;">代入(3-3)，得到量子态数: $\mathrm{d}Z = \displaystyle\frac{2V}{8\pi^3} \cdot 4\pi k^2\mathrm{d}k$ 得到：
+					$$
+					\mathrm{d}Z = \displaystyle\frac{V}{2\pi^2} \cdot \displaystyle\frac{(2m_n^*)^{3/2}}{\hbar^3} \cdot \sqrt{E-E_c}\mathrm{d}E
+					\tag{3-4}
+					$$
+					</p>
+					<p class="fragment fade-right" style="font-size:24px;">
+					由(3-1)得到导带底部的状态密度： 
+					$$
+					g_c(E)=\displaystyle\frac{\mathrm{d}Z}{\mathrm{d}E}=\displaystyle\frac{V}{2\pi^2} \cdot \displaystyle\frac{(2m_n^*)^{3/2}}{\hbar^3} \cdot \sqrt{E-E_c}
+					\tag{3-5}
+					$$
+					</p>
+					
+				</section>
+				
+				<section>
+					<p style="font-size:24px;">
+					导带底部的状态密度： 
+					$$
+					g_c(E)=\displaystyle\frac{\mathrm{d}Z}{\mathrm{d}E}=\displaystyle\frac{V}{2\pi^2} \cdot \displaystyle\frac{(2m_n^*)^{3/2}}{\hbar^3} \cdot \sqrt{E-E_c}
+					\tag{3-5}
+					$$，<b class="wavy">对于硅：$m_n^*=1.062m_0$，对锗：$m_n^*=0.56m_0$</b>。
+					</p>
+					
+					<p class="fragment fade-right" style="font-size:24px;">
+					由（3-5）可以看到，随着$E$的增加，$g_c$以抛物线关系增加。
+					</p>
+					
+					<p class="fragment fade-right" style="font-size:24px;">
+					同理，价带顶部的状态密度为： 
+					$$
+					g_{_V}(E)=\displaystyle\frac{\mathrm{d}Z}{\mathrm{d}E}=\displaystyle\frac{V}{2\pi^2} \cdot \displaystyle\frac{(2m_p^*)^{3/2}}{\hbar^3} \cdot \sqrt{E_V-E}
+					\tag{3-8}
+					$$，式中 $E_V$ 为价带顶部的基态能级。<b class="wavy">对于硅：$m_p^*=0.59m_0$，对锗：$m_p^*=0.29m_0$</b>。
+					</p>
+					<img class="fragment fade-right" src="images/状态密度.png" style="height:300px;"/>
+				</section>
+				
+			</section>
+			
+			<section>
+				<section>
+					<h2>3.2 费米能级和载流子的统计分布</h2>
+				</section>
+				
+				<section>
+					<h3>3.2.1 费米分布函数（Fermi-Dirac distribution function）</h3>
+					<p class="fragment fade-right" style="font-size:24px;">
+					对于晶体中的电子，其分布服从费米统计规律，对于能量$E$的一个量子态，其被电子占据的概率$f(E)$满足：
+					$$
+					f(E)=\displaystyle\frac{1}{1+\exp\left(\displaystyle\frac{E-E_F}{k_0T}\right)}
+					\tag{3-10}
+					$$，其中$k_0$为玻尔兹曼常数，$T$为热力学温度（绝对温度）。
+					</p>
+					<p class="fragment fade-right" style="font-size:24px;">式中$E_F$称为费米能级，或费米能量，它和温度、半导体材料的导电类型、杂质的含量、能量零点的选取有关。</p>
+					<p class="fragment fade-right" style="font-size:24px;">处于热平衡状态下的系统，有统一的$E_F$。</p>
+				</section>
+				
+				<section>
+					<p class="fragment fade-right" style="font-size:24px;">
+					对于能量$E$的一个量子态，其被电子占据的概率$f(E)$满足：
+					$$
+					f(E)=\displaystyle\frac{1}{1+\exp\left(\displaystyle\frac{E-E_F}{k_0T}\right)}
+					\tag{3-10}
+					$$， 其中$k_0$为玻尔兹曼常数，$T$为热力学温度（绝对温度）。
+					</p>
+					<div class="flex">
+					<div class="flex2">
+					<p class="fragment fade-right" style="font-size:22px;">对于上面的(3-10)，可以看到，当$T=0K$时，有：
+					$$
+					\begin{align*}
+					f(E) &= 1, 当 E \lt E_F \\
+					f(E) &= 0, 当 E \gt E_F 
+					\end{align*}
+					$$
+					</p>
+					<p class="fragment fade-right" style="font-size:22px;">当$T \gt 0K$时，有：
+$$
+\begin{align*}
+f(E) &gt \frac{1}{2}, 当 E \lt E_F \\
+f(E) &lt \frac{1}{2}, 当 E \gt E_F \\
+f(E) =  \frac{1}{2}, 当 E = E_F
+\end{align*}
+$$
+					</p>
+					<p class="fragment fade-right" style="font-size:22px;">$E_F$标志了电子填充能级的水平。</p>
+					</div>
+					<img class="fragment fade-right" src="images/费米能级1.png" style="height:100%"/>
+					</div>
+				</section>
+				
+				<section>
+					<h3 style="font-size:38px;">3.2.2 玻尔兹曼分布函数(Maxwell-Boltzman approximation)</h3>
+					<div class="flex">
+					<div>
+					<p class="fragment fade-right" style="font-size:24px;">
+					在费米分布函数：$f(E)=\displaystyle\frac{1}{1+\exp\left(\displaystyle\frac{E-E_F}{k_0T}\right)}$ 中当 $E-E_F \gg k_0T $ 时，由于 $\exp\left( \displaystyle\frac{E-E_F}{k_0T}\right) \gg 1$，所以：$1+\exp\left(\displaystyle\frac{E-E_F}{k_0T}\right) \approx \exp\left(\displaystyle\frac{E-E_F}{k_0T}\right)$
+					</p>
+					<p class="fragment fade-right" style="font-size:24px;">所以，$f(E) \approx f_B(E)=\exp\left(-\displaystyle\frac{E-E_F}{k_0T}\right)=$ $\exp\left(\displaystyle\frac{E_F}{k_0T}\right)\cdot\exp\left(\displaystyle\frac{-E}{k_0T}\right)=A\exp\left(\displaystyle\frac{-E}{k_0T}\right)$</p>
+					<p class="fragment fade-right" style="font-size:24px;">这即为<b class="re">玻尔兹曼统计分布函数</b>。</p>
+					</div>
+					<div class="flex2">
+					<img class="fragment fade-right" src="images/费米能级2.png" style="height:300px;" />
+					<p class="fragment fade-right">注意，当$E-E_F \gg k_0T$时，这两种统计的结果接近，这是玻尔兹曼统计分布函数适用的范围。</p>
+					</div>
+					</div>
+				</section>
+				
+				<section>
+					<p class="fragment fade-right" style="font-size:24px;">
+					电子的玻尔兹曼统计分布函数：$f(E)=\displaystyle\frac{1}{1+\exp\left(\displaystyle\frac{E-E_F}{k_0T}\right)}$
+					</p>
+					<p class="fragment fade-right" style="font-size:24px;">由于$f(E)$是电子占据量子态的概率，则$1-f(E)$是电子没有占据量子态的概率，如果在价带里，则这就是<b class="red">空穴</b>占据量子态的概率，$1-f(E) =\displaystyle\frac{1+\exp\left(\displaystyle\frac{E-E_F}{k_0T}\right)-1}{1+\exp\left(\displaystyle\frac{E-E_F}{k_0T}\right)}=\displaystyle\frac{\exp\left(\displaystyle\frac{E-E_F}{k_0T}\right)}{1+\exp\left(\displaystyle\frac{E-E_F}{k_0T}\right)}=$
+					$\displaystyle\frac{1}{1+\exp\left(\displaystyle\frac{-E+E_F}{k_0T}\right)} \approx \displaystyle\frac{1}{\exp\left(\displaystyle\frac{-E+E_F}{k_0T}\right)} =$
+					$\exp\left(\displaystyle\frac{-E_F}{k_0T}\right)\cdot\exp\left(\displaystyle\frac{E}{k_0T}\right)=B\exp\left(\displaystyle\frac{E}{k_0T}\right)$
+					</p>
+					<p class="fragment fade-right" style="font-size:24px;">这即为空穴的玻尔兹曼统计分布函数。</p>
+				</section>
+				
+				<section>
+					<img src="images/费米能级2.png" style="height:400px;"/>
+					<p class="fragment fade-right" style="font-size:30px;">在半导体中最常遇到的，是<b class="green wavy">$E_F$位于禁带中，而且与导带和价带的距离大于$k_0T$</b>，所以，对于导带中所有量子态，其被电子占据的概率 $f(E) \ll 1$，这适合玻尔兹曼统计分布函数，价带中的空穴也是如此。</p>
+					<p class="fragment fade-right" style="font-size:30px;">把适合玻尔兹曼统计分布函数的电子系统称为<b class="red">非简并性系统</b>，而仅服从费米统计规律的电子系统，称为<b class="blue">简并系统</b>。</p>
+				</section>
+				
+				<section>
+					<h3 style="font-size:40px;">3.2.3 导带中的电子浓度和价带中的空穴浓度</h3>
+					<p class="fragment fade-right">下图是<b class="red">能带</b>、<b class="blue">电子分布函数$f(E)$</b>、<b class="green">空穴分布函数$1-f(E)$</b>、<b class="cyan">导带量子态密度$g_{_c}(E)$</b>、<b class="gold">价带量子态密度$g_{_V}(E)$</b>、<b class="Crimson">导带电子密度$f(E)\cdot g_{_C}(E)$</b>、<b class="Indigo">价带空穴密度$(1-f(E))\cdot g_{_V}(E)$</b>的曲线，注意，这里的<i class="wavy">密度，是相对能级的密度</i>。</p>
+					<img src="images/半导体中能带_态密度_费米分布等.png" />
+				</section>
+				
+				<section>
+					<h3 style="font-size:40px;">3.2.3 导带中的电子浓度和价带中的空穴浓度</h3>
+					<p class="fragment fade-right">由此，得到$\mathrm{d}E$范围内的导带电子数目为: $g_{_C}(E)\cdot f(E)\mathrm{d}E$，将其进行积分，得到整个晶体中整个导带的全部电子数目，再除以体积，即可得到<b class="Indigo">导带电子浓度</b>，同样可得到<b class="Indigo">价带空穴浓度</b>$g_{_V}(E)\cdot \left[1-f(E)\right]\mathrm{d}E$。</p>
+					<img src="images/半导体中能带_态密度_费米分布等.png" />
+				</section>
+				
+				<section>
+					<p class="fragment fade-right">下面简单计算非简并系统（玻尔兹曼统计分布函数）下的电子浓度和空穴浓度：</p>
+					<p class="fragment fade-right" style="font-size:24px;">【1】在$E$~$\mathrm{d}E$范围内的导带电子数目$\mathrm{d}N = f_B(E)\cdot g_{_C}(E)\mathrm{d}E$</p>
+					<p class="fragment fade-right" style="font-size:24px;">【2】由于： $g_{_C}(E)=\displaystyle\frac{\mathrm{d}Z}{\mathrm{d}E}=\displaystyle\frac{V}{2\pi^2} \cdot \displaystyle\frac{(2m_n^*)^{3/2}}{\hbar^3} \cdot \sqrt{E-E_c}$ $f_{_B}(E)=\exp\left(\displaystyle\frac{E_F}{k_0T}\right)\cdot\exp\left(\displaystyle\frac{-E}{k_0T}\right)$，所以：$\mathrm{d}N = \displaystyle\frac{V}{2\pi^2} \cdot \displaystyle\frac{(2m_n^*)^{3/2}}{\hbar^3} \cdot \sqrt{E-E_c} \cdot \exp\left(\displaystyle\frac{E_F}{k_0T}\right)\cdot\exp\left(\displaystyle\frac{-E}{k_0T}\right)\mathrm{d}E$</p>
+					<p class="fragment fade-right" style="font-size:24px;">【3】由此得到，导带中的电子浓度：
+					$$
+					n_0=\displaystyle\frac{1}{V}\int_{E_C}^{E_C'}\displaystyle\frac{V}{2\pi^2} \cdot \displaystyle\frac{(2m_n^*)^{3/2}}{\hbar^3} \cdot \sqrt{E-E_c} \cdot \exp\left(\displaystyle\frac{E_F}{k_0T}\right)\cdot\exp\left(\displaystyle\frac{-E}{k_0T}\right)\mathrm{d}E
+					$$
+					</p>
+					<p class="fragment fade-right" style="font-size:24px;">
+					【4】引入变数$x=\frac{E-E_{_C}}{k_0T}$，且$x'=\frac{E_{_C}'-E_{_C}}{k_0T} \to \infty$，则
+					$$
+					n_0=\displaystyle\frac{1}{2\pi^2}\displaystyle\frac{(2m_n^*k_0T)^{3/2}}{\hbar^3}\exp\left(-\displaystyle\frac{E_{_C}-E_{_F}}{k_0T}\right)\int_0^{\infty}\sqrt{x}e^{-x}\mathrm{d}x
+					\tag{3-16}
+					$$
+					</p>
+				</section>
+				
+				<section>
+					<p class="fragment fade-right" style="font-size:24px;">
+					【5】$$n_0=\displaystyle\frac{1}{2\pi^2}\displaystyle\frac{(2m_n^*k_0T)^{3/2}}{\hbar^3}\exp\left(-\displaystyle\frac{E_{_C}-E_{_F}}{k_0T}\right)\int_0^{\infty}\sqrt{x}e^{-x}\mathrm{d}x
+					\tag{3-16}
+					$$，由于$\displaystyle\int_0^{\infty}\sqrt{x}e^{-x}\mathrm{d}x = \displaystyle\frac{\sqrt{\pi}}{2}$，所以，(3-16)可以得到：
+					$$
+					n_0 = N_C\cdot f(E_C)
+					\tag{3-19}
+					$$
+					</p>
+					<p class="fragment fade-right" style="font-size:24px;">其中，$N_C$称为<b class="blue">导带的有效状态密度</b>，其定义为：
+					$$
+					N_C = 2 \displaystyle\frac{(2\pi m_n^*k_0T)^{3/2}}{h^3}
+					$$
+					</p>
+					<p class="fragment fade-right" style="font-size:24px;">以及，$f(E_C)$称为<b class="blue">电子占据$E_C$能级的量子态的概率</b>，其定义为：
+					$$
+					f(E_C)=\exp\left(-\displaystyle\frac{E_{_C}-E_{_F}}{k_0T}\right)
+					$$
+					</p>
+					<p class="fragment fade-right" style="font-size:24px;">【6】（3-19）可以理解为，把导带所有量子态都集中在导带底$E_C$，它的量子态密度是$N_C$，电子出现在每个量子态的概率是$f(E_C)$，那么$n_0=N_C\cdot f(E_C)$即为导带中的电子浓度。</p>
+				</section>
+				
+				<section>
+					<p class="fragment fade-right" style="font-size:24px;">【7】同样的，可以求出<b class="blue">价带中的空穴浓度</b>: 
+					$$
+					p_0 = N_V \cdot f(E_V)
+					\tag{3-24}
+					$$</p>
+					<p class="fragment fade-right" style="font-size:24px;">其中，$N_V = 2 \displaystyle\frac{(2\pi m_p^*k_0T)^{3/2}}{h^3}$ 是<b class="blue">价带的有效量子态密度</b>。</p>
+					<p class="fragment fade-right" style="font-size:24px;">以及，$f(E_V)$称为<b class="blue">空穴占据$E_V$能级的量子态的概率</b>，其定义为：
+					$$
+					f(E_V)=\exp\left(\displaystyle\frac{E_{_V}-E_{_F}}{k_0T}\right)
+					$$</p>
+					<p class="fragment fade-right" style="font-size:24px;">【8】式(3-24)可以理解为：把价带所有量子态都集中在价带顶$E_V$，它的量子态密度是$N_V$，空穴出现在每个量子态的概率是$f(E_V)$，那么$p_0=N_V\cdot f(E_V)$即为导带中的电子浓度。</p>
+				</section>
+				
+				<section>
+					<h3>3.2.4 载流子浓度乘积</h3>
+					<p class="fragment fade-right" style="font-size:24px;">
+					$$
+					n_0p_0=N_CN_V\exp\left(-\displaystyle\frac{E_C-E_V}{k_0T}\right)=N_CN_V\exp\left(-\displaystyle\frac{E_g}{k_0T}\right)
+					$$
+					</p>
+					<p class="fragment fade-right" style="font-size:28px;">
+					可见，在温度$T$恒定，没有其他外界影响的热平衡状态下，$n_0p_0$ 是一个常数，这也是<b class="red">热平衡状态的判定条件</b>。
+					</p>
+					<p class="fragment fade-right" style="font-size:28px;">
+					同时，也可见，在温度$T$恒定，没有其他外界影响的热平衡状态下，$n_0p_0$ 是一个常数，电子浓度上升，空穴浓度就会下降，反之亦然，这个只和温度有关，和杂质浓度无关。
+					</p>
+				</section>
+			</section>
+			
+			<section>
+				<section>
+					<h2>3.3 本征半导体载流子浓度</h2>
+				</section>
+				
+				<section>
+					<h3>3.3.1 本征半导体</h3>
+				</section>
+				
+			</section>
+			
+			<section>
+				<h2>作业</h2>
+				<p></p>
+			</section>
+		</div>
+	</div>
+
+	<script src="js/reveal.js-3.7.0/lib/js/head.min.js"></script>
+	<script src="js/reveal.js-3.7.0/js/reveal.js"></script>
+	
+	<script>
+		// More info https://github.com/hakimel/reveal.js#configuration
+		Reveal.initialize({
+			controls: true,
+			progress: true,
+			history: true,
+			center: true,
+
+			transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+			// More info https://github.com/hakimel/reveal.js#dependencies
+			dependencies: [{
+					src: 'js/reveal.js-3.7.0/lib/js/classList.js',
+					condition: function () {
+						return !document.body.classList;
+					}
+				},
+				{
+					src: 'js/reveal.js-3.7.0/plugin/markdown/marked.js',
+					condition: function () {
+						return !!document.querySelector('[data-markdown]');
+					}
+				},
+				{
+					src: 'js/reveal.js-3.7.0/plugin/markdown/markdown.js',
+					condition: function () {
+						return !!document.querySelector('[data-markdown]');
+					}
+				},
+				{
+					src: 'js/reveal.js-3.7.0/plugin/search/search.js',
+					async: true
+				},
+				{
+					src: 'js/reveal.js-3.7.0/plugin/zoom-js/zoom.js',
+					async: true
+				},
+				{
+					src: 'js/reveal.js-3.7.0/plugin/notes/notes.js',
+					async: true
+				}
+			]
+		});
+	</script>
+
+</body>
+
+</html>
