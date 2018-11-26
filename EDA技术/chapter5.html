@@ -626,62 +626,43 @@ Use ieee.std_logic_arith.all;
 
 Entity fdiv is
   generic(N: integer:=6);      --rate=N，N是偶数
-  port(
-        clkin: IN std_logic;
-        clkout: OUT std_logic
-        );
+  port( clkin: IN std_logic; clkout: OUT std_logic );
 End fdiv;
+
 Architecture a of fdiv is
   signal cnt: integer range 0 to n-1;
 Begin
-  process(clkin)  --计数
-  begin
+  process(clkin)begin  --计数
       if(clkin'event and clkin='1') then
-          if(cnt<n-1) then
-              cnt <= cnt+1;
-          else
-              cnt <= 0;
-          end if;
+          if(cnt<n-1) then cnt <= cnt+1; else cnt <= 0; end if;
       end if;
   end process;
-
-  process(cnt)  --根据计数值，控制输出时钟脉冲的高、低电平
-  begin
-      if(cnt<n/2) then
-          clkout <= '1';
-      else
-          clkout <= '0';
-      end if;
+  
+  process(cnt) begin --根据计数值，控制输出时钟脉冲的高、低电平
+      if(cnt<n/2) then clkout <= '1'; else clkout <= '0'; end if;
   end process;
-
-End a;</script>
+End Architecture a;</script>
 				</section>
 				
 				<section>
 					<h3>5.5.3 奇分频器（占空比为50%）</h3>
 					<script type="syntaxhighlighter" class="brush:vhdl;highlight:[];">
-Library ieee;
-Use ieee.std_logic_1164.all;
-Use ieee.std_logic_unsigned.all;
-Use ieee.std_logic_arith.all;
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.std_logic_unsigned.all;
+use ieee.std_logic_arith.all;
 
-Entity fdiv is
+entity fdiv is
   generic(N: integer:=5);        --rate=N，N是奇数
-  port(
-        clkin: IN std_logic;
-        clkout: OUT std_logic
-        );
-End fdiv;
+  port(clkin: IN std_logic; clkout: OUT std_logic );
+end fdiv;
 architecture a of fdiv is
   signal cnt1, cnt2: integer range 0 to N-1;
 begin
-  process(clkin)
-  begin
+  process(clkin) begin
       if(clkin‘event and clkin=’1‘) then  --上升沿计数
-          if(cnt1<N-1) then
-              cnt1 <= cnt1+1;
-          else
-           cnt1 <= 0;
+          if(cnt1<N-1) then cnt1 <= cnt1+1;
+          else cnt1 <= 0;
        end if;
       end if;
   end process;</script>
@@ -704,7 +685,7 @@ begin
   clkout <= '1' when cnt1<(N-1)/2 or cnt2<(N-1)/2 else 
             '0';
 
-end a;</script>
+end architecture a;</script>
 				</section>
 				
 				
@@ -714,77 +695,57 @@ end a;</script>
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.NUMERIC_STD.ALL;
-
 entity VHDL_LEDWATER is
-  port(
-           CLK_i    : in  STD_LOGIC;                 --创建时钟端口
-           RSTn_i   : in  STD_LOGIC;                 --创建复位端口
-           LED_o    : out BIT_VECTOR(3 downto 0)     --创建输出端口，对应4个LED
+  port(    CLK_i    : in  STD_LOGIC;                --创建时钟端口
+           RSTn_i   : in  STD_LOGIC;                --创建复位端口
+           LED_o    : out BIT_VECTOR(3 downto 0));  --创建输出端口，对应4个LED
 end VHDL_LEDWATER;
---------------------------------------------------------------------------------------------------
 architecture behave of VHDL_LEDWATER is
    signal Clk1 : STD_LOGIC;                         --建立中间时钟信号
 begin
 P1:process(CLK_i)
-   variable count : INTEGER range 0 to 50000000 := 0;   --变量初始值不可综合，在仿真中使用，并
-   variable count1: STD_LOGIC := '1';                   --且为便于仿真，这里取到25，当烧写到开
-                                                       --发板时候，改写为50000000即可 
-   variable temp :  BIT_VECTOR(3 downto 0) := "0001";  --注意左操作数类型                                                              
-       begin
-              if(RSTn_i = '0') then
-                     count := 0;
-              elsif(CLK_i'event and CLK_i = '1') then
-                     count := count + 1;
-                     if(count = 50000000) then --这里使用=,而不是>=,可以防止产生比较器,节省硬件资源
-                          count := 0;
-                          temp := (temp rol 1);
-                          LED_o <= temp;
-                     end if;
-              end if;
+   variable count : INTEGER range 0 to 50000000 := 0;  --变量初始值
+   variable temp :  BIT_VECTOR(3 downto 0) := "0001";  --注意左操作数类型
+   begin
+      if(RSTn_i = '0') then count := 0; --异步复位
+      elsif(CLK_i'event and CLK_i = '1') then --上升沿
+         count := count + 1;
+		 --这里使用=,而不是>=,可以防止产生比较器,节省硬件资源
+         if(count = 50000000) then 
+			  count := 0;  temp := (temp rol 1);  LED_o <= temp;
+		 end if;
+      end if;
 	end process P1;
 end architecture;</script>
 				</section>
 				
 				<section>
-					<h3>5.5.4 流水灯</h3>
-					<p>使用上面的分频器</p>
+					<h3>5.5.4 流水灯-使用上面的分频器</h3>
 					<script type="syntaxhighlighter" class="brush:vhdl;highlight:[];">
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.NUMERIC_STD.ALL;
-
 entity VHDL_LEDWATER is
-  port(
-           CLK_i    : in  STD_LOGIC;                 --创建时钟端口
-           RSTn_i   : in  STD_LOGIC;                 --创建复位端口
-           LED_o    : out BIT_VECTOR(3 downto 0)     --创建输出端口，对应4个LED
+port( CLK_i    : in  STD_LOGIC;                 --创建时钟端口
+      RSTn_i   : in  STD_LOGIC;                 --创建复位端口
+      LED_o    : out BIT_VECTOR(3 downto 0));     --创建输出端口，对应4个LED
 end VHDL_LEDWATER;
---------------------------------------------------------------------------------------------------
 architecture behave of VHDL_LEDWATER is
-   signal Clk1 : STD_LOGIC;                         --建立中间时钟信号
-   component fdiv
-   generic(N: integer:=6);      --rate=N，N是偶数
-  port(
-        clkin: IN std_logic;
-        clkout: OUT std_logic
-        );
+	signal Clk1 : STD_LOGIC;                       --建立中间时钟信号
+	component fdiv --2^N 分频器
+		generic(N: integer);      
+		port(clkin: IN std_logic;clkout: OUT std_logic);
 	end component;
 begin
-
-   u1: fdiv generic map (N => 2)
-		port map(clk_i, clk1);
-
-P1:process(clk1,RSTn_i)
-   
-   variable temp :  BIT_VECTOR(3 downto 0) := "0001";  --注意左操作数类型                                                              
-       begin
-              if(RSTn_i = '0') then
-                     count := 0;
-              elsif(clk1'event and clk1 = '1') then
-                          temp := (temp rol 1);
-                          LED_o <= temp;
-                     end if;
-              end if;
+	--假设时钟是：64MHz, N=26, 分频为1Hz 
+	u1: fdiv generic map (N => 26) port map(clk_i, clk1); 
+P1: process(clk1,RSTn_i)
+    variable temp :  BIT_VECTOR(3 downto 0) := "0001";  --注意左操作数类型
+    begin
+	  if(RSTn_i = '0') then count := 0;
+	  elsif(clk1'event and clk1 = '1') then
+			temp := (temp rol 1); LED_o <= temp;
+	  end if;
 	end process P1;
 end architecture;</script>
 				</section>

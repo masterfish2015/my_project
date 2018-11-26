@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+
+	<title>EDA技术 第4章</title>
+
+	<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+	<meta name="author" content="ldc">
+
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<link rel="stylesheet" href="js/reveal.js-3.7.0/css/reveal.css">
+	<link rel="stylesheet" href="js/reveal.js-3.7.0/css/theme/sky.css" id="theme">
+
+	<script type="text/javascript" src="js/SyntaxHighlighter/scripts/shCore.js"></script>
+	<script type="text/javascript" src="js/SyntaxHighlighter/scripts/shBrushVHDL.js"></script>
+	<link type="text/css" rel="stylesheet" href="js/SyntaxHighlighter/styles/shCoreDefault.css"/>
+	<link type="text/css" rel="stylesheet" href="js/SyntaxHighlighter/styles/shThemeDefault.css"/>
+	<script type="text/javascript">SyntaxHighlighter.all();</script>
+
+	<link rel="stylesheet" href="css/style4.css">
+	<!-- Printing and PDF exports -->
+	<script>
+		var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'js/reveal.js-3.7.0/css/print/pdf.css' : 'js/reveal.js-3.7.0/css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+			
+		var ldc;
+	</script>
+
+	<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	<script type="text/x-mathjax-config">
+	  MathJax.Hub.Config({
+		extensions: ["tex2jax.js"],
+		jax: ["input/TeX","output/HTML-CSS"],
+		tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+	  });
+	</script>
+	<script src="js/mathjax/MathJax.js"></script>
+	<script src="js/three/three.js"></script>
+	<script src="js/three/examples/js/controls/OrbitControls.js"></script>
+</head>
+
+<body>
+
+	<div class="reveal">
+
+		<!-- Any section element inside of this container is displayed as a slide -->
+		<div class="slides">
+			<section>
+				<section>
+					<h1>第四章</h1>
+					<h2>时序仿真与硬件实现</h2>
+				</section>
+				
+				<section>
+					<h2>主要内容</h2>
+					<ol class="fragment fade-left">
+						<li>VHDL程序输入与仿真测试</li>
+						<li>引脚锁定与硬件测试</li>
+						<li>电路原理图设计流程</li>
+						<li>HDL版本设置及Analysis &amp; Synthesis 功能</li>
+						<li>利用属性表述实现引脚锁定</li>
+						<li>keep 属性应用</li>
+						<li>SignalProbe 使用方法</li>
+						<li>宏模块逻辑功能查询</li>
+					</ol>
+				</section>
+				
+			</section>
+			
+			<section>
+				<section>
+					<h2 style="font-size: 68px;">4.1 VHDL程序输入与仿真测试</h2>
+					<p class="fragment fade-left">目标电路的表达可以有多种方式，包括：硬件描述语言HDL文本输入，原理图输入，状态图输入，混合输入，下面简单介绍用Quartus II如何实现。</p>
+					<p  class="fragment fade-left">首先创建新的项目。</p>
+				</section>
+				
+				<section>
+					<h4>【1】创建新项目</h4>
+					<img src="images/quartus1.png" class="stretch"/>
+				</section>
+				
+				<section>
+					<h4>【2】指定项目名称和路径</h4>
+					<div class="flex">
+						<img src="images/quartus2.png" class="stretch"/>
+						<img src="images/quartus3.png" class="stretch"/>
+					</div>
+					<img src="images/quartus4.png" class="stretch"/>
+				</section>
+				
+				<section>
+					<h4>【3】可添加现存的文件，若没有则跳过</h4>
+					<img src="images/quartus5.png" class="stretch"/>
+				</section>
+				
+				<section>
+					<h4>【4】指定硬件型号</h4>
+					<img src="images/quartus6.png" class="stretch"/>
+				</section>
+				
+				<section>
+					<h4>【5】指定EDA工具，包括综合器、仿真器等</h4>
+					<img src="images/quartus7.png" class="stretch"/>
+				</section>
+				
+				<section>
+					<h4>【6】最终报告</h4>
+					<img src="images/quartus8.png" class="stretch"/>
+				</section>
+				
+				<section>
+					<h3 style="font-size: 68px;">4.1.1 VHDL程序输入</h3>
+					<p class="fragment fade-left">创建一个VHDL文件，并开始输入程序</p>
+					<img src="images/quartus9.png" class="stretch"/>
+				</section>
+				
+				<section>
+					<h4>输入程序并保存</h4>
+					<img src="images/quartus10.png" class="stretch"/>
+				</section>
+				
+				<section>
+					<h3 style="font-size: 68px;">4.1.2 约束设置</h3>
+					<h4 class="fragment fade-left">开始编译之前，必须设置约束：</h4>
+					<p class="fragment fade-left">【1】选择FPGA目标芯片：Assignments --&gt; device </p>
+					<img src="images/quartus15.png" style="height:480px;"/>
+				</section>
+				
+				<section>
+					<h4 class="fragment fade-left">【2】选择配置器件的工作方式</h4>
+					<p class="fragment fade-left">可以选择flash或JTAG，前者可以脱离计算机后稳定的工作。 </p>
+				</section>
+				
+				<section>
+					<h4 class="fragment fade-left">【3】选择配置器件和编程方式</h4>
+					<p class="fragment fade-left">Assignments --&gt; Setting ，可以设置编译选项。</p>
+					<img src="images/quartus16.png" style="height:600px;"/>
+				</section>
+				
+				<section>
+					<h4 class="fragment fade-left">【4】设置引脚状态</h4>
+					<p class="fragment fade-left">Assignments --&gt; device  --&gt; Device and Pin Options，可以设置未用引脚的状态(unused pins)和双功能引脚（dual-purpose pins）的功能；</p>
+					<img src="images/quartus17.png" style="height:600px;"/>
+				</section>
+				
+				<section>
+					<h4>【5】设置VHDL语言版本</h4>
+					<p>Assignments --&gt; Setting --&gt; Analysis &amp; Synthesis Settings -- &gt; VHDL input，越高越好，至少1993，引入了位操作（左移、右移等）运算符</p>
+					<img src="images/quartus18.png" style="height:600px;"/>
+				</section>
+				
+				<section>
+					<h3>4.1.3 全程综合与编译</h3>
+					<p>选择 Processing --&gt; Start Compilation ，启动全程编译，包括：输入文件排错，数据网表文件提取，逻辑综合，适配，装配文件（仿真文件与编程配置文件）生成，基于目标器件的工程时序分析等；</p>
+					<p>【1】排错</p>
+					<img src="images/quartus19.png" style="height:450px;"/>
+				</section>
+				
+				<section>
+					<p>【2】查看硬件耗用统计：flow summary</p>
+					<img src="images/quartus20.png" style="height:450px;"/>
+				</section>
+				
+				<section>
+					<p>【3】查看时序相关特性报告：timeQuest timing analyzer</p>
+					<img src="images/quartus21.png" style="height:450px;"/>
+				</section>
+				
+				<section>
+					<h3>4.1.4 仿真</h3>
+					<p>在Quartus II 12.0 之后，已经使用ModelSim来进行仿真。（看前面的介绍）</p>
+				</section>
+				
+				<section>
+					<h3>4.1.5 RTL图观察器</h3>
+					<p>Tools --&gt; Netlist Viewers --&gt; RTL viewer。</p>
+					<p>Tools --&gt; Netlist Viewers --&gt; Technology Map viewer: FPGA底层门级布局观察器。</p>
+					<p>Tools --&gt; Netlist Viewers --&gt; State Machine Viewer: 状态机的状态图观察器。</p>
+					<img src="images/quartus22.png" style="height:450px;"/>
+				</section>
+			</section>
+			
+			<section>
+				<section>
+					<h2>4.2 引脚锁定和硬件测试</h2>
+				</section>
+				
+				<section>
+					<h3>4.2.1 引脚锁定</h3>
+					<p>Assignments --&gt; Pin Planner来进行引脚锁定。</p>
+					<img src="images/quartus23.png" style="height:450px;"/>
+				</section>
+				
+				<section>
+					<h3>4.2.2 编译文件下载</h3>
+					<p>首先将USB-Blaster接到电脑和适配板的JTAG口，选择Tools --&gt; Programmer 进行下载。</p>
+					<img src="images/quartus24.png" style="height:450px;"/>
+				</section>
+			</section>
+			
+			<section>
+				<section>
+					<h2>4.3 电路原理图设计流程</h2>
+				</section>
+				
+				<section>
+					<h3>4.3.1 建立电路原理图工程</h3>
+					<p>【1】新建一个项目，目录在adder1，项目名：half_adder</p>
+					<img src="images/quartus25.png">
+				</section>
+				
+				<section>
+					<h3>4.3.1 建立电路原理图工程</h3>
+					<p>【2】File --&gt; New 创建一个schematic file, 并进行文件保存，并指定文件名: half_adder.bdf</p>
+					<img src="images/quartus25.png">
+				</section>
+				
+				<section>
+					<h3>4.3.1 建立电路原理图工程</h3>
+					<p>【3】插入元件：在编辑窗口右键：insert --&gt; symbol，在下面的窗口的 Name: 输入元件或引脚名称，常见引脚包括：input, output等</p>
+					<img src="images/quartus26.png">
+				</section>
+				
+				<section>
+					<h3>4.3.1 建立电路原理图工程</h3>
+					<p>【4】插入其他元件，如下图</p>
+					<img src="images/half_adder_schematic.png">
+				</section>
+				
+				<section>
+					<h3>4.3.1 建立电路原理图工程</h3>
+					<p>【5】可以按照前面的步骤，进行约束、全编译、仿真等一系列操作。</p>
+				</section>
+				
+				<section>
+					<h3>4.3.2 将设计项目设置为可调用的元件</h3>
+					<p>选择：File --&gt; Create/Update --&gt; Create Symbol Files for Current File，将当前电路图变为一个元件符号存盘。</p>
+				</section>
+				
+				<section>
+					<h3>4.3.3 设计全加器顶层文件</h3>
+					<p>【1】创建一个新的项目，在相同的adder1目录，项目名是：full_adder</p>
+					<img src="images/quartus27.png">
+				</section>
+				
+				<section>
+					<h3>4.3.3 设计全加器顶层文件</h3>
+					<p>【2】在该项目下创建一个新的schematic file，文件名是：full_adder.bdf</p>
+				</section>
+				
+				<section>
+					<h3>4.3.3 设计全加器顶层文件</h3>
+					<p>【3】在编辑窗口双击鼠标左键，在弹出的窗口可以加入先前存储的half_adder元件，如下：</p>
+					<img src="images/quartus28.png">
+				</section>
+				
+				<section>
+					<h3>4.3.3 设计全加器顶层文件</h3>
+					<p>【4】加入其它的元件和连线，完成实际电路：如下：</p>
+					<img src="images/quartus29.png">
+				</section>
+				
+				<section>
+					<h3>4.3.4 进行仿真和下载测试</h3>
+					<p>和使用VHDL的相同。</p>
+				</section>
+			</section>
+		</div>
+	</div>
+
+	<script src="js/reveal.js-3.7.0/lib/js/head.min.js"></script>
+	<script src="js/reveal.js-3.7.0/js/reveal.js"></script>
+	
+	<script>
+		// More info https://github.com/hakimel/reveal.js#configuration
+		Reveal.initialize({
+			controls: true,
+			progress: true,
+			history: true,
+			center: true,
+			slideNumber: "c/t",
+			transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+			// More info https://github.com/hakimel/reveal.js#dependencies
+			dependencies: [{
+					src: 'js/reveal.js-3.7.0/lib/js/classList.js',
+					condition: function () {
+						return !document.body.classList;
+					}
+				},
+				{
+					src: 'js/reveal.js-3.7.0/plugin/markdown/marked.js',
+					condition: function () {
+						return !!document.querySelector('[data-markdown]');
+					}
+				},
+				{
+					src: 'js/reveal.js-3.7.0/plugin/markdown/markdown.js',
+					condition: function () {
+						return !!document.querySelector('[data-markdown]');
+					}
+				},
+				{
+					src: 'js/reveal.js-3.7.0/plugin/search/search.js',
+					async: true
+				},
+				{
+					src: 'js/reveal.js-3.7.0/plugin/zoom-js/zoom.js',
+					async: true
+				},
+				{
+					src: 'js/reveal.js-3.7.0/plugin/notes/notes.js',
+					async: true
+				}
+			]
+		});
+	</script>
+
+</body>
+
+</html>
