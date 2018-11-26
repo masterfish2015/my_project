@@ -1,0 +1,793 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+
+	<title>c 第九章</title>
+
+	<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+	<meta name="author" content="ldc">
+
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<link rel="stylesheet" href="js/reveal.js-3.7.0/css/reveal.css">
+	<link rel="stylesheet" href="js/reveal.js-3.7.0/css/theme/sky.css" id="theme">
+
+	<script type="text/javascript" src="js/SyntaxHighlighter/scripts/shCore.js"></script>
+	<script type="text/javascript" src="js/SyntaxHighlighter/scripts/shBrushCpp.js"></script>
+	<link type="text/css" rel="stylesheet" href="js/SyntaxHighlighter/styles/shCoreDefault.css"/>
+	<link type="text/css" rel="stylesheet" href="js/SyntaxHighlighter/styles/shThemeDefault.css"/>
+	<script type="text/javascript">SyntaxHighlighter.all();</script>
+
+	<link rel="stylesheet" href="css/style9.css">
+	<!-- Printing and PDF exports -->
+	<script>
+		var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'js/reveal.js-3.7.0/css/print/pdf.css' : 'js/reveal.js-3.7.0/css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+	<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	<script type="text/x-mathjax-config">
+	  MathJax.Hub.Config({
+		extensions: ["tex2jax.js"],
+		jax: ["input/TeX","output/HTML-CSS"],
+		tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+	  });
+	</script>
+	<script src="js/mathjax/MathJax.js"></script>
+</head>
+
+<body>
+
+	<div class="reveal">
+
+		<!-- Any section element inside of this container is displayed as a slide -->
+		<div class="slides">
+			<section>
+				<section>
+					<h1>第 九 章 </h1>
+					<h2>自定义数据类型</h2>
+				</section>
+				
+				<section>
+					<h2>本章主要内容 </h2>
+					<ol>
+						<li class="fragment fade-right red">枚举</li>
+						<li class="fragment fade-right blue">结构体</li>
+						<li class="fragment fade-right green">联合体</li>
+						<li class="fragment fade-right Crimson">用<code>typedef</code>来简化定义类型</li>
+					</ol>
+				</section>
+			</section>
+
+			<section>
+				<section>
+					<h2>9.1 枚举</h2>
+				</section>
+				
+				<section>
+					<h3>9.1.1 枚举的定义</h3>
+					<p >
+					枚举是一种<b class="red">类型</b>，是多个<b class="blue">整数量</b>的集合。
+					</p>
+					<p>
+					语法：
+					</p>
+					<script type="syntaxhighlighter" class="brush:c;highlight:[]">
+					enum [枚举类型名] { 枚举元素[=枚举值]...};</script>
+					<p>例：</p>
+					<script type="syntaxhighlighter" class="brush:c;highlight:[]">
+					//创建三原色类型
+					enum RGB1 { red = 0, green = 1, blue = 2};
+					//由于第一个枚举元素的值为0，可以省略为以下：
+					enum RGB2 { red, green, blue};
+					//也可以单独为每一个元素设置独立的值
+					enum RGB3 { red, green = -1, blue = -2};</script>
+				</section>
+				
+				<section>
+					<h3>9.1.2 枚举使用</h3>
+					<p>使用时，可以定义该枚举类型的变量：</p>
+					<script type="syntaxhighlighter" class="brush:c;highlight:[]">
+					//定义枚举类型：
+					enum RGB { red, green, blue};
+					//定义枚举类型的变量：
+					enum RGB led;
+					led = red;
+					...
+					switch(led){
+						case red: xxx; break; 
+						case blue: xxx; break; 
+						case green: xxx; break; 
+					}
+					...
+					if( led == red ){
+						....
+					}</script>
+				</section>
+				
+				<section>
+					<h3>9.1.3 例子</h3>
+					<p>使用枚举来定义返回错误。</p>
+					<script type="syntaxhighlighter" class="brush:c;highlight:[]">
+					//定义错误枚举类型：
+					enum ERROR { E_OK=0, E_NO_ENOUGH_MEMORY=-1, 
+						E_DIVIDED_BY_ZERO=-2, E_NO_DEVICE=-3};
+					//定义枚举类型的变量：
+					enum ERROR fun1(int n)
+					{	...
+						if(...)return E_NO_ENOUGH_MEMORY;
+						else	return E_OK;
+					}
+					enum ERROR fun2(...)
+					{	...
+						if(...)return E_DIVIDED_BY_ZERO;
+						else	return E_OK;
+					}
+					...
+					void main()
+					{	enum ERROR result=E_OK;
+						result = fun1(3);
+						if(result != E_OK){
+							...
+						}
+					}
+					</script>
+				</section>
+			</section>
+			
+			<section>
+				<section>
+					<h2>9.2 结构体: <code>struct</code></h2>
+				</section>
+				
+				<section>
+					<h3>9.2.1 结构体类型</h3>
+					<p class="fragment fade-right">在实际编程中，某些数据之间是有联系的，比如某二维坐标系下的点的坐标$P(x, y)$，数据$x$和$y$是有联系的，希望能够用某种形式联合起来使用，另一个例子是学生数据，包括：姓名、学号、年龄等都是某个学生的数据，希望都连接起来。</p>
+					<p class="fragment fade-right">对于c语言来说，可以通过<b class="red">结构体</b>来<i class="wavy">组合已知类型的数据成员为一个整体，定义其为一个新的类型，并用这种类型来定义新的变量</i>，从而扩展C语言的使用范围。</p>
+					<p class="fragment fade-right">下面用几个实例来说明。</p>
+				</section>
+				
+				<section>
+					<h3>9.2.2 定义结构体<b class="red">类型</b></h3>
+					<p class="fragment fade-right">定义结构体类型时，主要是指定几个因素：【1】<b class="red">类型名</b>；【2】成员，包括<b class="blue">成员的类型</b>和<b class="green">成员变量名</b></p>
+					<p class="fragment fade-right">成员的类型可以是<b class="blue">基本数据类型</b>，也可以是<b class="green">之前定义的类型（包括结构体或枚举）</b></p>
+					<p class="fragment fade-right">下面定义<b class="Navy">二维点数据类型</b>、<b class="Indigo">圆</b>、<b class="Crimson">矩形</b>、<b class="gold">直线等类型</b>：</p>
+					<div class="fragment fade-right">
+					<script type="syntaxhighlighter" class="brush:c;highlight:[]">
+					#include "stdio.h"
+					struct Point2D{   //二维点数据类型
+						double x, y;  //定义成员：类型和成员变量名
+					};
+					struct Line{ //定义直线段类型
+						struct Point2D p1, p2; //定义成员: 端点p1和p2
+					};
+					struct Circle{ //定义圆类型
+						struct Point2D center;  //定义成员：圆心（坐标）
+						double r; //定义半径
+					};
+					struct Rectangle{ //定义矩形
+						struct Point2D left_top; //定义成员：左上角坐标
+						double width, height; //定义宽、高值
+					};</script>
+					</div>
+				</section>
+				
+				<section>
+					<h3>9.2.2 定义结构体类型<b class="red">变量</b></h3>
+					<h4 class="fragment fade-right">【1】先定义类型，再定义变量</h4>
+					<div class="fragment fade-right">
+					<script type="syntaxhighlighter" class="brush:c;highlight:[2,7,8,9]">
+					#include "stdio.h"
+					struct Point2D{   //定义二维点数据类型
+						double x, y;  //定义成员：类型和成员变量名
+					};
+					void main()
+					{
+						struct Point2D p1; //定义结构体类型变量
+						p1.x = 3;  p1.y = 5; //引用成员
+						printf("[%.2lf, %.2lf\n", p1.x, p1.y); //引用成员
+					}</script>
+					</div>
+				</section>
+				
+				<section>
+					<h3>9.2.2 定义结构体类型<b class="red">变量</b></h3>
+					<h4 class="fragment fade-right">
+					【2】定义类型的<b class="blue">同时定义变量</b></h4>
+					<div class="fragment fade-right">
+					<script type="syntaxhighlighter" class="brush:c;highlight:[4]">
+					#include "stdio.h"
+					struct Point2D{   //定义二维点数据类型
+						double x, y;  //定义成员：类型和成员变量名
+					}p1;//定义结构体类型变量
+					void main()
+					{
+						p1.x = 3;  p1.y = 5; //引用成员
+						printf("[%.2lf, %.2lf\n", p1.x, p1.y); //引用成员
+					}</script>
+					</div>
+				</section>
+				
+				<section>
+					<h3>9.2.2 定义结构体类型<b class="red">变量</b></h3>
+					<h4 class="fragment fade-right">
+					【3】定义类型的<b class="blue">同时定义变量</b>，<b class="green">不指定类型名</b></h4>
+					<div class="fragment fade-right">
+					<script type="syntaxhighlighter" class="brush:c;highlight:[2, 4]">
+					#include "stdio.h"
+					struct {   //定义二维点数据类型, 不指定类型名
+						double x, y;  //定义成员：类型和成员变量名
+					}p1;//定义结构体类型变量
+					void main()
+					{
+						p1.x = 3;  p1.y = 5; //引用成员
+						printf("[%.2lf, %.2lf\n", p1.x, p1.y); //引用成员
+					}</script>
+					</div>
+				</section>
+				
+				<section>
+					<h3>9.2.3 结构体类型变量的<b class="red">初始化</b></h3>
+					<h4 class="fragment fade-right">
+					在定义结构体类型的变量的时候，可以对之进行初始化，下面是两种初始化的方法：</h4>
+					<div class="fragment fade-right">
+					<script type="syntaxhighlighter" class="brush:c;highlight:[6, 10]">
+					#include "stdio.h"
+					struct Point2D{   //定义二维点数据类型
+						double x, y;  //定义成员：类型和成员变量名
+					};
+					void main()
+					{	struct Point2D p1 = {3.1, 5.6}; //第一种初始化
+						printf("x=%.2lf, y=%.2lf \n", p1.x, p1.y); 
+						//输出：x=3.1 , y=5.6
+						
+						struct Point2D p2 = {.y=3.1, .x=5.6}; //第二种初始化. C99
+						printf("x=%.2lf, y=%.2lf \n", p2.x, p2.y); 
+						//输出：x=5.6 , y=3.1
+					}</script>
+					</div>
+				</section>
+				
+				<section>
+					<h3>9.2.4 结构体类型变量的<b class="red">成员引用</b></h3>
+					<h4 class="fragment fade-right">
+					结构体类型变量成员的引用，使用<b class="blue">成员引用运算符</b><code>.</code>，注意<b class="blue">多级</b>初始化及其成员的引用。</h4>
+					<div class="fragment fade-right">
+					<script type="syntaxhighlighter" class="brush:c;highlight:[6,10,12]">
+					#include "stdio.h"
+					struct Point2D{   //定义二维点数据类型
+						double x, y;  //定义成员：类型和成员变量名
+					};
+					struct Circle{
+						struct Point2D center; 
+						double r;
+					};
+					void main()
+					{	struct Circle c = {{3.1, 5.6}, 5.0}; //多级初始化
+						printf("x=%.2lf, y=%.2lf, r=%.2lf\n", 
+							c.center.x, c.center.y, c.r); //成员的引用
+						//输出：x=3.1 , y=5.6, r=5.0
+					}</script>
+					</div>
+				</section>
+				
+				<section>
+					<h3>9.2.5 结构体类型变量的<b class="red">赋值</b></h3>
+					<h4 class="fragment fade-right">
+					在定义结构体类型的变量之后，可以对之进行赋值，赋值有几种方法：</h4>
+					<h4 class="fragment fade-right">
+					【1】对<b class="red">每一个成员进行单独</b>赋值：</h4>
+					<div class="fragment fade-right">
+					<script type="syntaxhighlighter" class="brush:c;highlight:[7, 8]">
+					#include "stdio.h"
+					struct Point2D{   //定义二维点数据类型
+						double x, y;  //定义成员：类型和成员变量名
+					};
+					void main()
+					{	struct Point2D p1; //定义变量
+						p1.x = 5.6;  //成员赋值
+						p1.y = 3.1;  //成员赋值
+						printf("x=%.2lf, y=%.2lf \n", p1.x, p1.y); 
+						//输出：x=5.6 , y=3.1
+					}</script>
+					</div>
+				</section>
+				
+				<section>
+					<h3>9.2.5 结构体类型变量的<b class="red">赋值</b></h3>
+					<h4 class="fragment fade-right">
+					【2】对结构体类型变量用<b class="green">另一个结构体变量</b>进行<b class="blue">整体</b>赋值：</h4>
+					<div class="fragment fade-right">
+					<script type="syntaxhighlighter" class="brush:c;highlight:[7]">
+					#include "stdio.h"
+					struct Point2D{   //定义二维点数据类型
+						double x, y;  //定义成员：类型和成员变量名
+					};
+					void main()
+					{	struct Point2D p1={5.6,3.1}, p2; //定义变量
+						p2 = p1;  //整体赋值
+						printf("x=%.2lf, y=%.2lf \n", p2.x, p2.y); 
+						//输出：x=5.6 , y=3.1
+					}</script>
+					</div>
+				</section>
+				
+				<section>
+					<h3>9.2.5 结构体类型变量的<b class="red">赋值</b></h3>
+					<h4 class="fragment fade-right">
+					【3】对结构体类型变量<b class="green">用匿名结构体初始化式</b>进行<b class="blue">整体</b>赋值：</h4>
+					<div class="fragment fade-right">
+					<script type="syntaxhighlighter" class="brush:c;highlight:[7, 10]">
+					#include "stdio.h"
+					struct Point2D{   //定义二维点数据类型
+						double x, y;  //定义成员：类型和成员变量名
+					};
+					void main()
+					{	struct Point2D p1, p2; //定义变量
+						p1 = (struct Point2D){5.6, 3.1};  //整体赋值, C99
+						printf("x=%.2lf, y=%.2lf \n", p1.x, p1.y); 
+						//输出：x=5.6 , y=3.1
+						p2 = (struct Point2D){.y=5.6, .x=3.1};  //整体赋值, C99
+						printf("x=%.2lf, y=%.2lf \n", p2.x, p2.y); 
+						//输出：x=5.6 , y=3.1
+					}</script>
+					</div>
+				</section>
+				
+				<section>
+					<h3 >9.2.6 结构体类型<b class="red">指针</b></h3>
+					<p class="fragment fade-right" style="font-size:28px;">
+					结构体类型的变量，可以通过指针变量指向其地址，其成员可以用两种方式来引用。</p>
+					<div class="fragment fade-right">
+					<script type="syntaxhighlighter" class="brush:c;highlight:[2,4,7,10,13,16,19]">
+#include "stdio.h"
+struct Point2D { double x, y;};
+void main()
+{	struct Point2D p1, *p2; //定义结构体普通变量和指针变量
+
+	//通过取地址运算符&获得普通结构体变量的地址
+	p2 = &p1; 
+	
+	//通过取地址运算符&获得普通结构体变量的成员的地址
+	scanf("%lf,%lf", &p1.x, &p1.y); // 成员运算符 . 的优先级比 & 的高
+	
+	//普通结构体变量通过.运算符访问成员
+	printf("x=%.2lf, y=%.2lf\n", p1.x, p1.y); 
+	
+	//指针变量通过间接访问运算符访问成员，注意*的优先级不如.
+	printf("x=%.2lf, y=%.2lf\n", (*p2).x, (*p2).y); 
+	
+	//结构体指针变量独有的->运算符访问成员
+	printf("x=%.2lf, y=%.2lf\n", p2->x, p2->y); 
+}</script>
+					</div>
+				</section>
+				
+				<section>
+					<h3 >9.2.7 结构体类型<b class="red">数组</b></h3>
+					<p class="fragment fade-right" style="font-size:28px;">
+					可以定义结构体类型的数组。</p>
+					<div class="fragment fade-right">
+					<script type="syntaxhighlighter" class="brush:c;highlight:[4,7,8,9,10,11]">
+#include "stdio.h"
+struct Point2D { double x, y;};
+void main()
+{	struct Point2D data[]={{1.6, 5.2}, {4.7, 2.6}} ;//定义和初始化结构体类型数组
+	struct Point2D *p;
+	int i, n;
+	n=sizeof(data)/sizeof(struct Point2D); //获得数组长度
+	for(p=data, i=0; i<n; i++, p++){ //注意 指针的使用, p++指向下一个数组元素
+		printf("x=%.2lf, y=%.2lf\n", data[i].x, data[i].y); //数组下标
+		printf("x=%.2lf, y=%.2lf\n", *(data+i).x, *(data+i).y); //间接访问
+		printf("x=%.2lf, y=%.2lf\n", p->x, p->y); //间接访问
+	}
+}</script>
+					</div>
+					<p class="fragment fade-right" style="font-size:28px;">
+					注意初始化列表，<code>{{1.6, 5.2}, {4.7, 2.6}}</code>也可以是<code>{1.6, 5.2, 4.7, 2.6}</code>；</p>
+				</section>
+				
+				<section>
+					<h3 style="font-size:32px;">9.2.8 结构体类型变量作为<b class="red">函数的参数和返回值</b></h3>
+					<p class="fragment fade-right" style="font-size:28px;">
+					通过使用函数，可以把对结构体变量的操作封装模块化，简化复杂性。</p>
+					<div class="fragment fade-right">
+					<script type="syntaxhighlighter" class="brush:c;highlight:[3,5,11,12,14,22,24]">
+#include "stdio.h"
+#include "math.h"
+struct Vector{	double x, y; };
+//求两个矢量P1+P2，返回一个矢量
+struct Vector vec_add(struct Vector p1, struct Vector p2) //普通变量做形参
+{	struct Vector result ;
+	result.x = p1.x + p2.x;
+	result.y = p1.y + p2.y;
+	return result;
+}
+double vec_length(const struct Vector *pt)  //求矢量的长度，指针作为形参
+{	return sqrt(pt->x * pt->x + pt->y * pt->y); 
+}
+char *vec_info(char str[], struct Vector pt)//把点的信息转换到字符串中
+{	sprintf(str, "[x=%.2lf, y=%.2lf]",pt.x, pt.y);
+	return str;
+}
+void main()
+{	struct Vector p1={3.0, 4.0}, p2={5.3, 6.8};
+	char str1[100], str2[100], str3[100];
+	printf("the length of vector: %s is: %.2lf\n", 
+		vec_info(str1, p1), vec_length(&p1)); //注意vec_length函数的参数是指针
+	printf("%s + %s = %s", vec_info(str1, p1), vec_info(str2, p2),
+		vec_info(str3, vec_add(p1,p2)));
+}</script>
+					</div>
+				</section>
+			</section>
+			
+			<section>
+				<section>
+					<h2>9.3 共用体(联合体): <code>union</code></h2>
+				</section>
+				
+				<section>
+					<h3>9.3.1 定义共用体 </h3>
+					<p class="fragment fade-right" style="font-size:28px;">共用体和结构体的区别，在于结构体的成员都有独立的内存，而共用体的成员则是共用内存。</p>
+					<div class="flex">
+						<div>
+							<hr>
+							<p class="fragment fade-right" style="font-size:28px;">参看右边的例子，结构体<code>struct Data1</code>有三个成员，原则上其类型的变量<code>d1</code>占内存字节数是<b class="red">所有成员占字节数之和</b>，即<code>4+2+8=14</code> 字节；</p>
+							<hr>
+							<p class="fragment fade-right" style="font-size:28px;">相对的，共用体的所有成员都共享内存，所以共用体类型<code>union Data2</code>变量<code>d2</code>占内存字节数是<b class="blue"></b>占内存最大的那个成员所占字节数</b>，即<code>8</code> 字节；</p>
+						</div>
+						<img src="images/union_struct_memory.png" style="width:300px;"/>
+						<div class="stretch">
+						<script type="syntaxhighlighter" class="brush:c;highlight:[]">
+struct Data1{
+	float a; 
+	char c[2];
+	double b;
+} d1 = {3.4, {'a', '1'}, 4.8};
+
+union Data2{
+	float a;
+	char c[2];
+	double b;
+} d2 = {4.8};			</script>
+						</div>
+					</div>
+				</section>
+				
+				<section>
+					<h3>9.3.2 共用体的几个注意事项 </h3>
+					<p class="fragment fade-right red">同一个内存段可以放几种不同类型的成员，当每一瞬间只能存放和取用其中的一个成员，也就是说，共用体变量中只能存放一个值；</p>
+					<p class="fragment fade-right blue">共用体变量的初始化只能设置一个值；</p>
+					<p class="fragment fade-right green">共用体变量中起作用的成员是最后一次被赋值的成员，在对共用体变量的一个成员赋值后，原来存储的值就被取代；</p>
+					<p class="fragment fade-right cyan">共用体变量的地址和里面每一个成员的地址都是一样的；</p>
+					<p class="fragment fade-right gold">C99允许相同类型的共用体变量之间互相赋值，之前不行；</p>
+					<p class="fragment fade-right Crimson">C99允许共用体变量作为函数参数，之前不行；</p>
+					<p class="fragment fade-right Indigo">共用体成员可以是数组以及结构体，同样，结构体内也可以有共用体成员。</p>
+				</section>
+				
+			</section>
+			
+			<section>
+				<section>
+					<h2>9.4 类型别名</h2>
+					<p>在C语言中，由于不少类型占内存字节的不确定（比如<code>int, short, long, long long</code>），或者符号不确定（比如<code>char</code>）、或者太长不好用（比如函数指针类型）等，使用传统的类型名不太方便，所以提供了一种<b class="red">别名（alias）</b>来方便定义和使用。</p>
+				</section>
+				
+				<section>
+					<h3>9.4.1 用<b class="red">预编译指令</b>来声明别名</h3>
+					<p class="fragment fade-right">可以用<code>#define 类型别名 原类型名</code>来定义别名，配合其他的预编译指令，可以实现条件编译，经常用来实现c语言的多平台的移植。</p>
+					<div class="fragment fade-right">
+					<script type="syntaxhighlighter" class="brush:c;highlight:[1, 4, 10, 16, 21]">
+					#define OS_BIT 32
+					
+					#if OS_BIT == 16
+					#define int16_t int
+					#define int32_t long int
+					#define int64_t long long int
+					#endif
+					
+					#if OS_BIT == 32
+					#define int16_t short int
+					#define int32_t int
+					#define int64_t long long int
+					#endif
+					
+					#if OS_BIT == 64
+					#define int16_t short int
+					#define int32_t int
+					#define int64_t long int
+					#endif		
+					
+					int16_t a; </script>
+					</div>
+				</section>
+				
+				<section>
+					<h3>9.4.2 用<code>typedef</code>声明别名</h3>
+					<p class="fragment fade-right">通用语法：<code>typedef 原类型名 类型别名;</code>，上面的也可以改写如下：</p>
+					<div class="fragment fade-right flex">
+					
+					<script type="syntaxhighlighter" class="brush:c;highlight:[1, 4, 10, 16, 21]">
+					#define OS_BIT 32
+					
+					#if OS_BIT == 16
+					#define int16_t int
+					#define int32_t long int
+					#define int64_t long long int
+					#endif
+					
+					#if OS_BIT == 32
+					#define int16_t short int
+					#define int32_t int
+					#define int64_t long long int
+					#endif
+					
+					#if OS_BIT == 64
+					#define int16_t short int
+					#define int32_t int
+					#define int64_t long int
+					#endif		
+					
+					int16_t a; </script>
+					
+					<script type="syntaxhighlighter" class="brush:c;highlight:[1, 4, 10, 16, 21]">
+					#define OS_BIT 32
+					
+					#if OS_BIT == 16
+					typedef int int16_t;
+					typedef long int int32_t;
+					typedef long long int int64_t;
+					#endif
+					
+					#if OS_BIT == 32
+					typedef short int int16_t;
+					typedef int int32_t;
+					typedef long long int int64_t;
+					#endif
+					
+					#if OS_BIT == 64
+					typedef short int int16_t;
+					typedef int int32_t;
+					typedef long int int64_t;
+					#endif		
+					
+					int16_t a; </script>
+					</div>
+				</section>
+				
+				<section>
+					<h3>9.4.3 用<code>typedef</code>来简化类型声明</h3>
+					<p class="fragment fade-right">对于比较复杂的类型，比如枚举、结构体、共用体、函数指针类型等，用<code>typedef</code>可以简化声明。</p>
+					<div class="fragment fade-right">
+					<script type="syntaxhighlighter" class="brush:c;highlight:[]">
+					//定义枚举类型并定义该类型的变量
+					enum RGB1 {red, green, blue}; 
+					enum RGB1 led = red;
+					//用typedef 来简化
+					typedef enum RGB2 {red, green, blue} t_RGB; //t_RGB 是 enum RGB2 的别名
+					typedef enum {red, green, blue} t_RGB2; //定义匿名枚举类型，并声明 t_RGB2 是其别名
+					t_RGB led2 = red;
+					t_RGB2 led3 = green;
+					
+					//定义结构体类型并定义该类型的变量
+					struct Point { int x, y;}; 
+					struct Point p1 = {.x = 3, .y = 6};
+					//用typedef 来简化
+					typedef struct Point { int x, y;} t_point; //t_point是struct Point的别名
+					typedef struct { int x, y;} t_point2; //定义匿名结构体类型，并声明 t_point2 是其别名
+					t_point  p2 = {.x = 3, .y = 6};
+					t_point2 p3 = {.x = 3, .y = 6};
+					
+					//共用体类似
+					</script>
+					</div>
+				</section>
+				
+				<section>
+					<h3>9.4.3 用<code>typedef</code>来声明<b class="red">函数指针类型</b></h3>
+					<p class="fragment fade-right">下面是一个实例，一个通用的冒泡排序法。</p>
+					<div class="fragment fade-right">
+					<script type="syntaxhighlighter" class="brush:c;highlight:[]">
+#include "stdio.h"
+#include "string.h"
+#include "stdlib.h"
+#include "math.h"
+
+typedef struct {int x, y;} t_point2d;
+
+//函数指针类型的声明
+typedef int (*t_cmpfun)(void *a, void *b);
+
+//比较两个数的大小
+int cmp_int(int *a, int *b){
+	if( *a > *b ) return 1;
+	else if ( *a < *b ) return -1;
+	else return 0;
+}
+int cmp_point2d(t_point2d *p1, t_point2d *p2){
+	double  len1=sqrt(p1->x*p1->x+p1->y*p1->y),
+			len2=sqrt(p2->x*p2->x+p2->y*p2->y);
+	if(len1>len2)return 1;
+	else if(len1<len2) return -1;
+	else return 0;
+}					</script>
+					</div>
+				</section>
+				
+				<section>
+					<div class="fragment fade-right">
+					<script type="syntaxhighlighter" class="brush:c;highlight:[]">
+//函数指针类型的声明
+typedef char *(*t_strfun)(void *p);
+
+//转换指定类型的数据为字符串
+char *str_int(int *p){
+	static char str[100];
+	sprintf(str,"%d", *p);
+	return str;
+}
+char *str_point2d(t_point2d *p){
+	static char str[100];
+	sprintf(str,"[x=%d, y=%d]", p->x, p->y);
+	return str;
+}
+
+//交换两块内存的值
+void swap(void *p1, void *p2, int size){
+	void *p=malloc(size);
+	memcpy(p , p1, size);
+	memcpy(p1, p2, size);
+	memcpy(p2,  p, size);
+	free(p);
+}					</script>
+					</div>
+				</section>
+				
+				<section>
+					<div class="fragment fade-right">
+					<script type="syntaxhighlighter" class="brush:c;highlight:[]">
+//冒泡排序
+void bubble(void *data, int n, int size, t_cmpfun fun){
+	int row, col, flag;
+	for(row=n-1;row>0;row--){
+		flag = 0;
+		for(col=0; col<row; col++){
+			if(fun(data+col*size, data+(col+1)*size)>0){
+				swap(data+col*size, data+(col+1)*size, size);
+				flag = 1;
+			}
+		}
+		if(flag==0)break;
+	}
+}
+
+//输出数组的内容
+void print_array(void *data, int n, int size, t_strfun strfun){
+	for(int i=0; i<n; i++){
+		printf("[%d]. %s\n", i+1, strfun(data+i*size));
+	}
+}					</script>
+					</div>
+				</section>
+				
+				<section>
+					<div class="fragment fade-right flex" >
+					<script type="syntaxhighlighter" class="brush:c;highlight:[]">
+void main(){
+	int a[] = {7, 5, 3, 9, 12, 5, 4}, n, size;
+	
+	n=sizeof(a)/sizeof(a[0]);  size=sizeof(a[0]);
+	puts("----------original data-----------");
+	print_array(a, n, size, str_int);
+	bubble(a, n, size, cmp_int);
+	puts("----------after sort -----------");
+	print_array(a, n, size, str_int);
+	
+	t_point2d d[] = { {3, 5}, {7, 2}, {-1, 4}, {5, 4}};
+	n=sizeof(d)/sizeof(d[0]);  size=sizeof(d[0]);
+	puts("----------original data-----------");
+	print_array(d, n, size, str_point2d);
+	bubble(d, n, size, cmp_point2d);
+	puts("----------after sort -----------");
+	print_array(d, n, size, str_point2d);
+}					</script>
+					
+					<script type="syntaxhighlighter" class="brush:c;highlight:[]">
+----------original data-----------
+[1]. 7
+[2]. 5
+[3]. 3
+[4]. 9
+[5]. 12
+[6]. 5
+[7]. 4
+----------after sort -----------
+[1]. 3
+[2]. 4
+[3]. 5
+[4]. 5
+[5]. 7
+[6]. 9
+[7]. 12
+----------original data-----------
+[1]. [x=3, y=5]
+[2]. [x=7, y=2]
+[3]. [x=-1, y=4]
+[4]. [x=5, y=4]
+----------after sort -----------
+[1]. [x=-1, y=4]
+[2]. [x=3, y=5]
+[3]. [x=5, y=4]
+[4]. [x=7, y=2]		</script>
+					</div>
+				</section>
+				
+			</section>
+		</div>
+	</div>
+
+	<script src="js/reveal.js-3.7.0/lib/js/head.min.js"></script>
+	<script src="js/reveal.js-3.7.0/js/reveal.js"></script>
+	
+	<script>
+		// More info https://github.com/hakimel/reveal.js#configuration
+		Reveal.initialize({
+			width: 1024,
+			height: 768,
+			controls: true,
+			progress: true,
+			history: true,
+			center: true,
+
+			transition: 'zoom', // none/fade/slide/convex/concave/zoom
+
+			// More info https://github.com/hakimel/reveal.js#dependencies
+			dependencies: [{
+					src: 'js/reveal.js-3.7.0/lib/js/classList.js',
+					condition: function () {
+						return !document.body.classList;
+					}
+				},
+				{
+					src: 'js/reveal.js-3.7.0/plugin/markdown/marked.js',
+					condition: function () {
+						return !!document.querySelector('[data-markdown]');
+					}
+				},
+				{
+					src: 'js/reveal.js-3.7.0/plugin/markdown/markdown.js',
+					condition: function () {
+						return !!document.querySelector('[data-markdown]');
+					}
+				},
+				{
+					src: 'js/reveal.js-3.7.0/plugin/search/search.js',
+					async: true
+				},
+				{
+					src: 'js/reveal.js-3.7.0/plugin/zoom-js/zoom.js',
+					async: true
+				},
+				{
+					src: 'js/reveal.js-3.7.0/plugin/notes/notes.js',
+					async: true
+				}
+			]
+		});
+		Reveal.configure({ slideNumber: "c/t" });
+	</script>
+
+</body>
+
+</html>

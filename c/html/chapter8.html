@@ -833,15 +833,41 @@ int main(int n, const char **argstrings)
 			</section>
 			
 			<section>
-				<h2>8.4 指向函数的指针</h2>
-				<p>C语言能够定义函数指针变量，其本质是指针变量，可以指向特定函数所在内存的地址，见后面的例子。</p>
-				<pre class="brush:c;">
-				//语法：
-				函数返回值类型 (*指针变量名)(形式参数列表)
-				//例：
-				int (*fun_p)(int a, int b); //这里，fun_p是指针变量名, 
-				//可以指向有一个整型返回值，两个整型参数的函数。
-				</pre>
+				<section>
+					<h2>8.4 指向函数的指针</h2>
+					<p>C语言能够定义函数指针变量，其本质是指针变量，可以指向特定函数所在内存的地址，见后面的例子。</p>
+					<pre class="brush:c;">
+					//语法：
+					函数返回值类型 (*指针变量名)(形式参数列表)
+					//例：
+					int (*fun_p)(int a, int b); //这里，fun_p是指针变量名, 
+					//可以指向有一个整型返回值，两个整型参数的函数。
+					</pre>
+				</section>
+				
+				<section>
+					<h4>几种指针：</h4>
+					<script type="syntaxhighlighter" class="brush:c;">
+					//普通变量 和 普通指针变量
+					int a=3;
+					int *p1;
+					p1 = &a;
+					// 数组 和 指针数组，指向数组的指针，指向特定数组的指针
+					int b1[3]={3,5,8}， b2[]={10,90}, b3[]={-1,7,8};
+					int *pd[3]={b1, b2, b3};
+					int (*p2)[3] ; 
+					p2 = b1; p2 = b3; // p2 不能指向 b2
+					//函数 和 指向特定函数的指针
+					double max2f(double a, double b)
+					{ return (a>b)?a:b; }
+					
+					double (*pf)(double , double);
+					pf = max2f; 
+					double result;
+					result = pf(3., 5.); 
+					result = max2f(3., 5.);
+					</script>
+				</section>
 			</section>
 			
 			<section>
