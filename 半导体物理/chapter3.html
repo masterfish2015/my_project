@@ -396,6 +396,158 @@ $$
 				
 				<section>
 					<h3>3.3.1 本征半导体</h3>
+					<p class="fragment fade-right" >本征半导体：没有杂质和缺陷的半导体。</p>
+					<p class="fragment fade-right" >绝对零度下，本征半导体价带全部量子态都有电子占据，导带没有电子，当温度上升，价带的电子获得足够能量跃迁到导带，即生成导带的电子和价带的空穴，这就是本征激发。</p>
+					<p class="fragment fade-right" >本征激发下，导体电子浓度$n_0$和价带空穴浓度$p_0$相等：$n_0=p_0$</p>
+					<p class="fragment fade-right" >这就是本征半导体的电中性条件。</p>
+				</section>
+				
+				<section>
+					<h3>3.3.2 本征载流子浓度</h3>
+					<p class="fragment fade-right">
+					$$
+					n_i=n_0=p_0=\sqrt{\left( N_C N_V \right)}/\exp\left(\frac{E_g}{2k_0T}\right) 
+					\tag{3-31}
+					$$
+					</p>
+					<p class="fragment fade-right" >可见，随着温度升高，$n_i$也会上升，同一温度下，$E_g$越大，$n_i$越小。</p>
+					<p class="fragment fade-right">
+					$$
+					n_i^2=n_0p_0
+					\tag{3-32}
+					$$</p>
+				</section>
+				
+				<section>
+					<h3>3.3.3 本征载流子浓度的图解</h3>
+					<img src="images/本征载流子浓度.png" class="stretch"/>
+				</section>
+				
+			</section>
+			
+			<section>
+				<section>
+					<h2>3.4 杂质半导体的载流子浓度</h2>
+				</section>
+				
+				<section>
+					<h3>3.4.1 杂质能级上的电子和空穴</h3>
+					<p class="fragment fade-right" >
+					施主能量$E$的一个量子态，其被电子占据的概率$f(E)$满足：
+					$$
+					f_D(E)=\displaystyle\frac{1}{1+\frac{1}{g_D}\exp\left(\displaystyle\frac{E_D-E_F}{k_0T}\right)}
+					\tag{3-35}
+					$$，式中，$g_D$是施主能级的基态简并度，半导体：$g_D=2$
+					</p>
+					<p class="fragment fade-right" >
+					对于施主杂质浓度为$N_D$，其施主能级的电子浓度：
+					$$
+					n_D=N_Df_D(E)=\displaystyle\frac{N_D}{1+\frac{1}{g_D}\exp\left(\displaystyle\frac{E_D-E_F}{k_0T}\right)}
+					\tag{3-37}
+					$$
+					</p>
+				</section>
+				
+				<section>
+					<h3>3.4.1 杂质能级上的电子和空穴</h3>
+					<p class="fragment fade-right" >
+					由此，得到电离施主浓度：
+					$$
+					n_D^+=N_D-n_D=\displaystyle\frac{N_D}{1+g_D/\exp\left(\displaystyle\frac{E_D-E_F}{k_0T}\right)}
+					\tag{3-39}
+					$$
+					</p>
+					<p class="fragment fade-right" >当$E_D-E_F \gg k_0T$时，$n_D^+ \approx N_D$，也就是完全电离。</p>
+				</section>
+				
+				<section>
+					<h3>3.4.1 杂质能级上的电子和空穴</h3>
+					<p class="fragment fade-right" >
+					受主能量$E$的一个量子态，其被空穴占据的概率$f(E)$满足：
+					$$
+					f_A(E)=\displaystyle\frac{1}{1+\frac{1}{g_A}\exp\left(\displaystyle\frac{E_F-E_A}{k_0T}\right)}
+					\tag{3-36}
+					$$，式中，$g_A$是受主能级的基态简并度，半导体：$g_A=2$
+					</p>
+					<p class="fragment fade-right" >
+					对于受主杂质浓度为$N_A$，其受主能级的电子浓度：
+					$$
+					p_D=N_Af_A(E)=\displaystyle\frac{N_A}{1+\frac{1}{g_A}\exp\left(\displaystyle\frac{E_F-E_A}{k_0T}\right)}
+					\tag{3-38}
+					$$
+					</p>
+				</section>
+				
+				<section>
+					<h3>3.4.1 杂质能级上的电子和空穴</h3>
+					<p class="fragment fade-right" >
+					由此，得到电离受主浓度：
+					$$
+					p_A^-=N_A-p_A=\displaystyle\frac{N_A}{1+g_A/\exp\left(\displaystyle\frac{E_F-E_A}{k_0T}\right)}
+					\tag{3-40}
+					$$
+					</p>
+					<p class="fragment fade-right" >当$E_F-E_A \gg k_0T$时，$p_D^- \approx N_A$，也就是完全电离。</p>
+				</section>
+				
+				<section>
+					<h3>3.4.2 $n$型半导体的载流子浓度</h3>
+					<p class="fragment fade-right" style="font-size:24px;">
+					仅考虑只有一种施主杂质，由电中性条件：$n_0=n_D^++p_0$
+					，代入得到：
+					$$
+					N_C/\exp(\frac{E_C-E_F}{k_0T})=N_V/\exp(\frac{E_F-E_V}{k_0T})+\frac{N_D}{1+2/\exp(\frac{E_D-E_F}{k_0T})}
+					\tag{3-42}
+					$$
+					</p>
+				</section>
+				
+				<section>
+					<h4>【1】低温弱电离区</h4>
+					<p class="fragment fade-right" style="font-size:24px;">
+					此时，本征激发可以不考虑，施主电离也很少，$p_0=0, n_0=n_D^+$：
+					$$
+					N_C/\exp(\frac{E_C-E_F}{k_0T})=\frac{N_D}{1+2/\exp(\frac{E_D-E_F}{k_0T})}
+					\tag{3-43}
+					$$
+					</p>
+					<p class="fragment fade-right" style="font-size:24px;">
+					$$
+					E_F=\frac{E_C+E_D}{2}+\frac{k_0T}{2}\mathrm{ln}(\frac{N_D}{2N_C})
+					$$
+					</p>
+					<p class="fragment fade-right" style="font-size:24px;">
+					经过化简，得到此时电子浓度：
+					$$
+					\mathrm{ln}(n_0)=\frac{1}{2}\mathrm{ln}(\frac{N_D N_C}{2})-\frac{E_C-E_D}{2k_0T}
+					$$，式中，$N_D$是杂质浓度，$N_C$是导带有效密度。
+					</p>
+				</section>
+				
+				<section>
+					<h4>【2】中间电离区</h4>
+					<p class="fragment fade-right" style="font-size:24px;">
+					此时，本征激发可以不考虑，施主电离增加，$2N_C \gt N_D $，$E_F=\frac{E_C+E_D}{2}+\frac{k_0T}{2}\mathrm{ln}(\frac{N_D}{2N_C})$ 中第二项为负值，表明此时$E_F$下降，：
+					</p>
+					<p class="fragment fade-right" style="font-size:24px;">
+					经过化简，得到此时电子浓度：
+					$$
+					\mathrm{ln}(n_0)=\frac{1}{2}\mathrm{ln}(\frac{N_D N_C}{2})-\frac{E_C-E_D}{2k_0T}
+					$$，式中，$N_D$是杂质浓度，$N_C$是导带有效密度。
+					</p>
+				</section>
+				
+				<section>
+					<h4>【3】强电离区</h4>
+					<p class="fragment fade-right" style="font-size:24px;">
+					此时电子浓度：
+					$n_0=N_D$</p>
+				</section>
+				
+				<section>
+					<h4>【4】过渡区</h4>
+					<p class="fragment fade-right" style="font-size:24px;">
+					由电中性条件：$n_0=N_D+p_0$</p>
 				</section>
 				
 			</section>

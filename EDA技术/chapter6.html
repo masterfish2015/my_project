@@ -58,35 +58,404 @@
 		<div class="slides">
 			<section>
 				<section>
-					<h1>第四章</h1>
-					<h2>时序仿真与硬件实现</h2>
+					<h1>第六章</h1>
+					<h2>综合实例</h2>
+				</section>
+				
+				
+			</section>
+			
+			<section>
+				<section>
+					<h2 style="font-size: 68px;">6.1 综合实例1--分频器+LED+按键</h2>
+					<video width="1000" height="600" controls>
+					  <source src="video/1.webm" type="video/webm">
+					Your browser does not support the video tag.
+					</video>
 				</section>
 				
 				<section>
-					<h2>主要内容</h2>
-					<ol class="fragment fade-left">
-						<li>VHDL程序输入与仿真测试</li>
-						<li>引脚锁定与硬件测试</li>
-						<li>电路原理图设计流程</li>
-						<li>HDL版本设置及Analysis &amp; Synthesis 功能</li>
-						<li>利用属性表述实现引脚锁定</li>
-						<li>keep 属性应用</li>
-						<li>SignalProbe 使用方法</li>
-						<li>宏模块逻辑功能查询</li>
-					</ol>
+					<h3 style="font-size: 48px;">【1】VHDL程序</h3>
+					<script type="syntaxhighlighter" class="brush:vhdl;highlight:[];">
+library ieee; --通用偶数分频器 
+use ieee.std_logic_1164.all;
+use ieee.std_logic_arith.all;
+use ieee.std_logic_unsigned.all;
+entity  gen_div is --分频因子,分频为2*div_param，仿真可设4，烧录时，接40MHz时钟
+generic(div_param:integer:=2000_0000);--，设为2000_0000，使输出间隔为1s
+port(clk:in std_logic;--输入时钟
+	bclk:out std_logic;--分频输出
+	resetb:in std_logic--复位信号);
+end gen_div;
+architecture behave of gen_div is
+signal tmp:std_logic;--输出暂存寄存器
+signal cnt:integer range 0 to div_param:=0;--计数寄存器
+begin
+	process(clk,resetb)	begin
+		if resetb='0' then cnt<=0; tmp<='0'; --reset有效时,bclk始终是0
+		elsif rising_edge(clk) then
+			cnt<=cnt+1;
+			if cnt=div_param-1 then
+				tmp<=not tmp;--取反信号
+				cnt<=0;
+			end if;
+		end if;
+	end process;
+	bclk<=tmp;--输出
+end behave;			</script>
+				</section>
+				
+				<section>
+					<h3 style="font-size: 48px;">【2】仿真</h3>
+					<div class="flex2">
+					<img src="images/分频器1.png" />
+					<img src="images/分频器2.png" />
+					</div>
+				</section>
+				
+				<section>
+					<img src="images/分频器4.png" class="stretch"/>
+					<img src="images/分频器3.png" class="stretch"/>
+				</section>
+				
+				<section>
+					<h3 style="font-size: 68px;">【3】引脚绑定</h3>
+					<img src="images/分频器5.png" style="width:1000px;"/>
+				</section>
+				
+				<section>
+					<h3 style="font-size: 68px;">【4】烧录</h3>
+					<img src="images/分频器6.png" style="width:1000px;"/>
 				</section>
 				
 			</section>
 			
 			<section>
 				<section>
-					<h2 style="font-size: 68px;">4.1 VHDL程序输入与仿真测试</h2>
-					<p class="fragment fade-left">目标电路的表达可以有多种方式，包括：硬件描述语言HDL文本输入，原理图输入，状态图输入，混合输入，下面简单介绍用Quartus II如何实现。</p>
-					<p  class="fragment fade-left">首先创建新的项目。</p>
+					<h2 style="font-size: 48px;">6.2 综合实例2: 2选1多路选择器+拨动开关</h2>
+					<video width="1000" height="600" controls>
+					  <source src="video/2.webm" type="video/webm">
+					Your browser does not support the video tag.
+					</video>
 				</section>
 				
+				<section>
+					<img src="images/多路选择器1.png" style="width:1000px;"/>
+				</section>
+				
+				<section>
+					<h3 style="font-size: 68px;">【1】VHDL程序--2选1多路选择器</h3>
+					<script type="syntaxhighlighter" class="brush:vhdl;highlight:[];">
+--2选1多路选择器
+library ieee;
+use ieee.std_logic_1164.all;
+
+ENTITY mux21a IS
+PORT( a, b, s : IN std_logic;
+	y : OUT std_logic );
+END ENTITY mux21a;
+
+ARCHITECTURE bhv OF mux21a IS
+BEGIN
+	PROCESS (a,b,s) 
+	BEGIN
+		IF (s='1') THEN
+			y <= a;
+		ELSE
+			y <= b;
+		END IF;
+	END PROCESS;
+END ARCHITECTURE bhv;	</script>
+				</section>
+				
+				<section>
+					<h3 style="font-size: 40px;">【1】VHDL程序-上级程序</h3>
+					<script type="syntaxhighlighter" class="brush:vhdl;highlight:[];">
+library ieee;--采用2选1多路选择器来实现不同频率的LED闪烁
+use ieee.std_logic_1164.all;
+entity mux21a_led is
+port(clock : in std_logic; --时钟，接开发板 16 脚，缺省 40MHz
+	reset : in std_logic; --分频器清零，接开发板 33 脚
+	sel   : in std_logic; --选择输入信道，0： 1Hz的信号； 1：0.5Hz的信号
+	led_out: out std_logic); --输出控制led，接开发板 26 引脚 ，1 亮
+end entity mux21a_led;
+architecture behave of mux21a_led is
+component gen_div is --导入元件：分频器
+	generic(div_param:integer);
+	port(clk:in std_logic;bclk:out std_logic;resetb:in std_logic);
+end component;
+component mux21a is --导入元件：2选1多路选择器
+	PORT( a, b, s : IN std_logic; y : OUT std_logic );
+end component;
+signal line1, line2 : std_logic; --信号定义
+begin
+	gen_div1: --2000_0000分频,产生1秒脉冲
+		gen_div generic map (div_param   => 2000_0000)
+		port map (clk    => clock, resetb => reset, bclk   => line1);
+	gen_div2: --6000000分频,产生3秒脉冲
+		gen_div generic map (div_param   => 6000_0000)
+		port map (clk    => clock, resetb => reset, bclk   => line2 );
+	mux21a_1: --2 选 1 多路选择器
+		mux21a port map (a=> line1, b=> line2, s=> sel,y=> led_out);
+end architecture;	</script>
+				</section>
+				
+				<section>
+					<h3 style="font-size: 68px;">【2】仿真</h3>
+					<img src="images/多路选择器2.png" style="width:1000px;"/>
+				</section>
+				
+				<section>
+					<h3 style="font-size: 68px;">【3】引脚绑定</h3>
+					<img src="images/多路选择器3.png" style="width:1000px;"/>
+				</section>
+				
+				<section>
+					<h3 style="font-size: 68px;">【4】烧录</h3>
+					<img src="images/多路选择器4.png" style="width:1000px;"/>
+				</section>
 				
 			</section>
+			
+			<section>
+				<section>
+					<h2 style="font-size: 48px;">6.3 综合实例3: 16进制计数器+4位8段数码管</h2>
+					<video width="1000" height="600" controls>
+					  <source src="video/4.webm" type="video/webm">
+					Your browser does not support the video tag.
+					</video>
+				</section>
+				
+				<section>
+					<h3 style="font-size: 40px;">【1】VHDL程序--16进制计数器</h3>
+					<script type="syntaxhighlighter" class="brush:vhdl;highlight:[];">
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.std_logic_unsigned.all;
+use ieee.std_logic_arith.all;
+entity counter16b is
+port(clk : in std_logic;
+	reset : in std_logic;
+	load : in std_logic;
+	din : in integer range 0 to 15;
+	dout : out integer range 0 to 15);
+end entity counter16b;
+architecture behave of counter16b is
+signal counter : integer range 0 to 15;
+begin
+	clock1: 	process(clk, reset, load)
+				begin
+					if reset = '0' then counter <= 0;
+					elsif clk'event and clk='1' then
+						if load = '1' then counter <= din;
+						else
+							counter <= counter + 1;
+						end if;
+					end if;
+				end process;
+	dout <= counter;
+end architecture behave;	</script>
+				</section>
+				
+				<section>
+					<img src="images/16进制计数器.png" class="stretch"/>
+					<img src="images/16进制计数器2.png" class="stretch"/>
+				</section>
+				
+				<section>
+					<h3 style="font-size: 40px;">【2】VHDL程序--4位8段数码管</h3>
+					<video width="1000" height="600" controls>
+					  <source src="video/3.webm" type="video/webm">
+					Your browser does not support the video tag.
+					</video>
+				</section>
+				
+				<section>
+					<h3 style="font-size: 40px;">【2】VHDL程序--4位8段数码管：原理</h3>
+					<img src="images/deg2.png" class="stretch"/>
+				</section>
+				
+				<section>
+					<h3 style="font-size: 40px;">【2】VHDL程序--4位8段数码管</h3>
+					<script type="syntaxhighlighter" class="brush:vhdl;highlight:[];">
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.ALL;
+
+entity ld3461_decoder is 
+port(
+	clk1 : in std_logic; --时钟脉冲，接入 40MHz，下面会分频到20us内部更新一次
+	reset : in std_logic; --异步清零
+	din : in integer range 0 to 15; --输入的数 0--15
+	dout: out std_logic_vector( 7 downto 0); -- 对应: a,b,c,d,e,f,g,dp
+	com: out std_logic_vector( 1 to 4) -- 对应：com1, com2, com3, com4
+);
+end entity ld3461_decoder;
+
+architecture behave of ld3461_decoder is
+	type state is (s0,s1,s2,s3);
+	signal s_state : state := s0;
+	component gen_div -- 分频器
+		generic(div_param:integer:=2);
+		--分频因子,分频为2*div_param，默认2分频，方便仿真测试
+		port
+		(
+			clk:in std_logic;--输入时钟
+			bclk:out std_logic;--分频输出
+			resetb:in std_logic--复位信号
+		);
+	end component;</script>
+				</section>
+				
+				<section>
+					<h3 style="font-size: 40px;">【2】VHDL程序--4位8段数码管</h3>
+					<script type="syntaxhighlighter" class="brush:vhdl;highlight:[];">
+	signal clk_20us : std_logic; --分频后的时钟
+	signal a: integer range 0 to 9 := 0; --临时变量，作为数组的下标(个位)
+	signal b: integer range 0 to 9 := 0; --临时变量，作为数组的下标(十位)
+begin 
+	div1: 
+	gen_div 
+	generic map (div_param   => 800) --分频为20us
+	port map (clk=> clk1, resetb=> reset, bclk=> clk_20us);
+		
+state_change1:  --状态转换
+	process (clk_20us) begin
+		if clk_20us'event and clk_20us='1' then
+			case (s_state) is
+				when s0 => s_state <= s1; --显示个位
+				when s1 => s_state <= s2; --显示十位
+				when s2 => s_state <= s3; --显示百位
+				when s3 => s_state <= s0; --显示千位
+			end case;
+		end if;
+	end process; </script>
+				</section>
+				
+				<section>
+					<h3 style="font-size: 40px;">【2】VHDL程序--4位8段数码管</h3>
+					<script type="syntaxhighlighter" class="brush:vhdl;highlight:[];">
+ouput1: --根据状态输出
+	process (s_state, reset)
+	type t_deg is array (0 to 9 ) of std_logic_vector(7 downto 0);
+	variable deg : t_deg := (x"03",x"9f",x"25",x"0d",x"99", 
+		x"49", x"41", x"1f", x"01", x"09");
+	begin
+		if reset='0' then com<="1111"; --清零
+		else
+			a <= din mod 10; --得到个位的数
+			if din >= 10  then b <= 1; else b <= 0; end if;--得到十位的数
+			case (s_state) is --根据状态来输出不同位
+				when s0 => com <= "1110"; dout <= deg(a); --只显示个位
+				when s1 => com <= "1101"; dout <= deg(b); --只显示十位
+				when s2 => com <= "1011"; dout <= deg(0); --只显示百位
+				when s3 => com <= "0111"; dout <= deg(0); --只显示千位
+			end case;
+		end if;
+	end process;
+	
+end architecture behave;	</script>
+				</section>
+				
+				<section>
+					<img src="images/deg.png" class="stretch"/>
+					<img src="images/deg1.png" class="stretch"/>
+				</section>
+				
+				<section>
+					<h3 style="font-size: 40px;">【2】4位8段数码管：有限状态机</h3>
+					<script type="syntaxhighlighter" class="brush:vhdl;highlight:[];">
+state_change1:  --状态转换
+	process (clk_20us) begin
+		if clk_20us'event and clk_20us='1' then
+			case (s_state) is
+				when s0 => s_state <= s1; --显示个位
+				when s1 => s_state <= s2; --显示十位
+				when s2 => s_state <= s3; --显示百位
+				when s3 => s_state <= s0; --显示千位
+			end case;
+		end if;
+	end process; </script>
+					<img src="images/deg5.png" class="stretch"/>
+				</section>
+				
+				<section>
+					<h3 style="font-size: 40px;">【2】4位8段数码管：引脚绑定</h3>
+					<img src="images/deg6.png"  style="height:650px;"/>
+				</section>
+				
+				<section>
+					<h3 style="font-size: 40px;">【3】综合：16进制计数器并输出显示</h3>
+					<img src="images/16进制计数器3.png"  style="width:1000px;"/>
+				</section>
+				
+				<section>
+					<h3 style="font-size: 40px;">【3】综合：16进制计数器并输出显示</h3>
+					<script type="syntaxhighlighter" class="brush:vhdl;highlight:[];">
+library ieee;
+use ieee.std_logic_1164.all;
+
+entity counter4bit is
+port( clk , load, reset : in std_logic;
+		din : in integer range 0 to 15;
+		dout : out std_logic_vector(7 downto 0);
+		com : out std_logic_vector(3 downto 0));
+end entity counter4bit;
+
+architecture behave of counter4bit is
+	component gen_div -- 分频器
+		generic(div_param:integer:=2);
+		--分频因子,分频为2*div_param，默认2分频，方便仿真测试
+		port(clk:in std_logic;--输入时钟
+			bclk:out std_logic;--分频输出
+			resetb:in std_logic ); --复位信号
+	end component;
+	component ld3461_decoder -- 4位8段数码管
+		port(
+			clk1 : in std_logic; --时钟脉冲，接入 40MHz，下面会分频到20us内部更新一次
+			reset : in std_logic; --异步清零
+			din : in integer range 0 to 15; --输入的数 0--15
+			dout: out std_logic_vector( 7 downto 0); -- 对应: a,b,c,d,e,f,g,dp
+			com: out std_logic_vector( 1 to 4) -- 对应：com1, com2, com3, com4
+		);
+	end component;</script>
+				</section>
+				
+				<section>
+					<h3 style="font-size: 40px;">【3】综合：16进制计数器并输出显示</h3>
+					<script type="syntaxhighlighter" class="brush:vhdl;highlight:[];">
+	component counter16b  --16进制计数器
+		port(clk : in std_logic;
+			reset : in std_logic;
+			load : in std_logic;
+			din : in integer range 0 to 15;
+			dout : out integer range 0 to 15);
+	end component;
+	signal line1 , line3: std_logic;
+	signal line2 : integer range 0 to 15;
+begin
+u1: gen_div 
+	generic map (div_param   => 2000_0000) --分频为1s
+	port map (clk=> clk, resetb=> reset, bclk=> line1);
+	
+u2: counter16b
+	port map (clk=> line1, reset=> reset, load=> line3, 
+			  din => din, dout=>line2 );
+
+u3: ld3461_decoder
+	port map (clk1=> clk, reset=> reset, din=> line2, com => com, dout=>dout );
+	
+	line3 <= not load;
+end architecture behave; </script>
+				</section>
+				
+				<section>
+					<h3 style="font-size: 40px;">【3】综合：16进制计数器并输出显示</h3>
+					<img src="images/16进制计数器4.png"  style="stretch"/>
+				</section>
+				
+			</section>
+			
 		</div>
 	</div>
 
