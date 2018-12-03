@@ -1,0 +1,1051 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+
+	<title>c 第五章</title>
+
+	<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+	<meta name="author" content="ldc">
+
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<link rel="stylesheet" href="js/reveal.js-3.7.0/css/reveal.css">
+	<link rel="stylesheet" href="js/reveal.js-3.7.0/css/theme/sky.css" id="theme">
+	
+	<script type="text/javascript" src="js/SyntaxHighlighter/scripts/shCore.js"></script>
+	<script type="text/javascript" src="js/SyntaxHighlighter/scripts/shBrushCpp.js"></script>
+	<link type="text/css" rel="stylesheet" href="js/SyntaxHighlighter/styles/shCoreDefault.css"/>
+	<script type="text/javascript">SyntaxHighlighter.all();</script>
+
+	<link rel="stylesheet" href="css/nstyle5.css">
+	<!-- Printing and PDF exports -->
+	<script>
+		var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'js/reveal.js-3.7.0/css/print/pdf.css' : 'js/reveal.js-3.7.0/css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+	<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	<script type="text/x-mathjax-config">
+	  MathJax.Hub.Config({
+		extensions: ["tex2jax.js"],
+		jax: ["input/TeX","output/HTML-CSS"],
+		tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+	  });
+	</script>
+	<script src="js/mathjax/MathJax.js"></script>
+</head>
+
+<body>
+
+	<div class="reveal">
+
+		<!-- Any section element inside of this container is displayed as a slide -->
+		<div class="slides">
+			<section>
+				<section>
+					<h1>第五章 </h1>
+					<h2>循环结构</h2>
+				</section>
+				
+				<section>
+					<h2>本章主要内容 </h2>
+					<ol>
+						<li>当型循环<code>while</code></li>
+						<li>直到型循环<code>do...while</code></li>
+						<li><code>for</code>循环</li>
+						<li>改变循环状态<code>break, continue</code></li>
+						<li>循环嵌套</li>
+					</ol>
+				</section>
+				
+			</section>
+
+			<section>
+				<section>
+					<h2>5.1 当型循环<code>while</code></h2>
+					<div class="flex ">
+						<dl class="fragment fade-right">
+							<dt>语法</dt>
+							<dd>
+								<pre class="brush:c;">
+								while(表达式)循环语句;</pre>
+							</dd>
+							<dt>当循环语句有超过一条时，用复合语句</dt>
+							<dd>
+								<pre class="brush:c;">
+								while(表达式){
+									循环语句1;
+									循环语句2;
+									...
+								}</pre>
+							</dd>
+							<dt>特点</dt>
+							<dd>
+								<p>先判断表达式，当其为真，则执行循环。</p>
+							</dd>
+						</dl>
+						
+						<img src="images/while.png"/ style="width:100%" class="fragment fade-left">						
+					</div>					
+				</section>
+				
+				<section>
+					<h4>例5.1   求$\sum\limits_{n=1}^{100} n = 1+2+3+...+100.$</h4>					
+					<div class="flex">
+						<div>
+						<p class="fragment fade-right">基本思路：重复加法100次，每次把和<code>S</code>加上循环项<code>i</code>， 递推公式： 
+							$$
+							S_{i} = \begin{cases}
+							1, &i=1 \\
+							S_{i-1} + i, &i=2,...,100
+							\end{cases}
+							$$
+						</p>						
+						</div>
+						<img src="images/fig5-3-2.png" style="top: -40px; height:90%" class="fragment fade-right"/>
+					</div>
+					<div  class="fragment fade-left">
+						<pre class="brush:c;">
+						#include "stdio.h"
+						int main()
+						{ int s=1, i=2;
+						  while(i<=100){
+							s+=i;
+							i++;
+						  }
+						  printf("sum = %d\n", s);
+						  return 0;
+						}</pre>
+					</div>
+				</section>
+			</section>
+			
+			<section>
+				<section>
+					<h2>5.2 直到型循环<code>do...while</code></h2>
+					<div class="flex ">
+						<dl class="fragment fade-right">
+							<dt>语法</dt>
+							<dd>
+								<pre class="brush:c;" >
+								do 循环语句; while(表达式);</pre>
+							</dd>
+							<dt>当循环语句有超过一条时，用复合语句</dt>
+							<dd>
+								<pre class="brush:c;" >
+								do{
+									循环语句1;
+									循环语句2;
+									...
+								}while(表达式);</pre>
+							</dd>
+							<dt>特点</dt>
+							<dd>
+								<p>先执行循环, 再判断条件，如果为真，则继续循环。</p>
+							</dd>
+						</dl>
+						
+						<img src="images/do.png"/ style="width:100%" class="fragment fade-left">						
+					</div>					
+				</section>
+				
+				<section>
+					<h4>例5.1   求$\sum\limits_{n=1}^{100} n = 1+2+3+...+100.$</h4>					
+					<div class="flex">
+						<div>
+						<p class="fragment fade-right">基本思路：重复加法100次，每次把和<code>S</code>加上循环项<code>i</code>， 递推公式： 
+							$$
+							S_{i} = \begin{cases}
+							1, &i=1 \\
+							S_{i-1} + i, &i=2,...,100
+							\end{cases}
+							$$
+						</p>						
+						</div>
+						<img src="images/fig5-3-3.png" style="top: -40px; height:90%" class="fragment fade-right"/>
+					</div>
+					<div class="fragment fade-up">
+						<pre class="brush:c;">
+						#include "stdio.h"
+						int main()
+						{ int s=0, i=1;
+						  do{
+							s+=i;
+							i++;
+						  }while(i<=100);
+						  printf("sum = %d\n", s);
+						  return 0;
+						}</pre>
+				</section>
+				
+				<section>
+					<h3><code>do...while</code>和<code>while</code>循环的区别</h3>
+					<ol>
+						<li class="fragment fade-right">对于<code>while</code>循环，由于一开始就进行条件的判断，所以如果判断条件为<b class="red">假</b>，则<b class="blue"> 循环一次都不会被执行</b>，而<code>do...while</code>循环则无论条件是否满足，<b class="blue">至少执行一次循环语句</b>。</li>
+						<li class="fragment fade-right">两种循环一般情况下可以互相转化，但也有特殊的情况不太容易，特别是<b class="red">无论如何至少执行一次</b>的情况。</li>
+					</ol>
+				</section>
+			</section>
+			
+			<section>
+				<section>
+					<h2>5.3 <code>for</code>循环</h2>
+					<div class="flex ">
+						<dl class="fragment fade-right">
+							<dt>语法</dt>
+							<dd>
+								<pre class="brush:c;" >
+								for(表达式1;表达式2;表达式3)循环语句;</pre>
+							</dd>
+							<dt>当循环语句有超过一条时，用复合语句</dt>
+							<dd>
+								<pre class="brush:c;">
+								for(表达式1;表达式2;表达式3){
+									循环语句1;
+									循环语句2;
+									...
+								}</pre>
+							</dd>
+							<dt>特点</dt>
+							<dd>
+								<p>先执行表达式1（初始化）, 再判断条件，如果为真，执行循环，并在当次循环结束后执行表达式3，再继续判断表达式2。</p>
+							</dd>
+						</dl>
+					</div>
+				</section>
+				
+				<section>
+					<h3><code>for</code>和<code>while</code>可以互相转化</h3>
+					<pre class="brush:c;">
+						for(表达式1;表达式2;表达式3){
+							循环语句1;
+							循环语句2;
+							...
+						}</pre>
+					<p>等效于：</p>
+					<pre class="brush:c;">
+						表达式1;
+						while(表达式2){
+							循环语句1;
+							循环语句2;
+							...
+							表达式3;
+						}</pre>
+				</section>
+				
+				<section>
+					<h4>例5.1   求$\sum\limits_{n=1}^{100} n = 1+2+3+...+100.$</h4>
+					<div class="flex">
+						<div class="fragment fade-left">
+							<pre class="brush:c;highlight:[4,5]">
+						#include "stdio.h"
+						int main()
+						{ int s, i;
+						  for(s=1, i=2; i<=100; i++)
+							s+=i;
+						  printf("sum = %d\n", s);
+						  return 0;
+						}</pre>
+						</div>
+						<div class="fragment fade-left">
+							<pre class="brush:c;highlight:[4,5,7]">
+						#include "stdio.h"
+						int main()
+						{ int s, i;
+						  s=1; i=2;
+						  while(i<=100){
+							s+=i;
+							i++;
+						  }
+						  printf("sum = %d\n", s);
+						  return 0;
+						}</pre>
+						</div>
+					</div>
+				</section>
+				
+				<section>
+					<h3><code>for</code>循环的注意事项</h3>
+					<ol>
+						<li class="fragment fade-right"><b class="blue">表达式1</b>可以省略，但是它对应的<code>;</code>不能省略。<code>for(;i<100;i++)...;</code></li>
+						<li class="fragment fade-right"><b class="blue">表达式2</b>可以省略，但是它对应的<code>;</code>不能省略，这相当于循环条件永远为真。<code>for(i=1;;i++)...;</code></li>
+						<li class="fragment fade-right"><b class="blue">表达式3</b>可以省略。<code>for(i++;i<100;)...;</code></li>
+						<li class="fragment fade-right">完全省略三个表达式，相当于<b class="red">无限循环</b>。<code>for(;;)...;</code></li>
+						<li class="fragment fade-right"><code>C99</code>中，可以在<code>for</code>的头部定义变量，这个变量的范围只在<code>for</code>及其循环语句之中。						
+						</li>
+					</ol>
+					<div class="fragment fade-up">
+					<pre class="brush:c;">
+						for(int i=1;i<100;i++)
+							printf("%d\n",i);
+						printf("%d\n",i); //这里 i 是没定义的，会出错</pre>
+					</div>
+				</section>
+				
+				<section>
+					<h3>三种循环的选用</h3>
+					<ul>
+						<li class="fragment fade-right"><code>do...while</code>和<code>while</code>主要是看是否需要在一开始就判断循环条件；</li>
+						<li class="fragment fade-right"><code>for</code>和<code>while</code>几乎完全等价，绝大部分下可以互用，但是一般情况下，当明确知道循环的次数时，用<code>for</code>，而不太确定循环的次数时，用<code>while</code>；</li>
+					</ul>
+					<div class="fragment fade-up">
+					<pre class="brush:c;">
+					//明确知道循环次数，用for
+					int i, s=0;
+					for(i=1;i<=100;i++)
+						s+=i;
+					//当不清楚循环次数时，用while
+					char c;
+					while( (c = getchar())!= 'q' ){
+						putchar(c);
+					}</pre>
+					</div>
+				</section>
+			</section>
+			
+			<section>
+				<section>
+					<h2>5.4 循环状态的改变</h2>
+				</section>
+				
+				<section>
+					<h3>5.4.1 <code>break</code>语句</h3>
+					<p><code>break</code>语句用于从当前的循环结构中中断退出。
+					</p>
+					<div class="fragment fade-right">
+					<pre class="brush:c;">
+					/*下面从键盘输入一个字符，显示其ASCII码
+					当输入[esc]键的时候(ascii码=27)，结束程序
+					*/
+					#include "stdio.h"
+					int main()
+					{
+						char c;
+						while(1){
+							puts("请输入一个字符：");
+							c = getchar();
+							if (c == 27)
+								break;
+							printf("%c = %d\n", c, c);
+						}
+						puts("bye!\n");
+					}</pre>
+					</div>
+				</section>
+				
+				<section>
+					<h3>5.4.2 <code>continue</code>语句</h3>
+					<p><code>continue</code>语句会结束本次循环，开始下一次循环。
+					</p>
+					<div class="fragment fade-right">
+					<pre class="brush:c;highlight:[8,9];">
+					/*下面程序输出100~200之间的不能被3整除的数
+					*/
+					#include "stdio.h"
+					int main()
+					{
+						int n;
+						for(n=100; n<=200 ; n++){
+							if(n%3 == 0)
+								continue;
+							printf("%d  ", n);
+						}
+						putchar('\n');
+						return 0;
+					}</pre></div>
+					<p class="fragment fade-up"><code>continue</code>可以通过更换<code>if</code>的条件来去除掉。</p>
+				</section>
+			</section>
+			
+			<section>
+				<section>
+					<h2>5.5 循环的嵌套</h2>
+					<p class="fragment fade-right"><code>C</code>中的这三种循环都可以互相嵌套，实现更复杂的流程结构</p>
+					<p class="fragment fade-right"><code>break</code>只能退出一层循环，为了从多重的内层循环中退出，可以实用<code>goto</code>语句，见后面的例子。</p>
+				</section>
+				
+				<section>
+					<h4>例： 输出<code>99</code>乘法表</h4>
+					<div class="flex" >
+						<div class="flex2">
+							<img class="fragment fade-up" src="images/fig5-4-3.png"/>
+							<img class ="fragment fade-right" src="images/fig5-4-2.png"/>
+						</div>
+						<div class="fragment fade-left">
+						<pre class="brush:c; highlight:[8]" >
+							#include "stdio.h"
+							int main()
+							{
+								int row, col;
+								for(row=1; row<10; row++){
+									for(col=1; col<10; col++)
+										printf("%4d", row*col);
+									putchar('\n');
+								}
+								return 0;
+							}</pre></div>
+					</div>
+				</section>
+				
+			</section>
+			
+			<section>
+				<section>
+					<h2>5.5 综合实例</h2>
+				</section>
+				
+				<section>
+					<h4>例5.5：用$\frac{\pi}{4} = 1-\frac{1}{3}+\frac{1}{5}-\frac{1}{7}+...$求$\pi$的近似值。</h4>
+					<div class="flex" >
+						<div class="flex2">
+							<div>
+							<p style="font-size:24px;">由上面的公式可以得到通项式：$a_i=(-1)^{i-1}\frac{1}{2i-1}$ , 于是：
+							$$\frac{\pi}{4}=S_i = 
+							\begin{cases}
+							1, &i=1 \\
+							S_{i-1}+(-1)^{i-1}\frac{1}{2i-1}, &i>1
+							\end{cases}
+							$$</p>
+							</div>
+							<img class ="fragment fade-right" src="images/fig5-5-2.png"/>
+						</div>
+						<div class="fragment fade-left">
+							<pre class="brush:c">
+#include "stdio.h"
+#include "math.h"
+#define MIN 1e-8
+int main()
+{
+	double pi, team, s;
+	int i;
+	for(team=2.0,i=2, s=1; 
+		fabs(team)>MIN; i++){
+		team=
+		 pow(-1,i-1)*1.0/(2*i-1);
+		s+=team;
+	}
+	pi = 4*s;
+	printf("pi = %.8lf.\n", pi); 
+	//输出：pi = 3.14159267.
+	return 0;
+}							</pre>
+						</div>
+					</div>
+				</section>
+
+				<section>
+					<div >
+						<p>$(-1)^{i-1}$是很费时间的操作，考虑到每一项的符号是前一项符号的相反，所以可以进行优化如下。</p>
+					</div>
+					<div class="flex" >
+						<div class="fragment fade-right">
+							<pre class="brush:c">
+#include "stdio.h"
+#include "math.h"
+#define MIN 1e-8
+int main()
+{
+	double pi, team, s;
+	int i;
+	for(team=2.0,i=2, s=1; 
+		fabs(team)>MIN; i++){
+		team=pow(-1,i-1)*1.0/(2*i-1);
+		s+=team;
+	}
+	pi = 4*s;
+	printf("pi = %.8lf.\n", pi); 
+	//输出：pi = 3.14159267.
+	return 0;
+}
+							</pre>
+						</div>
+						<div class="fragment fade-right">
+							<pre class="brush:c;highlight: [6, 10, 12]">
+#include "stdio.h"
+#include "math.h"
+#define MIN 1e-8
+int main()
+{
+	double pi, team, s, sign=-1.0;
+	int i;
+	for(team=2.0,i=2, s=1; 
+		fabs(team)>MIN; i++){
+		team=sign/(2*i-1);
+		s+=team;
+		sign*=-1;
+	}
+	pi = 4*s;
+	printf("pi = %.8lf.\n", pi); 
+	//输出：pi = 3.14159267.
+	return 0;
+}
+							</pre>
+						</div>
+					</div>
+				</section>
+				
+				<section>
+					<h4>例5.6 求Fibonacci数列。</h4>
+					<div class="flex">
+						<div class="flex2">
+							<div class="fragment fade-right">
+							<p style="font-size:24px;">
+							数列的通项：
+							$$
+							F_i=\begin{cases}
+							1, &(i=1) \\
+							1, &(i=2) \\
+							F_{i-2}+F_{i-1}, &(i>2) 
+							\end{cases}
+							$$</p>
+							</div>
+							<img class="fragment fade-right" src="images/fig5-6-2.png" />
+						</div>
+						<div class="fragment fade-left">
+							<pre class="brush:c;highlight:[4,11];">
+#include "stdio.h"
+int main()
+{
+	int i,n,fib1=1,fib2=1,fib3;
+	puts("input n:"); scanf("%d",&n);
+	printf("%4s%10s%10s\n","i","fib[i]","ratio");
+	printf("%4d%10d\n",1,fib1);
+	printf("%4d%10d%10.7lf\n",
+		2, fib2, (double)fib2/fib1);
+	for(i=3;i<=n; i++){
+		fib3 = fib1+fib2;
+		printf("%4d%10d%10.7lf\n", 
+			i, fib3, (double)fib3/fib2);
+		fib1 = fib2;
+		fib2 = fib3;
+	}	
+	return 0;
+}							</pre>
+						</div>
+					</div>
+				</section>
+				
+				<section>
+					<img src="images/fig5-6-3.png" style="width:100%"/>
+				</section>
+				
+				<section>
+					<h4>例 5.7 用二分迭代来求下面方程在$(-10,10)$之间的根：</h4>
+					<p>$2x^3-4x^2+3x-6=0$</p>
+					<div class="flex">
+						<img src="images/二分法1.png" class="fragment fade-right"/>
+						<div>
+							<p class="fragment fade-left">解法：前提条件：</p>
+							<ul class="fragment fade-left">
+								<li>函数必须连续</li>
+								<li>函数在范围内$[a,b]$两端点的函数值符号相反:$f(a)f(b)\lt 0$</li>
+							</ul>
+							<p class="fragment fade-left">由此，可以得到方程$f(x)=0$在$[a,b]$之间肯定至少有一个根，二分法无法求出所有根。</p>
+						</div>
+					</div>
+				</section>
+				
+				<section>
+					<h4>算法</h4>
+					<div class="flex">
+						<img src="images/二分法1.png" class="fragment fade-right"/>
+						<div>
+							<ol >
+								<li class="fragment fade-left">取$x$的两个端点$x_1=a, x_2=b$</li>
+								<li class="fragment fade-left">取$x_1,x_2$的中点：$x_0=\frac{x_1+x_2}{2}$</li>
+								<li class="fragment fade-left">如果$f(x_1)f(x_0)>=0$，说明根在$[x_0, x_2]$这半边，因此重新设置$x_1=x_0$，否则说明根在$[x_1, x_0]$，因此设置$x_2=x_0$</li>
+								<li class="fragment fade-left">判断$|x_2-x_1|$是否足够小，若足够小，则$x_0$即可看作近似根，否则转到第2步继续。</li>
+							</ol>
+						</div>
+					</div>
+				</section>
+				
+				<section>
+					<div class="flex">
+						<img src="images/fig5-7-2.png" />
+						<div class="fragment fade-left">
+						<pre class="brush:c;highlight:[13,14,15];">
+#include "stdio.h"
+#include "math.h"
+#define DELTA 1e-6
+int main()
+{
+	double x0,x1=-10,x2=10,f0,f1,f2;
+	int i=0;
+	printf("%4s%13s%13s%13s%13s%13s%13s\n",
+		"No."," x1 "," f(x1) "," x0 "," f(x0) ",
+		" x2 "," f(x2) ");
+	do{
+		x0 = (x1+x2)/2;
+		f0 = 2*pow(x0,3)-4*x0*x0+3*x0-6;
+		f1 = 2*pow(x1,3)-4*x1*x1+3*x1-6;
+		f2 = 2*pow(x2,3)-4*x2*x2+3*x2-6;
+		printf(
+"%4d%13.6lf%13.6lf%13.6lf%13.6lf%13.6lf%13.6lf\n",
+			++i,x1,f1,x0,f0,x2,f2);
+		if(f1*f0>=0) x1=x0; else x2=x0;
+	}while((x2-x1)>DELTA);
+	printf("[%d] root = %lf\n", i, x0);
+	return 0;
+}						</pre>
+						</div>
+					</div>
+				</section>
+				
+				<section>
+					<h4>改进：带参数的宏</h4>
+					<pre class="brush:c;highlight:[4,14];">
+#include "stdio.h"
+#include "math.h"
+#define DELTA 1e-6
+#define F(x) 2*pow((x),3)-4*(x)*(x)+3*(x)-6
+int main()
+{
+	double x0,x1=-10,x2=10,f0,f1,f2;
+	int i=0;
+	printf("%4s%13s%13s%13s%13s%13s%13s\n",
+		"No."," x1 "," f(x1) "," x0 "," f(x0) ",
+		" x2 "," f(x2) ");
+	do{
+		x0 = (x1+x2)/2;
+		f0 = F(x0);	f1 = F(x1);	f2 = F(x2);
+		printf(
+		"%4d%13.6lf%13.6lf%13.6lf%13.6lf%13.6lf%13.6lf\n",
+			++i,x1,f1,x0,f0,x2,f2);
+		if(f1*f0>=0) x1=x0; else x2=x0;
+	}while((x2-x1)>DELTA);
+	printf("[%d] root = %lf\n", i, x0);
+	return 0;
+}					</pre>
+				</section>
+				
+				<section>
+					<img src="images/fig5-7-3.png" style="width:100%"/>
+				</section>
+				
+				<section>
+					<h4>例5.8 求<code>100~200</code>之间的素数</h4>
+					<div class="flex">
+						<img src="images/fig5-8-2.png" class="fragment fade-right"/>
+						<div class="fragment fade-left">
+							<pre class="brush:c;highlight:[5,7,11,14];">
+#include "stdio.h"
+#include "math.h"
+int main()
+{
+	int n=100, i, flag;
+	do{
+		i=2; flag = 0;
+		do{
+			int r = n % i;
+			if(r==0)
+				flag=1;
+			else
+				i++;
+		}while(flag==0 && i<=sqrt(n));
+		if(flag==0)
+			printf("%10d",n); 
+		n++;
+	}while(n<=200);
+	return 0; 
+}							</pre>
+						</div>
+					</div>
+				</section>
+				
+				<section>
+					<h4>改进：引入<code>break</code></h4>
+					<div class="flex">
+						<div class="fragment fade-right">
+							<pre class="brush:c; highlight:[5,7,11,14];">
+#include "stdio.h"
+#include "math.h"
+int main()
+{
+	int n=100, i, flag;
+	do{
+		i=2; flag = 0;
+		do{
+			int r = n % i;
+			if(r==0)
+				flag=1;
+			else
+				i++;
+		}while(flag==0 && i<=sqrt(n));
+		if(flag==0)
+			printf("%10d",n); 
+		n++;
+	}while(n<=200);
+	return 0; 
+}
+							</pre>
+						</div>
+						<div class="fragment fade-left">
+							<pre class="brush:c; highlight:[11,14,15];">
+#include "stdio.h"
+#include "math.h"
+int main()
+{
+	int n=100, i;
+	do{
+		i=2; 
+		do{
+			int r = n % i;
+			if(r==0)
+				break;
+			else
+				i++;
+		}while(i<=sqrt(n));
+		if(i>sqrt(n))
+			printf("%10d\n",n); 
+		n++;
+	}while(n<=200);
+	return 0; 
+}							</pre>
+						</div>
+					</div>
+				</section>
+			</section>
+			
+			<section>
+				<section>
+					<h2>测试和作业</h2>
+				</section>
+				<section>
+					<h3>一、单项选择</h3>
+				</section>
+				<section>
+					<h4>1. 关于C语言的循环，下面错误的是（ ）</h4>
+					<ol>
+						<li class="sel fragment highlight-red"><code>do</code>循环和<code>while</code> 循环可以完全互相转换 </li>
+						<li class="sel"><code>while</code> 中可以包含多条循环语句，但是必须用<code>{}</code>包含构成复合语句</li>
+						<li class="sel">用<code>break</code>可以从循环中退出</li>
+						<li class="sel">在多层嵌套循环中，内层的<code>break</code>语句不能完全退出到所有的循环外面</li>
+					</ol>
+				</section>
+				
+				<section>
+					<h4>2. 下面的程序运行结果是：（ ）</h4>
+					<div class="flex">
+						<pre class="brush: c">
+#include "stdio.h"
+int main(void)
+{	
+	int x, y, z=1;
+	for(x=1;x<4;x++){
+		for(y=1;y<4;y++){
+			if(y >x) continue;
+			printf("%d", x*y);
+		}
+		printf(",");
+	}
+	return 0;
+}
+						</pre>
+						<div class="flex">
+							<ol>
+								<li class="sel">123,234,345,</li>
+								<li class="sel">123,246,369,</li>
+								<li class="sel">1,23,345,</li>
+								<li class="sel fragment highlight-red">1,24,369,</li>
+							</ol>
+						</div>
+					</div>
+				</section>
+				
+				<section>
+					<h4>3. 下面的程序运行结果是：（ ）</h4>
+					<div class="flex">
+						<pre class="brush: c">
+#include "stdio.h"
+int main(void)
+{	
+	int i,sum=0;
+	for(i=1;i<6;i++)sum+=i;
+		printf("%d\n",sum);
+	return 0;
+}
+						</pre>
+						<div class="flex">
+							<ol>
+								<li class="sel fragment highlight-red">15</li>
+								<li class="sel">14</li>
+								<li class="sel">13</li>
+								<li class="sel">0</li>
+							</ol>
+						</div>
+					</div>
+				</section>
+				
+				<section>
+					<h4>4. 下面的程序运行结果是：（ ）</h4>
+					<div class="flex">
+						<pre class="brush: c">
+#include "stdio.h"
+int main(void)
+{	
+	int x=3;
+	do{
+		printf("%d", x-=2);
+	}while(!(--x));
+
+	return 0;
+}
+						</pre>
+						<div class="flex">
+							<ol>
+								<li class="sel">1</li>
+								<li class="sel">3 0</li>
+								<li class="sel fragment highlight-red">1-1</li>
+								<li class="sel">死循环</li>
+							</ol>
+						</div>
+					</div>
+				</section>
+				
+				<section>
+					<h3>二、程序填空</h3>
+				</section>
+				
+				<section>
+					<h4>1. 输出所有的水仙花数，即所有满足下列条件的三位数：其各位数字立方和等于该数本身。</h4>
+					<div class="flex">
+						<pre class="brush: c;highlight:[4,5,8,10,11];">
+#include "stdio.h"
+int main(void)
+{	
+	__( 1 )__;
+	for(n=100; n< __( 2 )__; n++){
+		int a,b,c;
+		a = n / 100;
+		b = __( 3 )__;
+		c = n % 10;
+		if ( n == __( 4 )__ ) 
+			printf("__( 5 )__\n", n);
+	}
+	return 0;
+}
+						</pre>
+						<ol>
+							<li class="fragment fade-left"><code>int n;</code></li>
+							<li class="fragment fade-left"><code>1000</code></li>
+							<li class="fragment fade-left"><code>(n%100)/10</code></li>
+							<li class="fragment fade-left"><code>a*a*a+b*b*b+c*c*c</code></li>
+							<li class="fragment fade-left"><code>%d</code></li>
+						</ol>
+					</div>
+				</section>
+				
+				<section>
+					<h4>2. 输入两个整数<code>m,n</code>，求其最大公约数。</h4>
+					<div class="flex">
+						<pre class="brush: c;highlight:[6,8,13,17,18];">
+#include "stdio.h"
+int main(void)
+{	
+	int m, n, gcd, r;
+	puts("input 2 integer: ");
+	scanf("%d,%d", __( 1 )__);
+	if ( m < n ) {
+		__( 2 )__;
+		m = n;  n = t;
+	}
+	do{
+		r = m % n;
+		if ( __( 3 )__) {
+			printf("gcd=%d\n",n);
+			break;
+		}
+		__( 4 )__; n = r;
+	}while(__( 5 )__);
+	return 0;
+}						</pre>
+						<ol>
+							<li class="fragment fade-left"><code>&m,&n;</code></li>
+							<li class="fragment fade-left"><code>int t=m</code></li>
+							<li class="fragment fade-left"><code>r==0</code> 或 <code>!r</code></li>
+							<li class="fragment fade-left"><code>m=n</code></li>
+							<li class="fragment fade-left"><code>1</code>或任何非<code>0</code>值</li>
+						</ol>
+					</div>
+				</section>
+				
+				<section>
+					<h3>三、改错，找出每道题的五处错误，指出错误的行号，并进行修正。</h3>
+				</section>
+				
+				<section>
+					<h4>1. 输入一行字符（以【回车换行】-其ASCII码为<code>10</code>-为结束），统计其中英文字母、数字、其他字符的个数。</h4>
+					<div class="flex fragment fadeout">
+						<pre class="brush: c">
+include "stdio.h"
+int main()
+{	
+	char c, alpha=0, digit=0, other=0;
+	do{
+		puts('input a charactor:');
+		c = getchar();
+		
+		if ( c == 10 );
+			break;
+		else if (
+		('a'<=c && c<='z') || ('A' <= c && c<='Z'))
+			alpha++;
+		else if( '0'<=c<='9')
+			digit++;
+		else
+			other++;
+		printf("alpha=%d, digit=%d, other=%d\n, 
+			alpha, digit, other");
+	}while(1);
+	return 0;
+}						</pre>
+						<table>
+							<tr>
+								<th>错误行</th>
+								<th>更正</th>
+							</tr>
+							<tr class="fragment fade-left">
+								<td>1</td>
+								<td>少了<code>#</code></td>
+							</tr>
+							<tr class="fragment fade-left">
+								<td>6</td>
+								<td><code>'</code>应该是<code>"</code></td>
+							</tr>
+							<tr class="fragment fade-left">
+								<td>9</td>
+								<td>多了<code>;</code></td>
+							</tr>
+							<tr class="fragment fade-left">
+								<td>14</td>
+								<td>应该是<code>'0'<=c && c<='9'</code></td>
+							</tr>
+							<tr class="fragment fade-left">
+								<td>18,19</td>
+								<td><code>"</code>应该在<code>\n</code>后面</td>
+							</tr>
+						</table>
+					</div>
+				</section>
+				
+				<section>
+					<h4>2. 今有雉兔同笼，上有三十五头，下有九十四足，问雉兔各几何？</h4>
+					<div class="flex fragment fadeout">
+						<pre class="brush: c">
+#include "stdio.h"
+int main()
+{	
+	int rabbits;
+	for(rabbits=0,rabbits<=35; rabbits++;)
+		chicken = 35 - rabbits;
+		{if( 94 = rabbits*4+chicken*2 )
+			printf("rabbits=%f, chicken=%f\n", 
+			rabbits, chicken);}
+	return 0;
+}						</pre>
+						<table>
+							<tr>
+								<th>错误行</th>
+								<th>更正</th>
+							</tr>
+							<tr class="fragment fade-left">
+								<td>4</td>
+								<td><code>chicken</code>未定义。</td>
+							</tr>
+							<tr class="fragment fade-left">
+								<td>5</td>
+								<td><code>rabbits=0</code>后面应该是<code>;</code></td>
+							</tr>
+							<tr class="fragment fade-left">
+								<td>7</td>
+								<td><code>{</code>应该在行尾</td>
+							</tr>
+							<tr class="fragment fade-left">
+								<td>7</td>
+								<td><code>=</code>应该是<code>==</code></td>
+							</tr>
+							<tr class="fragment fade-left">
+								<td>8</td>
+								<td><code>%f</code>应该是<code>%d</code></td>
+							</tr>
+						</table>
+					</div>
+				</section>
+				
+				<section>
+					<h3>课后作业</h3>
+					<ol>
+						<li>P140, 第6题</li>
+						<li>P141, 第11题</li>
+					</ol>
+				</section>
+				
+				<section>
+					
+				</section>
+			</section>
+		</div>
+	</div>
+
+	<script src="js/reveal.js-3.7.0/lib/js/head.min.js"></script>
+	<script src="js/reveal.js-3.7.0/js/reveal.js"></script>
+	
+	<script>
+		// More info https://github.com/hakimel/reveal.js#configuration
+		Reveal.initialize({
+			controls: true,
+			progress: true,
+			history: true,
+			center: true,
+
+			transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+			// More info https://github.com/hakimel/reveal.js#dependencies
+			dependencies: [{
+					src: 'js/reveal.js-3.7.0/lib/js/classList.js',
+					condition: function () {
+						return !document.body.classList;
+					}
+				},
+				{
+					src: 'js/reveal.js-3.7.0/plugin/markdown/marked.js',
+					condition: function () {
+						return !!document.querySelector('[data-markdown]');
+					}
+				},
+				{
+					src: 'js/reveal.js-3.7.0/plugin/markdown/markdown.js',
+					condition: function () {
+						return !!document.querySelector('[data-markdown]');
+					}
+				},
+				{
+					src: 'js/reveal.js-3.7.0/plugin/search/search.js',
+					async: true
+				},
+				{
+					src: 'js/reveal.js-3.7.0/plugin/zoom-js/zoom.js',
+					async: true
+				},
+				{
+					src: 'js/reveal.js-3.7.0/plugin/notes/notes.js',
+					async: true
+				}
+			]
+		});
+	</script>
+
+</body>
+
+</html>

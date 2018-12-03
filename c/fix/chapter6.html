@@ -1,0 +1,977 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+
+	<title>c 第六章</title>
+
+	<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+	<meta name="author" content="ldc">
+
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<link rel="stylesheet" href="js/reveal.js-3.7.0/css/reveal.css">
+	<link rel="stylesheet" href="js/reveal.js-3.7.0/css/theme/sky.css" id="theme">
+
+	<script type="text/javascript" src="js/SyntaxHighlighter/scripts/shCore.js"></script>
+	<script type="text/javascript" src="js/SyntaxHighlighter/scripts/shBrushCpp.js"></script>
+	<link type="text/css" rel="stylesheet" href="js/SyntaxHighlighter/styles/shCoreDefault.css"/>
+	<link type="text/css" rel="stylesheet" href="js/SyntaxHighlighter/styles/shThemeDefault.css"/>
+	<script type="text/javascript">SyntaxHighlighter.all();</script>
+
+	<link rel="stylesheet" href="css/nstyle6.css">
+	<!-- Printing and PDF exports -->
+	<script>
+		var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'js/reveal.js-3.7.0/css/print/pdf.css' : 'js/reveal.js-3.7.0/css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+	<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	<script type="text/x-mathjax-config">
+	  MathJax.Hub.Config({
+		extensions: ["tex2jax.js"],
+		jax: ["input/TeX","output/HTML-CSS"],
+		tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+	  });
+	</script>
+	<script src="js/mathjax/MathJax.js"></script>
+</head>
+
+<body>
+
+	<div class="reveal">
+
+		<!-- Any section element inside of this container is displayed as a slide -->
+		<div class="slides">
+			<section>
+				<section>
+					<h1>第六章 </h1>
+					<h2>数组</h2>
+				</section>
+				
+				<section>
+					<h2>本章主要内容 </h2>
+					<ol>
+						<li>一维数组</li>
+						<li>二维和多维数组</li>
+						<li>字符数组和字符串</li>
+					</ol>
+				</section>
+				
+			</section>
+
+			<section>
+				<section>
+					<h2>6.1 一维数组</h2>
+				</section>
+				
+				<section>
+					<h3>6.1.1 一维数组的定义和使用</h3>
+					<div class="flex2">
+						<dl class="fragment fade-right">
+							<dt>定义语法</dt>
+							<dd>
+								<pre class="brush:c;">
+								元素类型 数组变量名[总元素个数];</pre>
+							</dd>
+							<dt>说明</dt>
+							<dd>
+								<ul>
+									<li class="fragment fade-right">数组名的命名规则和变量名一致</li>
+									<li class="fragment fade-right">在定义数组的时候，可以直接指定数组的大小，即数组里面元素的个数，称为<b class="fragment highlight-red">数组的长度</b></li>
+								</ul>
+							</dd>
+						</dl>
+						<div class="flex fragment fade-up">
+<pre class="brush:c; highlight:[4,5,6,7,10];">
+#include "stdio.h"
+int main()
+{
+	int n,d1[5]={1,6,2}; //定义数组和初始化
+	scanf("%d",&n);  double d2[n]; //C99，可变大小数组
+	for(int i=0;i&lt;n;i++){ //注意下标从0开始，到n-1
+		d2[i] = i; printf("%.2lf\n", d[i]);//使用数组
+	}
+	//数组和数组元素占内存的实际字节数
+	printf("%lu,%lu\n", sizeof(d), sizeof(d[0]));
+	return 0;
+}</pre>
+							<div >
+								<pre class="brush:c;highlight:[2,7]" >
+								//输出
+								4
+								0.00
+								1.00
+								2.00
+								3.00
+								32,8</pre>
+							</div>
+						</div>
+					</div>
+				</section>
+				
+				<section>
+					<h3>6.1.2 一维数组的初始化</h3>
+					<dl>
+						<dt>数组的初始化</dt>
+						<dl>
+							在定义数组的时候，给数组元素赋予初值。
+						</dl>
+					</dl>
+					<pre class="brush:c;">
+	int a[4]={1,2,3,4,5]; //完全赋予每个元素初始值
+	double b[3]={3.14, 1.618}; //部分元素赋初值，其他的都被设置为0
+	float c[] = { 0.1, 0.4, 0.7} ; //没有设置数组长度，其长度由初始值个数决定
+	int n[5]={[4]=5, [0]=1, 2, 3, 4}; //c99, n中是：1,2,3,4,5
+	</pre>
+				</section>
+				
+				<section>
+					<h3>6.1.3 一维数组的应用实例</h3>
+				</section>
+				
+				<section>
+					<h4>例6.1 遍历查找数据</h4>
+					<p>如下表所示的对数表，编写程序进行查找。<button type="button" onclick="show_log_table()">点击显示表格数据</button></p>
+					<div id="table-log" style="height:60px;"></div>
+					<script>
+					function show_log_table(){
+						let str="<table style='width:90%;'><tr>"
+						str+="<td>x</td>"
+						for(let i =1.0; i<2.1; i+=0.1){
+							str+="<td>"+i.toFixed(2)+"</td>"
+						}
+						str+="</tr><tr><td>log(x)</td>"
+						for(let i =1.0; i<2.1; i+=0.1){
+							str+="<td>"+Math.log10(i).toFixed(4)+"</td>"
+						}
+						str+="</tr></table>"
+						let obj = document.getElementById("table-log")
+						obj.innerHTML = str;
+					}
+					</script>
+					<div class="flex">
+						<img src="images/fig-demo6-2.png" class="fragment fade-right" style="height:480px;"/>
+						<div class="fragment fade-left">
+							<pre class="brush:c">
+#include "stdio.h"
+#include "math.h"
+#define DELTA 1e-6
+int main()
+{	double	data_x[]={1.0, 1.1, 1.2, 1.3, 1.4, 
+		1.50, 1.6, 1.7, 1.8, 1.9, 2.0};
+	double	data_y[]={0, 0.0414, 0.0792, 0.1139, 
+		0.1461, 0.1761, 0.2041, 0.2304, 
+		0.2553, 0.2788, 0.3010};
+	double x;	int i, flag = 0, n;
+	n=sizeof(data_x)/sizeof(double);
+	puts("input x:"); scanf("%lf", &x);
+	for(i=0; i&lt;n && flag==0; )
+		if( fabs(data_x[i] - x) < DELTA)flag = 1;
+		else i++;
+	if(flag == 1)
+		printf("%i, log(%.2lf)=%.4lf\n", i, 
+			data_x[i], data_y[i]);
+	else	printf("not found.\n");
+	return 0;
+}							</pre>
+						</div>
+					</div>
+				</section>
+				
+				<section>
+					<h4>例6.2 冒泡排序法</h4>
+					<p>排序：将一组数按照从大到小或者从小到大的顺序排列。下面是从小到大的基本算法：</p>
+					<ol>
+						<li>从第一个元素到最后一个元素，两两进行比较，如果前者 &lt; 后者，则交换二者的位置，直到最大的数移到最后的位置；</li>
+						<li>将最后位置前移一个（即不考虑上一步已经确定位置的最大值），然后重复上一步，直到在这一轮中没有发生任何交换，表明已经排好序。</li>
+					</ol>
+				</section>
+				
+				<section>
+					<img src="images/bubble1.png" />
+				</section>
+				
+				<section>
+					<img src="images/bubble2.png" />
+				</section>
+				
+				<section>
+					<img src="images/bubble3.png" />
+				</section>
+				
+				<section>
+					<div class="flex">
+						<img src="images/bubble4.png" style="width:430px;"/>
+						<div class="fragment fade-left">
+							<pre class="brush:c;">
+#include "stdio.h"
+#define show_data(d, n) \
+	for(int t=0;t&lt;n;t++) \
+		printf("%4d",d[t]); \
+	putchar('\n');
+int main()
+{
+	int data[] = {7,2,3,5,11,6,8,4,9};
+	int n = sizeof(data)/sizeof(int);
+	int i,j,flag=1;
+	show_data(data, n);
+	
+	for(i=n-1;i&gt;0 && flag!=0;i--){
+		flag = 0;
+		for(j=0;j&lt;i;j++){
+			if(data[j]&gt;data[j+1]){
+				int t=data[j];
+				data[j]=data[j+1];
+				data[j+1]=t;
+				flag=1;
+			}
+		}
+		show_data(data, n);
+	}
+	show_data(data, n);
+	return 0;
+}							</pre>
+						</div>
+					</div>
+				</section>
+				
+				<section>
+					<h4>例6.3 选择排序法</h4>
+					<ol>
+						<li>从第一个元素到最后一个元素，找出最大的数的下标，如果该位置的数比最后一个位置的数还大，则和最后一个元素交换二者的位置；</li>
+						<li>将最后位置前移一个（即不考虑上一步已经确定位置的最大值），然后重复上一步，直到只剩下最后一个元素。</li>
+					</ol>
+				</section>
+				
+				<section>
+					<img src="images/select1.png" />
+				</section>
+				
+				<section>
+					<img src="images/select2.png" />
+				</section>
+				
+				<section>
+					<img src="images/select3.png" />
+				</section>
+				
+				<section>
+					<div class="flex">
+						<img src="images/select4.png" style="width:430px;"/>
+						<div class="fragment fade-left">
+							<pre class="brush:c;">
+#include "stdio.h"
+#define show_data(d, n) 
+	for(int t=0;t&lt;n;t++) \
+		printf("%4d",d[t]); \
+	putchar('\n');
+int main()
+{
+	int data[] = {7,2,3,5,11,6,8,4,9};
+	int n = sizeof(data)/sizeof(int);
+	int i,j,max;
+	show_data(data, n);
+	
+	for(i=n-1;i&gt;0;i--){
+		max = 0;
+		for(j=0;j&lt;i;j++)
+			if(data[j]&gt;data[max])
+				max=j;
+		if(data[max]&gt;data[i]){
+			int t=data[max];
+			data[max]=data[i];
+			data[i]=t;
+		}
+		show_data(data, n);
+	}
+	show_data(data, n);
+	return 0;
+}							</pre>
+						</div>
+					</div>
+				</section>
+			</section>
+			
+			<section>
+				<section>
+					<h2>6.2 二维数组</h2>
+				</section>
+				
+				<section>
+					<h3>6.2.1 定义和使用二维数组</h3>
+					<h4>定义语法：</h4>
+					<pre class="brush:c;">
+					元素类型 数组名[一维长度][二维长度];
+					//例子：
+					float data[3][5];</pre>
+					<h4>初始化：</h4>
+					<pre class="brush:c;">
+					int d1[2][3]={{1,2,3},{4,5,6}}; //先行再列，每行用{}来括起来
+					float d2[2][3]={1.0,2.0,3.0,4.1,5.2,6.3}; //也可以用扁平的方式
+					char d3[][3]={{'a','b','c'},{'0','1'}};
+					//注意第一维长度可以省略，由后面的初始化值反推
+					//第二维长度不能省略
+					int y[4][3]={{1},{0,1},{[2]=1}}; 
+					//y[0]={1,0,0}, y[1]={0,1,0}
+					//y[2]={0,0,1}, y[2]={0,0,0}
+					</pre>
+					<h4>引用二维数组的元素：</h4>
+					<pre class="brush:c;">
+					double d4[2][3]={0.0}; //定义和初始化
+					d4[0][1]=3.14; //二维数组元素的赋值
+					double c = d4[1][2]; //引用元素	</pre>
+				</section>
+				
+				<section>
+					<h3>6.2.2 二维数组程序举例</h3>
+				</section>
+				
+				<section>
+					<h4>例6.2.2.1 找出二维矩阵的最大值。</h4>
+					<pre class="brush:c;">
+#include"stdio.h"
+int main()
+{
+	int i,j,row,col;
+	int a[3][4]={{1,2,3,4},{9,8,7,6},{-10,10,-5,2}};
+	row=0; col=0;
+	for(i=0;i&lt;3;i++)
+		for(j=0;j&lt;4;j++)
+			if(a[row][col]&lt;a[i][j]){
+				row=i; col=j;
+			}
+	printf("max=%d, row=%d, col=%d\n", a[row][col],row,col);
+	return 0;
+}				</pre>
+				</section>
+				
+				<section>
+					<h4>例6.2.2.2 魔方阵的生成: 奇数阶魔方</h4>
+					<div class="flex">
+						<img src="images/洛书方阵.png" style="height:600px; margin-right: 20px;"/>
+						<div class="fragment fade-left"  style="font-size:24px;">
+							<p>奇数n阶魔方阵算法：</p>
+							<ol>
+<li>把1（或最小的数）放在最后一行正中，按以下规律排列剩下的<code>n×n-1</code>个数；</li>
+<li>每一个数放在前一个数的右下一格； </li>
+<li>如果这个数所要放的格已经超出了底行那么就把它放在顶行，仍然要放在右一列；</li>
+<li>如果这个数所要放的格已经超出了最右列那么就把它放在最左列，仍然要放在下一行；</li>
+<li>如果这个数所要放的格已经有数填入，那么就把它放在前一个数的上一行同一列的格内。</li>
+							</ol>
+						</div>
+					</div>
+				</section>
+				
+				<section>
+					<h4>例6.2.2.2 魔方阵的生成: 奇数阶魔方</h4>
+					<div class="flex">
+						<img src="images/洛书方阵.png" style="height:600px; margin-right: 20px;"/>
+						<div class="fragment fade-right" style="height: 600px;overflow-y: scroll;">
+							<pre class="brush:c;">
+#include "stdio.h"
+//定义最大的魔方阵的阶数
+#define MAX_N 15 
+int main()
+{	int magic[MAX_N][MAX_N]={0}, //魔方阵数组
+		row, col, //行、列下标
+		old_row, old_col, //上一个循环的行、列坐标
+		i=1,  //填到魔方中的数值
+		n;    //魔方阵阶数
+	//输入魔方阶数
+	do{	printf("input n (0&lt;=n&lt;=%d):", MAX_N);
+		scanf("%d",&n);
+	}while(n&lt;=0 || n&gt;MAX_N);
+	//填入第一个数，其位置：最后一行，中间列
+	row = n-1; col = n/2; 
+	magic[row][col]=i;
+	//按照算法填充剩下的数到魔方中
+	while(i&lt;n*n){
+		//先保存上一次循环的行、列坐标
+		old_row=row; old_col=col;
+		//下一个数的位置，其行坐标是下一行
+		//若下一行已经超过最后一行，则回到第0行
+		row = (row+1&gt;n-1)?0:row+1;
+		//下一个数的位置，其列坐标是右一列
+		//若右一列已经超过最右一列，则回到第0列
+		col = (col+1&gt;n-1)?0:col+1;
+		if(magic[row][col]==0)
+			//若该行、列未填充，则填充并把数+1
+			magic[row][col]=++i;
+		else{
+			//若该行、列已经填充，则
+			//行是上一个循环的上一行
+			row = (old_row-1&lt;0)?0:(old_row-1);
+			//列是上一个循环的相同列
+			col = old_col;
+			//在新的行、列坐标填充数，并把数+1
+			magic[row][col]=++i;
+		}
+	}
+	//输出填充好的魔方阵
+	for(row=0;row&lt;=n;row++){
+		int s=0;
+		for(col=0;col&lt;=n;col++){
+			printf("%6d",magic[row][col]);
+			s+=magic[row][col];
+		}
+		printf("\t|%d\n", s);
+	}
+	printf("-----------------------\n");
+	for(col=0;col&lt;=n;col++){
+		int s=0;
+		for(row=0;row&lt;=n;row++){
+			s+=magic[row][col];
+		}
+		printf("%6d",s);
+	}putchar('\n');
+	return 0;
+}
+							</pre>
+						</div>
+					</div>
+				</section>
+				
+				<section>
+					<h4>生成的几个魔方阵</h4>
+					<pre class="brush:c;">
+input n (0<=n<=15):3
+     4     9     2      |15
+     3     5     7      |15
+     8     1     6      |15
+-----------------------
+    15    15    15
+input n (0<=n<=15):5
+    11    18    25     2     9  |65
+    10    12    19    21     3  |65
+     4     6    13    20    22  |65
+    23     5     7    14    16  |65
+    17    24     1     8    15  |65
+-----------------------
+    65    65    65    65    65
+input n (0<=n<=15):7
+    22    31    40    49     2    11    20      |175
+    21    23    32    41    43     3    12      |175
+    13    15    24    33    42    44     4      |175
+     5    14    16    25    34    36    45      |175
+    46     6     8    17    26    35    37      |175
+    38    47     7     9    18    27    29      |175
+    30    39    48     1    10    19    28      |175
+-----------------------
+   175   175   175   175   175   175   175	
+					</pre>
+				</section>
+			</section>
+			
+			<section>
+				<section>
+					<h2>6.3 字符数组</h2>
+					<ol>
+						<li>单纯的字符数组</li>
+						<li>存储字符串的字符数组</li>
+						<li>字符串数组</li>
+					</ol>
+				</section>
+				
+				<section>
+					<h3>6.3.1 单纯的字符数组</h3>
+					<div class="fragment fade-left">
+						<pre class="brush:c;">
+#include "stdio.h"
+int main()
+{
+	char c1[5]={'a','b','c','d','e'}, c2[]={'1','3','5'};
+	int i;
+	for(i=0;i&lt;5;i++)putchar(c1[i]);
+	putchar('\n');
+	for(i=0;i&lt;sizeof(c2)/sizeof(char);i++)putchar(c2[i]);
+	return 0;
+}						</pre>
+					</div>
+					<div class="fragment fade-left">
+						<pre class="brush:c;">
+abcde
+135						</pre>
+					</div>
+				</section>
+				
+				<section>
+					<h4>例：多维字符数组的应用: 字体点阵</h4>
+					<div class="flex">
+						<div class="fragment fade-right" style="overflow-y:scroll;height:600px;">
+							<pre class="brush:c;">
+#include"stdio.h"
+int main()
+{
+	char fonts[3][5][5]={
+		{ {' ',' ','*',' ',' '},
+		  {' ',' ','*',' ',' '},
+		  {' ',' ','*',' ',' '},
+		  {' ',' ','*',' ',' '},
+		  {' ',' ','*',' ',' '}},
+		  
+		{ {'*','*','*','*','*'},
+		  {' ',' ',' ',' ','*'},
+		  {' ','*','*','*',' '},
+		  {'*',' ',' ',' ',' '},
+		  {'*','*','*','*','*'}},
+		  
+		{ {'*','*','*','*','*'},
+		  {' ',' ',' ',' ','*'},
+		  {' ','*','*','*','*'},
+		  {' ',' ',' ',' ','*'},
+	      {'*','*','*','*','*'}}};
+	int n,i,j;
+	printf("input n =");
+	scanf("%d",&n);
+	for(i=0;i&lt;5;i++){
+		for(j=0;j&lt;5;j++)
+			putchar(fonts[n][i][j]);
+		putchar('\n');
+	}
+	return 0;
+}							</pre>
+						</div>
+						<div class="fragment fade-right">
+							<pre class="brush:c;">
+input n =0
+  *
+  *
+  *
+  *
+  *
+input n =1
+*****
+    *
+ ***
+*
+*****
+input n =2
+*****
+    *
+ ****
+    *
+*****							</pre>
+						</div>
+					</div>
+				</section>
+				
+				<section>
+					<h3>6.3.2 存储字符串的字符数组</h3>
+					<p class="fragment fade-right">在C语言中字符串会在最后加上一个结尾符<code>'\0'</code>。</p>
+					<pre class="brush:c">
+#include"stdio.h"
+
+int main()
+{
+	char s[]="Hello";
+	printf("size = %lu\n", sizeof(s)); //输出6
+	return 0;
+}					</pre>
+				</section>
+				
+				<section>
+					<h3>6.3.3 存储多个字符串的数组</h3>
+					<pre class="brush:c">
+#include"stdio.h"
+
+int main()
+{
+	char s[][100]={"apple","banana","orange"};
+	for(int i=0; i&lt;sizeof(s)/sizeof(s[0]));i++)
+		printf("%s\n", s[i]);
+	return 0;
+}					</pre>
+				</section>
+				
+				<section>
+					<h3>6.3.4 对字符串的处理</h3>
+					<p>字符串有不少处理，比如：获得字符串的实际长度，字符串的复制，字符串的拼接，字符串的查找，字符串的大小写转换等等，请参见课本158~162页，下面简单举例：</p>
+					<pre class="brush:c">
+#include"stdio.h"
+#include"string.h"
+int main()
+{
+	char s1[100]="Hello", s2[50];
+	printf("%s的字符个数=%d\n",s1,strlen(s1)); //输出：Hello 的的字符个数=5
+	strcpy(s2, s1); //强烈不建议，有可能会产生溢出
+	strncpy(s2, s1, 50); //建议，避免溢出
+	strcat(s2, " world!"); //s2里是"Hello world!"，强烈不建议
+	strncat(s2, " world!", 50); //建议
+	strcmp("apple", "banana"); //结果是-1
+	strcmp("apple", "apple");  //结果是 0
+	strcmp("orange", "Orange"); //结果是 1
+	return 0;
+}					</pre>
+				</section>
+				
+								<section>
+					<h3>6.3.4 字符串和数值的转换</h3>
+					<p>字符串和数值可以互相转换，具体参见：<a>https://en.cppreference.com/w/c/string/byte</a>，下面是举例：</p>
+					<pre class="brush:c; highlight:[1,2]">
+#include"stdio.h"
+#include"stdlib.h"
+int main()
+{
+	char s1[100]="12.34", s2[100]="45";
+	int a; double b;
+	a = atoi(s2); //a &lt;-- 45
+	sscanf(s2, "%d", &a);
+	b = atof(s1); //b &lt;-- 12.34
+	sscanf(s1, "%lf", &b);
+	
+	a = 134; b=3.14;
+	sprintf(s1, "%d", a); //s1里面是："123"
+	sprintf(s2, "%lf", b); //s2里面是："3.140000"
+	return 0;
+}					</pre>
+				</section>
+			</section>
+			
+			<section>
+				<section>
+					<h2>测试和作业</h2>
+				</section>
+				
+				<section>
+					<h3>一、判断对错</h3>
+				</section>
+				
+				<section>
+					<ol>
+						<li class="fragment fade-right">C语言的数组下标可以是任意的整数表达式，但必须是≥0 （<span class="fragment fade-left red">√</span>）</li>
+						<li class="fragment fade-right">设<code>double a[3];</code>，则<code>scanf("%lf", a[0]);</code>可以从键盘获得一个双精度浮点数放入第一个数组元素中 （<span class="fragment fade-left red">X</span>）</li>
+						<li class="fragment fade-right"><code>float d1[3]={1,3,5}, d2[3]; d2=d1; </code> 可以实现数组的整体赋值（<span class="fragment fade-left red">X</span>）</li>
+						<li class="fragment fade-right">下面的初始化：<code>short m[5]={,,3,4};</code>可以使得数组元素<code>m[0]</code>被赋值<code>0</code>（<span class="fragment fade-left red">X</span>）</li>
+						<li class="fragment fade-right">下面的初始化：<code>short t[3][]={{1,2},{3,4},{5,6}};</code>可以使得初始化二维数组 （<span class="fragment fade-left red">X</span>）</li>
+						<li class="fragment fade-right">若定义了二维数组<code>float p[2][3];</code> ，则使用二维数组元素第2行，第三列的元素是：<code>p[2,3]</code>（<span class="fragment fade-left red">X</span>）</li>
+						<li class="fragment fade-right">字符数组<code>char str[]="cat";</code>的数组长度为<code>3</code>;（<span class="fragment fade-left red">X</span>）</li>
+					</ol>
+				</section>
+				
+				<section>
+					<h3>二、改错题（每题有5处错误，指出错误的行数，并修改为正确的结果）。</h3>
+				</section>
+				
+				<section>
+					<h4>1. 有一个3*4的矩阵，编程求出最大的那个元素，及其行列号</h4>
+					<div class="flex">
+						<pre class="brush:c;">
+#include "stdio.h";
+int Main()
+{
+	int i,j,row=0,col=0,max;
+	int a[3][4]={
+		{  1, 2, 3, 4},
+		{  9, 8, 7, 6},
+		{-10,10,-5, 2}};
+	max=a[0][0];
+	for(i=1;i&lt;=3;i++)
+		for(j=1;j&lt;=4;j++)
+			if(a[i][j]&gt;max)
+				max=a[i][j];
+				row=i;
+				col=j;
+	printf("max=%d\nrow=%d\ncol=%d\n",
+			max,row,col);
+	return 0;
+}					</pre>
+						<table border="1" style="flex-grow: 1;align-self: flex-start;">
+							<tr>
+								<th>行号</th>
+								<th>修正</th>
+							</tr>
+							<tr class="fragment fade-left">
+								<td>第<code>1</code>行</td>
+								<td>末尾多了<code>;</code></td>
+							</tr>
+							<tr class="fragment fade-left">
+								<td>第<code>2</code>行</td>
+								<td><code>Main</code>应该是<code>main</code></td>
+							</tr>
+							<tr class="fragment fade-left">
+								<td>第<code>10</code>行</td>
+								<td>应该是<code>for(i=0;i&lt;3;i++)</code></td>
+							</tr>
+							<tr class="fragment fade-left">
+								<td>第<code>11</code>行</td>
+								<td>应该是<code>for(j=0;i&lt;4;j++)</code></td>
+							</tr>
+							<tr class="fragment fade-left">
+								<td>第<code>12,15</code>行</td>
+								<td>加上<code>{}</code></td>
+							</tr>
+						</table>
+					</div>
+				</section>
+				
+				<section>
+					<h4>2. 实现<code>strcpy</code>函数的功能，把字符串<code>str1</code>的内容复制到字符数组<code>str2</code>中：</h4>
+					<div class="flex">
+						<pre class="brush:c;">
+#include "stdio.h"
+int main()
+{
+	char str1[10]; str2[6];
+	scanf("%c", &str1[0]);
+	int i;
+	for(i=0;i<10;)
+		str2[i++]=str1[i++];
+	printf("%s", &str2);
+	return 0;
+}					</pre>
+						<table border="1" style="flex-grow: 1;align-self: flex-start;">
+							<tr>
+								<th>行号</th>
+								<th>修正</th>
+							</tr>
+							<tr class="fragment fade-left">
+								<td>第<code>4</code>行</td>
+								<td><code>str2</code>之前的<code>;</code>应该是<code>,</code></td>
+							</tr>
+							<tr class="fragment fade-left">
+								<td>第<code>5</code>行</td>
+								<td><code>%c</code>应该是<code>%s</code></td>
+							</tr>
+							<tr class="fragment fade-left">
+								<td>第<code>7</code>行</td>
+								<td>应该是<code>for(i=0;str1[i]!='\0';i++)</code></td>
+							</tr>
+							<tr class="fragment fade-left">
+								<td>第<code>8</code>行</td>
+								<td>应该是<code>str2[i]=str1[i];</code></td>
+							</tr>
+							<tr class="fragment fade-left">
+								<td>第<code>9</code>行</td>
+								<td><code>&str2</code>应该是<code>str2</code></td>
+							</tr>
+						</table>
+					</div>
+				</section>
+				
+				<section>
+					<h3>三、单选题</h3>
+				</section>
+				
+				<section>
+					<h4>1. 下面程序的运行结果是：(  )</h4>
+					<div class="flex">
+						<pre class="brush:c;">
+#include "stdio.h"
+int main()
+{
+	int a[5]={1,2,3,4,5}, b[5]={0,2,1,3,0},i,s=0;
+	for(i=0;i&lt;5;i++)
+		s+=a[b[i]];
+	printf("%d\n", s);
+	return 0;
+}						</pre>
+						<div>
+							<ol>
+								<li class="sel">6</li>
+								<li class="sel">10</li>
+								<li class="sel fragment highlight-red">11</li>
+								<li class="sel">15</li>
+							</ol>
+						</div>
+					</div>
+				</section>
+				
+				<section>
+					<h4>2. 下面程序的运行结果是：(  )</h4>
+					<div class="flex">
+						<pre class="brush:c;">
+#include "stdio.h"
+#include "string.h"
+
+int main()
+{
+	char st[30]="china ok";
+	printf("%lu\n",strlen(st));
+	return 0;
+}						</pre>
+						<div>
+							<ol>
+								<li class="sel">7</li>
+								<li class="sel fragment highlight-red">8</li>
+								<li class="sel">9</li>
+								<li class="sel">30</li>
+							</ol>
+						</div>
+					</div>
+				</section>
+				
+				<section>
+					<h4>3. 对二维数组的正确说明是：(  )</h4>
+					<div class="flex">
+						<ol>
+							<li class="sel"><code>int a[][]={1,2,3,4,5,6};</code></li>
+							<li class="sel"><code>int a[2][]={1,2,3,4,5,6};</code></li>
+							<li class="sel fragment highlight-red"><code>int a[][3]={1,2,3,4,5,6};</code></li>
+							<li class="sel"><code>int a[2,3]={1,2,3,4,5,6};</code></li>
+						</ol>
+					</div>
+				</section>
+				
+				<section>
+					<h4>4. 下面程序的运行结果是：(  )</h4>
+					<div class="flex">
+						<pre class="brush:c;">
+#include "stdio.h"
+#define N 	 3
+#define Y(n) ((N+1)*n)
+
+int main()
+{
+	int z=2*(N+Y(5+1));
+	printf("%d\n",z);
+	return 0;
+}						</pre>
+						<div>
+							<ol>
+								<li class="sel">42</li>
+								<li class="sel fragment highlight-red">48</li>
+								<li class="sel">52</li>
+								<li class="sel">出错</li>
+							</ol>
+						</div>
+					</div>
+				</section>
+				
+				<section>
+					<h4>5. 对字符数组s赋值,不合法的一个是：(  )</h4>
+					<div class="flex">
+						<ol>
+							<li class="sel"><code>char s[]="Beijing";</code></li>
+							<li class="sel"><code>char s[20]={"beijing"};</code></li>
+							<li class="sel fragment highlight-red"><code>char s[20]; s="Beijing";</code></li>
+							<li class="sel"><code>char s[20]={'B','e','i','j','i','n','g'};</code></li>
+						</ol>
+					</div>
+				</section>
+				
+				<section>
+					<h4>6. 下面程序的运行结果是：(  )</h4>
+					<div class="flex">
+						<pre class="brush:c;">
+#include "stdio.h"
+
+int main()
+{
+	int i, a[10];
+	for(i=9;i&gt;=0;i--)
+		a[i]=10-i;
+	printf("%d%d%d",a[2],a[5],a[8]);
+	return 0;
+}						</pre>
+						<div>
+							<ol>
+								<li class="sel">258</li>
+								<li class="sel fragment highlight-red">852</li>
+								<li class="sel">741</li>
+								<li class="sel">369</li>
+							</ol>
+						</div>
+					</div>
+				</section>
+				
+				<section>
+					<h4>7. 下面程序的运行结果是：(  )</h4>
+					<div class="flex">
+						<pre class="brush:c;">
+#include "stdio.h"
+int main()
+{
+	char alpha[7][30]={
+		"ABCD","EFGH","IJKL",
+		"MNOP","QRST","UVWX","YZ"};
+	int i;
+	for(i=0;i&lt;4;i++)
+		printf("%c",alpha[i][i]);
+	printf("\n");
+
+	return 0;
+}						</pre>
+						<div>
+							<ol>
+								<li class="sel">AEIM</li>
+								<li class="sel fragment highlight-red">AFKP</li>
+								<li class="sel">ABCD</li>
+								<li class="sel">DHLP</li>
+							</ol>
+						</div>
+					</div>
+				</section>
+				
+				<section>
+					<h3>课外作业</h3>
+					<ol>
+						<li>对数列：<code>4,5,8,13,2,6,19,62,31,27,32,36,21,14,13</code>进行排序（采用冒泡排序或选择排序），并采用折半查找对输入的数进行查找；</li>
+						<li>第6题，输出10行杨辉三角；</li>
+						<li>第14题，将两个字符串s1和s2按照ASCII码序进行比较</li>
+					</ol>
+				</section>
+			</section>
+		</div>
+	</div>
+
+	<script src="js/reveal.js-3.7.0/lib/js/head.min.js"></script>
+	<script src="js/reveal.js-3.7.0/js/reveal.js"></script>
+	
+	<script>
+		// More info https://github.com/hakimel/reveal.js#configuration
+		Reveal.initialize({
+			controls: true,
+			progress: true,
+			history: true,
+			center: true,
+
+			transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+			// More info https://github.com/hakimel/reveal.js#dependencies
+			dependencies: [{
+					src: 'js/reveal.js-3.7.0/lib/js/classList.js',
+					condition: function () {
+						return !document.body.classList;
+					}
+				},
+				{
+					src: 'js/reveal.js-3.7.0/plugin/markdown/marked.js',
+					condition: function () {
+						return !!document.querySelector('[data-markdown]');
+					}
+				},
+				{
+					src: 'js/reveal.js-3.7.0/plugin/markdown/markdown.js',
+					condition: function () {
+						return !!document.querySelector('[data-markdown]');
+					}
+				},
+				{
+					src: 'js/reveal.js-3.7.0/plugin/search/search.js',
+					async: true
+				},
+				{
+					src: 'js/reveal.js-3.7.0/plugin/zoom-js/zoom.js',
+					async: true
+				},
+				{
+					src: 'js/reveal.js-3.7.0/plugin/notes/notes.js',
+					async: true
+				}
+			]
+		});
+	</script>
+
+</body>
+
+</html>

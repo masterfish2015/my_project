@@ -1,0 +1,714 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+
+	<title>c 第四章</title>
+
+	<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+	<meta name="author" content="ldc">
+
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<link rel="stylesheet" href="js/reveal.js-3.7.0/css/reveal.css">
+	<link rel="stylesheet" href="js/reveal.js-3.7.0/css/theme/sky.css" id="theme">
+
+	<!-- Theme used for syntax highlighting of code -->
+	<link rel="stylesheet" href="js/reveal.js-3.7.0/lib/css/xcode.css">
+
+	<link rel="stylesheet" href="css/nstyle4.css">
+	<!-- Printing and PDF exports -->
+	<script>
+		var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'js/reveal.js-3.7.0/css/print/pdf.css' : 'js/reveal.js-3.7.0/css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+	<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	<script type="text/x-mathjax-config">
+	  MathJax.Hub.Config({
+		extensions: ["tex2jax.js"],
+		jax: ["input/TeX","output/HTML-CSS"],
+		tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+	  });
+	</script>
+	<script src="js/mathjax/MathJax.js"></script>
+</head>
+
+<body>
+
+	<div class="reveal">
+
+		<!-- Any section element inside of this container is displayed as a slide -->
+		<div class="slides">
+			<section>
+				<h1>第四章 </h1>
+				<h2>选择结构程序设计</h2>
+			</section>
+
+      <section>
+        <h2>本章主要内容</h2>
+        <ol>
+          <li class="fragment fade-left">关系运算和逻辑运算</li>
+          <li class="fragment fade-left"><code>?:</code>语句</li>
+          <li class="fragment fade-left"><code>if</code>语句</li>
+          <li class="fragment fade-left"><code>switch</code>语句</li>          
+        </ol>
+      </section>
+
+      <section>
+        <section>
+          <h2>4.1 选择结构和条件判断</h2>
+          <p>在<code>C</code>语言中，选择结构有两种形式：</p>
+          <ol>
+            <li class="fragment highlight-blue">二元判断<code>if</code></li>
+            <li class="fragment highlight-green">多选择判断<code>switch</code></li>
+          </ol>
+          <img src="images/conditions.png" alt="">
+        </section>
+      </section>
+
+      <section>
+        <section>
+          <h2>4.2 关系运算和逻辑运算</h2>
+        </section>
+
+        <section>
+          <h3>4.2.1 关系运算符及其优先次序</h3>
+          <table border="1" style="width:100%">
+            <tr>
+              <th>运算符</th>
+              <th>意义</th>
+              <th>优先级</th>
+            </tr>
+            <tr>
+              <td><code>&lt;</code></td>
+              <td>小于</td>
+              <td>高</td>
+            </tr>
+            <tr>
+              <td><code>&lt;=</code></td>
+              <td>小于等于</td>
+              <td>高</td>
+            </tr>
+            <tr>
+              <td><code>&gt;</code></td>
+              <td>大于</td>
+              <td>高</td>
+            </tr>
+            <tr>
+              <td><code>&gt;=</code></td>
+              <td>大于等于</td>
+              <td>高</td>
+            </tr>
+            <tr>
+              <td><code>==</code></td>
+              <td>等于</td>
+              <td>低</td>
+            </tr>
+            <tr>
+              <td><code>!=</code></td>
+              <td>不等于</td>
+              <td>低</td>
+            </tr>
+          </table>
+          <p>关系运算的结果是<b class="red">假</b>(<code>false</code>，C里面用<code>0</code>表示)，或<b class="green">真</b>(<code>true</code>，C里面用 <code>1</code>表示)。</p>
+		  <p>注意区别：
+		  <ul>
+		  <li>当判断是否真假时，<code>0</code>表示假，<code>!0</code>(非<code>0</code>)为真；</li>
+		  <li>当计算结果是真假时，C里面用<code>0</code>表示假，<code>1</code>表示真。</li>
+		  </ul>
+          </p>
+        </section>
+		
+		<section>
+			<p>关系运算的优先级是低于算术运算，高于赋值运算</p>
+          <pre><code class="c" data-trim>
+int a , b, c;
+a = b > c + 1; //先算c+1, 然后是 >, 然后是 =
+          </code></pre>
+          <p>相同等级的关系运算符，结合律是从左到右。</p>
+          <p>注意：不能使用连续的关系运算表示区间：</p>
+          <pre><code class="c" data-trim>
+          int a = -3;
+          if ( -6 < a < -2 )...; 
+          </code></pre>
+		  <p>这里<code>-6 < a </code>得到<b class="red">真</b>即<code>1</code>，随即<code> 1 < -2</code>的结果是<b class="red">假</b>，和原来的结果不符合，这需要使用下面的逻辑运算符。</p>
+		</section>
+		
+		<section>
+			<h3>4.2.2 逻辑运算</h3>
+			<table class="fragment fade-up">
+				<thead>
+					<tr>
+						<th style="font-size:4px;"></th>
+						<th width="10%">含义</th>
+						<th width="20%">举例</th>
+						<th>说明</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td><code>&&</code></td>
+						<td>逻辑与</td>
+						<td><code>-1 &lt; x && x &lt; 5</code></td>
+						<td><code>&&</code>左边和右边的表达式都为真(非<code>0</code>)时，结果为真(<code>1</code>)，否则结果为假(<code>0</code>)；注意，当左边表达式为假(<code>0</code>)，则会触发<b class="red">短路效应</b>，不会计算右边表达式，直接返回假(<code>0</code>)。</td>
+					</tr>
+					<tr>
+						<td><code>||</code></td>
+						<td>逻辑或</td>
+						<td><code>-1 &gt; x && x &gt; 5</code></td>
+						<td><code>||</code>左边和右边的表达式都为假(<code>0</code>)时，结果为假(<code>0</code>)，否则结果为真(<code>1</code>)；注意，当左边表达式为真(非<code>0</code>)，则会触发<b class="red">短路效应</b>，不会计算右边表达式，直接返回真(<code>1</code>)。</td>
+					</tr>
+					<tr>
+						<td><code>!</code></td>
+						<td>逻辑非</td>
+						<td><code>! (-1 &gt; x) </code></td>
+						<td>表达式为假(<code>0</code>)时，结果为真(<code>1</code>)，否则结果为假(<code>0</code>)。</td>
+					</tr>
+				</tbody>
+			</table>
+			<p class="fragment fade-left">多种运算符的优先顺序是：<code>! &gt; 算数运算符 &gt; 关系运算符 &gt; && , || &gt; 赋值运算符</code> </p>
+			<pre class="fragment fade-right"><code class="c" data-trim>
+			int a, b;
+			...
+			b = a &lt; 3 && !a +3 &gt; -4;
+			</code></pre>
+		</section>
+		
+		<section>
+			<h3>几种逻辑组合</h3>
+			<ul>
+				<li class="fragment fade-left">数学上的：$-3 \lt x \lt -1$，对应c代码：<code>-3 &lt; x && x &lt; -1</code></li>
+				<li class="fragment fade-left">数学上的：$-3 \gt x 或 x \gt -1$，对应c代码：<code>-3 &gt; x || x &gt; -1</code></li>
+				<li class="fragment fade-left"><code>x == 0</code> 等效于 <code>!x</code></li>
+				<li class="fragment fade-left"><code>x != 0</code> 等效于 <code>x</code></li>
+				<li class="fragment fade-left">在<code>c99</code>里，引入了新的数据类型：布尔类型，请参见P96</li>
+			</ul>
+		</section>
+		</section>
+		
+		<section>
+			<section>
+				<h2>4.3 二元判断选择结构</h2>
+			</section>
+			
+			<section>
+				<h3>4.3.1 条件运算符和条件表达式</h3>
+				<p>语法：</p>
+				<pre><code class="c" data-trim>
+				表达式1 ? 表达式2 : 表达式3
+				</code></pre>
+				<p>意义：判断表达式1的真假，若为真，则结果是表达式2，否则是表达式3</p>
+				<p>例子：</p>
+				<pre><code class="c" data-trim>
+				max = a &gt; b ? a: b;
+				</code></pre>
+			</section>
+			
+			<section>
+				<h3>4.3.2 <code>if...else...</code>语句</h3>
+				<p>语法：</p>
+				<pre><code class="c" data-trim>
+				if (表达式) 语句1; else 语句2;
+				</code></pre>
+				<p>意义：判断表达式的真假，若为真，则执行语句1，否则执行语句2</p>
+				<pre><code class="c" data-trim>
+				if ( a &gt; b ) max = a; else max = b; 
+				//更加好的写法，采用缩进：
+				if ( a &gt; b )
+					max = a;
+				else
+					max = b;
+				//如果判断分支有多个语句，则需要用{}来组成复合语句
+				if ( a &gt; b ){
+					max = a;
+					printf("%d\n", max);
+				}
+				else{
+					max = b;
+					printf("%d\n", max);
+				}
+				</code></pre>
+			</section>
+			
+			<section>
+				<h3><code>if</code>的嵌套</h3>
+				<h4>例：输入一个年份，判断是否闰年。</h4>
+				<img src="images/fig2-32.png" />
+			</section>
+			
+			<section>
+				<h3><code>if</code>的嵌套</h3>
+				<h4>例：输入一个年份，判断是否闰年。</h4>
+				<pre ><code class="c" data-trim>
+				#include "stdio.h"
+				int main()
+				{
+					int year, flag=0;
+					printf("input year:");
+					scanf("%d", &year);
+					if ( year % 400 == 0) 
+						flag = 1;
+					else if (year % 4 == 0) 
+						flag = 0;
+					else if (year % 100 == 0)
+						flag = 0;
+					else 
+						flag = 1;
+					if( flag == 1 ) 
+						printf("%d is leap year.\n", year);
+					else
+						printf("%d is NOT leap year.\n", year);
+					return 0;
+				}
+				</code></pre>
+				<img src="images/fig2-32.png" style="position:absolute;left:550px;top:160px;"/>
+			</section>
+			
+			<section>
+				<h4><code>if</code>语句的注意事项</h4>
+				<ul>
+					<li class="fragment fade-left">整个<code>if</code>语句可以写在多行上，也可以写在一行上，如：
+					<pre><code class="c" data-trim style="font-size:24px;">
+					if(x>0) y=1; else y=-1;
+					</code></pre>
+					每一个分支的语句都必须以<code>;</code>结尾。
+					</li>
+					<li class="fragment fade-left">整个<code>if</code>语句是一个整体，每个<code>if</code>或<code>else</code>内的语句称为分支语句，<code>else</code>部分可以省略。
+					</li>
+					<li class="fragment fade-left"><code>if</code>的分支语句只能是一条语句，如果有多行，则必须用<code>{ }</code>把多行包括起来，如：
+					<pre><code class="c" data-trim  style="font-size:24px;">
+					if(x>0){
+						y=1;
+						printf("xxx\n");
+					}else{
+						y=0;
+						printf("yyy\n");
+					}
+					</code></pre>
+					</li>
+				</ul>
+			</section>
+			
+			<section>
+				<h4><code>if</code>语句的注意事项</h4>
+				<ul>
+					<li class="fragment fade-left">嵌套的<code>if</code>中的<code>else</code>语句是匹配离它最近的上一个<code>if</code>语句，所以，如果你不想这样匹配，可以用<code>{ }</code>来确定范围，如：
+					<pre><code class="c" data-trim style="font-size:24px;">
+					if(x>y)
+						if(x>z)
+							printf("xxx\n");
+						else
+							printf("这里匹配上一个if\n");
+					</code></pre>
+					</li>
+					<li class="fragment fade-left">改变如下，：
+					<pre><code class="c" data-trim style="font-size:24px;">
+					if(x>y){
+						if(x>z)
+							printf("xxx\n");
+					}else
+						printf("这里匹配第一个if\n");
+					</code></pre>
+					</li>
+				</ul>
+			</section>
+		</section>     
+		
+		<section>
+			<section>
+				<h2>4.4 <code>switch</code>实现多分支选择</h2>
+				<img src="images/conditions.png"/>
+			</section>
+			
+			<section>
+				<h3>4.4.1 <code>switch</code>的语法</h3>
+				<pre class="fragment fade-up" ><code class="c" 
+				data-trim >
+				switch(表达式){
+					case 整型常数1: 
+						语句11; 
+						语句12;
+						...
+						[break;]
+					case 整型常数2: 
+						语句21;	
+						语句22;
+						...
+						[break;]
+					...
+					default:
+						语句n1;	
+						语句n2;
+						...
+				}
+				</code></pre>
+				<div class="fragment fade-right box" 
+				style="position:absolute;left:450px; top: 120px;">
+					<ul>
+						<li class="fragment fade-right"><code>switch</code>后面的表达式结果必须是<b class="red">整数类型（包括字符类型）</b></li>
+						<li class="fragment fade-right"><code>case</code>后面的表达式结果必须是<b class="red">整数常量（包括字符常量）</b></li>
+						<li class="fragment fade-right"><code>case</code>后面的语句依次执行，当本分支执行完后，会自动执行下面<code>case</code>的分支语句，若不希望这样而是直接跳出<code>switch</code>结构，则可以加上<code>break;</code>语句。</li>
+						<li class="fragment fade-right"><code>default</code>及其语句可以<b class="blue">省略</b></li>
+					</ul>
+				</div>
+			</section>
+			
+			<section>
+				<h3>4.4.2 示例：菜单处理程序</h3>
+				<pre><code class="c" data-trim>
+				#include"stdio.h"
+				void show_menu();
+				void add(int, int);
+				void sub(int, int);
+				int main(void)
+				{
+					int a=3, b=7, selection;
+					int quit_flag = 0;
+					while(quit_flag!=0){
+						show_menu();
+					 	selection=getchar();
+						switch(selection){
+							case 'a': case 'A':
+								add(a,b);
+								break;
+							case 'b': case 'B':
+								sub(a,b);
+								break;
+							case 'q': case 'Q':
+								quit_flag = 1;
+								break;
+							default:
+								putchar('\a');
+						}
+					}
+					return 0;
+				}
+				</code></pre>
+			</section>			
+		</section>
+		
+		<section>
+			<section>
+				<h2>4.5 综合实例</h2>
+			</section>
+			
+			<section>
+				<h3>4.5.1 判断某一年是否是闰年</h3>
+				<img class="fragment fade-right" src="images/fig2_1.png" style="position:absolute; top:100px; left: 10px; height: 600px;max-height:560px;"/>
+				<pre class="fragment fade-left" style="position:absolute;top:100px;left:470px;width:500px;"><code class="c" data-trim >
+				#include "stdio.h"
+				int main()
+				{	
+					int year;
+					puts("input year:");
+					scanf("%d", &year);
+					if ( year % 400 == 0 || 
+						(year % 4 ==0 && year % 100 != 0) )
+							printf("%d is leap year.\n", year);
+					else
+						puts("%d is NOT leap year.\n");
+					
+					return 0;
+				}
+				</code></pre>
+			</section>
+			
+			<section>
+				<h3>4.5.2 求$ax^2+bx+c=0$的根。</h3>
+				<img class="fragment fade-right" src="images/fig2-t-4-8.png" style="position:absolute; top:100px; left: 10px; height: 600px;max-height:560px;"/>
+				<pre class="fragment fade-left" style="position:absolute;top:100px;left:400px;width:550px;"><code class="c" data-trim >
+				#include "stdio.h"
+				#include "math.h"
+				#define DELTA 1e-10
+				int main()
+				{	
+					double a,b,c,d, x1, x2;
+					puts("input a,b,c:");
+					scanf("%lf,%lf,%lf", &a,&b,&c);
+					d = b*b-4*a*c;
+					if ( d >= 0){
+						if (fabs(d) < DELTA) {
+							x1 = x2 = -b/(2*a);
+							printf("x1=x2=%.2lf\n", x1);
+						}
+						else{
+							double dd = sqrt(d);
+							x1 = (-b+dd)/(2*a);
+							x2 = (-b-dd)/(2*a);
+							printf("x1=%.2lf,x2=%.2lf\n",x1,x2);
+						}
+					}
+					else
+						puts("there is no REAL roots.\n");
+					
+					return 0;
+				}
+				</code></pre>
+				<img class = "fragment fade-left" src="images/demo4_1.gif" style="width:100%"/>
+			</section>
+			
+			<section>
+				<h3>4.5.3 输入一个字母表示的成绩(A,B,C,D,E)，转换为数值成绩。</h3>				
+				<pre class="fragment fade-left" style="height:400px;"><code class="c" data-trim >
+				#include "stdio.h"				
+				int main()
+				{	
+					char s; int score;
+					puts("input s(A,B,C,D,E):");
+					s = getchar();
+					switch(s){
+						case 'A': case 'a': score = 90; break;
+						case 'B': case 'b': score = 80; break;
+						case 'C': case 'c': score = 70; break;
+						case 'D': case 'd': score = 60; break;
+						case 'E': case 'e': score = 50; break;
+						default:
+							puts("input error.\n");
+							return -1;
+					}
+					printf("score = %d\n",score);
+					return 0;
+				}
+				</code></pre>
+				<img class = "fragment fade-left" src="images/demo4_2.gif" style="width:100%; position:absolute; top: 400px; left: 10px;"/>
+			</section>
+		</section>
+		
+		<section>
+			<section>
+				<h2>测试和作业</h2>
+			</section>
+			
+			<section>
+				<h3>一、单项选择题</h3>
+			</section>
+			
+			<section>
+				<h4>1. 若有说明语句： <code>int w=1,x=2,y=3,z=4; </code> 则表达试<code>w>x?w:z>y?z:x</code>的值是（ ）</h4>
+				<ol>
+					<li  class="sel">4 <b class="fragment fade-left red">√</b></li>
+					<li  class="sel">3</li>
+					<li  class="sel">2</li>
+					<li  class="sel">1</li>
+				</ol>
+			</section>
+			
+			<section>
+				<h4>2. 设<code>int x,y,t;</code>，则执行语句：<code>x=y=3;t=++x||++y;</code>后，<code>y</code>的值为（ ）</h4>
+				<ol>
+					<li  class="sel">不定值 </li>
+					<li  class="sel">4</li>
+					<li  class="sel">-3</li>
+					<li  class="sel">3 <b class="fragment fade-left red">√</b></li>
+				</ol>
+			</section>
+			
+			<section>
+				<h4>3. 若执行以下程序时从键盘上输入9，则输出结果是：（ ）</h4>
+				<ol>
+					<li  class="sel">11 </li>
+					<li  class="sel">10 <b class="fragment fade-left red">√</b></li>
+					<li  class="sel">9</li>
+					<li  class="sel">8 </li>
+				</ol>
+				<pre ><code class="c" data-trim >
+				#include "stdio.h"				
+				int main()
+				{	
+					int n;
+					scanf("％d",&n);
+					if(n++<10)
+						printf("%d\n",n);
+					else 
+						printf("%d\n",n--);
+					return 0;
+				}
+				</code></pre>
+			</section>
+			
+			<section>
+				<h4>4. 设变量<code>char c;</code>，能正确的判断出<code>c</code>为小写字母的表达式是（ ）</h4>
+				<ol>
+					<li  class="sel"><code>'a'<=c<='z'</code></li>
+					<li  class="sel"><code>'a'<=c || c<='z'</code></li>
+					<li  class="sel"><code>'a'<=c and c<='z'</code></li>
+					<li  class="sel"><code>'a'<=c && c<='z'</code> <b class="fragment fade-left red">√</b></li>
+				</ol>
+			</section>
+			
+			<section>
+				<h4>5. 下面关于<code>if...else</code>正确的是（ ）</h4>
+				<ol>
+					<li  class="sel"><code>if</code>中的判断表达式以<code>0</code>为假，以<code>1</code>为真；</li>
+					<li  class="sel"><code>if</code> 的判断表达式为真时，其执行的语句只能有一条，如果多条，要放入<code>{}</code>中组成复合语句 <b class="fragment fade-left red">√</b></li>
+					<li>多层嵌套的<code>if...else</code> 语句，<code>else</code>语句和离它最近的下一个<code>if</code>语句相匹配</li>
+					<li><code>if</code>和<code>else</code>语句必须要适当的缩进，否则编译错误</li>
+				</ol>
+			</section>
+			
+			<section>
+				<h3>二， 程序填空</h3>
+			</section>
+			
+			<section>
+				<h4>1. 求分段函数：
+				$$
+				Y = \begin{cases}
+				-1, (x \lt 0) \\
+				0, (x = 0) \\
+				1, (x \gt 0) 
+				\end{cases}
+				$$
+				</h4>
+				<pre ><code class="c" data-trim >
+				__(1)__				
+				int main()
+				{	
+					__(2)__;
+					printf("input x:");
+					scanf("％d",__(3)__);
+					if(x<0)
+						y=-1;
+					else
+						if (x==0)
+							y=0;
+						else
+							__(4)__;
+					printf("f(%d)=%d\n", __(5)__);
+					return 0;
+				}
+				</code></pre>
+				<p class="fragment fade-right" style="position:absolute;top:230px;left:150px;"><code>#include"stdio.h"</code></p>
+				<p class="fragment fade-right" style="position:absolute;top:300px;left:250px;"><code>int x,y</code></p>
+				<p class="fragment fade-right" style="position:absolute;top:360px;left:320px;"><code>&x</code></p>
+				<p class="fragment fade-right" style="position:absolute;top:540px;left:250px;"><code>y=-1</code></p>
+				<p class="fragment fade-right" style="position:absolute;top:560px;left:450px;"><code>x,y</code></p>
+			</section>
+			
+			<section>
+				<h3>课后作业</h3>
+				<p>课本 P107, 5;</p>
+				<p>课本 P109, 11;</p>
+			</section>
+			
+			<section>
+				<h4>5, 从键盘输入一个小于1000的正数，要求输出其平方根（只整数部分），要求检查是否小于1000的正数，若不是，则重新输入。</h4>
+				<pre class="fragment fade-left"><code class="c" data-trim>
+				#include "stdio.h"
+				#include "math.h"
+				#define MAX 1000
+				int main()
+				{
+					double x,y;
+					printf("input positive number :");
+					scanf("%lf",&x);
+					if(x>=1000){
+						printf("must < %d, input again:", MAX);
+						scanf("%lf",&x);
+						if(x>=1000)
+							return -1;
+					}
+					y = sqrt(x);
+					printf("the result = %.0lf\n", y);
+					return 0;
+				}
+				</code>
+				</pre>
+			</section>
+			
+			<section>
+				<h4>11, 输入4个整数，按从小到大的顺序排列。</h4>
+				<pre class="fragment fade-left"><code class="c" data-trim>
+				#include "stdio.h"
+				int main()
+				{
+					int a,b,c,d,t;
+					printf("input 4 integer:"); 
+					scanf("%d%d%d%d",&a,&b,&c,&d);
+					
+					if(a>b){t=a;a=b;b=t;}
+					if(b>c){t=b;b=c;c=t;}
+					if(c>d){t=c;c=d;d=t;}
+					if(a>b){t=a;a=b;b=t;}
+					if(b>c){t=b;b=c;c=t;}
+					if(a>b){t=a;a=b;b=t;}
+					printf("%d,%d,%d,%d\n",a,b,c,d);
+				}
+				</code>
+				</pre>
+			</section>
+		</section>
+		</div>
+	</div>
+
+	<script src="js/reveal.js-3.7.0/lib/js/head.min.js"></script>
+	<script src="js/reveal.js-3.7.0/js/reveal.js"></script>
+	
+	<script>
+		// More info https://github.com/hakimel/reveal.js#configuration
+		Reveal.initialize({
+			controls: true,
+			progress: true,
+			history: true,
+			center: true,
+
+			transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+			// More info https://github.com/hakimel/reveal.js#dependencies
+			dependencies: [{
+					src: 'js/reveal.js-3.7.0/lib/js/classList.js',
+					condition: function () {
+						return !document.body.classList;
+					}
+				},
+				{
+					src: 'js/reveal.js-3.7.0/plugin/markdown/marked.js',
+					condition: function () {
+						return !!document.querySelector('[data-markdown]');
+					}
+				},
+				{
+					src: 'js/reveal.js-3.7.0/plugin/markdown/markdown.js',
+					condition: function () {
+						return !!document.querySelector('[data-markdown]');
+					}
+				},
+				{
+					src: 'js/reveal.js-3.7.0/plugin/highlight/highlight.js',
+					async: true,
+					callback: function () {
+						hljs.configure({
+							tabReplace:'   '
+						});
+						hljs.initHighlightingOnLoad();
+					}
+				},
+				{
+					src: 'js/reveal.js-3.7.0/plugin/search/search.js',
+					async: true
+				},
+				{
+					src: 'js/reveal.js-3.7.0/plugin/zoom-js/zoom.js',
+					async: true
+				},
+				{
+					src: 'js/reveal.js-3.7.0/plugin/notes/notes.js',
+					async: true
+				}
+			]
+		});
+	</script>
+
+</body>
+
+</html>

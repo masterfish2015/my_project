@@ -427,8 +427,8 @@ $$
 			
 			<section>
 				<section>
-					<h2>3.4 杂质半导体的载流子浓度</h2>
-				</section>
+					<h2 style="font-size: 60px;">3.4 杂质半导体的载流子浓度</h2>
+				</section> 
 				
 				<section>
 					<h3>3.4.1 杂质能级上的电子和空穴</h3>
@@ -439,7 +439,7 @@ $$
 					\tag{3-35}
 					$$，式中，$g_D$是施主能级的基态简并度，半导体：$g_D=2$
 					</p>
-					<p class="fragment fade-right" >
+					<p class="fragment fade-right" style="font-size: 28px;">
 					对于施主杂质浓度为$N_D$，其施主能级的电子浓度：
 					$$
 					n_D=N_Df_D(E)=\displaystyle\frac{N_D}{1+\frac{1}{g_D}\exp\left(\displaystyle\frac{E_D-E_F}{k_0T}\right)}
@@ -479,7 +479,7 @@ $$
 				</section>
 				
 				<section>
-					<h3>3.4.1 杂质能级上的电子和空穴</h3>
+					<h3 style="font-size:56px;">3.4.1 杂质能级上的电子和空穴</h3>
 					<p class="fragment fade-right" >
 					由此，得到电离受主浓度：
 					$$
@@ -492,69 +492,415 @@ $$
 				
 				<section>
 					<h3>3.4.2 $n$型半导体的载流子浓度</h3>
-					<p class="fragment fade-right" style="font-size:24px;">
-					仅考虑只有一种施主杂质，由电中性条件：$n_0=n_D^++p_0$
-					，代入得到：
+					<p class="fragment fade-right" style="font-size:28px;">
+					仅考虑<b class="blue">只有一种施主杂质</b>，<b class="blue">电子浓度</b>($n_{_0}$)为负性，正性电荷由两部分组成，一个是施主电离后剩下的<b class="blue">正电中心浓度</b>($n_{_D}^+$)，一个是<b class="blue">空穴浓度</b>($p_{_0}$)，由<b class="red">电中性条件, 正负相等</b>：$n_{_0}=n_{_D}^++p_{_0}$ </p>
+					
+					<p class="fragment fade-right" style="font-size:24px;">$n_{_0} = \displaystyle\frac{N_{_C}}{\exp\left(\displaystyle\frac{E_{_C}-E_{_F}}{k_0T}\right)}$，$ p_{_0} = \displaystyle\frac{N_{_V}}{\exp\left(\displaystyle\frac{E_{_F}-E_{_V}}{k_0T}\right)}$，$n_{_D}^+= \displaystyle\frac{N_{_D}}{1+2\exp\left(\displaystyle\frac{E_{_F}-E_{_D}}{k_0T}\right)}$ 代入得到：
 					$$
-					N_C/\exp(\frac{E_C-E_F}{k_0T})=N_V/\exp(\frac{E_F-E_V}{k_0T})+\frac{N_D}{1+2/\exp(\frac{E_D-E_F}{k_0T})}
+					\displaystyle\frac{N_{_C}}{\exp\left(\displaystyle\frac{E_{_C}-E_{_F}}{k_0T}\right)}=\displaystyle\frac{N_{_V}}{\exp\left(\displaystyle\frac{E_{_F}-E_{_V}}{k_0T}\right)}+\displaystyle\frac{N_{_D}}{1+2\exp\left(\displaystyle\frac{E_{_F}-E_{_D}}{k_0T}\right)}
 					\tag{3-42}
 					$$
-					</p>
+					
 				</section>
 				
 				<section>
 					<h4>【1】低温弱电离区</h4>
-					<p class="fragment fade-right" style="font-size:24px;">
-					此时，本征激发可以不考虑，施主电离也很少，$p_0=0, n_0=n_D^+$：
+					<p class="fragment fade-right" style="font-size:28px;">
+					此时，<b class="blue">本征激发可以不考虑，施主电离也很少</b>，$p_{_0}=0, n_{_0}=n_{_D}^+$：
 					$$
-					N_C/\exp(\frac{E_C-E_F}{k_0T})=\frac{N_D}{1+2/\exp(\frac{E_D-E_F}{k_0T})}
+					\displaystyle\frac{N_{_C}}{\exp\left(\displaystyle\frac{E_{_C}-E_{_F}}{k_0T}\right)}=\displaystyle\frac{N_{_D}}{1+2\exp\left(\displaystyle\frac{E_{_F}-E_{_D}}{k_0T}\right)}
 					\tag{3-43}
 					$$
 					</p>
-					<p class="fragment fade-right" style="font-size:24px;">
+					<p class="fragment fade-right" style="font-size:24px;">因为
 					$$
-					E_F=\frac{E_C+E_D}{2}+\frac{k_0T}{2}\mathrm{ln}(\frac{N_D}{2N_C})
+					E_{_F}=\frac{E_C+E_D}{2}+\frac{k_0T}{2}\mathrm{ln}(\frac{N_D}{2N_C})
 					$$
 					</p>
-					<p class="fragment fade-right" style="font-size:24px;">
-					经过化简，得到此时电子浓度：
+					<p class="fragment fade-right" style="font-size:28px;">
+					代入并化简，得到此时电子浓度：
 					$$
-					\mathrm{ln}(n_0)=\frac{1}{2}\mathrm{ln}(\frac{N_D N_C}{2})-\frac{E_C-E_D}{2k_0T}
-					$$，式中，$N_D$是杂质浓度，$N_C$是导带有效密度。
+					n_{_0}=\sqrt{\frac{N_{_D}N_{_C}}{2}}\exp\left(-\frac{E_{_C}-E_{_D}}{2k_0T}\right)
+					\tag{3-46a}
+					$$，式中，$N_{_D}$是杂质浓度，$N_{_C}=2 \displaystyle\frac{(2\pi m_{_n}^*k_0T)^{3/2}}{h^3}$是导带有效密度。
 					</p>
+					<p class="fragment fade-right" style="font-size:28px;">由上面，初始时，$N_{_C}$比较小，$N_{_C} \lt N_{_D}，E_{_F}$也是逐渐上升，标志着导带电子浓度一直上升, 当$N_{_C}=0.11N_{_D}$时，$E_{_F}$达到最大值。</p>
+				</section>
+				
+				<section>
+					<img src="images/EF与T的关系.png" style="height:600px;"/>
 				</section>
 				
 				<section>
 					<h4>【2】中间电离区</h4>
-					<p class="fragment fade-right" style="font-size:24px;">
-					此时，本征激发可以不考虑，施主电离增加，$2N_C \gt N_D $，$E_F=\frac{E_C+E_D}{2}+\frac{k_0T}{2}\mathrm{ln}(\frac{N_D}{2N_C})$ 中第二项为负值，表明此时$E_F$下降，：
+					<p class="fragment fade-right" style="font-size:28px;">
+					此时，<b class="blue">本征激发依旧可以不考虑</b>，施主电离增加，由于：$N_{_C}=2 \displaystyle\frac{(2\pi m_{_n}^*k_0T)^{3/2}}{h^3}$，当$T$上升，$N_{_C}$上升，当$2N_{_C} \gt N_{_D} $时，$E_{_F}=\frac{E_{_C}+E_{_D}}{2}+\frac{k_0T}{2}\mathrm{ln}(\frac{N_{_D}}{2N_{_C}})$ 中第二项为负值，表明此时$E_F$下降(下降是进入中间电离区的标志)：
 					</p>
-					<p class="fragment fade-right" style="font-size:24px;">
-					经过化简，得到此时电子浓度：
+					<div class="flex">
+					<p class="fragment fade-right" style="font-size:28px;">
+					此时电子浓度和上面一样：
 					$$
-					\mathrm{ln}(n_0)=\frac{1}{2}\mathrm{ln}(\frac{N_D N_C}{2})-\frac{E_C-E_D}{2k_0T}
-					$$，式中，$N_D$是杂质浓度，$N_C$是导带有效密度。
+					n_{_0}=n_{_D}^+=\displaystyle\frac{N_{_D}}{1+2\exp\left(\displaystyle\frac{E_{_F}-E_{_D}}{k_0T}\right)}
+					$$，式中，$N_D$是杂质浓度，$N_C$是导带有效密度。 当$E_{_F}=E_{_D}$，则$n_0=\frac{N_{_D}}{3}$，表示此时有$\frac{1}{3}$的杂质电离。
 					</p>
+					<img src="images/EF与T的关系.png" style="height:300px;"/>
+					</div>
 				</section>
 				
 				<section>
 					<h4>【3】强电离区</h4>
 					<p class="fragment fade-right" style="font-size:24px;">
-					此时电子浓度：
-					$n_0=N_D$</p>
+					进入此区的条件，此时杂质几乎完全电离，此时 $n_0=n_{_D}^+ \approx N_D$，此时 由于：$n_{_D}^+= \displaystyle\frac{N_{_D}}{1+2\exp\left(\displaystyle\frac{E_{_F}-E_{_D}}{k_0T}\right)} = N_D$，也就是$\exp\left(\displaystyle\frac{E_{_F}-E_{_D}}{k_0T}\right) \to 0$，也就是： $E_{_F}-E_{_D} \ll k_0T$ ，也就是$E_{_F} \lt E_{_D}$</p>
+					<p class="fragment fade-right" style="font-size:24px;">由上面电中性条件：$\displaystyle\frac{N_{_C}}{\exp\left(\displaystyle\frac{E_{_C}-E_{_F}}{k_0T}\right)}=\displaystyle\frac{N_{_V}}{\exp\left(\displaystyle\frac{E_{_F}-E_{_V}}{k_0T}\right)}+\displaystyle\frac{N_{_D}}{1+2\exp\left(\displaystyle\frac{E_{_F}-E_{_D}}{k_0T}\right)}$，强电离下，不考虑本征激发，假设完全电离(电离超过90%)，得到：</p>
+					<p class="fragment fade-right" style="font-size:24px;">$N_{_C}\exp\left(-\displaystyle\frac{E_{_C}-E_{_F}}{k_0T}\right)=N_{_D}$，解出 $E_{_F}=E_{_C}+k_0T\mathrm{ln}\left(\frac{N_D}{N_C}\right)$</p>
 				</section>
 				
 				<section>
-					<h4>【4】过渡区</h4>
-					<p class="fragment fade-right" style="font-size:24px;">
-					由电中性条件：$n_0=N_D+p_0$</p>
+					<p class="red">从下图可见，当$N_D$不变，温度T上升，$E_F$逐渐接近本征能级$E_i$（也就是禁带中线$E_i=\frac{E_C-E_V}{2}$）</p>
+					<p class="green">当温度T不变，随着$N_D$上升，$E_F$逐渐接近$E_C$。</p>
+					<img src="images/EF与T的关系2.png" style="height:500px;"/>
+				</section>
+				
+				<section>
+					<h4 class="green">估算完全电离时的杂质浓度上限</h4>
+					<p class="Navy">未电离的杂质浓度$n_{_D}$：
+					$$
+					n_{_D}=D_-\cdot N_{_D} , \\
+					D_-=\left(\displaystyle\frac{2N_{_D}}{N_{_C}}\right)\exp\left(\displaystyle\frac{E_{_C}-E_{_D}}{k_0T}\right)
+					\tag{3-53}
+					$$
+					</p>
+					<p class="fragment fade-right blue">其中，$D_-$为未电离的杂质浓度($n_{_D}$)占总杂质浓度($N_{_D}$)的百分比，可见$D_-$与温度$T$、杂质浓度$N_{_D}$和杂质电离能$\Delta E_{_D}=E_{_C}-E_{_D}$有关。
+					</p>
+					<p class="fragment fade-right Crimson">也可以利用下式来估算全电离时需要的温度：
+					$$
+					\displaystyle\frac{\Delta E_{_D}}{k_0}\cdot\displaystyle\frac{1}{T}=\displaystyle\frac{3}{2}\mathrm{ln}T+\mathrm{ln}\left[\displaystyle\frac{D_-}{N_{_D}}\cdot\displaystyle\frac{\left(2\pi k_0 m_n^*\right)^{3/2}}{h^3}\right]
+					\tag{3-53}
+					$$
+					</p>
+				</section>
+				
+				<section>
+					<h4 class="red" style="font-size:28px;">例1：估算室温下掺入磷（P）的n型硅，全部电离（90%）所需要的杂质浓度上限。设此时$N_{_C}=2.8\times 10^{19}/cm^3$, $\Delta E_{_D}=0.044eV$, $k_0T=0.026eV$。</h4>
+					<p class="fragment fade-right blue" style="font-size:24px;">解：由：
+					$$
+					n_{_D}=D_-\cdot N_{_D} , \\
+					D_-=\left(\displaystyle\frac{2N_{_D}}{N_{_C}}\right)\exp\left(\displaystyle\frac{\Delta E_{_D}}{k_0T}\right)
+					$$，可以得到：
+					$$\begin{align*}
+					N_{_D} &=\left(\displaystyle\frac{D_-N_{_C}}{2}\right)\exp\left(-\displaystyle\frac{\Delta E_{_D}}{k_0T}\right) \\
+					&=\left(\displaystyle\frac{0.1\times 2.8\times 10^{19}}{2}\right)\exp\left(-\displaystyle\frac{0.044}{0.026}\right) \\
+					&\approx 3\times 10^{17}/cm^3
+					\end{align*}
+					$$
+					</p>
+					<p class="fragment fade-right blue" style="font-size:24px;">此时，电离杂质的浓度=$N_{_D}\cdot 90\% = 3\times 10^{17}\times 0.9=2.7\times 10^{17}/cm^3$</p>
+				</section>
+				
+				<section>
+					<h4 class="red" style="font-size:28px;">例2：估算掺入磷（P）的n型硅，全部电离（90%）所需要的温度。设此时杂质浓度是$N_{_D}=3\times 10^{15}/cm^3$，$\Delta E_{_D}=0.044eV$, $k_0=1.38\times10^{-23}J/K$，硅晶体导带底部有效质量$m_n^*=1.062m_0$(课本P66页，表3-2)。</h4>
+					<p class="fragment fade-right green" style="font-size:24px;">
+					解：由3-54，令 $f(T)=\displaystyle\frac{\Delta E_{_D}}{k_0}\cdot\displaystyle\frac{1}{T}-\displaystyle\frac{3}{2}\mathrm{ln}T-\mathrm{ln}\left[\displaystyle\frac{D_-}{N_{_D}}\cdot\displaystyle\frac{\left(2\pi k_0 m_n^*\right)^{3/2}}{h^3}\right]$，由于：
+					</p>
+					<p class="fragment fade-right Navy" style="font-size:28px;">$f(10)=50.05423$，$f(200)=-2.96371$，可见完全电离的温度在此之间，用二分迭代求出：$T=110.406053K$时，$f(T)\to 0$，可见，在0℃以下，已经完全电离。</p>
+				</section>
+				
+				<section>
+					<h4 class="green">【4】过渡区</h4>
+					<p class="fragment fade-right" style="font-size:28px;">当半导体处于<b class="green">完全电离区</b>和<b class="blue">完全本征激发区</b>之间，称为过渡区，特征是<b class="red">本征激发的载流子浓度（包括两种载流子）和完全电离的载流子浓度在相近数量级</b>。</p>
+					<p class="fragment fade-right" style="font-size:28px;">其<b class="wavy">电中性条件</b>和<b class="wavy">热平衡条件</b>，可以得到联合方程组：
+					$$
+					\left\{
+					\begin{align*}
+					n_0 &=N_D+p_0 \\
+					n_0p_0 &=n_i^2 
+					\end{align*}
+					\right.
+					$$</p>
+					<p class="fragment fade-right" style="font-size:28px;">求出其解为：
+					$$
+					\left\{
+					\begin{align*}
+					n_0 &=\frac{N_D+\sqrt{N_D^2+4n_i^2}}{2} \\
+					p_0 &=\frac{n_i^2}{n_0} 
+					\end{align*}
+					\right.
+					$$
+					</p>
+				</section>
+				
+				<section>
+					<h4 style="font-size:28px;" class="green">例3：室温下，硅的本征载流子浓度$n_i=1.02\times10^{10}/cm^3$，若杂质浓度是：$N_D=10^{10}/cm^3$，试判断其所处温度区间，计算其载流子浓度。</h4>
+					<p class="fragment fade-right Navy" style="font-size:26px;">解：前面已经计算过，硅达到完全电离所需的温度不高于0℃，室温下完全电离，所以需要判断的是处于：强电离区、过渡区，还是高温本征激发区，主要依据是:</p>
+					<ul class="fragment fade-right" >
+					<li style="font-size:26px;" class="blue">若电子浓度$\approx$杂质浓度，且空穴浓度非常少（$p_0\lt 10^{2}/cm^3$）则处于强电离区</li>
+					<li style="font-size:26px;" class="green">若电子浓度$\approx$杂质浓度，但空穴浓度低于杂质浓度至少一个数量级，则是过渡区</li>
+					<li style="font-size:26px;" class="red">若电子和空穴浓度都远高于杂质浓度至少一个数量级，则处于高温本征激发区</li>
+					</ul>
+					<p class="fragment fade-right blue" style="font-size:24px;">下面先计算电子浓度和空穴浓度:
+					$$
+					\left\{
+					\begin{align*}
+					n_0 &=\frac{N_D+\sqrt{N_D^2+4n_i^2}}{2} =\frac{10^{16}+\sqrt{(10^{16})^2+4(1.02\times10^{10})^2}}{2} =1\times10^{16}/cm^3 \\
+					p_0 &=\frac{n_i^2}{n_0} = \frac{(1.02\times10^{10})^2}{1\times10^{16}} = 1.04\times10^4/cm^3
+					\end{align*}
+					\right.
+					$$
+					</p>
+					<p class="fragment fade-right Navy" style="font-size:28px;">所以这是处于过渡区。
+					</p>
+				</section>
+				
+				<section>
+					<h4 class="green">【4】高温本征激发区</h4>
+					<p class="fragment fade-right red" style="font-size:28px;">若电子和空穴浓度都远高于杂质浓度至少一个数量级，则处于高温本征激发区</p>
+					<p class="fragment fade-right blue" style="font-size:28px;">其电子和空穴浓度：
+					$$
+					n_0=p_0=n_i
+					$$</p>
+				</section>
+				
+				<section>
+					<h3 style="font-size:32px;">p型半导体的载流子浓度</h3>
+					<ul>
+						<li style="font-size:28px;">低温弱电离区(与中间电离区，区别是$E_F$是否上升)：
+						$p_{_0}=\sqrt{\frac{N_{_A}N_{_V}}{2}}\exp\left(-\frac{E_{_A}-E_{_V}}{2k_0T}\right)$，$
+						E_{_F}=\frac{E_V+E_A}{2}-\frac{k_0T}{2}\mathrm{ln}(\frac{N_A}{2N_V})
+						$
+						</li>
+						<li style="font-size:28px;">
+						强电离（饱和）区：<br>
+						$E_{_F}=E_V-k_0T\mathrm{ln}(\frac{N_A}{N_V})$, $p_0=N_A$， 未电离的杂质浓度$p_{_A}=D_+N_{_A}$, $D_+=\displaystyle\frac{4N_{_A}}{N_{_V}}\exp\left(\displaystyle\frac{\Delta E_A}{k_0T}\right)$
+						</li>
+						<li style="font-size:28px;">
+						过渡区：
+						$E_{_F}=E_i-k_0T\mathrm{sh}^{-1}(\frac{N_A}{2n_i})$, $p_0=\frac{N_A+\sqrt{N_A^2+4n_i^2}}{2}$， $n_0=\frac{n_i^2}{p_0}$ 
+						</li>
+					</ul>
+				</section>
+				
+				<section>
+					<h4>综合载流子浓度与杂质浓度和温度之间的关系</h4>
+					<div class="flex">
+					<img src="images/n型硅电子浓度与温度之间的关系.png" />
+					<img src="images/硅中载流子浓度和杂质浓度的关系.png" />
+					</div>
+					<p class="fragment fade-right"  style="font-size:28px;">相同杂质下，温度越高，载流子浓度越高，但不是线性；</p>
+					<p class="fragment fade-right"  style="font-size:28px;">室温下，杂质浓度离本征载流子浓度越远，越呈现载流子浓度的分化，其中，占多数的载流子称为<b class="red">多数载流子，多子</b>，占少数的称为<b class="blue">少数载流子，少子</b>，比如<b class="green">n-型半导体的多子是导带的电子，少子是空穴</b>。</p>
+				</section>
+				
+				<section>
+					<h4 style="font-size: 28px;">例：设有一个掺砷(As)的n型硅，$N_D=10^{15}/cm^3$，分别计算其在①77K②300K③500K④800K时的导带中电子的浓度。</h4>
+					<p class="fragment fade-right Navy" style="font-size:24px;">解：【1】先估算完全电离(90%)所需要的温度$T$：从课本P43页图2-8可以查得硅掺杂砷的杂质电离能$\Delta E_D = 0.054eV$，$D_-=0.1$，$N_D=10^{15}/cm^3$，查课本 P66页 表3-2 得 $m_n^*=1.062m_0$, $k_0=1.38\times10^{-23}J/K$，$h=6.625\times10^{-34}J\cdot S$</p>
+					<p class="fragment fade-right Crimson" style="font-size:24px;">
+					由课本P72页，（3-54），令 $f(T)=\displaystyle\frac{\Delta E_{_D}}{k_0}\cdot\displaystyle\frac{1}{T}-\displaystyle\frac{3}{2}\mathrm{ln}T-\mathrm{ln}\left[\displaystyle\frac{D_-}{N_{_D}}\cdot\displaystyle\frac{\left(2\pi k_0 m_n^*\right)^{3/2}}{h^3}\right]$，由于$f(10)=60.56431, f(200)=-3.48189$，可见完全电离的温度在此之间，用二分迭代求根得$T=109.68494 K$，可见，77K还未完全电离，而300K、500K、800K都已完全电离。
+					</p>
+				</section>
+				
+				<section>
+					<p class="fragment fade-right Navy" style="font-size:24px;">【2】77K下未完全电离，由P63页，公式（3-18）：
+					$$
+					\begin{align*}
+					N_{_C} &=2 \displaystyle\frac{(2\pi m_{_n}^*k_0T)^{3/2}}{h^3} \\
+					&=2 \displaystyle\frac{(2\pi\times 1.602\times 9.108\times 10^{-31} \times 1.38\times 10^{-23}\times 77)^{3/2}}{(6.625\times 10^{-34})^3\times 10^6} /cm^3 \\
+					&=6.613406 \times 10^{18} /cm^3
+					\end{align*}
+					$$
+					</p>
+					<p class="fragment fade-right Crimson" style="font-size:24px;">
+					由P70页，公式（3-46）：
+					$$
+					\begin{align*}
+					n_{_0} &=\sqrt{\frac{N_{_D}N_{_C}}{2}}\exp\left(-\frac{\Delta E_D}{2k_0T}\right) \\
+					&= \sqrt{\frac{10^{15}\times 6.613406 \times 10^{18}}{2}}\exp\left(-\frac{0.054\times 1.602\times 10^{-19}}{2\times 1.38\times 10^{-23}\times 77}\right) \\
+					&= 9.814461\times 10^{14} /cm^3
+					\end{align*}
+					$$，
+					
+					</p>
+				</section>
+				
+				<section>
+					<div class="flex">
+					<div >
+					<p class="Navy">【3】300K下完全电离，从P67页，图3-7查到，在300K的时候，硅的本征载流子浓度$n_i=2\times 10^{10}/cm^3 \ll N_D=10^{15}/cm^3$，所以这是完全电离区；
+					</p>
+					<p class="fragment fade-right Indigo">此时：
+					导带电子浓度 $n_0 \approx N_D = 10^{15}/cm^3$
+					</p>
+					</div>
+					<img src="images/本征载流子浓度1.png"/>
+					</div>
+				</section>
+				
+				<section>
+					<div class="flex">
+					<div >
+					<p class="Navy">【4】500K下完全电离，从P67页，图3-7查到，在500K的时候，硅的本征载流子浓度$n_i=8\times 10^{14}/cm^3 \approx N_D=10^{15}/cm^3$，所以这已经进入过渡区；
+					</p>
+					<p class="fragment fade-right Indigo">此时：
+					导带电子浓度 
+					$n_0 =\frac{N_D+\sqrt{N_D^2+4n_i^2}}{2}$  $=\frac{10^{15}+\sqrt{(10^{15})^2+4(8\times 10^{14})^2}}{2}$ $=1.006360\times 10^{16}/cm^3$
+					
+					</p>
+					</div>
+					<img src="images/本征载流子浓度2.png"/>
+					</div>
+				</section>
+				
+				<section>
+					<div class="flex">
+					<div >
+					<p class="Navy">【5】800K下完全电离，从P67页，图3-7查到，在800K的时候，硅的本征载流子浓度$n_i=2\times 10^{17}/cm^3 \gg N_D=10^{15}/cm^3$，所以这已经进入本征激发区；
+					</p>
+					<p class="fragment fade-right Indigo">此时：
+					导带电子浓度 
+					$n_0 = n_i = 2\times{17}/cm^3$
+					</p>
+					</div>
+					<img src="images/本征载流子浓度3.png"/>
+					</div>
 				</section>
 				
 			</section>
 			
 			<section>
+				<section>
+					<h2>3.5 一般情况下的</h2>
+					<h2>载流子统计分布</h2>
+					<p class="fragment fade-right">如果半导体中不但有施主杂质，也有受主杂质，则二者共同作用。</p>
+				</section>
+				
+				<section>
+					<h3>3.5.1 电中性条件和热平衡方程</h3>
+					<p class="fragment fade-right">对于同时有施主和受主杂质的情况，可以得到下面的电中性条件：
+					$$
+					p_0 + n_{_D}^+=n_0+p_{_A}^-
+					\tag{3-80}
+					$$
+					</p>
+					<p class="fragment fade-right blue">其中$p_0$是空穴浓度，$n_{_D}^+=N_{_D}-n_{_D}$是施主杂质电离后的浓度，$N_{_D}$是施主杂质浓度，$n_{_D}$是施主杂质未电离的浓度。</p>
+					<p class="fragment fade-right green">其中$n_0$是导带电子浓度，$p_{_A}^-=N_{_A}-p_{_A}$是受主杂质电离后的浓度，$N_{_A}$是受主杂质浓度，$p_{_A}$是受主杂质未电离的浓度。</p>
+					<p class="fragment fade-right">代入可以得到修正的电中性条件：
+					$$
+					p_0 + N_{_D}+p_{_A}=n_0+N_{_A}+n_{_D}
+					\tag{3-82}
+					$$
+					</p>
+					<p class="fragment fade-right">加上热平衡条件：
+					$$
+					n_0 p_0 = n_i^2
+					$$
+					</p>
+					<p class="fragment fade-right">下面以施主为主含少量受主杂质的硅晶体分情况来分析。</p>
+				</section>
+				
+				<section>
+					<h4>3.5.2 低温弱电离温区</h4>
+					<p class="fragment fade-right Navy">当温度很低，施主杂质未完全电离，电离出的电子一部分产生杂质补偿（填补受主能级，而且由于受主浓度比较小，可以看作受主完全电离），一部分提供给导带电子，而本征载流子完全可以忽略，故$p_0=0$，$p_{_A}=0$。</p>
+					<p class="fragment fade-right Crimson">代入修正的电中性条件：
+					$p_0 + N_{_D}+p_{_A}=n_0+N_{_A}+n_{_D}$，得到 $N_{_D}=n_0+N_{_A}+n_{_D}$
+					</p>
+				</section>
+				
+				<section>
+					<h4>3.5.2 低温弱电离温区--当$N_{_D}$和$N_{_A}$相近</h4>
+					<p class="fragment fade-right Navy">
+					$$
+					n_0=\displaystyle\frac{(N_D-N_A)N_C}{2N_A}/\exp\left(\displaystyle\frac{E_C-E_D}{k_0T}\right)
+					$$
+					</p>
+					<p class="fragment fade-right Crimson">
+					$$
+					E_F=E_D+k_0T\mathrm{ln}\left(\displaystyle\frac{N_D-N_A}{2N_A}\right)
+					$$
+					</p>
+					<p class="fragment fade-right blue">上面可见，当$N_D \gg N_A$，$E_F \gt E_D$，当$T=0k$，$E_F=E_D$。</p>
+				</section>
+				
+				<section>
+					<h4>3.5.2 低温弱电离温区--当$N_{_D}$远大于$N_{_A}$</h4>
+					<p class="fragment fade-right blue">
+					$$
+					n_0=\sqrt{\displaystyle\frac{N_D N_C}{2}}/\exp\left(\displaystyle\frac{E_C-E_D}{k_0T}\right)
+					$$
+					</p>
+					<p class="fragment fade-right Crimson">
+					$$
+					E_F=\displaystyle\frac{E_C+E_D}{2}+\displaystyle\frac{k_0T}{2}\mathrm{ln}\left(\displaystyle\frac{N_D}{2N_C}\right)
+					$$
+					</p>
+					<p class="fragment fade-right blue">当$N_D \lt 2N_C$，$E_F$ 在 $E_C$ 和 $E_D$ 的中线之下，这是非简并状态；</p>
+					<p class="fragment fade-right Crimson">当$N_D \gt 2N_C$，$E_F$ 在 $E_C$ 和 $E_D$ 的中线之上，甚至可以接近$E_C$或之上，这是简并状态，需要超级掺杂；</p>
+				</section>
+				
+				<section>
+					<h4>3.5.3 中间电离温区</h4>
+					<p class="fragment fade-right">当温度继续上升，由于受主杂质浓度小于施主杂质，所以此时和只有单一施主杂质的情况类似。</p>
+				</section>
+				
+				<section>
+					<h4>3.5.4 完全（强）电离温区</h4>
+					<p class="fragment fade-right">当温度继续上升，由于施主杂质完全电离（90%以上），此时
+					$$
+					n_0=N_D-N_A
+					$$
+					</p>
+					<p class="fragment fade-right blue">当 $N_A \ll N_D$，则 $n_0 \approx N_D$</p>
+					<p class="fragment fade-right green">当 $N_A$不能忽略，则 $n_0 =N_D-N_A$</p>
+					<p class="fragment fade-right Crimson">
+					$$
+					E_F=E_C+k_0T\mathrm{ln}\left(\displaystyle\frac{N_D-N_A}{N_C}\right)
+					$$
+					</p>
+				</section>
+				
+				<section>
+					<h4>3.5.5 过渡温区</h4>
+					<p class="fragment fade-right blue" style="font-size:28px;">当温度继续上升，$N_D-N_A \to n_i$，此时温度升高产生的本征载流子的影响不可忽略，可以列出电中性条件：
+					</p>
+					<p class="fragment fade-right Crimson" style="font-size:28px;">
+					$$
+					\left\{
+					\begin{align*}
+					n_0 + N_A &= N_D + p_0 \\
+					n_0p_0 &=n_i^2 
+					\end{align*}
+					\right.
+					$$
+					</p>
+					<p class="fragment fade-right Navy" style="font-size:28px;">
+					$$
+					\left\{
+					\begin{align*}
+					n_0 &=\displaystyle\frac{N_D-N_A}{2}+\displaystyle\frac{\sqrt{(N_D-N_A)^2+4n_i^2}}{2} \\
+					p_0 &=\frac{n_i^2}{n_0} 
+					\end{align*}
+					\right.
+					$$</p>
+					<p class="fragment fade-right Crimson" style="font-size:28px;">
+					$$
+					E_F=E_i+k_0T\mathrm{ln}\left[\displaystyle\frac{(N_D-N_A)+\sqrt{(N_D-N_A)^2+4n_i^2}}{2n_i}\right]
+					$$
+					</p>
+				</section>
+				
+				<section>
+					<h4>3.5.6 高温本征激发区</h4>
+					<p>
+					$$
+					n_0=p_0=n_i
+					$$
+					$$
+					E_F=E_i
+					$$
+					</p>
+				</section>
+			</section>
+			
+			<section>
 				<h2>作业</h2>
-				<p></p>
+				<p>P90: 11, 13</p>
 			</section>
 		</div>
 	</div>
