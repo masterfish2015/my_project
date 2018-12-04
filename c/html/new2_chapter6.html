@@ -920,6 +920,30 @@ int main()
 						<li>第14题，将两个字符串s1和s2按照ASCII码序进行比较</li>
 					</ol>
 				</section>
+				
+				<section>
+					<h4>杨辉三角</h4>
+					<script type="syntaxhighlighter" class="brush:c;highlight:[]">
+#include <stdio.h>
+#include <stdlib.h>
+#define N 10
+
+int main() {
+	int d[N][N], i, j;
+	
+	for(i=0;i<N;i++){
+		for(j=0;j<=i;j++){
+			if(i==j || j==0)
+				d[i][j]=1;
+			else
+				d[i][j]=d[i-1][j-1]+d[i-1][j];
+			printf("%4d", d[i][j]); 
+		}
+		putchar('\n');
+	}
+	return 0;
+}					</script>
+				</section>
 			</section>
 		</div>
 	</div>
