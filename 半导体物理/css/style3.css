@@ -75,12 +75,27 @@ p{
 	color:red;
 }
 
+red{
+	background: MintCream ;
+	color:red;
+}
+
 .blue{
 	background: lightyellow;
 	color :blue;
 }
 
+blue{
+	background: lightyellow;
+	color :blue;
+}
+
 .green{
+	background: lightcyan;
+	color:green;
+}
+
+green{
 	background: lightcyan;
 	color:green;
 }

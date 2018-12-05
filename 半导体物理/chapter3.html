@@ -899,8 +899,224 @@ $$
 			</section>
 			
 			<section>
-				<h2>作业</h2>
-				<p>P90: 11, 13</p>
+				<section>
+					<h2>3.6 简并半导体</h2>
+				</section>
+				
+				<section>
+					<h3>3.6.1 简并半导体的条件</h3>
+					<p class="fragment fade-right">n型半导体处于饱和区的时候，其费米能级为：
+					$$
+					\left\{
+					\begin{align*}
+					E_F &=E_C+k_0T\mathrm{ln}\left(\displaystyle\frac{N_D}{N_C}\right) ， & N_A=0 \\
+					E_F &=E_C+k_0T\mathrm{ln}\left(\displaystyle\frac{N_D-N_A}{N_C}\right) ， & N_A\neq 0 
+					\end{align*}
+					\right.
+					$$
+					</p>
+					<p class="fragment fade-right" style="font-size:28px;">当杂质浓度$N_D$增加，使得$E_C-E_F \le 2k_0T$，则成为简并半导体，这是<red>简并化的条件</red>。</p>
+					
+					<p class="fragment fade-right" style="font-size:28px;">当$E_C-E_F \le 0$，表示此时不能使用玻尔兹曼统计分布函数，必须采用费米分布函数计算导带电子或价带空穴的分布概率，这也是简并化的必要条件，</p>
+					
+					<p class="fragment fade-right" style="font-size:28px;">发生简并化的时候有个温度范围，杂质浓度越大，简并化温度范围越宽。</p>
+					
+					<p class="fragment fade-right" style="font-size:28px;">杂质浓度越大，载流子简并化越严重，这种现象称为<blue>重掺杂</blue>。</p>
+				</section>
+				
+				<section>
+					<h3 style="font-size: 38px;">3.6.2 简并半导体的禁带变窄效应</h3>
+					<p class="fragment fade-right" style="font-size:26px;">在低温时，完全电离之前，存在部分杂质未电离的现象，这称为<green>低温载流子冻析效应</green>。</p>
+					<p class="fragment fade-right" style="font-size:26px;">当杂质浓度高($N_D \gt 3\times 10^{18}/cm^3$)，达到简并状态，会使<red>相同温度下的多数载流子浓度增加</red>，从而减弱冻析效应，并使得禁带宽度减少，这称为<green>禁带变窄效应</green>。</p>
+					<p class="fragment fade-right" style="font-size:26px;">用重掺杂半导体制作的<blue>隧道二极管</blue>，既是简并的，它们具有负阻效应，即其流过的电流减少时，两端电压反而增加的现象。</p>
+					<img src="images/禁带变窄效应.png" style="height:400px;" class="fragment fade-right"/>
+				</section>
+			</section>
+			
+			<section>
+				<section>
+					<h2>测试（1-3章）</h2>
+				</section>
+				
+				<section>
+					<h3>一、判断对错（每题2分，共20分）</h3>
+				</section>
+				
+				<section>
+					<ol>
+						<li>硅、锗、砷化镓等半导体晶体是属于金刚石型晶格结构：（<b class="red fragment fade-right">✖</b> ）</li>
+						<li>禁带中的电子激发到导带中的过程，称为本征激发：（<b class="red fragment fade-right">✖</b> ）</li>
+						<li>价带顶部附近的电子的有效质量是负的：（<b class="green fragment fade-right">✔</b> ）</li>
+						<li>半导体掺入V族杂质，电离后会形成负电中心：（<b class="red fragment fade-right">✖</b> ）</li>
+						<li>半导体同时掺入施主杂质和受主杂质，电离出的载流子会更多：（<b class="red fragment fade-right">✖</b> ）</li>
+						<li>深能级杂质的作用是提供更多载流子促进导电：（<b class="red fragment fade-right">✖</b> ）</li>
+						<li>简并半导体的导带电子分布符合玻尔兹曼统计分布函数规律：（<b class="red fragment fade-right">✖</b> ）</li>
+						<li>热平衡下导带电子浓度和空穴浓度乘积保持恒定：（<b class="green fragment fade-right">✔</b> ）</li>
+						<li>p-型半导体在完全电离之前，载流子是保持电中性的：（<b class="red fragment fade-right">✖</b> ）</li>
+						<li>一般情况下的n-型半导体晶体，在高温本征激发区的多子是导带的电子：（<b class="red fragment fade-right">✖</b> ）</li>
+					</ol>
+				</section>
+				
+				<section>
+					<h3>二、单项选择题（每题3分，共36分）</h3>
+				</section>
+				
+				<section>
+					<h4>1. 下面关于硅晶体的说法错误的是：（<b class="blue fragment fade-right">C</b>）</h4>
+					<ol>
+						<li class="sel red">每个硅原子和周围4个硅原子以共价键结合在一起</li>
+						<li class="sel blue">在硅晶体中电子的自由运动称为共有化运动</li>
+						<li class="sel green">每个硅晶体晶胞中平均有4个硅原子</li>
+						<li class="sel Navy">硅晶体沿不同晶向生长堆积后的性能不同</li>
+					</ol>
+					<hr>
+					<h4>2. 下面半导体能带的说法错误的是：（<b class="blue fragment fade-right">A</b>）</h4>
+					<ol>
+						<li class="sel red">半导体的导电机制是导带中电子定向移动</li>
+						<li class="sel blue">禁带的边界在$k=\pm\frac{n\pi}{a}$的地方</li>
+						<li class="sel Crimson">绝缘体和半导体的能带结构是一样的</li>
+						<li class="sel Indigo">硅的禁带宽度比锗的禁带宽度大</li>
+					</ol>
+				</section>
+				
+				<section>
+					<h4>3. 下面关于半导体导电机构的说法正确的是：（<b class="blue fragment fade-right">D</b>）</h4>
+					<ol>
+						<li class="sel red">热力学温度为0℃时，半导体导带是没有载流子的</li>
+						<li class="sel blue">空穴的实质是价带中的空位被导带中的电子填充，形成反向移动</li>
+						<li class="sel green">金属和半导体的导电的本质区别是金属的禁带没有半导体宽</li>
+						<li class="sel navy">导带的电子的有效质量和价带的空穴的有效质量是是不同的</li>
+					</ol><hr>
+					<h4>4. 下面半导体能带结构的说法正确的是：（<b class="blue fragment fade-right">C</b>）</h4>
+					<ol>
+						<li class="sel red">硅的导带的等能带形状在不同晶向都相同</li>
+						<li class="sel blue">硅属于直接能带结构，所以是很好的光电半导体材料</li>
+						<li class="sel Crimson">通过回旋共振可以获得不同能带结构的上的有效质量</li>
+						<li class="sel Indigo">砷化镓和硅、锗的能带结构完全不同</li>
+					</ol>
+				</section>
+				
+				<section>
+					<h4>5. 下面关于硅晶体的杂质来源说法正确的是：（<b class="blue fragment fade-right">D</b>）</h4>
+					<ol>
+						<li class="sel red">原材料纯度不够</li>
+						<li class="sel blue">制造过程中的沾污</li>
+						<li class="sel green">人为掺杂</li>
+						<li class="sel navy">上述都对</li>
+					</ol><hr>
+					<h4>6. 下面半导体施主杂质的说法正确的是：（<b class="blue fragment fade-right">D</b>）</h4>
+					<ol>
+						<li class="sel red">主要掺杂是III族杂质</li>
+						<li class="sel blue">杂质可以吸引电子</li>
+						<li class="sel Crimson">杂质能级在价带顶部附近</li>
+						<li class="sel Indigo">电离能$\Delta E_D$比禁带宽度要小得多</li>
+					</ol>
+				</section>
+				
+				<section>
+					<h4>7. 下面关于缺陷的说法错误的是：（<b class="blue fragment fade-right">A</b>）</h4>
+					<ol>
+						<li class="sel red">点缺陷中的空位相当于引入施主杂质</li>
+						<li class="sel blue">点缺陷的肖特基缺陷是只有空位出现</li>
+						<li class="sel green">位错包括平面的层错和三维的错位</li>
+						<li class="sel navy">位错一般会引入大量的施主和受主能级</li>
+					</ol><hr>
+					<h4>8. 下面半导体载流子的说法错误的是：（<b class="blue fragment fade-right">C</b>）</h4>
+					<ol>
+						<li class="sel red">本征激发产生的载流子包括电子和空穴</li>
+						<li class="sel blue">受主杂质电离产生的载流子主要是空穴</li>
+						<li class="sel Crimson">n-型半导体总体来看，载流子的电性是中性的</li>
+						<li class="sel Indigo">热平衡的时候，载流子产生和复合达到平衡</li>
+					</ol>
+				</section>
+				
+				<section>
+					<h4>9. 下面关于费米能级$E_F$的说法正确的是：（<b class="blue fragment fade-right">D</b>）</h4>
+					<ol>
+						<li class="sel red">$E_F$能级的电子出现的概率是50%</li>
+						<li class="sel blue">高于$E_F$的能级电子出现的概率比$E_F$能级上的要高</li>
+						<li class="sel green">空穴在$E_F$能级上出现的概率也是50%</li>
+						<li class="sel navy">$E_F$能级不是真实存在的</li>
+					</ol><hr>
+					<h4>10. 下面的n-型半导体电离区说法错误的是：（<b class="blue fragment fade-right">C</b>）</h4>
+					<ol>
+						<li class="sel red">低温弱电离区的标志是$E_F$随温度上升而上升</li>
+						<li class="sel blue">中间电离区的标志是$E_F$随温度上升而下降，一直到多子的浓度达到杂质浓度90%以上</li>
+						<li class="sel Crimson">完全电离区和过渡区的区别是少子的浓度是否超过杂质浓度</li>
+						<li class="sel Indigo">高温本征激发区和过渡区的区别是本征载流子浓度是否超过杂质浓度</li>
+					</ol>
+				</section>
+				
+				<section>
+					<h4>11. 下面关于简并半导体的说法错误的是：（<b class="blue fragment fade-right">D</b>）</h4>
+					<ol>
+						<li class="sel red">必须采用费米分布函数来分析电子和空穴的统计分布</li>
+						<li class="sel blue">简并化的n-型半导体和非简并相比，相同温度下导带电子浓度要多</li>
+						<li class="sel green">简并化的条件是$E_C-E_F\le 2k_0T$</li>
+						<li class="sel navy">杂质浓度越大，发生简并的温度范围越窄</li>
+						<li class="sel Crimson">简并化就是重掺杂</li>
+					</ol><hr>
+					<h4>12. 下面关于禁带变窄效应说法错误的是：（<b class="blue fragment fade-right">B</b>）</h4>
+					<ol>
+						<li class="sel red">禁带变窄的表现是载流子的低温冻析效应不再明显</li>
+						<li class="sel blue">禁带变窄效应在简并和非简并半导体中都存在</li>
+						<li class="sel Crimson">禁带变窄的原因是杂质能级进入了导带或价带</li>
+						<li class="sel Indigo">隧道二极管就是禁带变窄效应的应用，体现在其具有负阻效应</li>
+					</ol>
+				</section>
+				
+				<section>
+					<h3>三、简答题（每题6分，共18分）</h3>
+				</section>
+				
+				<section>
+					<h4>1. 画图说明导体、半导体的导电机制的区别</h4>
+					<h4>2. 画图说明为什么浅杂质能级能够促进导电，以p-型半导体为例</h4>
+					<h4>3. 画图说明p-型半导体随温度的增加其空穴浓度变化的规律</h4>
+				</section>
+				
+				<section>
+					<h4>1. 画图说明导体、半导体的导电机制的区别</h4>
+					<div class="flex">
+						<img src="images/半导体-导体能带示意图.png" />
+						<div >
+							<p>解：如图所示，导体在绝对零度的时候，导带上就已经存在大量电子（半满带），所以其导电主要是导带的电子产生导电；</p>
+							<p>半导体在绝对零度的时候，导带没有电子，电子都在价带，当温度增加，价带电子跃迁到导带，产生导电的载流子，以其导电是导带的电子和价带的空穴共同产生导电；</p>
+							<p>单极载流子导电和两极载流子导电，这是二者导电机制的主要区别。</p>
+						</div>
+					</div>
+				</section>
+				
+				<section>
+					<h4>2. 画图说明为什么浅杂质能级能够促进导电，以p-型半导体为例</h4>
+					<div class="flex">
+						<img src="images/受主能级.png" />
+						<div >
+							<p>解：如图所示，III族受主杂质在禁带中生成浅杂质受主能级$E_A$，由于$E_A$离价带顶部$E_V$很近，所以价带中的电子很容易吸收足够的能量（即受主电离能，$\Delta E_A = E_A - E_V$），从共价键中跃迁到受主能级$E_A$中，这样就增加了价带中的空穴载流子，提高了导电能力。</p>
+						</div>
+					</div>
+				</section>
+				
+				<section>
+					<h4>3. 画图说明p-型半导体随温度的增加其空穴浓度变化的规律</h4>
+					<div class="flex">
+						<img src="images/p-型硅的空穴浓度与温度的关系.png" />
+						<div >
+							<p style="font-size: 24px;" class="red">解：如图所示，当温度很低的时候，本征激发不起作用，杂质电离也很少，这是低温弱电离区；</p>
+							<p style="font-size: 24px;" class="blue">当温度升高，电离快速升高，这是中间电离区，直到杂质电离超过90%；</p>
+							<p style="font-size: 24px;" class="green">当温度继续上升，本征激发依然很少（本征载流子浓度 $p_i \lt 10 ^2/cm^3$），但这时电离已经达到极限，所以空穴浓度并没有显著增加，这是强电离区；</p>
+							<p style="font-size: 24px;" class="Crimson">当温度继续上升，使得本征激发不可忽略，这时空穴浓度的上升主要受本征载流子上升的影响，这是过渡区；</p>
+							<p style="font-size: 24px;" class="Navy">温度的上升，直到不管多数载流子还是少数载流子的浓度都超过杂质浓度，这是进入了高温本征区。</p>
+						</div>
+					</div>
+				</section>
+				
+				<section>
+					<h3>四、计算题（共26分，每题13分）</h3>
+					<h4 style="font-size:36px;">1. 若锗中施主杂质电离能$\Delta E_D=0.01eV$，施主杂质浓度分别为$N_D=10^{14}/cm^3$和$N_D=10^{17}/cm^3$，计算(1)90%电离(2)50%电离 时的温度分别是多少。</h4>
+					<h4 style="font-size:36px;">2. 有一块掺磷的n型硅，施主杂质浓度为$N_D=10^{15}/cm^3$，分别计算(1)77K（2）300K（3）500K（4）800K 时导带的浓度。</h4>
+				</section>
+				
 			</section>
 		</div>
 	</div>
