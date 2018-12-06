@@ -1004,6 +1004,10 @@ void main()
 					</div>
 				</section>
 				
+					
+			</section>
+			
+			<section>
 				<section>
 					<h3>作业</h3>
 					<h4>1. 编写函数，用牛顿迭代法求：$f(x)=3x^3-2x-4$的根。（牛顿迭代，原函数$f$，一阶导数$df$都写成函数。）</h4>
@@ -1015,6 +1019,185 @@ void main()
 					<h4>2. P216, 第14题。</h4>
 				</section>
 				
+				<section>
+					<h4>1. 编写函数，用牛顿迭代法求：$f(x)=3x^3-2x-4$的根。</h4>
+					<script type="syntaxhighlighter" class="brush:c;highlight:[]">
+#include <stdio.h>
+#include <math.h>
+#define eps 1e-6
+double f(double x){return 3*x*x*x-2*x-4;}
+double df(double x){return 9*x*x-2;}
+double newton(double x)
+{	double old_x;
+	do{ old_x = x;
+		x=x-f(x)/df(x);
+	}while(fabs(old_x-x)>eps);
+	return x;	
+}
+int main(int argc, char *argv[]) {
+	double x;
+	printf("input x:");	scanf("%lf", &x);
+	x=newton(x);
+	printf("root = %lf, f(%lf) = %lf.\n", x, x, f(x));
+	return 0;
+}</script>
+<script type="syntaxhighlighter" class="brush:c;highlight:[]">
+input x:5
+root = 1.300681, f(1.300681) = 0.000000.					</script>
+				</section>
+				
+				<section>
+					<h4>2. 输入10个学生5门课的成绩，分别用函数来实现下列功能</h4>
+					<ol>
+						<li>计算每个学生的平均分；</li>
+						<li>计算每门课的平均分；</li>
+						<li>找出50个分数最高的分数对应的学生和课程；</li>
+						<li>计算平均分方差；
+						$$
+						\sigma=\displaystyle\frac{1}{n}\sum_{i=1}^{n}x_i^2 - \left(\displaystyle\frac{\displaystyle\sum_{i=1}^{n}x_i}{n}\right)^2
+						$$，$x_i$是某一学生的平均分					
+						</li>
+					</ol>
+				</section>
+				
+				<section>
+					<h4>2.0 读入数据，并显示二维数组；</h4>
+					<script type="syntaxhighlighter" class="brush:c;highlight:[]">
+#include <stdio.h>
+#include <math.h>
+#define N 10
+#define M 5
+void show_array(float s[N][M]); void average_student(float s[N][M]);
+void average_course(float s[N][M]); void max_score(float s[N][M]);
+void score_variance(float s[N][M]);
+int main() {
+	float score[N][M];
+	for(int i=0;i<N;i++)for(int j=0;j<M;j++)score[i][j]=rand()%(100-50)+50;
+	show_array(score);puts("------------");
+	average_student(score);puts("------------");
+	average_course(score);puts("------------");
+	max_score(score);puts("------------");
+	score_variance(score);
+	return 0;
+}
+void show_array(float s[N][M]){
+	int i,j;
+	printf("No.\t课程1\t课程2\t课程3\t课程4\t课程5\n");
+	for(i=0;i<N;i++){
+		printf("%2d\t",i+1);
+		for(j=0;j<M;j++)printf("%.1f\t", s[i][j]);
+		putchar('\n');
+	}
+}</script>
+				</section>
+				
+				<section>
+					<h4>2.0 读入数据，并显示二维数组；</h4>
+					<script type="syntaxhighlighter" class="brush:c;highlight:[]">
+No.     课程1   课程2   课程3   课程4   课程5
+ 1      91.0    67.0    84.0    50.0    69.0
+ 2      74.0    78.0    58.0    62.0    64.0
+ 3      55.0    95.0    81.0    77.0    61.0
+ 4      91.0    95.0    92.0    77.0    86.0
+ 5      91.0    54.0    52.0    53.0    92.0
+ 6      82.0    71.0    66.0    68.0    95.0
+ 7      97.0    76.0    71.0    88.0    69.0
+ 8      62.0    67.0    99.0    85.0    94.0
+ 9      53.0    61.0    72.0    83.0    73.0
+10      64.0    91.0    61.0    53.0    68.0 </script>
+				</section>
+				
+				<section>
+					<h4>2.1 计算每个学生的平均分；</h4>
+					<h4>2.2 计算每门课的平均分；</h4>
+					<script type="syntaxhighlighter" class="brush:c;highlight:[]">
+void average_student(float s[N][M]){
+	int i,j;
+	float sum, ave;
+	
+	for(i=0;i<N;i++){
+		for(j=0, sum=0; j<M; j++)
+			sum+=s[i][j];
+		ave=sum/M;
+		printf("No. %2d 学生的平均分=%.1f\n", i+1, ave);
+	}
+}
+
+void average_course(float s[N][M]){
+	int i,j;
+	float sum, ave;
+	
+	for(i=0;i<M;i++){
+		for(j=0, sum=0; j<N; j++)
+			sum+=s[j][i];
+		ave=sum/N;
+		printf("No. %2d 课程的平均分=%.1f\n", i+1, ave);
+	}
+}				</script>	
+				</section>
+				
+				<section>
+					<h4>2.1/2.2 输出；</h4>
+					<script type="syntaxhighlighter" class="brush:c;highlight:[]">
+------------
+No.  1 学生的平均分=72.2
+No.  2 学生的平均分=67.2
+No.  3 学生的平均分=73.8
+No.  4 学生的平均分=88.2
+No.  5 学生的平均分=68.4
+No.  6 学生的平均分=76.4
+No.  7 学生的平均分=80.2
+No.  8 学生的平均分=81.4
+No.  9 学生的平均分=68.4
+No. 10 学生的平均分=67.4
+------------
+No.  1 课程的平均分=76.0
+No.  2 课程的平均分=75.5
+No.  3 课程的平均分=73.6
+No.  4 课程的平均分=69.6
+No.  5 课程的平均分=77.1 </script>
+				</section>
+			
+				<section>
+					<h4>2.3 找出50个分数最高的分数对应的学生和课程；</h4>
+					<script type="syntaxhighlighter" class="brush:c;highlight:[]">
+void max_score(float s[N][M]){
+	int i,j, max_student=0, max_course=0; 
+	for(i=0;i<N;i++)
+		for(j=0;j<M;j++){
+			if(s[max_student][max_course]<s[i][j]){
+				max_student=i; max_course=j;
+			}
+		}
+	printf("最高分是第 %d 位学生 ，第 %d 门课 = %.1f\n", 
+		max_student+1, max_course+1, s[max_student][max_course]);
+}				</script>
+<script type="syntaxhighlighter" class="brush:c;highlight:[]">
+最高分是第 8 位学生 ，第 3 门课 = 99.0</script>	
+				</section>
+				
+				<section>
+					<h4>2.4 计算平均分方差；$
+						\sigma=\frac{1}{n}\sum_{i=1}^{n}x_i^2 - \left(\frac{\sum_{i=1}^{n}x_i}{n}\right)^2
+						$，$x_i$是某一学生的平均分;</h4>
+					<script type="syntaxhighlighter" class="brush:c;highlight:[]">
+void score_variance(float s[N][M]){
+	float x[N], sum, d1=0, d2=0, sigma=0; 
+	int i,j;
+	for(i=0;i<N;i++){	
+		for(j=0, sum=0;j<M;j++){
+			sum+=s[i][j];
+		}
+		x[i]=sum/M; //每个学生平均分xi 
+		d1+=x[i]*x[i];
+		d2+=x[i];
+	}
+	sigma=d1/N-pow((d2/N), 2);
+	printf("平均分方差：%f\n", sigma);
+}</script>
+<script type="syntaxhighlighter" class="brush:c;highlight:[]">
+平均分方差：45.510231</script>	
+				</section>
 				
 			</section>
 		</div>
