@@ -72,7 +72,11 @@
 
 			<section>
 				<section>
-					<h2>8.1 什么是指针</h2>
+					<h2>8.1 指针类型及其指针变量</h2>
+				</section>
+				
+				<section>
+					<h2>8.1.1 什么是指针</h2>
 					<div class="flex">
 						<pre class="brush:c;">
 						#include"stdio.h"
@@ -180,7 +184,7 @@
 				</section>
 				
 				<section>
-					<h3>8.1.1 直接访问和间接访问</h3>
+					<h3>8.1.2 直接访问和间接访问</h3>
 					<p class="fragment fade-right blue">通过变量名进行访问，这是直接访问；</p>
 					<p class="fragment fade-right green">通过变量的地址进行访问，这是间接访问；</p>
 				</section>
@@ -1584,12 +1588,261 @@ the position = -1	</pre>
 					</div>
 					</div>
 				</section>
-				
+			</section>
+			
+			<section>
 				<section>
 					<h3>作业</h3>
 					<p>1. 课本，P291, 第3题；</p>
 					<p>2. 课本，P292, 第18题；</p>
 				</section>
+				
+				<section>
+					<h4>3. 编写函数，实现：(1)输入10个整数（2）输出10个数</h4>
+					<script type="syntaxhighlighter" class="brush:c;highlight:[]">
+#include <stdio.h>
+void input_data(int *d, int n);
+void handle_date(int *d, int n);
+void show_data(int *d, int n);
+
+int main()
+{	int data[10], n=sizeof(data)/sizeof(data[0]);
+	input_data(data, n);
+	printf("原始数据:\n"); show_data(data,n);
+	handle_date(data, n);
+	printf("处理后的数据:\n"); show_data(data, n);
+    return 0;
+}
+
+void input_data(int *d, int n){
+	int i;
+	printf("输入%d个数\n",n);
+	for(i=0;i<n;i++)
+		scanf("%d%n", d+i);
+}
+
+void show_data(int *d, int n){
+	for(int i=0;i<n;i++)
+		if(i==n-1)printf("%d\n", *(d+i));
+		else printf("%d, ", *(d+i));
+}					</script>
+				</section>
+				
+				<section>
+					<h4>3. 编写函数，(3)处理：将最小的数与第一个数对换，将最大的数与最后一个数对换：</h4>
+					<script type="syntaxhighlighter" class="brush:c;highlight:[]">
+void handle_date(int *d, int n){
+    int max_pos=0, min_pos=0, i, t;
+    for(i=0; i<n; i++){
+		if(*(d+max_pos)<*(d+i)) max_pos=i;
+		if(*(d+min_pos)>*(d+i)) min_pos=i;
+    }
+    if(max_pos != n-1){
+		t=*(d+max_pos); *(d+max_pos)=*(d+n-1); *(d+n-1)=t;}
+    if(min_pos != 0){
+		t=*(d+min_pos); *(d+min_pos)=*d; *d=t; }
+}					</script>
+<script type="syntaxhighlighter" class="brush:c;highlight:[]">
+输入10个数
+原始数据:
+3 7 5 4 13 27 2 1 25 9
+处理后的数据:
+1 7 5 4 13 9 2 3 25 27	</script>
+				</section>
+				
+				<section>
+					<h4>18. 编写程序，输入月份号，输出该月的英文月名。</h4>
+					<script type="syntaxhighlighter" class="brush:c;highlight:[]">
+#include <stdio.h>
+#include <time.h>
+char *convert_month(int month)
+{	static char *month_str[]={"January", "February", "March",
+		"April", "May", "June", "July", "August", "September",
+		"October", "November", "December"};
+	return month_str[month-1];
+}
+int main()
+{	int month=7; char buff[100]; time_t current_time = time(NULL);
+    printf("第 %d 月 = %s  ", month, convert_month(7));
+    struct tm *time_info = gmtime(&current_time);
+    month = time_info->tm_mon+1;
+    printf("第 %d 月 = %s\n", month, convert_month(month));
+    printf("目前的时间日期：%s\n", asctime(time_info));
+    time_info = localtime(&current_time);
+    printf("目前的时间日期：%s\n", asctime(time_info));
+    strftime(buff, sizeof(buff), "%Y %B %d %A , %H:%M:%S", time_info); 
+	puts(buff);
+    return 0;
+}					</script>
+<script type="syntaxhighlighter" class="brush:c;highlight:[]">
+第 7 月 = July  第 12 月 = December
+目前的时间日期：Sat Dec 08 06:53:30 2018
+目前的时间日期：Sat Dec 08 14:53:30 2018
+2018 December 08 Saturday , 14:53:30</script>
+				</section>
+				
+				<section>
+					<h4>跟时间日期有关的系统库函数声明文件：<code>time.h</code></h4>
+					<table>
+						<tr>
+							<th>函数</th><th>作用</th>
+						</tr>
+						<tr>
+							<td colspan="2">时间操纵</td>
+						</tr>
+						<tr>
+							<td><code>double difftime( time_t time_end, time_t time_begin );</code></td><td>计算时间<code>time_end - time_begin</code>的差，单位是秒</td>
+						</tr>
+						<tr>
+							<td><code>time_t time( time_t *arg );</code></td><td>返回当前时间日期（以秒为单位），以<code>time_t*</code>的格式，<code>arg=NULL</code>则返回一个内部指针</td>
+						</tr>
+						<tr>
+							<td><code>clock_t clock(void);</code></td><td>返回从午夜开始的计算机滴答值（处理器时间，除以<code>CLOCKS_PER_SEC</code>得到秒）</td>
+						</tr>
+						<tr>
+							<td colspan="2">格式转换</td>
+						</tr>
+						<tr>
+							<td><code>char* asctime( const struct tm* time_ptr );</code></td><td>将给定的日历时间<code> *time_ptr</code> 转换成下列固定的 25 字符文本表示：<code>Www(星期，如Mon) Mmm(月份，如Jan) dd（日期） hh:mm:ss yyyy（年）\n </code></td>
+						</tr>
+						<tr>
+							<td><code>char* ctime( const time_t* time );</code></td><td>将指定的从纪元开始时间转换成本地日历时间，再变成文本展示，如同调用<code>asctime(localtime( time_t *time))</code></td>
+						</tr>
+						<tr>
+							<td><code>size_t strftime( char *str, size_t count, const char *format, const struct tm *time );</code></td><td>按照格式字符串 <code>format</code> ，转换来自给定的日历时间 <code>time</code> 的日期和时间信息，为空终止多字节字符串 <code>str</code> 。最多写入 <code>count</code> 字节。</td>
+						</tr>
+					</table>
+				</section>
+				
+				<section>
+					<table>
+						<caption><code>strftime</code>中使用的时间格式：</caption>
+						<tr>
+							<th>占位符</th><th>作用</th>
+						</tr>
+						<tr>
+							<td><code>%Y</code></td><td>4位十进制年份</td>
+						</tr>
+						<tr>
+							<td><code>%y</code></td><td>2位十进制年份</td>
+						</tr>
+						<tr>
+							<td><code>%B</code></td><td>完整月名，如October</td>
+						</tr>
+						<tr>
+							<td><code>%b</code></td><td>省略月名，如Oct</td>
+						</tr>
+						<tr>
+							<td><code>%m</code></td><td>将月写作十进制数（范围 [01,12] ）</td>
+						</tr>
+						<tr>
+							<td><code>%U</code></td><td>以十进制数写年的星期（星期日是星期的首日）（范围 [00,53] ）</td>
+						</tr>
+						<tr>
+							<td><code>%W</code></td><td>以十进制数写年的星期（星期一是星期的首日）（范围 [00,53] ）</td>
+						</tr>
+						<tr>
+							<td><code>%j</code></td><td>以十进制数写年的第几日（范围 [001,366] ）</td>
+						</tr>
+						<tr>
+							<td><code>%d</code></td><td>以十进制数写月的第几日（范围 [1,31] ）</td>
+						</tr>
+						<tr>
+							<td><code>%e</code></td><td>以十进制数写月的第几日（范围 [01,31] , 单数字前加空格）</td>
+						</tr>
+						<tr>
+							<td><code>%a</code></td><td>写缩略的星期日期名，例如 Fri </td>
+						</tr>
+						<tr>
+							<td><code>%A</code></td><td>写完整的星期日期名，例如 Friday</td>
+						</tr>
+						<tr>
+							<td><code>%w</code></td><td>以十进制数写星期日期，其中星期日是 0 （范围 [0-6] ）</td>
+						</tr>
+						<tr>
+							<td><code>%u</code></td><td>十进制数写星期日期，其中星期一是 1 （ ISO 8601 格式）（范围 [1-7] ）</td>
+						</tr>
+						<tr>
+							<td><code>%H</code></td><td>以十进制数写时， 24 小时制（范围 [00-23] ）</td>
+						</tr>
+						<tr>
+							<td><code>%M</code></td><td>以十进制数写分（范围 [00,59] ）</td>
+						</tr>
+						<tr>
+							<td><code>%S</code></td><td>以十进制数写秒（范围 [00,59] ）</td>
+						</tr>
+					</table>
+				</section>
+				
+				<section>
+					<h4>跟时间日期有关的系统库函数声明文件：<code>time.h</code></h4>
+					<table>
+						<tr>
+							<th>函数</th><th>作用</th>
+						</tr>
+						<tr>
+							<td colspan="2">格式转换</td>
+						</tr>
+						<tr>
+							<td><code>struct tm *gmtime( const time_t *time );</code></td><td>转换从纪元开始的给定时间（ <code>time</code> 所指向的 <code>time_t</code> 的值），以 <code>struct tm</code> 格式表示成协调世界时（ UTC ）。存储结果于静态存储，并返回指向静态存储的指针。</td>
+						</tr>
+						<tr>
+							<td><code>struct tm *localtime( const time_t *time );</code></td><td>转换从纪元开始的给定时间（<code> time </code>所指向的 <code>time_t</code> 的值），以 <code>struct tm </code>格式及本地时间表达的日历时间。存储结果于静态存储，并返回指向静态存储的指针。</td>
+						</tr>
+						<tr>
+							<td><code>time_t mktime( struct tm *time );</code></td><td>重整化表示成 <code>struct tm</code> 的本地日历时间， 并将其转化成从纪元开始经过时间的 <code>time_t</code> 对象格式。忽略 <code>time->tm_wday</code> 与 <code>time->tm_yday</code> 。容许 <code>time</code> 中的值在其正常范围外。</td>
+						</tr>
+					</table>
+				</section>
+				
+				<section>
+					<table>
+						<tr>
+							<td colspan="2">常量</td>
+						</tr>
+						<tr>
+							<th>常量名</th><th>说明</th>
+						</tr>
+						<tr>
+							<td><code>CLOCKS_PER_SEC</code></td><td>每秒滴答数</td>
+						</tr>
+						<tr>
+							<td colspan="2">类型</td>
+						</tr>
+						<tr>
+							<th>类型名</th><th>说明</th>
+						</tr>
+						<tr>
+							<td><code>clock_t</code></td>
+							<td>
+							一般是声明为<code>typedef long int clock_t;</code>，用于<code>clock()</code>函数的返回值，用于衡量滴答值；
+							</td>
+						</tr>
+						<tr>
+							<td><code>time_t</code></td>
+							<td>
+							一般是声明为<code>typedef unsigned long time_t;</code>，用于<code>time()</code>函数的返回值，用于衡量从纪元开始经过时间的秒值；
+							</td>
+						</tr>
+						<tr>
+							<td><code>struct tm;</code></td>
+							<td>保有拆分成其组分的日历日期和时间的结构体。成员对象:
+							<ul>
+<li style="font-size:24px;"><code>int tm_sec</code>分后之秒 – [0, 60] (C99 起)[注 1]</li>
+<li style="font-size:24px;"><code>int tm_min</code>时后之分 – [0, 59]</li>
+<li style="font-size:24px;"><code>int tm_hour</code>自午夜起的小时 – [0, 23]</li>
+<li style="font-size:24px;"><code>int tm_mday</code>月之日 – [1, 31]</li>
+<li style="font-size:24px;"><code>int tm_mon</code>自 1 月起的月 – [0, 11]</li>
+<li style="font-size:24px;"><code>int tm_year</code>自 1900 年起的年</li>
+<li style="font-size:24px;"><code>int tm_wday</code>自星期日起的星期 – [0, 6]</li>
+<li style="font-size:24px;"><code>int tm_yday</code>从 1 月 1 日起的日 – [0, 365]</li>
+<li style="font-size:24px;"><code>int tm_isdst</code>夏时令标签。若夏时令有效则此值为正，若无效则为零，若无可用信息则为负。</li>
+							</ul>
+							</td>
+						</tr>
+					</table>
+				</section>
+				
 			</section>
 		</div>
 	</div>
