@@ -1,0 +1,116 @@
+#include "stdio.h"
+#include "stdlib.h"
+#include "string.h"
+#include "linker.h"
+
+EXIT_FLAG create_linker(Linker *linker) //创建链表
+{
+	if( linker == NULL ) //如果传递的链表是空指针，则不能执行
+		return ex_not_exist;
+
+	//如果传递进来的链表不是空的，
+	if(linker-> header != NULL){
+		delete_linker(linker); //必须先删除原来的链表
+	}
+	linker->header = linker->tail = NULL; //初始化是头指针指向空指针
+	linker->count=0;
+	return ex_ok;
+}
+
+EXIT_FLAG delete_linker(Linker *linker) //删除链表
+{
+	if( linker == NULL ) //如果传递的链表是空指针，则不能执行
+		return ex_not_exist;
+	Node *p = linker->header;
+	if(p==NULL)
+		return ex_ok;
+	while(linker->count>0){
+		Node *pp = p;
+		p = p->next;
+		free(pp);linker->count--;
+	}
+	linker->header = linker->tail = NULL;
+	linker->count =0;
+	return ex_ok;
+}
+
+EXIT_FLAG add_head_linker(Linker *linker, const Data *d) //在链表头插入数据
+{
+	if( linker == NULL ) //如果传递的链表是空指针，则不能执行
+		return ex_not_exist;
+	Node *p = malloc(sizeof(Node)); //创建新的节点
+	if(p==NULL)
+		return ex_not_enough_mem;
+	p->data = *d; //对新节点设置数据
+	if(linker->count==0){
+		p->next = NULL;
+		p->prev = NULL; //如果是第一个节点
+		linker->header = p;
+		linker->tail   = p;
+		linker->count++;
+	}else{//如果不是第一个
+		
+	}
+	linker->count++;
+	return ex_ok;
+}
+
+EXIT_FLAG add_tail_linker(Linker *linker, const Data *d); //在链表尾部插入数据
+EXIT_FLAG insert_linker(Linker *linker, Node *n, const Data *d); //在指定链表节点后插入数据
+EXIT_FLAG remove_head_linker(Linker *linker); //删除链表头
+EXIT_FLAG remove_tail_linker(Linker *linker); //删除链表尾
+
+EXIT_FLAG remove_node_linker(Linker *linker, Node *n) //删除指定链表节点
+{
+	if( linker == NULL ) //如果传递的链表是空指针，则不能执行
+		return ex_not_exist;
+	if( linker->header == NULL) //如果链表中没有节点
+		return ex_not_exist;
+	if( linker->count == 1) //如果只有一个节点
+	{
+		free(n); linker->header = NULL;
+		linker->count = 0;
+	}else{
+		if(n == linker->header) //如果是第一个节点
+		{
+			linker->header = n->next;
+			n->prev->prev = n->next;
+			n->next->next = n->prev;
+			linker->count--;
+		}else{
+			Node *next_node, *prev_node;
+			next_node = n->next;
+			prev_node = n->prev;
+            next_node->prev = prev_node;
+            prev_node->next = next_node;
+		}
+	}
+	return ex_ok;
+}
+
+EXIT_FLAG get_head_linker(Linker *linker, Node *n); //获取链表头
+EXIT_FLAG get_tail_linker(Linker *linker, Node *n); //获取链表尾
+EXIT_FLAG find_node_linker(Linker *linker, const Data *d, Node *n); //获取指定数据的节点
+
+EXIT_FLAG go_linker(Linker *linker, oper_fun fun) //遍历链表，对每个节点执行fun函数
+{
+	if( linker == NULL ) //如果传递的链表是空指针，则不能执行
+		return ex_not_exist;
+	Node *p = linker->header; int i=0;
+	while(p!=NULL){
+		Node *next = p->next;
+		fun(linker, i+1, p);
+		p=next; i++;
+	}
+	return ex_ok;
+}
+
+void oper_print_fun(Linker *linker, int i, Node *n){
+	printf("No.%d [id=%d] ", i, n->data.id);
+}
+
+void show_all_linker(Linker *linker) //输出整个链表
+{
+	go_linker(linker, oper_print_fun);
+	putchar('\n');
+}

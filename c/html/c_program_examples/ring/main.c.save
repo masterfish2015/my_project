@@ -1,0 +1,28 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include "linker.h"
+
+void oper_delete_condition(Linker *linker, int i, Node *node)
+{
+	if( i == 3)
+		remove_node_linker(linker, node);
+}
+
+int main()
+{
+	Linker linker={NULL} ;
+	if (create_linker(&linker)!=ex_ok){
+		printf("创建链表错误，退出。\n"); return -1;
+	}
+	int i; Data d;
+	for(i=13; i>0; i--){ //创建链表
+		d.id = i;
+		add_head_linker(&linker, &d);
+	}
+	show_all_linker(&linker);
+	while(linker.header!=NULL)
+	go_linker(&linker, oper_delete_condition);
+	show_all_linker(&linker);
+	delete_linker(&linker);
+    return 0;
+}

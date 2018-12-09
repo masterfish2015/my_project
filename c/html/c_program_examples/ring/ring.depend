@@ -1,0 +1,14 @@
+# depslib dependency file v1.0
+1544288904 source:d:\myprj\c\ring\linker.c
+	"stdio.h"
+	"stdlib.h"
+	"string.h"
+	"linker.h"
+
+1544286842 d:\myprj\c\ring\linker.h
+
+1544288411 source:d:\myprj\c\ring\main.c
+	<stdio.h>
+	<stdlib.h>
+	"linker.h"
+
