@@ -888,6 +888,231 @@ english 课程的最高分是 [201401010305][赵大]:
 其3门课分别为：[c]:76.0 [math]:84.5 [english]:98.0 平均分=86.2		</script>
 				</section>
 				
+				<section>
+					<h4>6.0 -13个人围成一个圈，从第1个人开始报数，数到3退出圈子，重新开始报数，一直循环，找出最后留在圈子里的人的序号，用链表实现。</h4>
+					<img src="images/1.svg" style="width:700px;"/>
+					<p class="fragment fade-right">退出顺序：3,6,9,12,2,7,11,4,10,5,1,8,13</p>
+				</section>
+				
+				<section>
+					<h4>6.1 链表类型头文件：<code>linker.h</code></h4>
+					<script type="syntaxhighlighter" class="brush:c;highlight:[]">
+#ifndef LINKER_H_INCLUDED
+#define LINKER_H_INCLUDED
+typedef struct _Data{ //数据类型
+	int id;
+}Data;
+typedef struct _Node{ //节点类型
+	Data data;
+	struct _Node *next, *prev; //下一个节点和前一个节点
+}Node;
+typedef struct _Linker{//链表类型
+	Node *header;
+	int count ;
+}Linker;
+typedef enum {
+	ex_ok=0, ex_not_enough_mem=-1, ex_not_exist=-2
+}EXIT_FLAG;
+typedef void (*oper_fun)(Node *n); //在链表遍历函数中使用的映射函数指针类型
+
+extern EXIT_FLAG create_linker(Linker *linker); //创建链表
+extern EXIT_FLAG delete_linker(Linker *linker); //删除链表
+extern EXIT_FLAG add_head_linker(Linker *linker, const Data *d); //在链表头插入数据
+extern EXIT_FLAG remove_node_linker(Linker *linker, Node *n); //删除指定链表节点
+//遍历链表，对每个节点执行fun函数
+extern EXIT_FLAG go_linker(Linker *linker, oper_fun fun); 
+extern void show_all_linker(Linker *linker); //输出整个链表
+#endif // LINKER_H_INCLUDED		</script>
+				</section>
+				
+				<section>
+					<h4>6.2 链表类型实现文件<code>linker.c</code>：[1]创建和删除链表</h4>
+					<script type="syntaxhighlighter" class="brush:c;highlight:[]">
+#include "stdio.h"
+#include "stdlib.h"
+#include "linker.h"
+EXIT_FLAG create_linker(Linker *linker) //创建链表
+{   if( linker == NULL ) //如果传递的链表是空指针，则不能执行
+        return ex_not_exist;
+
+    //如果传递进来的链表不是空的，
+    if(linker-> header != NULL)
+        delete_linker(linker); //必须先删除原来的链表
+    linker->header = NULL; //初始化是头指针指向空指针
+    linker->count=0;
+    return ex_ok;
+}
+EXIT_FLAG delete_linker(Linker *linker) //删除链表
+{   if( linker == NULL ) //如果传递的链表是空指针，则不能执行
+        return ex_not_exist;
+    Node *p = linker->header;
+    if(p==NULL)//如果链表没有节点
+        return ex_ok;
+    while(linker->count>0){
+        Node *pp = p;  p = p->next;
+        free(pp);      linker->count--;
+    }
+    linker->header = NULL;
+    linker->count =0;
+    return ex_ok;
+}	</script>
+				</section>
+				
+				<section>
+					<h4>6.2 链表类型实现文件<code>linker.c</code>：[2]在链表头插入数据</h4>
+					
+					<img src="images/graph1.svg" />
+					<img src="images/graph2.svg" />
+
+				</section>
+				
+				<section>
+					<h4>6.2 链表类型实现文件<code>linker.c</code>：[2]在链表头插入数据</h4>
+					<script type="syntaxhighlighter" class="brush:c;highlight:[]">
+EXIT_FLAG add_head_linker(Linker *linker, const Data *d) //在链表头插入数据
+{
+    if( linker == NULL ) //如果传递的链表是空指针，则不能执行
+        return ex_not_exist;
+    Node *p = malloc(sizeof(Node)); //创建新的节点
+    if(p==NULL)
+        return ex_not_enough_mem;
+    p->data = *d; //对新节点设置数据
+    if(linker->count==0) //如果是第一个节点
+    {   p->next = p;
+        p->prev = p;
+        linker->header = p;
+        linker->count++;
+    }
+    else  //如果不是第一个
+    {
+        Node *next_node=linker->header, 
+		*prev_node=linker->header->prev;
+        p->next = prev_node->next;
+        prev_node->next = p;
+        p->prev = next_node->prev;
+        next_node->prev = p;
+
+        linker->header = p;
+        linker->count++;
+    }
+    return ex_ok;
+}	</script>
+				
+				</section>
+				
+				<section>
+					<h4>6.2 链表类型实现文件<code>linker.c</code>：[3]删除指定节点</h4>
+					
+					<img src="images/graph1.svg" />
+					<img src="images/graph3.svg" />
+
+				</section>
+				
+				<section>
+					<h4>6.2 链表类型实现文件<code>linker.c</code>：[3]删除指定节点</h4>
+					<script type="syntaxhighlighter" class="brush:c;highlight:[]">
+EXIT_FLAG remove_node_linker(Linker *linker, Node *n) //删除指定链表节点
+{
+    if( linker == NULL ) //如果传递的链表是空指针，则不能执行
+        return ex_not_exist;
+    if( linker->header == NULL) //如果链表中没有节点
+        return ex_not_exist;
+    if( linker->count == 1) //如果只有一个节点
+    {
+        free(n);
+        linker->header = NULL;
+        linker->count = 0;
+    }
+    else
+    {
+        Node *next_node=n->next, *prev_node=n->prev;
+        prev_node->next = n->next;
+        next_node->prev = n->prev;
+        //如果n在第一节点，则修改header指向
+        if(n==linker->header)
+            linker->header=n->next;
+        free(n);
+        linker->count--;
+    }
+    return ex_ok;
+}	</script>
+				
+				</section>
+				
+				<section>
+					<h4>6.2 链表类型实现文件<code>linker.c</code>：[4]遍历整个链表</h4>
+					<script type="syntaxhighlighter" class="brush:c;highlight:[]">
+EXIT_FLAG go_linker(Linker *linker, oper_fun fun) //遍历链表，对每个节点执行fun函数
+{   if( linker == NULL ) //如果传递的链表是空指针，则不能执行
+        return ex_not_exist;
+    Node *p = linker->header;
+    int i=0;
+
+    for(i=0; i<linker->count; i++)
+    {   fun(p);
+        p=p->next;
+    }
+    return ex_ok;
+}
+
+void oper_print_fun(Node *n)
+{    printf("[id=%d]", n->data.id);
+}
+
+void show_all_linker(Linker *linker) //输出整个链表
+{   go_linker(linker, oper_print_fun);
+    putchar('\n');
+}	</script>
+				
+				</section>
+				
+				<section>
+					<h4>6.2 实际主函数<code>main.c</code></h4>
+					<div class="flex">
+					<script type="syntaxhighlighter" class="brush:c;highlight:[]">
+#include <stdio.h>
+#include "linker.h"
+int main()
+{	Linker linker={NULL} ;
+	if (create_linker(&linker)!=ex_ok){
+		printf("创建链表错误，退出。\n"); 
+		return -1;
+	}
+	int i; Data d;
+	for(i=13; i>0; i--){ //插入元素进入链表头部
+		d.id = i; add_head_linker(&linker, &d);
+	}
+	//不断绕圈
+	i=1; Node *p=linker.header, *old;
+	while(linker.count>0){
+        old=p->next;
+        printf("[%d]-id=%d ", i, p->data.id);
+        if(i==3){//数到3，移除该节点
+			printf("[√]\n"); //标识
+            remove_node_linker(&linker, p);
+            i=1; //重新计数
+        }else i++;
+        p=old;
+	}
+	delete_linker(&linker); //删除链表
+    return 0;
+}	</script>
+<script type="syntaxhighlighter" class="brush:c;highlight:[]">
+[1]-id=1 [2]-id=2 [3]-id=3 [√]
+[1]-id=4 [2]-id=5 [3]-id=6 [√]
+[1]-id=7 [2]-id=8 [3]-id=9 [√]
+[1]-id=10 [2]-id=11 [3]-id=12 [√]
+[1]-id=13 [2]-id=1 [3]-id=2 [√]
+[1]-id=4 [2]-id=5 [3]-id=7 [√]
+[1]-id=8 [2]-id=10 [3]-id=11 [√]
+[1]-id=13 [2]-id=1 [3]-id=4 [√]
+[1]-id=5 [2]-id=8 [3]-id=10 [√]
+[1]-id=13 [2]-id=1 [3]-id=5 [√]
+[1]-id=8 [2]-id=13 [3]-id=1 [√]
+[1]-id=8 [2]-id=13 [3]-id=8 [√]
+[1]-id=13 [2]-id=13 [3]-id=13 [√]	</script>
+				</div>
+				</section>
 			</section>
 		</div>
 	</div>

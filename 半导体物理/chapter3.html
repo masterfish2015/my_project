@@ -1117,6 +1117,76 @@ $$
 					<h4 style="font-size:36px;">2. 有一块掺磷的n型硅，施主杂质浓度为$N_D=10^{15}/cm^3$，分别计算(1)77K（2）300K（3）500K（4）800K 时导带的浓度。</h4>
 				</section>
 				
+				<section>
+					<p>1. 若锗中施主杂质电离能$\Delta E_D=0.01eV$，施主杂质浓度分别为$N_D=10^{14}/cm^3$和$N_D=10^{17}/cm^3$，计算(1)90%电离(2)50%电离 时的温度分别是多少。</p>
+					<p style="font-size:28px;" class="blue">解：【1】由课本Page 72 式（3-54）可以得到：
+					$f(T)=\left(\displaystyle\frac{\Delta E_D}{k_0}\right)\left(\displaystyle\frac{1}{T}\right)-\left\{\displaystyle\frac{3}{2}\mathrm{ln}T+\mathrm{ln}\left[\left(\displaystyle\frac{D_-}{N_D}\right)\left(\displaystyle\frac{(2\pi k_0 m_n^*)^{3/2}}{h^3}\right)\right]\right\}$, 这里$D_-=0.1$, $k_0=1.38\times 10^{-23} J/K$, $\Delta E_D=0.01eV$, 由课本Page 66, 表3-2, 可以得到：对于锗，$m_n^*=0.56m_0$, 当$N_D=10^{14}/cm^3=10^{20}/m^3$时，令$f(T)=0$, 因为$f(1) \gt 0$, $f(500)\lt 0$, 用二分查找得到方程的根为$T=24.2233 K$</p>
+					
+					<p  class="green" style="font-size:28px;" >
+					当$N_D=10^{17}/cm^3=10^{23}/m^3$时，令$f(T)=0$, 因为$f(1) \gt 0$, $f(500)\lt 0$, 用二分查找得到方程的根为$T=160.659348 K$</p>
+				</section>
+				
+				<section>			
+					<p  class="Crimson" style="font-size:24px;">
+					解：【2】当50%电离时，由$n_0=n_D^+=\frac{N_D}{2}=\frac{N_D}{1+2\exp\left(-\frac{E_D-E_F}{k_0T}\right)}$，于是$\exp\left(-\frac{E_D-E_F}{k_0T}\right)=\frac{1}{2}$，不满足$\exp\left(-\frac{E_D-E_F}{k_0T}\right) \gg 1$的条件，无法用课本 Page 70，式(3-46)来直接计算, 下面另行推导，注意在完全电离前，电子浓度$n_0$=杂质电离浓度$n_D^+$：</p>
+					<p  class="Navy" style="font-size:24px;">根据课本68页 式(3-37)杂质未电离的浓度: $n_D=\frac{N_D}{1+\frac{1}{g_D}\exp(\frac{E_D-E_F}{k_0T})}$，这里$g_D=2$
+					</p>
+					<p  class="Indigo" style="font-size:24px;">根据课本68页 式(3-39)杂质电离的浓度： $n_D^+=\frac{N_D}{1+g_D\exp(-\frac{E_D-E_F}{k_0T})}$，这里$g_D=2$
+					</p>
+					<p  class="Crimson" style="font-size:24px;">由于50%电离： $\frac{N_D}{1+\frac{1}{2}\exp(\frac{E_D-E_F}{k_0T})}=\frac{N_D}{1+2\exp(-\frac{E_D-E_F}{k_0T})}$，化简后得到：$E_F=E_D-k_0T\mathrm{ln}2$
+					</p>
+					<p  class="blue" style="font-size:24px;">由课本63页，式（3-19）:$n_0=N_C\exp\left(-\frac{E_c-E_F}{k_0T}\right)=\frac{N_D}{2}$, 把上面的$E_F$，$\Delta E_D=E_C-E_D$，以及各数值代入，并化简，得到：$\frac{\Delta E_D}{k_0T}=\mathrm{ln}\left(\frac{N_C}{N_D}\right)$, $N_C=2\frac{(2\pi k_0 m_n^*T)^{3/2}}{h^3}$, 设$f(T)=\frac{\Delta E_D}{k_0T}-\mathrm{ln}\left(\frac{N_C}{N_D}\right)$</p>
+					<p  class="green" style="font-size:24px;">
+					令$f(T)=0$，当$N_D=10^{14}/cm^3$时，可以解出其根为：$T=16.164963 K$
+					</p>
+					<p  class="red" style="font-size:24px;">
+					当$N_D=10^{17}/cm^3$时，可以解出其根为：$T=55.00462267 K$
+					</p>
+				</section>
+				
+				
+				<section>
+					<p class="Indigo" style="font-size:28px;">2. 有一块掺磷的n型硅，施主杂质浓度为$N_D=10^{15}/cm^3$，分别计算(1)77K（2）300K（3）500K（4）800K 时导带的电子浓度。</p>
+					<img src="images/硅的掺杂能级.png" align="left" />
+					<p class="Navy" style="font-size:28px;">解：根据课本Page 43，图2-8，查得磷在硅中的电离能$\Delta E_D=0.046eV $。</p>
+					<p  class="Crimson" style="font-size:28px;">首先估算完全电离（90%）所需要的温度：根据由课本Page 72 式（3-54）可以得到：
+					$f(T)=\left(\displaystyle\frac{\Delta E_D}{k_0}\right)\left(\displaystyle\frac{1}{T}\right)-\left\{\displaystyle\frac{3}{2}\mathrm{ln}T+\mathrm{ln}\left[\left(\displaystyle\frac{D_-}{N_D}\right)\left(\displaystyle\frac{(2\pi k_0 m_n^*)^{3/2}}{h^3}\right)\right]\right\}$, 这里$D_-=0.1$, $k_0=1.38\times 10^{-23} J/K$, 由课本Page 66, 表3-2, 可以得到：对于硅，$m_n^*=1.062m_0$, 当$N_D=10^{15}/cm^3=10^{21}/m^3$时，令$f(T)=0$, 因为$f(1) \gt 0$, $f(500)\lt 0$, 用二分查找得到方程的根为$T_0=111.6667 K$</p>
+				</section>
+				
+				<section>
+					<p style="font-size:28px;" class="red">【1】当$T=77K \lt T_0=111.6667 K$时，表示这时候是未完全电离状态，由课本69页，式(3-44)：$E_F=\displaystyle\frac{E_C+E_D}{2}+\displaystyle\frac{k_0T}{2}\mathrm{ln}\left(\displaystyle\frac{N_D}{2N_C}\right)$</p>
+					
+					<p style="font-size:28px;" class="blue">当$N_C=2\displaystyle\frac{(2\pi k_0 m_n^*T)^{3/2}}{h^3}=0.11N_D$时，$E_F$取到最大值, 设$f(T)=2\displaystyle\frac{(2\pi k_0 m_n^*T)^{3/2}}{h^3}-0.11N_D$，令$f(T)=0$，求出$T_1=0.0756845K$，也就是说，低于$T_1$的属于低温弱电离区，在$[T_1, T_0]$之间是中间电离区， $T=77K$属于中间电离区。</p>
+					
+					<p style="font-size:28px;" class="green">由课本70页，式(3-46)：$n_0=\sqrt{\displaystyle\frac{N_DN_C}{2}}\exp\left(-\displaystyle\frac{\Delta E_D}{2k_0T}\right)$, 代入具体数值，算出：$n_0=1.3178\times10^{15}/cm^3 \gt Nd=1\times10^{15}/cm^3$, 这说明在靠近完全电离的温度点，式(3-46)不再可靠。</p>
+				</section>
+				
+				<section>
+					<p style="font-size:28px;" class="red">下面重新推导：注意在完全电离前，电子浓度$n_0$=杂质电离浓度$n_D^+$</p>
+					<p style="font-size:28px;" class="blue">根据课本63页 式(3-19): $n_0=N_C\exp(-\frac{E_c-E_F}{k_0T})$</p>
+					<p style="font-size:28px;" class="green">根据课本68页 式(3-39): $n_D^+=\frac{N_D}{1+g_D\exp(-\frac{E_D-E_F}{k_0T})}$，这里$g_D=2$</p>
+					<p style="font-size:28px;" class="Navy">于是：$N_C\exp(-\frac{E_c-E_F}{k_0T})=N_C\exp(-\frac{E_c-E_D}{k_0T})\exp(-\frac{E_D-E_F}{k_0T})=\frac{N_D}{1+2\exp(-\frac{E_D-E_F}{k_0T})}$</p>
+					<p style="font-size:28px;" class="Crimson">这里：$N_C=2\frac{(2\pi k_0 m_n^*T)^{3/2}}{h^3}$, $m_n^*=1.062m_0$, $E_c-E_D=\Delta E_D$, 并且设$x=\exp(-\frac{E_D-E_F}{k_0T})$，代入上式可以求出：$x=0.204$，于是$n_0=n_D^+=\frac{N_D}{1+2x}=7.098\times10^{14}/cm^3$</p>
+				</section>
+				
+				<section>
+					<img src="images/本征载流子浓度4.png" align="left" />
+					<p style="font-size:28px;" class="red">【2】当$T=300K \gt T_0=111.6667 K$时，表示这时候是完全电离状态，由课本67页，图3-7，可以查出此时($T=300K$)，硅的本征载流子浓度：$n_i=2\times10^{10}/cm^3 \ll N_D=10\times10^{15}/cm^3$</p>
+					<p style="font-size:28px;" class="green">所以这时是强电离区，$n_0=N_D=1\times10^{15}/cm^3$</p>
+				</section>
+				
+				<section>
+					<img src="images/本征载流子浓度5.png" align="left" />
+					<p style="font-size:28px;" class="red">【3】当$T=500K \gt T_0=111.6667 K$时，表示这时候是完全电离状态，由课本67页，图3-7，可以查出此时($T=500K$)，硅的本征载流子浓度：$n_i=8\times10^{14}/cm^3 \approx N_D=10\times10^{15}/cm^3$</p>
+					<p style="font-size:28px;" class="green">所以这时是过渡区，根据课本72页，(3-60), $n_0=\frac{N_D+(N_D^2+4n_i^2)^{1/2}}{2}$，代入具体数值，算出$n_0=1.14\times10^{15}/cm^3$</p>
+				</section>
+				
+				<section>
+					<img src="images/本征载流子浓度6.png" align="left" />
+					<p style="font-size:28px;" class="red">【4】当$T=800K \gt T_0=111.6667 K$时，表示这时候是完全电离状态，由课本67页，图3-7，可以查出此时($T=800K$)，硅的本征载流子浓度：$n_i=2\times10^{17}/cm^3 \gg N_D=10\times10^{15}/cm^3$</p>
+					<p style="font-size:28px;" class="green">所以这时是高温本征激发区，$n_0=n_i=2\times10^{17}/cm^3$</p>
+				</section>
+				
 			</section>
 		</div>
 	</div>

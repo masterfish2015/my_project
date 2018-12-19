@@ -31,6 +31,10 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="linker.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="linker.h" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>

@@ -1,0 +1,23 @@
+\begin{circuitikz}[scale=1.2, american]
+ \draw
+ (0,2) to[I=1<\milli\ampere>] (2,2)
+ to[R, l_=2<\kilo\ohm>, *-*] (0,0)
+ to[R, l_=2<\kilo\ohm>] (2,0)
+ to[V, v_=2<\volt>] (2,2)
+ to[cspst, l=$t_0$] (4,2) -- (4,1.5)
+ to [generic, i=$i_1$, v=$v_1$] (4,-.5) -- (4,-1.5)
+ (0,2) -- (0,-1.5) to[V, v_=4<\volt>] (2,-1.5)
+ to [R, l=1<\kilo\ohm>] (4,-1.5);
+
+ \begin{scope}[xshift=6.5cm, yshift=.5cm]
+ \draw [->] (-2,0) -- (2.5,0) node[anchor=west] {$v_1/\volt$};
+ \draw [->] (0,-2) -- (0,2) node[anchor=west] {$i_1/\SI{}{\milli\ampere}$} ;
+ \draw (-1,0) node[anchor=north] {-2} (1,0) node[anchor=south] {2}
+ (0,1) node[anchor=west] {4} (0,-1) node[anchor=east] {-4}
+ (2,0) node[anchor=north west] {4}
+ (-1.5,0) node[anchor=south east] {-3};
+ \draw [thick] (-2,-1) -- (-1,1) -- (1,-1) -- (2,0) -- (2.5,.5);
+ \draw [dotted] (-1,1) -- (-1,0) (1,-1) -- (1,0)
+ (-1,1) -- (0,1) (1,-1) -- (0,-1);
+ \end{scope}
+\end{circuitikz}

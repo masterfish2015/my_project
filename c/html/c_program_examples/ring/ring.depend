@@ -12,3 +12,16 @@
 	<stdlib.h>
 	"linker.h"
 
+1544339102 source:c:\myprj\school1\c\html\c_program_examples\ring\linker.c
+	"stdio.h"
+	"stdlib.h"
+	"string.h"
+	"linker.h"
+
+1544337397 c:\myprj\school1\c\html\c_program_examples\ring\linker.h
+
+1545178838 source:c:\myprj\school1\c\html\c_program_examples\ring\main.c
+	<stdio.h>
+	<stdlib.h>
+	"linker.h"
+

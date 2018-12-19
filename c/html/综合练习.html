@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+
+	<title>c 综合练习</title>
+
+	<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+	<meta name="author" content="ldc">
+
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<link rel="stylesheet" href="js/reveal.js-3.7.0/css/reveal.css">
+	<link rel="stylesheet" href="js/reveal.js-3.7.0/css/theme/sky.css" id="theme">
+
+	<script type="text/javascript" src="js/SyntaxHighlighter/scripts/shCore.js"></script>
+	<script type="text/javascript" src="js/SyntaxHighlighter/scripts/shBrushCpp.js"></script>
+	<link type="text/css" rel="stylesheet" href="js/SyntaxHighlighter/styles/shCoreDefault.css"/>
+	<link type="text/css" rel="stylesheet" href="js/SyntaxHighlighter/styles/shThemeDefault.css"/>
+	<script type="text/javascript">SyntaxHighlighter.all();</script>
+
+	<link rel="stylesheet" href="css/style9.css">
+	<!-- Printing and PDF exports -->
+	<script>
+		var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'js/reveal.js-3.7.0/css/print/pdf.css' : 'js/reveal.js-3.7.0/css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+	<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	<script type="text/x-mathjax-config">
+	  MathJax.Hub.Config({
+		extensions: ["tex2jax.js"],
+		jax: ["input/TeX","output/HTML-CSS"],
+		tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+	  });
+	</script>
+	<script src="js/mathjax/MathJax.js"></script>
+</head>
+
+<body>
+
+	<div class="reveal">
+
+		<!-- Any section element inside of this container is displayed as a slide -->
+		<div class="slides">
+			<section>
+				<section>
+					<h2>一、单项选择题</h2>
+				</section>
+				
+				<section>
+					<p>1. 在16位的系统中(不考虑内存对齐)，以下的变量<code>t</code>，占内存的字节数是: ( <b class="fragment fade-up red " > D</b>)</p>
+					<div class="flex">
+					<script type="syntaxhighlighter" class="brush:c;highlight:[]">
+struct TypeA {
+	union {
+		int a;
+		double b;
+	}  x;
+	char y[13];
+	long int z;
+} t;				</script>
+					<ol align="right">
+						<li class="sel">27</li>
+						<li class="sel">29</li>
+						<li class="sel">32</li>
+						<li class="sel">25</li>
+					</ol>
+					</div>
+				</section>
+				
+				<section>
+					<p>2. <code>fopen</code>打开文件，关于“a+”，“r+”，“w+”选项的正确说法是: ( <b class="fragment fade-up red">B</b>)</p>
+					<ol align="right">
+						<li class="sel">“r+”表示只能以只读的形式打开文件</li>
+						<li class="sel">“a+”表示打开文件可以读写，写入时会从文件末尾添加</li>
+						<li class="sel">“w+”打开文件时，如果指定文件不存在，则会出错</li>
+						<li class="sel">以上说法都错</li>
+					</ol>
+				</section>
+				
+				<section>
+					<p>3. 关于下面的枚举（<code>enum</code>）类型<code>COLOR</code>，下列说法错误的是: ( <b class="fragment fade-right red">C</b>)</p>
+					<div class="flex2">
+					<script type="syntaxhighlighter" class="brush:c;highlight:[]">
+enum COLOR ｛black=0, red , blue=2, green=4, white｝;
+enum COLOR c1, c2;	</script>
+					<ol align="right">
+						<li class="sel">枚举值<code>black</code>等都是常量，不能像变量一样重新赋值，如<code>black=1</code></li>
+						<li class="sel">枚举常量可以作为<code>switch</code>语句中各个<code>case</code>的常量</li>
+						<li class="sel">上面的定义中，<code>white</code>的值是<code>8</code></li>
+						<li class="sel">枚举变量<code>c1</code>，<code>c2</code>可以赋予超出枚举范围的值，比如<code>c1=100</code></li>
+					</ol>
+					</div>
+				</section>
+				
+				<section>
+					<p>4. 下面程序运行后的输出结果是: ( <b class="fragment fade-right red">A</b>)</p>
+					<div class="flex">
+					<script type="syntaxhighlighter" class="brush:c;highlight:[]">
+struct node
+{	int a,b;
+	struct node *p;
+}S[2];
+void main()
+{   int sum=0;
+	S[0].a=1;S[0].b=2;
+	S->p=S;
+	sum=S[0].a+S[0].b+S->p->a;
+	printf("%d",sum);
+} </script>
+					<ol align="right">
+						<li class="sel">4</li>
+						<li class="sel">3</li>
+						<li class="sel">5</li>
+						<li class="sel">运行错误</li>
+					</ol>
+					</div>
+				</section>
+				
+				<section>
+					<p>5. 要打开一个已存在的非空文件"file"用于修改，选择正确的语句: ( <b class="fragment fade-up red">C</b>)</p>
+					<ol align="right">
+						<li class="sel"><code>fp=fopen("file", "r");</code></li>
+						<li class="sel"><code>fp=fopen("file", "w");</code></li>
+						<li class="sel"><code>fp=fopen("file", "r+");</code></li>
+						<li class="sel"><code>fp=fopen("file", "a+");</code></li>
+					</ol>
+				</section>
+				
+			</section>
+			
+			<section>
+				<section>
+					<h2>二、程序填空</h2>
+				</section>
+				
+				<section>
+					<p>1. 以下程序的功能是计算并打印复数的差</p>
+					<div class="flex">
+					<script type="syntaxhighlighter" class="brush:c;highlight:[]">
+struct comp 
+{	float re;
+	float im;
+};
+void m(struct comp *x, struct comp *y,     
+	   __[1]__     ) 
+{	z-＞re＝     __[2]__     ;
+	z-＞im＝ x-＞im -  y-＞im;
+} 
+void main() 
+{	__[3]__       ;
+	struct comp a,b;
+	a.re＝1; a.im＝2;
+	b.re＝3; b.im＝4;
+	t＝     __[4]__      ;
+	/*求复数b-a的差*/
+	m(    __[5]__    , t ); 
+	printf("z.re＝%f,z.im＝%f",
+		t->re,t->im);
+	free(t);
+} 
+ </script>
+				 <table>
+					<tr ><th>No.</th><th>填空</th></tr>
+					<tr class="fragment fade-right" ><td>1</td><th><code>struct comp *z</code></th></tr>
+					<tr class="fragment fade-right" ><td>2</td><th><code>x-&gt;re - y-&gt;re</code></th></tr>
+					<tr class="fragment fade-right" ><td>3</td><th><code>struct comp *t</code></th></tr>
+					<tr class="fragment fade-right" ><td>4</td><th><code>malloc(sizeof(sruct comp))</code></th></tr>
+					<tr class="fragment fade-right" ><td>5</td><th><code>&amp;b, &amp;a</code></th></tr>
+				 </table>
+				 </div>
+				</section>
+				
+				<section>
+					<p>2. 以只读形式打开一个文本格式的文件(文件名为data.txt)，统计其中含有字母’e’（包括大小写）的个数并显示出来</p>
+					<div class="flex">
+					<script type="syntaxhighlighter" class="brush:c;highlight:[]">
+#include "stdlib.h"
+【6】
+int main(void){
+	
+	FILE *p=【7】;
+	if(p==NULL)
+			exit(-1);
+	{
+		char c;
+		【8】;
+		while((c=【9】)!=EOF){
+			if(c=='e' || 【10】)
+				count++;
+		}
+		printf("%d\n",count);
+	}
+
+
+	fclose(p);
+} 					</script>
+				 <table>
+					<tr ><th>No.</th><th>填空</th></tr>
+					<tr class="fragment fade-right" ><td>6</td><th><code>#include "stdio.h"</code></th></tr>
+					<tr class="fragment fade-right" ><td>7</td><th><code>fopen("data.txt","r")</code></th></tr>
+					<tr class="fragment fade-right" ><td>8</td><th><code>int count=0</code></th></tr>
+					<tr class="fragment fade-right" ><td>9</td><th><code>fgetc(p)</code></th></tr>
+					<tr class="fragment fade-right" ><td>10</td><th><code>c=='E'</code></th></tr>
+				 </table>
+				 </div>
+				</section>
+				
+			</section>
+			
+
+	<script src="js/reveal.js-3.7.0/lib/js/head.min.js"></script>
+	<script src="js/reveal.js-3.7.0/js/reveal.js"></script>
+	
+	<script>
+		// More info https://github.com/hakimel/reveal.js#configuration
+		Reveal.initialize({
+			width: 1024,
+			height: 768,
+			controls: true,
+			progress: true,
+			history: true,
+			center: true,
+
+			transition: 'zoom', // none/fade/slide/convex/concave/zoom
+
+			// More info https://github.com/hakimel/reveal.js#dependencies
+			dependencies: [{
+					src: 'js/reveal.js-3.7.0/lib/js/classList.js',
+					condition: function () {
+						return !document.body.classList;
+					}
+				},
+				{
+					src: 'js/reveal.js-3.7.0/plugin/markdown/marked.js',
+					condition: function () {
+						return !!document.querySelector('[data-markdown]');
+					}
+				},
+				{
+					src: 'js/reveal.js-3.7.0/plugin/markdown/markdown.js',
+					condition: function () {
+						return !!document.querySelector('[data-markdown]');
+					}
+				},
+				{
+					src: 'js/reveal.js-3.7.0/plugin/search/search.js',
+					async: true
+				},
+				{
+					src: 'js/reveal.js-3.7.0/plugin/zoom-js/zoom.js',
+					async: true
+				},
+				{
+					src: 'js/reveal.js-3.7.0/plugin/notes/notes.js',
+					async: true
+				}
+			]
+		});
+		Reveal.configure({ slideNumber: "c/t" });
+	</script>
+
+</body>
+
+</html>

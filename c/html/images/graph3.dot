@@ -1,0 +1,25 @@
+digraph structs {
+    header 		[shape=plaintext];
+	
+	node [shape = record];
+	node1 [label="<p1> node1 |<p2> next|<p3>prev "];
+	node2 [label="<p1> node2 |<p2> next|<p3>prev "];
+	node3 [label="<p1> node3 |<p2> next|<p3>prev "];
+	
+	splines = polyline;
+	header -> "node1":p1;
+    "node1":p3 -> "node3":p1;
+	"node2":p2 -> "node3":p1;
+	"node2":p3 -> "node1":p1;
+	"node3":p2 -> "node1":p1;
+	
+	edge [color=red];	
+	splines = polyline;
+	"node1":p2 -> "node2":p1[label="(1)", style=dashed];
+	"node1":p2 -> "node3":p1[label="(2)"];
+	
+	"node3":p3 -> "node2":p1[label="(3)", style=dashed];
+	"node3":p3 -> "node1":p1[label="(4)"];
+	
+	
+}

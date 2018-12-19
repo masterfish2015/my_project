@@ -2,29 +2,33 @@
 #include <stdlib.h>
 #include "linker.h"
 
-int main()
-{
-	Linker linker={NULL} ;
-	if (create_linker(&linker)!=ex_ok){
-		printf("´´½¨Á´±í´íÎó£¬ÍË³ö¡£\n"); return -1;
-	}
-	int i; Data d;
-	for(i=13; i>0; i--){ //´´½¨Á´±í
-		d.id = i;		add_head_linker(&linker, &d);
-	}
-	//show_all_linker(&linker);
-	//²»¶ÏÈÆÈ¦
-	i=1; Node *p=linker.header, *old;
-	while(linker.count>0){
+int main() {
+    system("chcp 65001");
+    Linker linker= {NULL} ;
+    if (create_linker(&linker)!=ex_ok) {
+        printf("åˆ›å»ºé“¾è¡¨é”™è¯¯ï¼Œé€€å‡ºã€‚\n");
+        return -1;
+    }
+    int i;
+    Data d;
+    for(i=13; i>0; i--) { //åˆ›å»ºé“¾è¡¨
+        d.id = i;
+        add_head_linker(&linker, &d);
+    }
+    //show_all_linker(&linker);
+    //ä¸æ–­ç»•åœˆ
+    i=1;
+    Node *p=linker.header, *old;
+    while(linker.count>0) {
         old=p->next;
         printf("[%d]-id=%d ", i, p->data.id);
-        if(i==3){
-            printf("[¡Ì]\n");
+        if(i==3) {
+            printf("[âˆš, é€€å‡º]\n");
             remove_node_linker(&linker, p);
             i=1;
-        }else i++;
+        } else i++;
         p=old;
-	}
-	delete_linker(&linker);
+    }
+    delete_linker(&linker);
     return 0;
 }

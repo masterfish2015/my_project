@@ -1,0 +1,14 @@
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.8.22)  10 DEC 2018 16:53
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**citcuitikz_demo1.tex
+(./citcuitikz_demo1.tex
+LaTeX2e <2016/02/01>
+Babel <3.9q> and hyphenation patterns for 3 language(s) loaded.
+
+! LaTeX Error: Environment circuitikz undefined.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                        

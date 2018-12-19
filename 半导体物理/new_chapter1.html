@@ -343,7 +343,7 @@ $$\frac{\hbar^2}{2m}\cdot\frac{\partial^2\Psi(x,t)}{\partial x^2}+V(x)\Psi(x,t)=
 				
 				<section>
 					<img src="images/e_k2.png" style="height: 400px;"/>
-					<p>由上图，可以得到，在不同的晶格位置$x=\alpha \cdot a$，可以允许取到的$\alpha$值是不同的，必须保证$-1\le  f(\alpha\cdot a) le+1$，这样$\alpha$不是连续的，同样，由于$\alpha^2=\dfrac{2mE}{\hbar^2}$，电子能量$E$也不连续。</p>
+					<p>由上图，可以得到，在不同的晶格位置$x=\alpha \cdot a$，可以允许取到的$\alpha$值是不同的，必须保证$-1\le  f(\alpha\cdot a) \le+1$，这样$\alpha$不是连续的，同样，由于$\alpha^2=\dfrac{2mE}{\hbar^2}$，电子能量$E$也不连续。</p>
 				</section>
 				
 				<section>
@@ -366,7 +366,7 @@ $$\frac{\hbar^2}{2m}\cdot\frac{\partial^2\Psi(x,t)}{\partial x^2}+V(x)\Psi(x,t)=
 					$，
 					</p>
 					<p style="font-size:24px;" class="fragment fade-left">
-					当$ka=\pi$时，可以从图中看到，$\alpha_1 \cdot a=\sqrt{\frac{2mE_1}{\hbar^2}}=\pi $, 求出$E_1=2.972\times 10^{-19}J$, 用数值近似求解求出$1+8\frac{\sin(\alpha\cdot a)}{\alpha\cdot a}+\cos(\alpha\cdot a)=0$在$(\pi, 2\pi)$内的第二个解，得到$\alpha_2 \cdot a=\sqrt{\frac{2mE_2}{\hbar^2}}=5.141$, 求出$E_2=7.958\times 10^{-19}J$，于是禁带宽度为：
+					当$\alpha a=\pi$时，可以从图中看到，$\alpha_1 \cdot a=\sqrt{\frac{2mE_1}{\hbar^2}}=\pi $, 求出$E_1=2.972\times 10^{-19}J$, 用数值近似求解求出$1+8\frac{\sin(\alpha\cdot a)}{\alpha\cdot a}+\cos(\alpha\cdot a)=0$在$(\pi, 2\pi)$内的第二个解，得到$\alpha_2 \cdot a=\sqrt{\frac{2mE_2}{\hbar^2}}=5.141$, 求出$E_2=7.958\times 10^{-19}J$，于是禁带宽度为：
 					$E_g=E_2-E_1=4.986\times 10^{-19}J=3.12eV$
 					</p>
 						</div>
@@ -576,10 +576,60 @@ $$\frac{\hbar^2}{2m}\cdot\frac{\partial^2\Psi(x,t)}{\partial x^2}+V(x)\Psi(x,t)=
 			</section>
 			
 			<section>
-				<h2>作业</h2>
-				<h4>Page 35, 第1题；</h4>
-				<h4>2, 设$P'=10, a=4.5\mathring{A}$，试求$ka=0$时的禁带宽度。</h4>
+				<section>
+					<h2>作业</h2>
+					<h4>Page 35, 第1题；</h4>
+					<h4>2, 设$P'=10, a=4.5\mathring{A}$，试求$ka=0$时的禁带宽度。</h4>
+				</section>
+				
+				<section>
+					<p style="font-size:28px;" class="red">1.设晶格常数为$a=0.314nm$的一维晶格，导带极小值附近能量$E_c(k)$和价带极大值附近能量$E_v(k)$分别为:$E_c(k)=\frac{\hbar^2k^2}{3m_0}+\frac{\hbar^2(k-k_1)^2}{m_0}$, $E_v(k)=\frac{\hbar^2k_1^2}{6m_0}-\frac{3\hbar^2k^2}{m_0}$, 其中，$m_0$是电子静止质量，$k_1=\frac{\pi}{a}$, 试求：(1)禁带宽度；</p>
+					<p style="font-size:28px;" class="blue">解：(1) $dE_c(k)=\frac{2\hbar^2k}{3m_0}+\frac{\hbar^2(2k-2k_1)}{m_0}$, 令$dE_c(k)=0$, 可以解得方程的根为$k=\frac{3}{4}k_1$，带入可得$E_c(k)$的局部最小值 $E_c = \frac{\hbar^2k_1^2}{4m_0}=\frac{(1.054\times 10^{-34})^2(\frac{\pi}{0.314\times 10^{-9}})^2}{4(9.108\times 10^{-31})}=3.052380\times 10^{-19} J $, 即$ \frac{3.052380\times 10^{-19}}{1.602\times 10^{-19}}= 1.905 eV$</p> 
+					<p style="font-size:28px;" class="green">同理，可以得到$dE_v(k)=-\frac{6\hbar^2k}{m_0}$，即当$k=0$时，$E_v(k)$取到最大值，即$E_v=\frac{\hbar^2k_1^2}{6m_0}=\frac{(1.054\times 10^{-34})^2(\frac{\pi}{0.314\times 10^{-9}})^2}{6(1.602\times 10^{-19})}=2.034920\times 10^{-19}$, 即 $\frac{2.034920\times 10^{-19}}{1.602\times 10^{-19}}= 1.27 eV$</p>
+					<p style="font-size:28px;" class="blue">所以 $E_g = E_c - E_v = 1.905 - 1.27 = 0.635 eV$</p>
+				</section>
+				
+				<section>
+					<p style="font-size:28px;" class="red"> (2)导带底电子有效质量；</p>
+					<p style="font-size:28px;" class="blue">解：因为$d^2E_c(k)=\frac{8\hbar^2}{3m_0}$, 由Page11 (1-21)可得： $\frac{1}{\hbar^2}\left(\frac{d^2E}{dk^2}\right)_{k=0}=\frac{1}{m_n^*}$</p> 
+					<p style="font-size:28px;" class="green">$\frac{1}{m_n^*} = \frac{1}{\hbar^2}\frac{8\hbar^2}{3m_0}$, 于是$m_n^* = \frac{3 m_0}{8}$</p>
+					<p style="font-size:28px;" class="red"> (3)价带顶电子有效质量；</p>
+					<p style="font-size:28px;" class="blue">解：因为$d^2E_v(k)=-\frac{6\hbar^2}{m_0}$, 由Page11 (1-21)可得： $\frac{1}{\hbar^2}\left(\frac{d^2E}{dk^2}\right)_{k=0}=\frac{1}{m_n^*}$</p> 
+					<p style="font-size:28px;" class="green">$\frac{1}{m_n^*} = -\frac{6\hbar^2}{m_0}\frac{1}{\hbar^2}$, 于是$m_n^* = -\frac{ m_0}{6}$</p>
+				</section>
+				
+				<section>
+					<p style="font-size:28px;" class="red"> (4)价带顶部电子跃迁到导带底时准动量的变化；</p>
+					<p style="font-size:28px;" class="blue">解：在价带顶部，准动量为$P_v(k)_{_{k=0}}=\hbar k = 0$</p>
+					<p style="font-size:28px;" class="green">在导带底部，准动量为$P_c(k)_{_{k=3k_1/4}}=\frac{3k_1\hbar}{4}$</p>
+					<p style="font-size:28px;" class="blue">所以，准动量的变化为：$\Delta P =\frac{3k_1\hbar}{4}-0=\frac{3(\frac{\pi}{0.314\times 10^{-9}})(1.054\times 10^{-34})}{4}=7.909\times 10^{-25}(kg\cdot m/s)$</p>
+				</section>
+				
+				
+				<section>
+					<h4>2, 设$P'=10, a=4.5\mathring{A}$，试求$ka=-\pi$时的禁带宽度。</h4>
+					<img src="images/e_k2.png" style="width:450px;" align="left"/>
+					<p style="font-size:26px;"  class="fragment fade-left red">解：
+					$
+					\cos(ka)=P'\frac{\sin(\alpha\cdot a)}{\alpha\cdot a}+\cos(\alpha\cdot a)
+					$, 对于$ka=0$，有：$
+					-1=10\frac{\sin(\alpha\cdot a)}{\alpha\cdot a}+\cos(\alpha\cdot a)
+					$，
+					</p>
+					<p style="font-size:26px;" class="fragment fade-left blue">
+					令$x=\alpha a, f(x)=10\frac{\sin(x)}{x}+\cos(x)+1$， 从左图可以看到，$f(x)=0$的根$x$的取值应该在$[\pi, 2\pi]$之间, 通过数值近似求解可得$x_1=\pi, x_2=5.307$，由此，得到$\alpha_1=x_1/a=6.981317\times 10^{9}$, $\alpha_2=x_2/a=1.179406\times 10^{10}$
+					</p>
+					<p style="font-size:26px;" class="fragment fade-left green">
+					$E=\frac{\alpha^2\hbar^2}{2m_0}$，可以得到$E_1 = 2.97237e-19 J=1.8554eV$，以及$E_2=8.483\times 10^{-19}J$，$E_2=5.2953eV$, $Eg=E_2-E_1=5.2953-1.8554=3.44 eV$
+					</p>
+				</section>
+				
+				
 			</section>
+			
+			
+			
+			
 		</div>
 	</div>
 
