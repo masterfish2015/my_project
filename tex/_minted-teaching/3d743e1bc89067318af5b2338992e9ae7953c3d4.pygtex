@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kt}{int} \PYG{n+nf}{main}\PYG{p}{()\PYGZob{}}
+    \PYG{n}{puts}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}Hello\PYGZdq{}}\PYG{p}{);}
+\end{Verbatim}

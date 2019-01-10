@@ -1,0 +1,378 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+
+	<title>半导体物理 第6章</title>
+
+	<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+	<meta name="author" content="ldc">
+
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<link rel="stylesheet" href="js/reveal.js-3.7.0/css/reveal.css">
+	<link rel="stylesheet" href="js/reveal.js-3.7.0/css/theme/sky.css" id="theme">
+
+	<script type="text/javascript" src="js/SyntaxHighlighter/scripts/shCore.js"></script>
+	<script type="text/javascript" src="js/SyntaxHighlighter/scripts/shBrushCpp.js"></script>
+	<link type="text/css" rel="stylesheet" href="js/SyntaxHighlighter/styles/shCoreDefault.css"/>
+	<link type="text/css" rel="stylesheet" href="js/SyntaxHighlighter/styles/shThemeDefault.css"/>
+	<script type="text/javascript">SyntaxHighlighter.all();</script>
+
+	<link rel="stylesheet" href="css/style5.css">
+	<!-- Printing and PDF exports -->
+	<script>
+		var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'js/reveal.js-3.7.0/css/print/pdf.css' : 'js/reveal.js-3.7.0/css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+			
+		var ldc;
+	</script>
+
+	<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	<script type="text/x-mathjax-config">
+	  MathJax.Hub.Config({
+		extensions: ["tex2jax.js"],
+		jax: ["input/TeX","output/HTML-CSS"],
+		tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+	  });
+	</script>
+	<script src="js/mathjax/MathJax.js"></script>
+	<script src="js/three/three.js"></script>
+	<script src="js/three/examples/js/controls/OrbitControls.js"></script>
+	<script src="js/d3/d3.js"></script>
+</head>
+
+<body>
+
+	<div class="reveal">
+
+		<!-- Any section element inside of this container is displayed as a slide -->
+		<div class="slides">
+			<section>
+				<section>
+					<h1>第六章</h1>
+					<h2>pn结</h2>
+				</section>
+				
+				<section>
+					<h2>主要内容</h2>
+					<ol>
+						<li  class="red">pn结及其能带</li>
+						<li  class="red">pn结电流电压特性</li>
+						<li>pn结电容</li>
+						<li class="red">pn结击穿</li>
+						<li>pn结隧道效应</li>
+					</ol>
+				</section>				
+			</section>
+			
+			<section>
+				<section>
+					<h2>6.1 pn结（pn junction）及其能带</h2>
+				</section>
+				
+				<section>
+					<h4>6.1.1 pn结的形成和杂质分布</h4>
+					<img src="images/pn_junction.png" />
+					<p>pn结是半导体器件的核心，单一的pn结就是一个二极管，大部分的半导体器件都是以pn结为主，下面先介绍几种pn结的制备工艺。</p>
+				</section>
+				
+				<section>
+					<p>【1】合金法</p>
+					<img src="images/合金法制造pn结.png" />
+					<p>如图，把一小粒铝放在n-型硅的衬底上，局部加热使铝底部和硅接触部分融化，Al和Si互相融合，降低温度，熔融体开始凝固，即可在结合面形成p-型硅薄层，这是合金结的形成工艺。注意，其杂质浓度的分布如右图所示。这种结称为<red>突变结</red>。</p>
+					<p>注意，在这个例子中，衬底的杂质浓度比较小，铝掺杂后形成的p-型硅的杂质浓度比较高，这称为<red>单边突变结</red>，记为$p^+n$结。</p>
+				</section>
+				
+				<section>
+					<p>【2】扩散法</p>
+					<img src="images/扩散法制造pn结的过程.png" />
+					<p>如图，把需要掺杂的p型杂质气化，并通过<red>热扩散</red>形成pn结，这种工艺形成的杂质浓度从p区到n区是逐渐变化的，称为<blue>缓变结</blue>。</p>
+					<p>对于<red>高表面浓度的浅扩散结</red>，可以用<red>突变结</red>来近似，而<blue>低表面浓度的深扩散结</blue>可以认为是<blue>线性缓变结</blue>。</p>
+				</section>
+				
+				<section>
+					<p>【3】离子注入法</p>
+					<img src="images/离子注入制造pn结1.png"/>
+					<p>也可以用离子注入的方式来掺入杂质，这是最精确的，可以控制是缓变结或突变结。</p>
+				</section>
+				
+				<section>
+					<h4>6.1.2 空间电荷区</h4>
+					<img src="images/pn结.png" />
+				</section>
+				
+				<section>
+					<h4>6.1.3 pn结能带及内建电场电势差</h4>
+					<img src="images/pn结势垒.png" />
+					<p class="red" style="font-size:24px;">
+					由于$qV_D=E_{F_n}-E_{F_p}$，且平衡后，p区导带电子浓度$n_{p0}=n_i\exp\left(\frac{E_{F_p}-E_i}{k_0T}\right)$，n区导带电子浓度$n_{n0}=n_i\exp\left(\frac{E_{F_n}-E_i}{k_0T}\right)$，因为$n_{n0}\approx N_D$, $n_{p0}\approx \frac{n_i^2}{N_A}$，可以得到: $V_D=\frac{k_0T}{q}\mathrm{ln}\left(\frac{N_DN_A}{n_i^2}\right)$, 设300K时，$N_A=10^{17}/cm^3$, $N_D=10^{15}/cm^3$，可得硅的$V_D=0.7V$, 锗的$V_D=0.32V$。
+					</p>
+				</section>
+				
+				<section>
+					<h4>6.1.4 pn结的载流子分布</h4>
+					<img src="images/pn结电势分布.png" align="left" style="height:550px;"/>
+					<p class="blue" style="font-size:24px;">设平衡时n区的电子、空穴浓度分别是$n_{n0}, p_{n0}$，p区的电子、空穴浓度分别是$n_{p0}, p_{p0}$，可以得到势垒区内电子和空穴的浓度分布是：
+					$n(x)=n_{n0}\exp\left[\displaystyle\frac{qV(x)-qV_D}{k_0T}\right]$ $p(x)=p_{p0}\exp\left[\displaystyle\frac{-qV(x)}{k_0T}\right]$
+					</p>
+					<p class="red" style="font-size:24px;">
+					利用上面两个式子，可以算出势垒区的载流子分布，比如，设势垒区最左边（p区）的边界处电势为0，p区的杂质浓度为$N_A$，$n$区的杂质浓度为$N_D$，在从势垒区右边界往左（←），内电场电势减少$0.1V$(也就是电子势能提高$0.1eV$)的地方，其电子浓度为：$n(x)=n_{n0}\exp\left[\frac{qV(x)-qV_D}{k_0T}\right]\approx N_D\exp\left[\frac{-0.1}{0.026}\right]=\frac{N_D}{50}$
+					</p>
+					<p class="green" style="font-size:24px;">
+					设势垒高度为$0.7eV$，则从右升高$0.1eV$的地方，就是从左边界减少$0.6eV$的地方，即$qV(x)=0.6eV$, 则此时该处的空穴浓度为：$p(x)=p_{p0}\exp\left[\frac{-qV(x)}{k_0T}\right]$， 即$p(x)\approx N_A\exp\left[\frac{-0.6}{0.026}\right]\approx \frac{N_A}{10^{10}}$
+					</p>
+					<p class="Navy" style="font-size:24px;">可见，在势垒区的载流子浓度非常少，可以视为0，称为<b class="wavy">耗尽层</b>。</p>
+				</section>
+				
+			</section>
+			
+			<section>
+				<section>
+					<h2>6.2 pn结电流电压特性</h2>
+					<p>当pn结在热平衡状态下，存在具有一定宽度和势垒高度的势垒区，其中相应的出现了内建电场</p>
+					<p>平衡状态下的每种载流子的扩散电流和漂移电流互相抵消，最后的结果是：<red>pn结中不存在净电流</red>，对应的<blue>pn结中费米能级相等</blue>。</p>
+					<p>当通过pn结两端施加偏压电场时，这个平衡被打破，将会有非平衡载流子产生。</p>
+				</section>
+				
+				<section>
+					<h4>6.2.1 非平衡状态下的pn结</h4>
+					<p>【1】外加电压下，pn结势垒的变化和载流子的运动</p>
+					<img src="images/电压偏置下的pn结.png" style="height:500px;"/>
+				</section>
+				
+				<section>
+					<h4>6.2.1 非平衡状态下的pn结</h4>
+					<p>【2.1】外加正向电压下，pn结能带的变化</p>
+					<img src="images/电压偏置下的pn结1.png" style="height:500px;"/>
+				</section>
+				
+				<section>
+					<h4>6.2.1 非平衡状态下的pn结</h4>
+					<p>【2.2】外加反向电压下，pn结能带的变化</p>
+					<img src="images/电压偏置下的pn结2.png" style="height:500px;"/>
+				</section>
+				
+				<section>
+					<h4>6.2.2 理想pn结模型</h4>
+					<img src="images/doide-structure-forward-reverse-bias-animation_0.gif" style="width:500px;" align="center"/>
+					<p>
+					理想pn结要求满足以下条件：
+					<ol>
+						<li class="red">小注入条件：注入的非平衡少数载流子浓度比平衡时的多数载流子浓度要小得多（要求外电压不大）</li>
+						<li class="blue">突变耗尽层条件：外加电压和接触电势差都降落在耗尽层上</li>
+						<li class="green">耗尽层条件：不考虑耗尽层内的载流子的产生和复合</li>
+						<li class="Navy">玻尔兹曼边界条件：耗尽层两端的载流子分布满足玻尔兹曼分布条件，也就是掺杂浓度不高。</li>
+					</ol>
+					</p>
+				</section>
+				
+				<section>
+					<img src="images/pn结电流电压特性1.png" align="right" />
+					<h4>6.2.2 理想pn结电流电压方程</h4>
+					<p class="blue" style="font-size:24px;">设p区半导体的杂质浓度为$N_A$，n区半导体的杂质浓度为$N_D$, p区平衡时的电子和空穴的浓度分别为$n_{p0}, p_{p0}$，n区平衡时的电子和空穴的浓度分别为$n_{n0}, p_{n0}$, n区的空穴扩散系数$D_p$, 空穴扩散复合寿命$\tau_p$, 空穴扩散长度$L_p=\sqrt{D_p\tau_p}$，p区的电子扩散系数$D_n$，电子扩散复合寿命$\tau_n$, 电子扩散长度$L_n=\sqrt{D_n\tau_n}$，外接电压$V$</p>
+					<p class="Crimson" style="font-size:24px;">
+					则理想pn结中的电流电压方程（肖克利方程）为：$J=J_s\left[\exp\left(\displaystyle\frac{qV}{k_0T}\right)-1\right]$, 其中$J_s=\displaystyle\frac{qD_nn_{p0}}{L_n}+\displaystyle\frac{qD_pp_{n0}}{L_p}$
+					</p>
+					<p class="green" style="font-size:24px;">由于常温下($T=300K$), $\frac{k_0T}{q}=0.026V$, 正向偏压下，$V\approx 0.3 \sim 0.7V$，所以$\exp\left(\frac{qV}{k_0T}\right) \gg 1$, 所以$J=J_s\left[\exp\left(\displaystyle\frac{qV}{k_0T}\right)-1\right]\approx J_s\exp\left(\displaystyle\frac{qV}{k_0T}\right) $</p>
+					<p class="Navy" style="font-size:24px;"> 反向偏压下，$V \lt 0 $，由于$|V| \gg \frac{k_0T}{q} $, 所以$\exp\left(\frac{qV}{k_0T}\right) \to 0$, 于是$J=-J_s=-\displaystyle\frac{qD_nn_{p0}}{L_n}+\displaystyle\frac{qD_pp_{n0}}{L_p}$为常量。可见，pn结具有<b class="wavy">单向导电性，也称整流效应</b>。另外，正向电流密度随温度上升而增加。</p>
+				</section>
+				
+				<section>
+					<img src="images/pn结电流电压特性2.png" align="right" style="width:300px;"/>
+					<h4>6.2.3 影响pn结的电流电压特性偏离理想方程的各种因素</h4>
+					<p style="font-size:26px;">【1】反向电压时，由于pn结总的电压增加，pn结的温度上升，导致原来的耗尽层又增加额外的本征激发的载流子，并在外电场下形成额外的反向电流，这是<b class="red">势垒区的产生电流</b>。</p>
+					<p style="font-size:26px;">【2】正向电压时，理想pn结的正向净电流是扩散电流，在pn结中，同时有电子扩散和空穴扩散，并且假定二者没有复合，实际上会有部分电子和空穴在势垒区复合，形成<b class="red">势垒区的复合电流</b>，在小正向偏压时比较明显，形成正向的a段，当正向电压足够大时，复合电流不明显，这是b段。</p>
+					<p style="font-size:26px;">【3】正向偏压比较大时，会使得注入的非平衡载流子比较多，形成<b class="red">大注入</b>。以$p^+n$结为例，由于p区的空穴浓度比较大，有大量的空穴扩散到n区，并在势垒区右边界堆积，由于电中性，导致势垒区右边界的导带的电子也产生堆积，从而减弱了电子扩散电流，这是c段，当电流继续增加，会产生漏电流，从而形成d段。</p>
+					<p style="font-size:26px;">
+					【4】在反向偏压比较大时，会产生<b class="red">击穿</b>，参见后面介绍。
+					</p>
+				</section>
+			</section>
+			
+			<section>
+				<section>
+					<h2>6.3 pn结电容</h2>
+				</section>
+
+				<section>
+					<h4>6.3.1 pn结电容的来源</h4>
+					<img src="images/pn结电容.png" />
+					<p>【1】势垒电容：如上图，当pn结加上正向偏压时，势垒区变窄，相当于电子和空穴<b class="wavy">中和</b>势垒区的电离杂质，并存储在势垒中，当电压下降时，就会重新释放出这些载流子，这是势垒电容；</p>
+					<p>【2】扩散电容：如上图，对于单边突变结，大量的载流子会堆积在另一区的边界，并由于电中性导致另一种载流子也堆积，这样就会形成垂直方向的电荷堆积，形成扩散电容；</p>
+				</section>
+
+				<section>
+					<img src="images/突变结.png" align="left" style="height:700px;"/>
+					<h4>6.3.2 突变结的势垒电容</h4>
+					<p class="red" style="font-size:26px;">对于突变pn结，设其接触面积为$A$,其内电场电势差为$V_D$，外加电压为$V$，$\varepsilon_r$为半导体的相对介电常数，p区杂质浓度$N_A$, n区杂质浓度$N_D$, 可以算出，势垒的宽度$X_D=X_p+X_n$，p区宽度：$X_p=\sqrt{\frac{2\varepsilon_r \varepsilon_0 V_D}{qN_A}}$, n区宽度：$X_n=\sqrt{\frac{2\varepsilon_r \varepsilon_0 V_D}{qN_D}}$</p>
+					<p class="blue" style="font-size:26px;">突变结的(反向偏压时的)势垒电容为：$C_T=\frac{A\varepsilon_r\varepsilon_0}{X_D}$，正向偏压时的势垒电容：$C_T=4A\sqrt{\frac{\varepsilon_r\varepsilon_0 q N_A N_D}{2(N_A+N_D)V_D}}$</p>
+					<p class="green" style="font-size:26px;">突变结的势垒电容和结面积$A$成正比。对于单边突变结，如$p^+n$结，$N_A \gg N_D$, 则$C_T\approx A\sqrt{\frac{\varepsilon_r\varepsilon_0 q N_D}{2(V_D-V)}}$，可见电容和轻掺杂的杂质浓度的开方成正比；</p>
+					<p class="Navy" style="font-size:26px;">突变结的势垒电容和$\sqrt{V_D-V}$成反比，说明反向电压越大，势垒电容越小，可利用这一点制作变容器件；</p>
+				</section>
+				
+				<section>
+					<img src="images/缓变结.png" align="left" style="height:700px;"/>
+					<h4>6.3.3 线性缓变结的势垒电容</h4>
+					<p class="red" style="font-size:26px;">线性缓变结的势垒宽度：$X_D=\sqrt[3]{\displaystyle\frac{12\varepsilon_r\varepsilon_0(V_D-V)}{q\alpha_j}}$，其中，$\alpha_j$是杂质的浓度梯度，注意，缓变结左右两边的宽度是相等的，所以$X_n=X_p=\displaystyle\frac{X_D}{2}$</p>
+					<p class="blue" style="font-size:26px;">同样得到线性缓变结电容为：$C_T=\displaystyle\frac{\varepsilon_r\varepsilon_0A}{X_D}$</p>
+					<p class="green" style="font-size:26px;">
+					由此可见，减少结面积$A$，或者降低杂质浓度梯度$\alpha_j$，或者加大反向电压，都可以减少势垒电容；
+					</p>
+				</section>
+				
+				<section>
+					<h4>6.3.4 扩散电容</h4>
+					<p class="red" style="font-size:26px;">设pn结的面积为$A$，则当正向偏压时，pn结中的扩散电容值为：$C_D=\left[Aq^2\displaystyle\frac{(n_{p0}L_n+p_{n0}L_p)}{k_0T}\right]\exp\left(\displaystyle\frac{qV}{k_0T}\right)$
+					</p>
+					<p class="blue" style="font-size:26px;">对于$p^+n$结：$C_D\approx\left[Aq^2\displaystyle\frac{p_{n0}L_p}{k_0T}\right]\exp\left(\displaystyle\frac{qV}{k_0T}\right)$
+					</p>
+					<p class="green" style="font-size:26px;">
+					上式只用于低频的情况，扩散电容在频率增高时会越来越小，一般认为高频时相当于短路；
+					</p>
+					<p class="Navy" style="font-size:26px;">
+					从上式可见，随着外电压增加，扩散电容成指数增加，所以，在大的正向偏压时，扩散电容起到主要作用。
+					</p>
+				</section>
+				
+			</section>
+			
+			<section>
+				<section>
+					<h2>6.4 pn结击穿</h2>
+					<p>理想的pn结，反向偏压时几乎可以认为是没有电流的（或者维持很小的反向电流），但实际上，当反向电压大到一定时，就会产生击穿，即反向电流迅速增大</p>
+					<p>击穿时的电压，称为击穿电压（breakdown voltage）</p>
+					<img src="images/pn结电流电压特性.png" />
+				</section>
+
+				<section>
+					<h4>6.4.1 雪崩击穿</h4>
+					<p>如果反向电压比较大，并且势垒宽度比较宽，载流子在势垒区会被加速得到很大的动能，当它与晶格原子碰撞时，会将价带电子激发到导带，这样1个载流子就能得到3个载流子，大量的载流子在反向偏压下形成反向电流，产生击穿。</p>
+					<img src="images/雪崩击穿.gif" />
+				</section>
+
+				<section>
+					<h4>6.4.2 热电击穿</h4>
+					<p>当pn结反向偏压，结区热量迅速增加，如果热量不能很好的散发出去，会导致局部结温上升，从而使得本征载流子增加，并在反偏电压下成为反向电流。这种由于热不稳定引起的击穿，称为热电击穿，对于锗的pn结，比较常见。</p>
+				</section>
+
+				<section>
+					<h4>6.4.3 隧道（齐纳）击穿</h4>
+					<img src="images/隧道击穿.png" align="left"/>
+					<p>若反偏电压加大势垒高度，使得n区的导带底低于p区的价带顶部，则p区的价带电子有概率之间洞穿到n区的导带，形成反向击穿，其概率和反向偏压（越大概率越高）和势垒区的宽度($X_D$)（越小概率越高）有关，由于$X_D$和杂质浓度开方成反比，所以为了实现一定概率的隧道击穿，必须要重掺杂。</p>
+					<p>条件：对于重掺杂的硅、锗pn结，当击穿电压$V_{br} \lt 4\frac{E_g}{q}$时，一般为隧道击穿；当击穿电压$V_{br} \gt 6\frac{E_g}{q}$时，一般为雪崩击穿；处于这两个电压时，两种击穿都存在。</p>
+				</section>				
+			</section>
+			
+			<section>
+				<section>
+					<h2>6.5 pn结隧道效应</h2>
+				</section>
+				
+				<section>
+					<img src="images/隧道效应.png" style="height:700px;"/>
+					
+				</section>
+				
+			</section>
+			
+			<section>
+				<section>
+					<h2>作业</h2>
+					<p>1. 画图简要说明pn结势垒</p>
+					<p>2. 通过能带理论简要说明pn结的电流电压特性</p>
+					<p>3. 画图说明pn结击穿的几种类型</p>
+				</section>
+				
+				<section>
+					<p>1. 画图简要说明pn结势垒</p>
+					<img src="images/pn结势垒.png" />
+					<p>解：如图，p型半导体和n型半导体接触，两边的载流子互相向对方扩散，形成空间电荷区，形成内电场，内电场使能带弯曲，形成势垒。</p>
+				</section>
+				
+				<section>
+					<p>2. 通过能带理论简要说明pn结的电流电压特性</p>
+					<img src="images/电压偏置下的pn结.png" style="height:300px;"/>
+					
+					<img src="images/pn结电流电压特性.png" style="height:200px;" align="left"/>
+					<p>解：如图，在正偏电压下，势垒高度降低，使得内电场对多子扩散的阻挡减弱，于是正向电流增加；在反偏电压下，势垒高度增加，使得内电场对多子扩散的阻挡增强，少子漂移增强，但是少子太少使得反向电流有但是很少，这就是其正向导通，反向截止的电流电压特性。</p>
+				</section>
+				
+				<section>
+					<p>3. 画图说明pn结击穿的几种类型</p>
+					<img src="images/雪崩击穿.gif" style="height:300px;"/>
+					
+					<img src="images/隧道击穿.png" style="height:300px;" align="left"/>
+					<p>解：如图，击穿主要是雪崩击穿和齐纳击穿（隧道击穿）。雪崩击穿主要是由于载流子在反向电场下加速撞击晶格原子，使共价键上的电子激发到导带，产生雪崩式的载流子增加，从而产生击穿。</p>
+					<p>隧道击穿，是因为能带弯曲导致n区的导带底部已经低于p区价带顶部，同时由于势垒宽度非常窄，使得p区的价带电子能够通过势垒区的隧道直接进入n区的导带，从而形成击穿。</p>
+				</section>
+			</section>
+		</div>
+	</div>
+
+	<script src="js/reveal.js-3.7.0/lib/js/head.min.js"></script>
+	<script src="js/reveal.js-3.7.0/js/reveal.js"></script>
+	
+	<script>
+		// More info https://github.com/hakimel/reveal.js#configuration
+		Reveal.initialize({
+			width: "100%",
+			height: "100%",
+			margin: 0.05,
+			minScale: 1,
+			maxScale: 1,
+			controls: true,
+			progress: true,
+			history: true,
+			center: true,
+			slideNumber: "c",
+			transition: 'slide', // none/fade/slide/convex/concave/zoom
+			// Factor of the display size that should remain empty around the content
+
+			// More info https://github.com/hakimel/reveal.js#dependencies
+			dependencies: [{
+					src: 'js/reveal.js-3.7.0/lib/js/classList.js',
+					condition: function () {
+						return !document.body.classList;
+					}
+				},
+				{
+					src: 'js/reveal.js-3.7.0/plugin/markdown/marked.js',
+					condition: function () {
+						return !!document.querySelector('[data-markdown]');
+					}
+				},
+				{
+					src: 'js/reveal.js-3.7.0/plugin/markdown/markdown.js',
+					condition: function () {
+						return !!document.querySelector('[data-markdown]');
+					}
+				},
+				{
+					src: 'js/reveal.js-3.7.0/plugin/search/search.js',
+					async: true
+				},
+				{
+					src: 'js/reveal.js-3.7.0/plugin/zoom-js/zoom.js',
+					async: true
+				},
+				{
+					src: 'js/reveal.js-3.7.0/plugin/notes/notes.js',
+					async: true
+				}
+			]
+		});
+	</script>
+
+</body>
+
+</html>

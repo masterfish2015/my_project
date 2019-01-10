@@ -1,0 +1,17 @@
+{
+  "name": "javascript_new",
+  "version": "1.0.0",
+  "description": "show new technology of es6",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "es6"
+  ],
+  "author": "ldc",
+  "license": "MIT",
+  "dependencies": {
+    "jquery": "^3.3.1"
+  }
+}

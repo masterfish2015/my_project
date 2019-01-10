@@ -1,0 +1,4 @@
+\beamer@endinputifotherversion {3.36pt}
+\beamer@sectionintoc {1}{生成演示文档}{3}{0}{1}
+\beamer@subsectionintoc {1}{1}{基本框架 template}{4}{0}{1}
+\beamer@subsectionintoc {1}{2}{预定义主题 theme}{5}{0}{1}

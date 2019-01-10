@@ -1,0 +1,122 @@
+\documentclass[A4paper, 8pt]{beamer}
+\usetheme{Berkeley}
+\usecolortheme{seahorse}
+
+\usepackage[UTF8]{ctex} %中文支持
+\usepackage{listings}   %显示源代码
+\usepackage{minted}
+\usepackage{color}
+
+\title{用\TeX\ 或\LaTeX\ 生成需要的文档}
+\author{ldc}
+\date{2019-1-8}
+
+\begin{document}
+
+\begin{frame} %生成首页
+	\titlepage
+\end{frame}
+
+\begin{frame} %生成大纲页
+	\frametitle{内容大纲}
+	\tableofcontents
+\end{frame}
+
+\section{生成演示文档}
+
+\begin{frame}
+	\frametitle{生成演示文档}
+	\centering
+	\LARGE 生成演示文档
+\end{frame}
+
+\subsection{基本框架 template}
+
+\begin{frame}[fragile=singleslide]
+\frametitle{最基础的框架}
+\begin{columns}[t]
+\column{0.5\textwidth}
+\begin{block}{一个最基本的演示文档框架}
+\begin{verbatim} 
+%定义文档类型为幻灯片类型
+\documentclass[A4paper, 11pt]{beamer} 
+\usetheme{Boadilla} %选择主题
+\usepackage[UTF8]{ctex} %中文支持
+\usepackage{listings}   %显示源代码
+\title{文档标题}
+\author{作者}
+\date{生成日期}
+\begin{document}
+
+\begin{frame} %生成首页
+    \titlepage
+\end{frame}
+\end{verbatim}
+\end{block}
+        
+\column{0.45\textwidth}
+\begin{block}{续}
+\begin{verbatim}
+\begin{frame} %生成大纲页
+    \frametitle{内容大纲}
+    \tableofcontents
+\end{frame}
+
+\begin{frame}
+    \frametitle{标题}
+    内容
+\end{frame}
+...
+\end{document}
+\end{verbatim}
+\end{block}
+\end{columns}
+\end{frame}
+
+\subsection{预定义主题 theme}
+
+\begin{frame}[fragile]
+\frametitle{使用预定义的主题}
+
+\begin{block}{访问网站来查看可用主题的预览}
+\verb!http://deic.uab.es/~iblanes/beamer_gallery/index_by_theme.html !
+\end{block}
+
+\begin{block}{可用主题}
+\small
+\begin{tabular}{|l|l|l|l|l|l|}
+\hline
+AnnArbor  &Antibes     &Bergen     &Berkeley    &Berlin      &Boadilla\\ \hline
+boxes     &CambridgeUS &Copenhagen &Darmstadt   &default     &Dresden\\ \hline
+Frankfurt &Goettingen  &Hannover   &Ilmenau     &JuanLesPins &Luebeck\\ \hline
+Madrid    &Malmoe      &Marburg    &Montpellier &PaloAlto    &Pittsburgh\\ \hline
+Rochester &Singapore   &Szeged     &Warsaw      &\           &\ \\ \hline
+\end{tabular} \\
+使用主题语法：\verb!\usetheme{主题名}!
+\end{block}
+
+\begin{block}{可用主题颜色}
+\small
+\begin{tabular}{|l|l|l|l|l|l|}\hline
+albatross &beaver     &beetle    &crane  &default &dolphin \\ \hline
+dove      &fly        &lily      &orchid &rose    &seagull \\ \hline
+seahorse  &sidebartab &structure &whale  &wolverine &\ \\ \hline
+\end{tabular} \\
+使用主题颜色语法：\verb!\usecolortheme{颜色名}!
+\end{block}
+
+\begin{block}{可用主题字体}
+\small
+\begin{tabular}{|l|l|l|l|l|l|}\hline
+default         &professionalfonts    &serif \\ \hline
+structurebold   &structureitalicserif &structuresmallcapsserif \\ \hline
+\end{tabular} \\
+使用主题字体语法：\verb!\usefonttheme{字体名}!
+\end{block}
+\end{frame}
+
+\section{2. 生成文章}
+
+\section{3. 生成书籍}
+
+\end{document}

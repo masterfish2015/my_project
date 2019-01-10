@@ -1,0 +1,38 @@
+\frametitle{使用预定义的主题}
+
+\begin{block}{访问网站来查看可用主题的预览}
+\verb!http://deic.uab.es/~iblanes/beamer_gallery/index_by_theme.html !
+\end{block}
+
+\begin{block}{可用主题}
+\small
+\begin{tabular}{|l|l|l|l|l|l|}
+\hline
+AnnArbor  &Antibes     &Bergen     &Berkeley    &Berlin      &Boadilla\\ \hline
+boxes     &CambridgeUS &Copenhagen &Darmstadt   &default     &Dresden\\ \hline
+Frankfurt &Goettingen  &Hannover   &Ilmenau     &JuanLesPins &Luebeck\\ \hline
+Madrid    &Malmoe      &Marburg    &Montpellier &PaloAlto    &Pittsburgh\\ \hline
+Rochester &Singapore   &Szeged     &Warsaw      &\           &\ \\ \hline
+\end{tabular} \\
+使用主题语法：\verb!\usetheme{主题名}!
+\end{block}
+
+\begin{block}{可用主题颜色}
+\small
+\begin{tabular}{|l|l|l|l|l|l|}\hline
+albatross &beaver     &beetle    &crane  &default &dolphin \\ \hline
+dove      &fly        &lily      &orchid &rose    &seagull \\ \hline
+seahorse  &sidebartab &structure &whale  &wolverine &\ \\ \hline
+\end{tabular} \\
+使用主题颜色语法：\verb!\usecolortheme{颜色名}!
+\end{block}
+
+\begin{block}{可用主题字体}
+\small
+\begin{tabular}{|l|l|l|l|l|l|}\hline
+default         &professionalfonts    &serif \\ \hline
+structurebold   &structureitalicserif &structuresmallcapsserif \\ \hline
+\end{tabular} \\
+使用主题字体语法：\verb!\usefonttheme{字体名}!
+\end{block}
+

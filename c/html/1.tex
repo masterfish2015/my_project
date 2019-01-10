@@ -1,0 +1,48 @@
+\documentclass[x11names]{article}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows}
+\begin{document}
+% -------------------------------------------------
+
+% 设置样式
+\tikzstyle{startstop} = [rectangle, rounded corners, minimum width=3cm, minimum height=1cm,text centered, draw=black]
+\tikzstyle{io} = [trapezium, trapezium left angle=70, trapezium right angle=110, minimum width=3cm, minimum height=1cm, text centered, draw=black]
+\tikzstyle{process} = [rectangle, minimum width=3cm, minimum height=1cm, text centered, draw=black]
+\tikzstyle{decision} = [diamond, minimum width=3cm, minimum height=1cm, text centered, draw=black]
+\tikzstyle{arrow} = [thick,->,>=stealth]
+
+% Start the picture
+\begin{tikzpicture}[node distance=2cm]
+
+% 绘制节点
+\node (start) [startstop] {Start};
+\node (p1) [process, below of=start] {$i \leftarrow 0$};
+\node (t1) [decision, below of=p1, yshift=-0.5cm] {$i < 10$};
+\node (t2) [decision, below of=t1, yshift=-1cm] {$i \% 3 ==0$};
+\node (io1) [io, below of=t2, xshift=2.5cm] {output:$i$};
+\node (p2) [process, below of=t2, yshift=-2.0cm] {$i \leftarrow i+1$};
+\node (end) [startstop, below of=p2] {End};
+
+% 绘制坐标点，作为转折点
+\coordinate (pt1) at (-3, -4.5);
+\coordinate (pt2) at (-3, -12.5);
+\coordinate (pt3) at (0, -10.5);
+\coordinate (pt4) at (5, -11.5);
+
+% 绘制箭头
+\draw [arrow](start)--(p1);
+\draw [arrow](p1)--(t1);
+\draw [arrow](t1)--node[xshift=-8]{yes}(t2);
+\draw [arrow](t2)--node[xshift=-8]{no}(p2);
+\draw [arrow](t2.east)-| node[yshift=4]{yes}(io1);
+
+\draw [arrow](t1.west) -- node[yshift=4]{no}(pt1);
+\draw [arrow](pt1) -- (pt2);
+\draw [arrow](pt2) -| (end);
+\draw [arrow](io1) |- (pt3);
+\draw [arrow](p2.east) -- (pt4);
+\draw [arrow](pt4) |- (t1.east);
+
+\end{tikzpicture}
+% =================================================
+\end{document}

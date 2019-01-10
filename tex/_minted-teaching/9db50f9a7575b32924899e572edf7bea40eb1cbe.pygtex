@@ -1,0 +1,14 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c}{\PYGZpc{}定义文档类型为幻灯片类型}
+\PYG{k}{\PYGZbs{}documentclass}\PYG{n+na}{[A4paper, 11pt]}\PYG{n+nb}{\PYGZob{}}beamer\PYG{n+nb}{\PYGZcb{}}
+\PYG{k}{\PYGZbs{}usetheme}\PYG{n+nb}{\PYGZob{}}Boadilla\PYG{n+nb}{\PYGZcb{}} \PYG{c}{\PYGZpc{}选择主题}
+
+\PYG{k}{\PYGZbs{}usepackage}\PYG{n+na}{[UTF8]}\PYG{n+nb}{\PYGZob{}}ctex\PYG{n+nb}{\PYGZcb{}} \PYG{c}{\PYGZpc{}中文支持}
+\PYG{k}{\PYGZbs{}usepackage}\PYG{n+nb}{\PYGZob{}}listings\PYG{n+nb}{\PYGZcb{}}   \PYG{c}{\PYGZpc{}显示源代码}
+\PYG{k}{\PYGZbs{}title}\PYG{n+nb}{\PYGZob{}}文档标题\PYG{n+nb}{\PYGZcb{}}
+\PYG{k}{\PYGZbs{}author}\PYG{n+nb}{\PYGZob{}}作者\PYG{n+nb}{\PYGZcb{}}
+\PYG{k}{\PYGZbs{}date}\PYG{n+nb}{\PYGZob{}}生成日期\PYG{n+nb}{\PYGZcb{}}
+\PYG{k}{\PYGZbs{}begin}\PYG{n+nb}{\PYGZob{}}document\PYG{n+nb}{\PYGZcb{}}
+\PYG{k}{\PYGZbs{}end}\PYG{n+nb}{\PYGZob{}}document\PYG{n+nb}{\PYGZcb{}}
+\PYG{k}{\PYGZbs{}begin}\PYG{n+nb}{\PYGZob{}}frame\PYG{n+nb}{\PYGZcb{}}
+\end{Verbatim}

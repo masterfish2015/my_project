@@ -1,0 +1,252 @@
+\documentclass[9pt,aspectratio=43,mathserif]{beamer}
+\usetheme{Madrid} %主题
+
+
+\usepackage[UTF8]{ctex} %中文化
+
+\usepackage{graphicx} %导入图片
+\graphicspath{{./images/}}
+
+\usepackage{amsmath,bm,amsfonts,amssymb} %数学公式、符号等
+
+\usepackage{tikz} %画图
+\usetikzlibrary{calc,arrows,decorations.pathmorphing,intersections,math}
+\tikzset{
+    level/.style={black,thick},
+    sublevel/.style={blue,densely dashed},
+    ionization/.style={black,dashed},
+	myarrow/.style={<->,decorate, draw=red,line width=0.4mm},
+	myoutarrow/.style={|<->|,decorate, draw=red,line width=0.4mm},
+	myline/.style={decorate, draw=red,line width=0.4mm},
+    transition/.style={red,->,>=stealth',shorten >=1pt},
+    radiative/.style={transition,decorate,decoration={snake,amplitude=1.5}},
+    indirectradiative/.style={radiative,densely dashed},
+    nonradiative/.style={transition,dashed}
+}
+\usepackage{circuitikz} %电子元器件库
+
+\usepackage[most]{tcolorbox}
+
+\newtcolorbox{mysidebyside}[1][]{
+    notitle, sidebyside,
+    sidebyside align=center seam,
+    halign=center,
+    lefthand width=.3\textwidth,
+    #1
+}
+
+\author{dc Lin}
+\date{2018.9.1}
+
+\begin{document}
+
+\begin{frame}
+	\centerline{\Huge 第八章、半导体表面与MIS结构}
+\end{frame}
+
+\begin{frame}[t]{8.1 表面态}
+	\begin{mysidebyside}
+		\begin{tikzpicture}[scale=0.6]
+			\tikzmath{\radius = 0.06;}
+			\foreach \x in {1,...,3}
+			{	\fill[red](2*\x,5)circle(\radius);
+				\foreach \y in {1,...,2}
+				{	\draw[level](\x*2,\y*2)circle(0.3)node{\small Si};
+					\fill[blue](2*\x-1,\y*2-0.1)circle(\radius);
+					\fill[blue](2*\x-1,\y*2+0.1)circle(\radius);
+					\fill[blue](2*\x-0.1,\y*2-1)circle(\radius);
+					\fill[blue](2*\x+0.1,\y*2-1)circle(\radius);
+					\fill[blue](2*\x+1,\y*2-0.1)circle(\radius);
+					\fill[blue](2*\x+1,\y*2+0.1)circle(\radius);
+				}
+			}
+			\node at(4,6){悬挂键，表面态};
+			\draw[sublevel](1.7,5.3)rectangle(6.3,4.7);
+		\end{tikzpicture}
+		\tcblower
+		\textbf{表面态：}在靠近半导体表面的位置，电子分布的概率会随深入体内而呈现指数关系衰减，这表明\textcolor{red}{表面的电子浓度比较高}。
+		
+		这可以用左图来示意，在表面的硅原子都有一个未配对的价电子，称为\textcolor{blue}{悬挂键}，与之相关的电子能态即为\textcolor{red}{表面态}。
+	\end{mysidebyside} 
+	
+	\begin{block}{}
+		由于悬挂键的存在，表面可以和体内交换电子和空穴，例如，对于n型硅，悬挂键可以从体内获得电子，从而带负电，使表面排斥电子形成\textcolor{green!80}{耗尽层，甚至p型反型层}。
+		
+		除了悬挂键外，表面的\textcolor{red}{缺陷}也能增加表面态。
+	\end{block}
+\end{frame}
+
+\begin{frame}{8.2 表面电场效应和MIS结构}
+	\begin{tabular}{ccc}
+		%多子堆积
+		\begin{tikzpicture}[scale=0.3]
+			\draw[level](0,0)--(1,0);
+			\filldraw[fill=green!20, draw=black](0.8,2)rectangle(1.8,-2);
+			\filldraw[fill=blue!20, draw=black](1.8,2)rectangle(2.4,-2);	
+			\filldraw[fill=white, draw=black](2.4,2)rectangle(8,-2);
+			\node at(5.5,0)[red]{\tiny 半导体 S  p-type};
+			\filldraw[fill=green!20, draw=black](8,2)rectangle(8.5,-2);
+			\draw[level](8.5,0)-|(9.5,-1);
+			\draw[level](9.3,-1)--(9.7,-1);
+			\node(A)at (5, 4)[red]{\tiny 金属 M};
+			\draw[transition](A)-|(1.2,2);
+			\draw[transition](A)-|(8.3,2);
+			\draw[transition](3,3)node[right]{\tiny 绝缘层 I}--(2.2,2);
+			\draw[transition](7,-1.5)node[left]{\tiny 欧姆接触}--(8,-0.5);
+			\node at(-0.5,1){\tiny $V_G < 0$};
+			\node at(-0.3,-0.1){\textcircled{-}};
+			\foreach \y in {1.4, 0.7, 0, -0.7, -1.4}{
+				\node at(1.25, \y){\tiny \textcircled{-}};
+				\node at(2.75, \y+0.1){\tiny \textcircled{+}};
+			}
+			\draw[black, thick](2.4,-2)--(2.4,-12);
+			\draw[black, thick](2.4,-12)--(8,-12);
+			\draw[level](2.4,-5)node[left]{$E_c$}..controls(5,-6)..(8,-6)node[right]{$E_c$};
+			\draw[sublevel](2.4,-7)node[left]{$E_i$}..controls(5,-8)..(8,-8)node[above right]{$E_i$};
+			\draw[sublevel](2,-8.5)node[left]{$E_F$}--(8,-8.5)node[right]{$E_F$};
+			\draw[level](2.4,-9)node[below left]{$E_v$}..controls(5,-10)..(8,-10)node[right]{$E_v$};
+			\tikzmath{\xx=2.75;\xxx=3.35;\yy=-9.48;\yyy=-10.08;\yyyy=-10.68;\yyyyy=-11.28;}
+			\foreach \x/\y in {\xx/\yy, \xx/\yyy, \xxx/\yyy, \xx/\yyyy, \xxx/\yyyy, \xx/\yyyyy}
+				\node at(\x,\y){\tiny \textcircled{+}};
+			\foreach \x in {3.95, 4.55,...,8.55}
+				\node at(\x,-10.28){\tiny \textcircled{+}};
+				
+			%绘制电荷密度和x的图
+			\tikzmath{\xo=0;\yo=-17;\xmax=6;\ymax=-13;}
+			\draw[transition, black](\xo,\yo)node[below left]{$0$}--(\xmax,\yo)node[right]{$x$};
+			\draw[transition, black](\xo,\yo-3)--(\xo,\ymax)node[right]{$\rho(x)$电荷密度};
+			\filldraw[fill=green, draw=black](0.8,\yo)rectangle(1.8,\yo-2);
+			\node at(1.3, \yo-2.4){\tiny $Q_G$};
+			\filldraw[fill=blue, draw=black](2.4,\yo)rectangle(3.4,\yo+2);
+			\node at(2.9, \yo+2.4){\tiny $Q_G$};
+		\end{tikzpicture} 
+		% 耗尽
+		&\begin{tikzpicture}[scale=0.3]
+			\draw[level](0,0)--(1,0);
+			\filldraw[fill=green!20, draw=black](0.8,2)rectangle(1.8,-2);
+			\filldraw[fill=blue!20, draw=black](1.8,2)rectangle(2.4,-2);	
+			\filldraw[fill=white, draw=black](2.4,2)rectangle(8,-2);
+			\node at(5.5,0)[red]{\tiny 半导体 S  p-type};
+			\filldraw[fill=green!20, draw=black](8,2)rectangle(8.5,-2);
+			\draw[level](8.5,0)-|(9.5,-1);
+			\draw[level](9.3,-1)--(9.7,-1);
+			\node(A)at (5, 4)[red]{\tiny 金属 M};
+			\draw[transition](A)-|(1.2,2);
+			\draw[transition](A)-|(8.3,2);
+			\draw[transition](3,3)node[right]{\tiny 绝缘层 I}--(2.2,2);
+			\draw[transition](7,-1.5)node[left]{\tiny 欧姆接触}--(8,-0.5);
+			\node at(-0.5,1){\tiny $V_G > 0$};
+			\node at(-0.3,-0.1){\textcircled{+}};
+			\foreach \y in {1.4, 0.7, 0, -0.7, -1.4}{
+				\node at(1.25, \y){\tiny \textcircled{+}};
+			}
+			\draw[black, thick](2.4,-2)--(2.4,-12);
+			\draw[black, thick](2.4,-12)--(8,-12);
+			\draw[level](2.4,-5)node[left]{$E_c$}..controls(5,-4)..(8,-4)node[right]{$E_c$};
+			\draw[sublevel](2.4,-7)node[left]{$E_i$}..controls(5,-6)..(8,-6)node[above right]{$E_i$};
+			\draw[sublevel](2,-8.5)node[left]{$E_F$}--(8,-8.5);
+			\draw[level](2.4,-9)node[left]{$E_v$}..controls(5,-8)..(8,-8)node[below right]{$E_v$};
+			\tikzmath{\xx=2.75;\xxx=3.35;\yy=-9.48;\yyy=-10.08;\yyyy=-10.68;\yyyyy=-11.28;}
+			
+			\foreach \x in {5.15, 5.75,...,8.55}
+				\node at(\x,-8.28){\tiny \textcircled{+}};
+			
+			%绘制电荷密度和x的图
+			\tikzmath{\xo=0;\yo=-17;\xmax=6;\ymax=-13;}
+			\draw[transition, black](\xo,\yo)node[below left]{$0$}--(\xmax,\yo)node[right]{$x$};
+			\draw[transition, black](\xo,\yo-3)--(\xo,\ymax)node[right]{$\rho(x)$};
+			\filldraw[fill=green, draw=black](0.8,\yo)rectangle(1.8,\yo+2);
+			\node at(1.3, \yo+2.4){\tiny $Q_G$};
+			\filldraw[fill=blue!50, draw=black](2.4,\yo)rectangle(4.4,\yo-0.5);
+			\node at(3.4, \yo-1.4){\tiny 耗尽层宽度};
+			\draw[myoutarrow](2.4,\yo+0.3)--(4.4,\yo+0.3)node[above, midway]{\tiny $x_d$};
+		\end{tikzpicture}  
+		
+		%反型
+		&\begin{tikzpicture}[scale=0.3]
+			\draw[level](0,0)--(1,0);
+			\filldraw[fill=green!20, draw=black](0.8,2)rectangle(1.8,-2);
+			\filldraw[fill=blue!20, draw=black](1.8,2)rectangle(2.4,-2);	
+			\filldraw[fill=white, draw=black](2.4,2)rectangle(8,-2);
+			\node at(5.5,0)[red]{\tiny 半导体 S  p-type};
+			\filldraw[fill=green!20, draw=black](8,2)rectangle(8.5,-2);
+			\draw[level](8.5,0)-|(9.5,-1);
+			\draw[level](9.3,-1)--(9.7,-1);
+			\node(A)at (5, 4)[red]{\tiny 金属 M};
+			\draw[transition](A)-|(1.2,2);
+			\draw[transition](A)-|(8.3,2);
+			\draw[transition](3,3)node[right]{\tiny 绝缘层 I}--(2.2,2);
+			\draw[transition](7,-1.5)node[left]{\tiny 欧姆接触}--(8,-0.5);
+			\node at(-0.5,1){\tiny $V_G > 0$};
+			\node at(-0.3,-0.1){\textcircled{+}};
+			\foreach \y in {1.4, 0.7, 0, -0.7, -1.4}{
+				\node at(1.25, \y){\tiny \textcircled{+}};
+				\node at(2.75, \y){\tiny \textcircled{-}};
+			}
+			%能级
+			\draw[black, thick](2.4,-2)--(2.4,-12);
+			\draw[black, thick](2.4,-12)--(8,-12);
+			\draw[level](2.4,-5)node[left]{$E_c$}..controls(5,-3)..(8,-3)node[right]{$E_c$};
+			\draw[sublevel](2.4,-7)node[left]{$E_i$}..controls(5,-5)..(8,-5)node[above right]{$E_i$};
+			\draw[sublevel](2,-8.5)node[left]{$E_F$}--(8,-8.5)node[right]{$E_F$};
+			\draw[level](2.4,-9)node[below left]{$E_v$}..controls(5,-7)..(8,-7)node[right]{$E_v$};
+			\tikzmath{\xx=2.75;\xxx=3.35;\xxxx=3.95;\yy=-4.4;\yyy=-3.8;\yyyy=-3.2;\yyyyy=-2.6;}
+			
+			\foreach \x/\y in {\xx/\yy, \xx/\yyy, \xxx/\yyy, \xx/\yyyy, \xxx/\yyyy, \xxxx/\yyyy, \xx/\yyyyy}
+				\node at(\x,\y){\tiny \textcircled{-}};
+				
+			\foreach \x in {5.15, 5.75,...,8.55}
+				\node at(\x, -2.7){\tiny \textcircled{-}};
+			
+			%绘制电荷密度和x的图
+			\tikzmath{\xo=0;\yo=-17;\xmax=6;\ymax=-13;}
+			\draw[transition, black](\xo,\yo)node[below left]{$0$}--(\xmax,\yo)node[right]{$x$};
+			\draw[transition, black](\xo,\yo-3)--(\xo,\ymax)node[right]{$\rho(x)$};
+			\filldraw[fill=green, draw=black](0.8,\yo)rectangle(1.8,\yo+3);
+			\node at(1.3, \yo+3.4){\tiny $Q_G$};
+			\filldraw[fill=blue, draw=black](2.4,\yo)rectangle(3.4,\yo-3);
+			\node at(1.3, \yo-2.7){\tiny $Q_G$};
+			\filldraw[fill=blue!50, draw=black](3.4,\yo)rectangle(5.4,\yo-0.5);
+			\node at(5.4, \yo-1.4){\tiny 耗尽层宽度};
+			\draw[myoutarrow](3.4,\yo+0.3)--(5.4,\yo+0.3)node[above, midway]{\tiny $x_{dm}$};
+			
+		\end{tikzpicture} \\
+		(a)多子堆积 &(b)多子耗尽 &(c)反型
+	\end{tabular}
+\end{frame}
+
+\begin{frame}{8.3 MIS结构的等效电路和C-V特性}
+	\begin{tabular}{cc}
+		\begin{tikzpicture}[scale=0.3]
+			\def\da{1cm};
+			\def\db{0.5cm};
+			\def\dc{2cm};
+			\def\dd{5cm};
+			\def\de{2cm};
+			\node(p0) at(0,0){};
+			\node(p1) at([xshift=\da]p0){};
+			\node(p2) at([xshift=\db]p1){};
+			\node(p3) at([xshift=\dc]p2){};
+			\node(p4) at([xshift=\dd]p3){};
+			%左外电压
+			\node at([yshift=1cm]p0){\small $V_G$};
+			\node at ([xshift=-0.3]p0){\textcircled{+}};
+			\draw[level](p0)--(p2); %左导线
+			%
+			\draw[->,blue](1cm,4cm)node[left]{\small 金属}--(1.2cm,2cm);
+			\filldraw[fill=green!40, draw=black]([yshift=\de]p1)rectangle([yshift=-\de]p2); %左金属
+			\draw[->,blue](3cm,4cm)node[right]{\small 绝缘层}--(2.5cm,2cm);
+			\draw[->,blue](5cm, 3cm)node[right]{\small 半导体}--(4cm, 2cm);
+			\filldraw[fill=blue!30, draw=black]([yshift=\de]p2)rectangle([yshift=-\de]p3); %绝缘层
+			\draw (p2)to[/tikz/circuitikz/bipoles/length=0.5cm, C=$C_0$](p3);
+			\filldraw[fill=white, draw=black]([yshift=\de]p3)rectangle([yshift=-\de]p4);
+			
+			\draw (p4)to[/tikz/circuitikz/bipoles/length=0.7cm, variable capacitor=$C_s$](p3);
+			
+			\draw[level](8.5cm,0cm)-|+(1cm,-1cm)node(p5){};
+			\draw[level](9cm,-1cm)--(10cm,-1cm);
+			%\node at(5, -3){MIS结构的等效电路};
+		\end{tikzpicture} &a
+	\end{tabular}
+\end{frame}
+\end{document}
