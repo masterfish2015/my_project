@@ -1,0 +1,25 @@
+h1{
+	text-align: center;
+}
+
+dl {
+    border: 3px double #ccc;
+    padding: 0.5em;
+    margin: 0.5em;
+    width: 95%;
+}
+dt {
+    float: left;
+    clear: left;
+    width: 200px;
+    text-align: right;
+    font-weight: bold;
+    color: green;
+}
+dt::after {
+    content: ":";
+}
+dd {
+    margin: 0 0 0 110px;
+    padding: 0 0 0.5em 0;
+}
